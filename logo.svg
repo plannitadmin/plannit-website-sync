@@ -1,0 +1,35 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB7B2" />
+      <stop offset="33%" stop-color="#E2F0CB" />
+      <stop offset="66%" stop-color="#B5EAD7" />
+      <stop offset="100%" stop-color="#C7CEEA" />
+    </linearGradient>
+  </defs>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+    <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+    <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+    <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+    <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+    <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+    <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+    <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+    <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+    <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+    <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+    <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+    <polygon points="40,52 37,58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+    <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+    <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+    <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+    <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+    <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+    <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+    <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+    <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+    <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+    <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+  </g>
+</svg>

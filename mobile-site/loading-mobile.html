@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  if (window.innerWidth >= 768) {
+    const pageMap = {
+      'index-mobile.html': '../index.html',
+      'shop-mobile.html': '../shop.html',
+      'library-mobile.html': '../library.html',
+      'auth-mobile.html': '../auth.html',
+      'checkout-mobile.html': '../checkout.html',
+      'loading-mobile.html': '../loading.html'
+    };
+    const parts = window.location.pathname.split('/');
+    const currentFile = parts[parts.length - 1] || 'index-mobile.html';
+    const target = pageMap[currentFile] || pageMap['index-mobile.html'];
+    window.location.replace(target + window.location.search + window.location.hash);
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plannit — Mobile Loading</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--cream); font-family:var(--font-sans); }
+  .mobile-page { max-width:480px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+
+  .loading-stage { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 32px; text-align:center; }
+
+  .emblem-ring { width:96px; height:96px; border-radius:50%; border:3px solid var(--border-soft); border-top-color:var(--copper); display:flex; align-items:center; justify-content:center; margin-bottom:26px; position:relative; }
+  .emblem-ring .mark { font-size:34px; }
+
+  .loading-title { font-family:var(--font-display); font-weight:600; font-size:23px; color:var(--charcoal); margin:0 0 8px; }
+  .loading-sub { font-size:12.5px; color:var(--muted); margin:0 0 24px; line-height:1.5; max-width:280px; }
+
+  .progress-track { width:220px; height:6px; border-radius:9999px; background:var(--cream); border:1px solid var(--border-soft); overflow:hidden; margin-bottom:10px; }
+  .progress-track i { display:block; height:100%; width:64%; background:var(--forest); border-radius:9999px; }
+  .progress-label { font-size:10.5px; font-weight:700; color:var(--forest); text-transform:uppercase; letter-spacing:.06em; }
+
+  .step-list { margin-top:28px; display:flex; flex-direction:column; gap:10px; width:100%; max-width:260px; text-align:left; }
+  .step-row { display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); }
+  .step-dot { width:16px; height:16px; border-radius:50%; border:2px solid var(--border-soft); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .step-row.done .step-dot { background:var(--forest); border-color:var(--forest); }
+  .step-row.done .step-dot svg { width:9px; height:9px; }
+  .step-row.done { color:var(--charcoal); font-weight:600; }
+  .step-row.active .step-dot { border-color:var(--copper); box-shadow:0 0 0 3px rgba(200,107,69,0.15); }
+</style>
+</head>
+<body>
+<div class="mobile-page">
+
+  <div class="loading-stage">
+    <div class="emblem-ring"><span class="mark">🍂</span></div>
+    <h1 class="loading-title">Preparing your planner.</h1>
+    <p class="loading-sub">Syncing your purchase and unlocking your library — this only takes a moment.</p>
+
+    <div class="progress-track"><i></i></div>
+    <div class="progress-label">64% complete</div>
+
+    <div class="step-list">
+      <div class="step-row done">
+        <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Verifying purchase</span>
+      </div>
+      <div class="step-row done">
+        <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <span>Unlocking edition</span>
+      </div>
+      <div class="step-row active">
+        <div class="step-dot"></div>
+        <span>Syncing to your library</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

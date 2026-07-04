@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Plannit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--primary); min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; margin: 0; }
+        .legal-container { max-width: 800px; width: 90%; margin: 4rem auto; background: white; padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.02); position: relative; overflow: hidden; }
+        .legal-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #FFB7B2, #E2F0CB, #B5EAD7, #C7CEEA); }
+        .legal-header { text-align: center; margin-bottom: 3rem; margin-top: 1rem; }
+        .legal-header h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); }
+        .legal-header p { color: var(--secondary); font-size: 0.95rem; }
+        .legal-body { line-height: 1.7; font-size: 0.95rem; color: var(--primary); }
+        .legal-body h2 { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        .legal-body p { margin-bottom: 1.25rem; }
+        .legal-body ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .legal-body li { margin-bottom: 0.5rem; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.95rem; margin-bottom: 2rem; transition: transform 0.2s, color 0.2s; }
+        .back-btn:hover { transform: translateX(-4px); color: var(--secondary); }
+        .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #3B82F6; padding: 1.25rem; border-radius: var(--radius-md); margin: 1.5rem 0; font-size: 0.9rem; color: var(--primary); }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="legal-container">
+        <a href="index.html" class="back-btn">
+            <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Back to Home
+        </a>
+        <div class="legal-header">
+            <h1>Privacy Policy</h1>
+            <p>Last Updated: June 17, 2026</p>
+        </div>
+        <div class="legal-body">
+            <p>Plannit Studio ("Plannit", "we", "us", or "our"), accessible from plannit.shop (the "Site"), is committed to protecting your personal information. This Privacy Policy explains what data we collect, why we collect it, how it is used, and your rights in relation to it.</p>
+            <p>Plannit Studio is headquartered in the United Kingdom and operates as the data controller of your personal data. This policy is written in compliance with the <strong>UK Data Protection Act 2018</strong>, the <strong>UK GDPR</strong>, and the <strong>EU General Data Protection Regulation (GDPR)</strong>. If you are located outside the UK or EU, additional rights and protections may apply under your local law. We will always endeavour to meet the highest applicable standard.</p>
+
+            <h2>1. What Information We Collect & Why</h2>
+            <p>We collect only the data necessary to operate and improve our services. The specific legal basis for each type of data is stated below:</p>
+            <ul>
+                <li><strong>Account & Purchase Data (Legal Basis: Contract Performance):</strong> When you purchase a planner, register an account, or contact support, we collect your email address, first name, last name, and billing details. This data is necessary to fulfil your order and manage your account.</li>
+                <li><strong>License Verification Data (Legal Basis: Legitimate Interests):</strong> We log access code activation metrics (such as the number and location of devices activated under your email) to prevent unauthorised redistribution of our templates. Our legitimate interest is the protection of our intellectual property.</li>
+                <li><strong>Communication Data (Legal Basis: Contract Performance / Legitimate Interests):</strong> If you contact us for support, we retain records of that correspondence to resolve your issue and improve our services.</li>
+            </ul>
+
+            <h2>2. How Your Data Is Shared with Third Parties</h2>
+            <p>We do not sell your personal data. We share your data only with the following trusted third-party service providers, and only to the extent necessary to operate our services:</p>
+            <ul>
+                <li><strong>Stripe (Payment Processing):</strong> Your billing details and card information are processed directly and securely by Stripe. Plannit does not store or access raw card numbers. Stripe's use of your data is governed by their own Privacy Policy at <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener noreferrer">stripe.com/gb/privacy</a>.</li>
+                <li><strong>Supabase (Database & Authentication):</strong> Your account data (email, name, purchase records, and access key metadata) is stored in Supabase's secure cloud database. Supabase acts as a data processor on our behalf under a Data Processing Agreement.</li>
+                <li><strong>Vercel (Website Hosting & Analytics):</strong> Our website is hosted on Vercel's infrastructure. Vercel Analytics may collect anonymised traffic data (such as page views and general browser types) to help us understand how visitors use the site. No personally identifiable information is included in these analytics reports.</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>International Data Transfers:</strong> By purchasing or using our Site from outside the United Kingdom, you acknowledge that your data may be transferred to and stored on servers located in the UK and in countries where our third-party providers operate (including the United States). We ensure that any such transfers are subject to appropriate safeguards, including Standard Contractual Clauses or equivalent mechanisms where required.
+            </div>
+
+            <h2>3. Cookies & Local Browser Storage</h2>
+            <p>We use cookies and browser-level local storage to provide core website functionality:</p>
+            <ul>
+                <li><strong>Shopping Cart (Strictly Necessary):</strong> Your selected planner editions and basket contents are saved in your browser's local storage so they persist as you navigate the site. These are essential to the checkout process and cannot be opted out of while using the service.</li>
+                <li><strong>Authentication (Strictly Necessary):</strong> Session tokens and cookies are used to verify your logged-in status and show your purchased library items.</li>
+                <li><strong>Analytics (Non-Essential):</strong> We may use anonymised analytics cookies via Vercel to improve website performance. You may opt out of non-essential cookies by adjusting your browser settings.</li>
+            </ul>
+
+            <h2>4. Your Rights</h2>
+            <p>Depending on where you are located, you have the following rights in relation to your personal data. We will respond to all valid requests within one calendar month:</p>
+            <ul>
+                <li><strong>Right to Access:</strong> Request a copy of the personal data we hold about you.</li>
+                <li><strong>Right to Rectification:</strong> Request correction of inaccurate or incomplete data.</li>
+                <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> Request deletion of your personal data. Please note that exercising this right will simultaneously terminate any active Digital Product licence associated with your account, as the licence is contractually bound to verified account identity. No refund will be issued.</li>
+                <li><strong>Right to Restrict Processing:</strong> Request that we limit how we use your data under certain conditions.</li>
+                <li><strong>Right to Object:</strong> Object to processing carried out on the basis of legitimate interests.</li>
+                <li><strong>Right to Data Portability:</strong> Request that we transfer your data to another provider or directly to you in a machine-readable format.</li>
+                <li><strong>California Residents (CCPA):</strong> You have additional rights under the California Consumer Privacy Act, including the right to know what personal data is collected, the right to delete personal data, and the right to opt out of the sale of personal data. We do not sell personal data.</li>
+                <li><strong>Australian Residents (Privacy Act 1988):</strong> You have rights to access and correction of personal data under Australian privacy law. Contact us to exercise these rights.</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us at <strong>hello@plannit.shop</strong>.</p>
+
+            <h2>5. Complaints — UK & EU Supervisory Authorities</h2>
+            <p>If you are a UK resident and believe we have not handled your personal data in accordance with applicable law, you have the right to lodge a complaint with the <strong>Information Commissioner's Office (ICO)</strong>:</p>
+            <ul>
+                <li>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a></li>
+                <li>Telephone: 0303 123 1113</li>
+            </ul>
+            <p>If you are an EU resident, you may lodge a complaint with the data protection supervisory authority in your EU member state.</p>
+
+            <h2>6. Data Retention</h2>
+            <p>We retain your account data (name, email address, and purchase records) for as long as your account remains active, or as needed to provide you with continued service access. Financial transaction data and purchase records may be retained for up to <strong>6 years</strong> to satisfy legal, tax, and accounting obligations under UK law (Companies Act 2006 and HMRC requirements). When data is no longer needed, it is securely deleted or anonymised.</p>
+
+            <h2>7. Children's Privacy</h2>
+            <p>Our Site and services are intended for users aged 13 and over. We do not knowingly collect personal data from children under the age of 13 without verifiable parental or guardian consent. If you believe a child under 13 has submitted personal data to our Site without consent, please contact us immediately at <strong>hello@plannit.shop</strong> and we will promptly investigate and remove such data.</p>
+
+            <h2>8. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes to our practices or for legal, operational, or regulatory reasons. We will notify you of material changes by posting the updated policy on this page with a revised "Last Updated" date. For significant changes, we will endeavour to provide notice via email where possible.</p>
+
+            <h2>9. Contact Us</h2>
+            <p>For any privacy-related questions, data requests, or concerns, please contact us at: <strong>hello@plannit.shop</strong></p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem 0; font-size: 0.8rem; color: var(--secondary); border-top: 1px solid var(--border); background: var(--bg-alt);">
+        <div class="container">
+            <p>&copy; 2026 Plannit Studio. All rights reserved.</p>
+            <div style="font-size: 0.7rem; color: var(--secondary); opacity: 0.75; text-align: center; max-width: 600px; margin-top: 0.5rem; line-height: 1.4; margin-left: auto; margin-right: auto;">
+                Plannit is not partnered with Spotify or any third-party brand. The Music Player feature is Spotify compatible, but Plannit is not affiliated with Spotify.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+    </script>
+</body>
+</html>

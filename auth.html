@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  if (window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    const pageMap = {
+      'index.html': 'mobile-site/index-mobile.html',
+      'shop.html': 'mobile-site/shop-mobile.html',
+      'library.html': 'mobile-site/library-mobile.html',
+      'auth.html': 'mobile-site/auth-mobile.html',
+      'checkout.html': 'mobile-site/checkout-mobile.html',
+      'loading.html': 'mobile-site/loading-mobile.html'
+    };
+    const parts = window.location.pathname.split('/');
+    const currentFile = parts[parts.length - 1] || 'index.html';
+    const target = pageMap[currentFile] || pageMap['index.html'];
+    window.location.replace(target + window.location.search + window.location.hash);
+  }
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | Plannit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #64748B;
+            --accent: #E8A020;
+            --accent-hover: #D98220;
+            --bg: #FDFCFB;
+            --border: rgba(15, 23, 42, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background: linear-gradient(180deg, #FDFCFB 0%, #F8FAFC 60%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem 1rem;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 460px;
+            perspective: 1000px;
+        }
+
+        .auth-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(43, 43, 43, 0.08);
+            transition: var(--transition);
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .auth-logo img {
+            height: 36px;
+            width: 36px;
+            object-fit: contain;
+        }
+
+        .auth-title {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 2rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-subtitle {
+            font-size: 0.88rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            outline: none;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.12);
+        }
+
+        .form-input::placeholder {
+            color: #94A3B8;
+        }
+
+        .form-input.optional {
+            border-style: dashed;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.9rem;
+            background: #3E5C76;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(62, 92, 118, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .btn-submit:hover {
+            background: #2E4A63;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(232, 160, 32, 0.4);
+        }
+
+        .auth-footer {
+            margin-top: 1.75rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        .auth-footer a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .auth-footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* --- VERIFICATION SCREEN --- */
+        .verification-digits {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .digit-input {
+            width: 50px;
+            height: 54px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .digit-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.12);
+        }
+
+        /* --- STATE TOGGLING --- */
+        .auth-section {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* --- SUCCESS CONTAINER --- */
+        .success-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .success-checkmark {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #D1FAE5;
+            color: #10B981;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            animation: popCheck 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes popCheck {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            
+            <a href="index.html" class="auth-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 36px; width: 36px; fill: none; vertical-align: middle;">
+                  <defs>
+                    <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFB7B2" />
+                      <stop offset="33%" stop-color="#E2F0CB" />
+                      <stop offset="66%" stop-color="#B5EAD7" />
+                      <stop offset="100%" stop-color="#C7CEEA" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+                    <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+                    <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+                    <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+                    <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+                    <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+                    <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+                    <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+                    <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+                    <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+                    <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+                    <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+                    <polygon points="40,52 37,58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+                    <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+                    <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+                    <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+                    <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+                    <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+                    <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+                    <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+                  </g>
+                </svg>
+                <span>Plannit.</span>
+            </a>
+
+            <!-- SECTION 1: LOG IN -->
+            <div id="login-section" class="auth-section">
+                <h2 class="auth-title">Welcome Back</h2>
+                <p class="auth-subtitle">Enter your email and password to access your templates.</p>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">Email Address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                    <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                    <button type="submit" class="btn-submit">Log In to Library</button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="#" id="link-to-signup">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- SECTION 2: SIGN UP -->
+            <div id="signup-section" class="auth-section hidden">
+                <h2 class="auth-title">Create Account</h2>
+                <p class="auth-subtitle">Sign up to sync your library and access your planner templates.</p>
+                
+                <form id="signup-form">
+                    <div class="form-row">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="signup-firstname">First Name</label>
+                            <input type="text" id="signup-firstname" class="form-input" placeholder="Peter" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="signup-lastname">Last Name</label>
+                            <input type="text" id="signup-lastname" class="form-input" placeholder="Parker" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-username">Username <span style="font-size: 0.65rem; color: #94A3B8; font-weight: normal;">(Optional)</span></label>
+                        <input type="text" id="signup-username" class="form-input optional" placeholder="peter_parker">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-input" placeholder="Min. 8 characters" minlength="8" required autocomplete="new-password">
+                    </div>
+                    <div style="margin-top: 1.25rem; margin-bottom: 1.25rem; display: flex; gap: 0.6rem; align-items: flex-start;">
+                        <input type="checkbox" id="signup-consent-checkbox" style="width: 16px; height: 16px; margin-top: 0.15rem; cursor: pointer; accent-color: var(--accent); flex-shrink: 0;" required>
+                        <label for="signup-consent-checkbox" style="font-size: 0.78rem; line-height: 1.4; color: var(--secondary); cursor: pointer; user-select: none;">
+                            I agree to the <a href="terms.html" target="_blank" style="color: var(--accent); text-decoration: underline;">Terms & Conditions</a> and <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: underline;">Privacy Policy</a>.
+                        </label>
+                    </div>
+                    <div id="signup-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                    <button type="submit" class="btn-submit">Register & Continue</button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="#" id="link-to-login">Log In</a>
+                </div>
+            </div>
+
+            <!-- SECTION 3: EMAIL VERIFICATION -->
+            <div id="verify-section" class="auth-section hidden">
+                <h2 class="auth-title">Verify Email</h2>
+                <p class="auth-subtitle" id="verify-desc">We sent a verification code to your email. Enter it below to activate your account.</p>
+                
+                <form id="verify-form">
+                    <div class="verification-digits">
+                        <input type="text" class="digit-input" maxlength="1" data-index="0" required pattern="[0-9]">
+                        <input type="text" class="digit-input" maxlength="1" data-index="1" required pattern="[0-9]">
+                        <input type="text" class="digit-input" maxlength="1" data-index="2" required pattern="[0-9]">
+                        <input type="text" class="digit-input" maxlength="1" data-index="3" required pattern="[0-9]">
+                        <input type="text" class="digit-input" maxlength="1" data-index="4" required pattern="[0-9]">
+                        <input type="text" class="digit-input" maxlength="1" data-index="5" required pattern="[0-9]">
+                    </div>
+
+                    <div id="demo-code-container" style="font-size: 0.72rem; color: var(--secondary); text-align: center; margin-bottom: 1.5rem; line-height: 1.4; display: none;">
+                        <i data-lucide="mail" class="lucide" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Demo Code: <strong style="color: var(--accent);" id="demo-code-val">123456</strong>
+                    </div>
+
+                    <div id="verify-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;">
+                        Incorrect verification code. Please try again.
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Confirm Code & Sign Up</button>
+                </form>
+
+                <div class="auth-footer">
+                    Didn't receive code? <a href="#" id="btn-resend-code">Resend Code</a>
+                </div>
+            </div>
+
+            <!-- SECTION 4: SUCCESS -->
+            <div id="success-section" class="auth-section hidden">
+                <div class="success-box">
+                    <div class="success-checkmark" style="display: inline-flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%; background: #D1FAE5; color: #10B981;"><i data-lucide="check" style="width: 32px; height: 32px; stroke-width: 3;"></i></div>
+                    <h2 class="auth-title" id="success-title">Success!</h2>
+                    <p class="auth-subtitle" id="success-desc">Your session has been authenticated.</p>
+                    <p style="font-size: 0.8rem; color: var(--secondary); font-style: italic;">Redirecting to vaults...</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Credits Link -->
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.75rem;">
+            <a href="credits.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Credits</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSection = document.getElementById('login-section');
+            const signupSection = document.getElementById('signup-section');
+            const verifySection = document.getElementById('verify-section');
+            const successSection = document.getElementById('success-section');
+
+            const linkToSignup = document.getElementById('link-to-signup');
+            const linkToLogin = document.getElementById('link-to-login');
+
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const verifyForm = document.getElementById('verify-form');
+
+            const digitInputs = document.querySelectorAll('.digit-input');
+            const verifyErrorMsg = document.getElementById('verify-error-msg');
+            const verifyDescEl = document.getElementById('verify-desc');
+            const resendLink = document.getElementById('btn-resend-code');
+
+            const successTitle = document.getElementById('success-title');
+            const successDesc = document.getElementById('success-desc');
+
+            // Form cache data
+            let tempSignupData = {};
+            let signupVerificationToken = '';
+
+            function handleResponse(res, fallbackError) {
+                if (!res.ok) {
+                    const contentType = res.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        return res.json().then(err => { throw new Error(err.error || fallbackError) });
+                    } else {
+                        throw new Error(`Server Error (${res.status}): Make sure you are running the project using 'vercel dev' or that it is fully deployed, as static servers do not support API endpoints.`);
+                    }
+                }
+                return res.json();
+            }
+
+            // URL Parsing to choose initial state
+            const params = new URLSearchParams(window.location.search);
+            const mode = params.get('mode') || 'login';
+
+            if (mode === 'signup') {
+                showSection(signupSection);
+            } else {
+                showSection(loginSection);
+            }
+
+            function showSection(section) {
+                [loginSection, signupSection, verifySection, successSection].forEach(sec => {
+                    sec.classList.add('hidden');
+                });
+                section.classList.remove('hidden');
+            }
+
+            // Navigation Links
+            linkToSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(signupSection);
+                // Update URL parameter
+                window.history.replaceState(null, '', '?mode=signup');
+            });
+
+            linkToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(loginSection);
+                window.history.replaceState(null, '', '?mode=login');
+            });
+
+            // Resend code handler
+            resendLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!signupVerificationToken) {
+                    alert("No active registration session. Please sign up first.");
+                    return;
+                }
+                const originalText = resendLink.textContent;
+                resendLink.textContent = 'Sending new code...';
+                resendLink.style.pointerEvents = 'none';
+
+                fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'resend', token: signupVerificationToken })
+                })
+                .then(res => handleResponse(res, 'Failed to resend code'))
+                .then(data => {
+                    signupVerificationToken = data.token;
+                    alert('A new 6-digit code has been sent to ' + tempSignupData.email);
+                    
+                    const demoCodeContainer = document.getElementById('demo-code-container');
+                    const demoCodeVal = document.getElementById('demo-code-val');
+                    if (data.devCode && demoCodeContainer && demoCodeVal) {
+                        demoCodeVal.textContent = data.devCode;
+                        demoCodeContainer.style.display = 'block';
+                    } else if (demoCodeContainer) {
+                        demoCodeContainer.style.display = 'none';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error: ' + err.message);
+                })
+                .finally(() => {
+                    resendLink.textContent = originalText;
+                    resendLink.style.pointerEvents = 'auto';
+                });
+            });
+
+            // Digit inputs auto-tabbing behavior
+            digitInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value && index < digitInputs.length - 1) {
+                        digitInputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        digitInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            const loginErrorMsg = document.getElementById('login-error-msg');
+            const signupErrorMsg = document.getElementById('signup-error-msg');
+
+            // Handle Log In submission
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                if (email && password) {
+                    loginErrorMsg.style.display = 'none';
+                    const submitBtn = loginForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Logging in...';
+                    submitBtn.disabled = true;
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'login', email, password })
+                    })
+                    .then(res => handleResponse(res, 'Login failed'))
+                    .then(data => {
+                        // Cache session in localStorage
+                        localStorage.setItem('plannit_user_id', data.user.id);
+                        localStorage.setItem('plannit_user_email', data.user.email);
+                        localStorage.setItem('plannit_email', data.user.email);
+                        localStorage.setItem('plannit_first_name', data.user.firstName);
+                        localStorage.setItem('plannit_last_name', data.user.lastName);
+                        localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));
+                        localStorage.setItem('plannit_entered', 'true');
+
+                        // Set returned owned planners
+                        const allowed = data.allowedEditions || [];
+                        localStorage.setItem('plannit_owned', JSON.stringify(allowed));
+
+                        // Show success screen and redirect to loading.html
+                        successTitle.textContent = "Welcome Back!";
+                        successDesc.textContent = "You have successfully logged in.";
+                        showSection(successSection);
+
+                        setTimeout(() => {
+                            window.location.href = 'loading.html';
+                        }, 1500);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        loginErrorMsg.textContent = err.message;
+                        loginErrorMsg.style.display = 'block';
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                }
+            });
+
+            // Handle Sign Up Phase 1 submission
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const firstName = document.getElementById('signup-firstname').value.trim();
+                const lastName = document.getElementById('signup-lastname').value.trim();
+                const username = document.getElementById('signup-username').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+
+                if (email && password && firstName && lastName) {
+                    const consentCheckbox = document.getElementById('signup-consent-checkbox');
+                    if (!consentCheckbox || !consentCheckbox.checked) {
+                        signupErrorMsg.textContent = 'You must agree to the Terms & Conditions and Privacy Policy to proceed.';
+                        signupErrorMsg.style.display = 'block';
+                        return;
+                    }
+                    signupErrorMsg.style.display = 'none';
+                    const submitBtn = signupForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Registering account...';
+                    submitBtn.disabled = true;
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'signup',
+                            email,
+                            password,
+                            firstName,
+                            lastName,
+                            username
+                        })
+                    })
+                    .then(res => handleResponse(res, 'Registration failed'))
+                    .then(data => {
+                        tempSignupData = { firstName, lastName, username, email, password };
+                        signupVerificationToken = data.token;
+
+                        // Update verification code description
+                        verifyDescEl.innerHTML = `We sent a 6-digit verification code to <strong style="color: var(--primary); font-size: 0.8rem;">${email}</strong>. Enter it below to verify your email.`;
+
+                        const demoCodeContainer = document.getElementById('demo-code-container');
+                        const demoCodeVal = document.getElementById('demo-code-val');
+                        if (data.devCode && demoCodeContainer && demoCodeVal) {
+                            demoCodeVal.textContent = data.devCode;
+                            demoCodeContainer.style.display = 'block';
+                        } else if (demoCodeContainer) {
+                            demoCodeContainer.style.display = 'none';
+                        }
+
+                        // Show Verification block
+                        showSection(verifySection);
+                        digitInputs[0].focus();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        signupErrorMsg.textContent = err.message;
+                        signupErrorMsg.style.display = 'block';
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                }
+            });
+
+            // Handle 6-Digit code submission
+            verifyForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Concatenate digits
+                let code = '';
+                digitInputs.forEach(input => {
+                    code += input.value.trim();
+                });
+
+                if (code.length === 6) {
+                    verifyErrorMsg.style.display = 'none';
+                    const submitBtn = verifyForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Verifying...';
+                    submitBtn.disabled = true;
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'verify',
+                            token: signupVerificationToken,
+                            code
+                        })
+                    })
+                    .then(res => handleResponse(res, 'Verification failed'))
+                    .then(data => {
+                        // Save session details to localStorage
+                        localStorage.setItem('plannit_user_id', data.user.id);
+                        localStorage.setItem('plannit_user_email', data.user.email);
+                        localStorage.setItem('plannit_email', data.user.email);
+                        localStorage.setItem('plannit_first_name', data.user.firstName);
+                        localStorage.setItem('plannit_last_name', data.user.lastName);
+                        localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));
+                        localStorage.setItem('plannit_entered', 'true');
+
+                        // Unlocked templates
+                        const allowed = data.allowedEditions || [];
+                        localStorage.setItem('plannit_owned', JSON.stringify(allowed));
+
+                        // Show success block and redirect
+                        successTitle.textContent = "Account Created!";
+                        successDesc.textContent = `Welcome to Plannit, ${data.user.firstName}!`;
+                        showSection(successSection);
+
+                        setTimeout(() => {
+                            window.location.href = 'loading.html';
+                        }, 1600);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        verifyErrorMsg.textContent = err.message;
+                        verifyErrorMsg.style.display = 'block';
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Clear digits and focus on first box
+                        digitInputs.forEach(input => input.value = '');
+                        digitInputs[0].focus();
+                    });
+                }
+            });
+            // Initialize Lucide Icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

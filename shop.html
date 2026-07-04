@@ -1,0 +1,4139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<script>
+  if (window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    const pageMap = {
+      'index.html': 'mobile-site/index-mobile.html',
+      'shop.html': 'mobile-site/shop-mobile.html',
+      'library.html': 'mobile-site/library-mobile.html',
+      'auth.html': 'mobile-site/auth-mobile.html',
+      'checkout.html': 'mobile-site/checkout-mobile.html',
+      'loading.html': 'mobile-site/loading-mobile.html'
+    };
+    const parts = window.location.pathname.split('/');
+    const currentFile = parts[parts.length - 1] || 'index.html';
+    const target = pageMap[currentFile] || pageMap['index.html'];
+    window.location.replace(target + window.location.search + window.location.hash);
+  }
+</script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shop Collections | Plannit</title>
+
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #64748B;
+            --accent: #E8A020;
+            --accent-hover: #D98220;
+            --charcoal: #0F172A;
+            --copper: #E8A020;
+            --forest: #223C2B;
+            --forest-hover: #1A3022;
+            --bg: #FDFCFB;
+            --bg-alt: #F8FAFC;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-hover: rgba(15, 23, 42, 0.2);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FDFCFB 0%, #F8FAFC 40%);
+            color: var(--primary);
+            margin: 0;
+        }
+
+        /* Minimal layout rules standing in for the old site.css (that file isn't part of this project) */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; box-sizing: border-box; }
+        nav {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        nav .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.2rem; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a { color: var(--secondary); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-shop {
+            background: var(--accent); color: var(--primary) !important; padding: 0.55rem 1.4rem; border-radius: 50px;
+            font-weight: 700; transition: var(--transition);
+        }
+        .nav-shop:hover { background: var(--accent-hover); }
+        footer { padding: 3rem 0; border-top: 1px solid var(--border); text-align: center; }
+        .shop-lifestyle-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            bottom: 80px;
+            background: linear-gradient(180deg, #FFF8ED 0%, rgba(255,248,237,0) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .shop-page { position: relative; }
+        .emoji-svg { display: inline-block; vertical-align: middle; width: 24px; height: 24px; }
+        .svg-lg { width: 40px; height: 40px; }
+        .price-edition-name .emoji-svg.svg-lg { width: 26px; height: 26px; }
+        h1, h2, .shop-banner h1, .ed-name, .price-edition-name, .section-header h2, .bundle-title {
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+
+        /* Purchase-flow button colours: subscription (emphasized, gold) vs one-time (green) vs bundle (special) */
+        .price-btn[data-mode="subscription"]:not(:disabled) {
+            background: var(--accent) !important;
+            color: var(--primary) !important;
+            border-color: var(--accent) !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 14px rgba(232, 160, 32, 0.35) !important;
+        }
+        .price-btn[data-mode="payment"]:not(:disabled) {
+            background: #15803D !important;
+            color: #FFFFFF !important;
+            border-color: #15803D !important;
+        }
+
+        @media (max-width: 640px) {
+            nav .container { flex-wrap: wrap; height: auto; padding: 0.85rem 1.25rem; gap: 0.75rem; }
+            .nav-links { flex-wrap: wrap; gap: 0.85rem 1.1rem; justify-content: center; }
+        }
+    
+        /* Added by patch */
+        .section-header .label, .label, .tt-chrome-label {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+</style>
+
+    <style>
+
+        .shop-page {
+
+            padding: 120px 0 80px;
+
+        }
+
+        
+
+        .shop-tabs {
+
+            display: flex;
+
+            gap: 1rem;
+
+            margin-bottom: 2rem;
+
+            overflow-x: auto;
+
+            padding-bottom: 0.5rem;
+
+        }
+
+        
+
+        .shop-tab {
+
+            padding: 0.6rem 1.8rem;
+
+            border-radius: 50px;
+
+            border: 1px solid var(--border);
+
+            background: var(--bg-alt);
+
+            color: var(--secondary);
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: var(--transition);
+
+        }
+
+        
+
+        .shop-tab.active {
+
+            background: var(--primary);
+
+            color: white;
+
+            border-color: var(--primary);
+
+        }
+
+        
+
+        .shop-banner {
+
+            border-radius: var(--radius-lg);
+
+            padding: 4rem;
+
+            margin-bottom: 3rem;
+
+            transition: var(--transition);
+
+        }
+
+        
+
+        .shop-banner-badge {
+
+            display: inline-block;
+
+            padding: 0.3rem 1rem;
+
+            border-radius: 50px;
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+        
+
+        .shop-banner h1 {
+
+            font-size: 3rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+        
+
+        .shop-banner p {
+
+            font-size: 1.1rem;
+
+            max-width: 500px;
+
+            opacity: 0.8;
+
+        }
+
+        
+
+        .shop-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 1.5rem;
+
+            margin-bottom: 4rem;
+
+        }
+
+        
+
+        .edition-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            padding: 2rem;
+
+            transition: var(--transition);
+
+            cursor: pointer;
+
+        }
+
+        
+
+        .edition-card:hover {
+
+            transform: translateY(-8px);
+
+            border-color: var(--border-hover);
+
+        }
+
+        
+
+        .ed-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 1rem;
+
+        }
+
+        
+
+        .ed-name {
+
+            font-size: 1.4rem;
+
+            font-weight: 700;
+
+        }
+
+        
+
+        .ed-price {
+
+            font-weight: 600;
+
+            color: var(--secondary);
+
+        }
+
+        
+
+        .ed-desc {
+
+            font-size: 0.95rem;
+
+            color: var(--secondary);
+
+            margin-bottom: 1.5rem;
+
+            line-height: 1.5;
+
+        }
+
+        
+
+        .ed-swatches {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 2rem;
+
+        }
+
+        
+
+        .ed-buy-btn {
+
+            width: 100%;
+
+            padding: 0.8rem;
+
+            border: 1px solid var(--border);
+
+            border-radius: 50px;
+
+            background: var(--bg-alt);
+
+            font-weight: 700;
+
+            transition: var(--transition);
+
+        }
+
+        
+
+        .edition-card:hover .ed-buy-btn {
+
+            background: var(--primary);
+
+            color: white;
+
+            border-color: var(--primary);
+
+        }
+
+        
+
+        .included-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 1rem;
+
+        }
+
+        
+
+        .included-pill {
+
+            background: var(--bg-alt);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-sm);
+
+            padding: 1rem;
+
+            text-align: center;
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 0.5rem;
+
+        }
+
+
+
+        /* Edition Themes */
+
+        .edition-card[data-ed="summer"]:hover { background: #FFF8ED; }
+
+        .edition-card[data-ed="winter"]:hover { background: #EEF4FC; }
+
+        .edition-card[data-ed="autumn"]:hover { background: #FFF4EC; }
+
+        .edition-card[data-ed="spring"]:hover { background: #F2FAE8; }
+
+
+
+        /* --- COLLECTION SELECTORS --- */
+
+        .ed-detail { display: none !important; }
+
+        .price-card { display: none !important; }
+
+        .bundle-banner { display: none !important; }
+
+        .compare-wrap { display: none !important; }
+
+
+
+        body[data-active-collection="seasonal"] .ed-detail[data-collection="seasonal"] { display: block !important; }
+
+        body[data-active-collection="seasonal"] .price-card[data-collection="seasonal"] { display: block !important; }
+
+        body[data-active-collection="seasonal"] .bundle-banner[data-collection="seasonal"] { display: flex !important; }
+
+        body[data-active-collection="seasonal"] .compare-wrap[data-collection="seasonal"] { display: block !important; }
+
+
+
+        body[data-active-collection="botanical"] .ed-detail[data-collection="botanical"] { display: block !important; }
+
+        body[data-active-collection="botanical"] .price-card[data-collection="botanical"] { display: block !important; }
+
+        body[data-active-collection="botanical"] .bundle-banner[data-collection="botanical"] { display: flex !important; }
+
+        body[data-active-collection="botanical"] .compare-wrap[data-collection="botanical"] { display: block !important; }
+
+
+
+        body[data-active-collection="nature"] .ed-detail[data-collection="nature"] { display: block !important; }
+
+        body[data-active-collection="nature"] .price-card[data-collection="nature"] { display: block !important; }
+
+        body[data-active-collection="nature"] .bundle-banner[data-collection="nature"] { display: flex !important; }
+
+        body[data-active-collection="nature"] .compare-wrap[data-collection="nature"] { display: block !important; }
+
+
+
+        body[data-active-collection="nature"] .price-grid { grid-template-columns: repeat(5, 1fr) !important; }
+
+        .compare-wrap.nature .compare-row { grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr !important; min-width: 800px; }
+
+
+
+        @media (max-width: 1024px) {
+
+            body[data-active-collection="nature"] .price-grid { grid-template-columns: repeat(3, 1fr) !important; }
+
+        }
+
+        @media (max-width: 768px) {
+
+            body[data-active-collection="nature"] .price-grid { grid-template-columns: 1fr 1fr !important; }
+
+        }
+
+
+
+        /* --- EDITION DETAIL CARDS --- */
+
+        .editions-stack { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
+
+        .ed-detail { position: relative; border-radius: var(--radius-md); border: 1px solid var(--border); padding: 2rem; transition: var(--transition); }
+
+        .ed-detail.summer { z-index: 4; background: #FFF8ED; border-color: rgba(245,166,35,0.3); }
+
+        .ed-detail.winter { z-index: 3; background: #EEF4FC; border-color: rgba(133,183,235,0.3); }
+
+        .ed-detail.autumn { z-index: 2; background: #FFF4EC; border-color: rgba(216,90,48,0.3); }
+
+        .ed-detail.spring { z-index: 1; background: #FDF2F8; border-color: rgba(244,114,182,0.3); }
+
+
+
+        /* Botanical Edition Themes */
+
+        .ed-detail.lavender { background: #F5F3FF; border-color: rgba(139, 92, 246, 0.3); }
+
+        .ed-detail.eucalyptus { background: #ECFDF5; border-color: rgba(16, 185, 129, 0.3); }
+
+        .ed-detail.rose-garden { background: #FFF1F2; border-color: rgba(244, 63, 94, 0.3); }
+
+        .ed-detail.wildflower { background: #FFFDF5; border-color: rgba(245, 158, 11, 0.3); }
+
+
+
+        /* Nature Edition Themes */
+
+        .ed-detail.rainfall { background: #F0F4F8; border-color: rgba(99, 115, 129, 0.3); }
+
+        .ed-detail.mountain-peak { background: #F8FAFC; border-color: rgba(148, 163, 184, 0.3); }
+
+        .ed-detail.desert-sand { background: #FFFDF5; border-color: rgba(217, 119, 6, 0.3); }
+
+        .ed-detail.forest-mist { background: #F0FDF4; border-color: rgba(34, 197, 94, 0.3); }
+
+        .ed-detail.ocean-tide { background: #ECFEFF; border-color: rgba(6, 182, 212, 0.3); }
+
+        .ed-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+
+        .ed-detail .ed-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+        .ed-desc { font-size: 0.95rem; color: var(--secondary); margin-bottom: 1rem; line-height: 1.6; }
+
+        .ed-tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+
+        .ed-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 600; border-radius: 50px; padding: 0.3rem 0.9rem; background: var(--bg-alt); border: 1px solid var(--border); color: var(--secondary); }
+
+        .ed-buy-inline { font-size: 0.9rem; font-weight: 700; border: none; border-radius: 50px; padding: 0.6rem 1.5rem; cursor: pointer; transition: var(--transition); }
+
+        .ed-price-block { text-align: right; }
+
+        .ed-price-amount { font-size: 1.5rem; font-weight: 700; }
+
+        .ed-price-note { font-size: 0.8rem; color: var(--secondary); }
+
+        .ed-cols { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; align-items: start; }
+
+        .ed-block-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary); margin-bottom: 0.75rem; opacity: 0.7; }
+
+
+
+        /* --- 3-IMAGE STACKED PREVIEW --- */
+
+        .planner-preview-wrap { position: relative; width: 100%; height: 180px; display: flex; justify-content: center; align-items: center; margin-bottom: 1.5rem; }
+
+        .preview-img-slot { position: absolute; background: #1C1C1E; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 30px rgba(0,0,0,0.15); transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); }
+
+        .planner-preview-wrap:not(.special-wrap) .preview-img-slot.overview { width: 60%; aspect-ratio: 16/12; z-index: 3; }
+
+        .planner-preview-wrap:not(.special-wrap) .preview-img-slot.timetable { width: 50%; aspect-ratio: 16/9; z-index: 2; transform: translateX(-48%) translateY(18%) scale(0.88); }
+
+        .planner-preview-wrap:not(.special-wrap) .preview-img-slot.focus { width: 50%; aspect-ratio: 16/9; z-index: 1; transform: translateX(48%) translateY(18%) scale(0.88); }
+
+        .planner-preview-wrap:not(.special-wrap):hover .preview-img-slot.overview { transform: translateY(-6%) scale(1.04); }
+
+        .planner-preview-wrap:not(.special-wrap):hover .preview-img-slot.timetable { transform: translateX(-62%) translateY(10%) scale(0.94); }
+
+        .planner-preview-wrap:not(.special-wrap):hover .preview-img-slot.focus { transform: translateX(62%) translateY(10%) scale(0.94); }
+
+        .preview-img-label { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; text-align: center; pointer-events: none; }
+
+
+
+        /* --- COSMETICS --- */
+
+        .cosm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+        .cosm-item { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.875rem 1rem; display: flex; align-items: center; gap: 0.75rem; transition: var(--transition); }
+
+        .cosm-item:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+
+        .cosm-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
+
+        .cosm-name { font-size: 0.9rem; font-weight: 700; color: var(--primary); }
+
+        .cosm-type { font-size: 0.75rem; color: var(--secondary); }
+
+
+
+        /* --- TIMETABLE PREVIEW SECTION --- */
+
+        .tt-preview-section { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 4rem; }
+
+        .tt-chrome { background: white; border: 1px solid var(--border); border-radius: var(--radius-md) var(--radius-md) 0 0; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.5rem; margin: -2.5rem -2.5rem 1.5rem; border-left: none; border-right: none; border-top: none; }
+
+        .tt-chrome-dots { display: flex; gap: 5px; }
+
+        .tt-chrome-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+
+        .tt-chrome-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary); margin-left: auto; }
+
+        .tt-nav-bar { display: flex; justify-content: space-between; align-items: center; background: #F1F0FE; padding: 0.6rem 1.25rem; border-radius: 50px; margin-bottom: 1.5rem; font-size: 0.85rem; font-weight: 700; color: #3C3489; }
+
+        .tt-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+
+        .tt-day { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.875rem 0.4rem; text-align: center; }
+
+        .tt-day.today { border-color: #AFA9EC; background: #F8F7FF; box-shadow: 0 4px 15px rgba(175,169,236,0.15); }
+
+        .tt-day-name { font-size: 0.65rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+
+        .tt-day-num { font-size: 1.3rem; font-weight: 700; margin: 0.25rem 0 0.5rem; }
+
+        .tt-day.today .tt-day-num { color: #AFA9EC; }
+
+        .tt-chip { font-size: 0.7rem; font-weight: 700; border-radius: 6px; padding: 3px 5px; margin-top: 4px; display: block; }
+
+        .tt-callout { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+
+        .tt-feat { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; }
+
+        .tt-feat-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+        .tt-feat-desc { font-size: 0.85rem; color: var(--secondary); line-height: 1.5; }
+
+
+
+        /* --- SHARED FEATURES --- */
+
+        .shared-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 4rem; }
+
+        .shared-item { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.5rem; transition: var(--transition); }
+
+        .shared-item:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.04); }
+
+        .shared-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+        .shared-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+
+        .shared-desc { font-size: 0.875rem; color: var(--secondary); line-height: 1.5; }
+
+
+
+        /* --- COMPARISON TABLE --- */
+
+        /* --- COMPARISON TABLE --- */
+
+        .compare-wrap { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-md); 
+            overflow-x: auto; 
+            margin-bottom: 4rem; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); min-width: 650px; transition: background-color 0.2s ease; }
+
+        .compare-row:not(.header):hover { background-color: rgba(15, 23, 42, 0.01); }
+
+        .compare-row:last-child { border-bottom: none; }
+
+        .compare-row.header { background: var(--bg-alt); }
+
+        .compare-cell { padding: 1.1rem 1.25rem; font-size: 0.9rem; color: var(--secondary); display: flex; align-items: center; }
+
+        .compare-cell.feat { font-weight: 600; color: var(--primary); }
+
+        .compare-cell.head { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; justify-content: center; }
+
+        .compare-cell:not(.feat):not(.head) { justify-content: center; }
+
+        .chk { color: #10B981; font-size: 1.2rem; font-weight: 700; }
+
+        .excl-badge { font-size: 0.75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px; display: inline-block; white-space: nowrap; }
+
+
+
+        /* --- PRICING --- */
+
+        .price-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-bottom: 1rem; transition: var(--transition); }
+
+        .price-card { border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.75rem; background: white; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 1; }
+
+        .price-card.featured { border: 2.5px solid var(--primary); }
+
+        
+
+        /* Focus out hover engine: Scale hovered card up, other cards down to maintain visual weight balance */
+
+        .price-grid:hover .price-card {
+
+            transform: scale(0.95);
+
+            opacity: 0.65;
+
+            border-color: var(--border) !important;
+
+            border-width: 1.5px !important;
+
+            box-shadow: none !important;
+
+        }
+
+        
+
+        .price-grid:hover .price-card .price-btn {
+
+            background: var(--bg-alt) !important;
+
+            color: var(--secondary) !important;
+
+            border-color: var(--border) !important;
+
+        }
+
+
+
+        /* Hovered Card highlight states */
+
+        .price-grid .price-card:hover {
+
+            transform: translateY(-8px) scale(1.05) !important;
+
+            opacity: 1 !important;
+
+            border: 2.5px solid var(--primary) !important;
+
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08) !important;
+
+            z-index: 10;
+
+        }
+
+        
+
+        .price-grid .price-card:hover .price-btn {
+
+            background: var(--primary) !important;
+
+            color: white !important;
+
+            border-color: var(--primary) !important;
+
+        }
+
+
+
+        .featured-badge { display: inline-block; font-size: 0.75rem; font-weight: 700; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 50px; padding: 0.25rem 0.75rem; margin-bottom: 0.75rem; color: var(--secondary); }
+
+        .price-edition-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+        .price-desc { font-size: 0.8rem; color: var(--secondary); margin-bottom: 1rem; line-height: 1.5; }
+
+        .price-amount { font-size: 2rem; font-weight: 700; margin-bottom: 0.2rem; }
+
+        .price-period { font-size: 0.8rem; color: var(--secondary); margin-bottom: 1.25rem; }
+
+        .price-btn { width: 100%; font-size: 0.875rem; font-weight: 700; border: 1px solid var(--border); border-radius: 50px; padding: 0.7rem; background: var(--bg-alt); color: var(--secondary); cursor: pointer; transition: var(--transition); }
+
+        .price-card.featured .price-btn { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .bundle-banner { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+
+        .bundle-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+        .bundle-sub { font-size: 0.875rem; color: var(--secondary); }
+
+        .bundle-price { font-size: 1.5rem; font-weight: 700; }
+
+        .bundle-note { font-size: 0.8rem; color: var(--secondary); }
+
+        .bundle-btn { font-size: 0.9rem; font-weight: 700; background: linear-gradient(135deg, #E8A020, #C86B45); color: white; border: none; border-radius: 50px; padding: 0.7rem 1.75rem; cursor: pointer; transition: var(--transition); }
+
+        .bundle-btn:hover { opacity: 0.85; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232, 160, 32, 0.3); }
+
+        .section-header { 
+            margin: 0 0 2.5rem 0; 
+            background: rgba(255, 255, 255, 0.35); /* Faint background */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1.5rem; /* Much thinner padding */
+            max-width: 100%; /* Spans the page width */
+            box-shadow: none;
+            text-align: left; /* Restores original text alignment position */
+        }
+
+        .section-header h2 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary); }
+
+        .section-header p { font-size: 1.1rem; color: var(--secondary); margin: 0; }
+
+        .shop-divider { height: 2px; background: rgba(15, 23, 42, 0.15); margin: 5rem 0; }
+
+
+
+        @media (max-width: 768px) {
+
+            .ed-cols { grid-template-columns: 1fr; }
+
+            .shared-grid { grid-template-columns: 1fr 1fr; }
+
+            .price-grid { grid-template-columns: 1fr 1fr; }
+
+            .tt-callout { grid-template-columns: 1fr; }
+
+            .shop-banner { padding: 2.5rem; }
+
+        }
+
+
+
+        /* === SEASONAL PREVIEW SPECIAL LAYOUT (GENERAL) === */
+
+        .special-wrap {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 280px !important; /* Make the container a lot taller to accommodate taller previews */
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin-bottom: 1.5rem;
+
+            overflow: visible;
+
+        }
+
+
+
+        /* Slots inside the special wrap */
+
+        .special-wrap .preview-img-slot {
+
+            position: absolute;
+
+            background: #1C1C1E;
+
+            border-radius: var(--radius-sm);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0.1s, opacity 0.4s;
+
+        }
+
+        /* Summer Sun (Yellow/Gold) */
+        .special-wrap.summer .preview-img-slot {
+            border: 1px solid rgba(245, 166, 35, 0.35);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), 
+                        inset 0 0 0 1.5px rgba(255, 223, 112, 0.45), 
+                        inset 0 0 25px rgba(245, 166, 35, 0.55), 
+                        inset 0 0 60px rgba(245, 166, 35, 0.4);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, z-index 0.1s, opacity 0.4s;
+        }
+        .special-wrap.summer .preview-img-slot:hover {
+            border-color: rgba(255, 223, 112, 0.6);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.22), 
+                        inset 0 0 0 2.5px rgba(255, 223, 112, 0.65), 
+                        inset 0 0 35px rgba(245, 166, 35, 0.65), 
+                        inset 0 0 80px rgba(245, 166, 35, 0.5);
+        }
+
+        /* Winter Frost (Blue/White-ish) */
+        .special-wrap.winter .preview-img-slot {
+            border: 1px solid rgba(0, 210, 255, 0.35);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), 
+                        inset 0 0 0 1.5px rgba(255, 255, 255, 0.55), 
+                        inset 0 0 25px rgba(0, 210, 255, 0.55), 
+                        inset 0 0 60px rgba(0, 168, 255, 0.4);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, z-index 0.1s, opacity 0.4s;
+        }
+        .special-wrap.winter .preview-img-slot:hover {
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.22), 
+                        inset 0 0 0 2.5px rgba(255, 255, 255, 0.75), 
+                        inset 0 0 35px rgba(0, 210, 255, 0.65), 
+                        inset 0 0 80px rgba(0, 168, 255, 0.5);
+        }
+
+        /* Autumn Ember (Orange/Red-ish) */
+        .special-wrap.autumn .preview-img-slot {
+            border: 1px solid rgba(216, 90, 48, 0.35);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), 
+                        inset 0 0 0 1.5px rgba(255, 180, 130, 0.5), 
+                        inset 0 0 25px rgba(216, 90, 48, 0.55), 
+                        inset 0 0 60px rgba(180, 50, 20, 0.4);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, z-index 0.1s, opacity 0.4s;
+        }
+        .special-wrap.autumn .preview-img-slot:hover {
+            border-color: rgba(255, 180, 130, 0.65);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.22), 
+                        inset 0 0 0 2.5px rgba(255, 180, 130, 0.7), 
+                        inset 0 0 35px rgba(216, 90, 48, 0.65), 
+                        inset 0 0 80px rgba(180, 50, 20, 0.5);
+        }
+
+        /* Spring Bloom (Green/Pink-ish) */
+        .special-wrap.spring .preview-img-slot {
+            border: 1px solid rgba(244, 114, 182, 0.35);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), 
+                        inset 0 0 0 1.5px rgba(255, 210, 230, 0.5), 
+                        inset 0 0 25px rgba(244, 114, 182, 0.55), 
+                        inset 0 0 60px rgba(244, 114, 182, 0.4);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, z-index 0.1s, opacity 0.4s;
+        }
+        .special-wrap.spring .preview-img-slot:hover {
+            border-color: rgba(255, 210, 230, 0.65);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.22), 
+                        inset 0 0 0 2.5px rgba(255, 210, 230, 0.7), 
+                        inset 0 0 35px rgba(244, 114, 182, 0.65), 
+                        inset 0 0 80px rgba(244, 114, 182, 0.5);
+        }
+
+
+
+        /* 1. Overview split horizontally: Top and Bottom */
+
+        .special-wrap .overview-top,
+
+        .special-wrap .overview-bottom {
+
+            width: 54%; /* A little longer width-wise */
+
+            left: 23%; /* Centered horizontally (100% - 54%) / 2 */
+
+            z-index: 3;
+
+        }
+
+
+
+        .special-wrap .overview-top {
+
+            bottom: 45%; /* Shifted down by an additional 14px (5% of height) to meet at 55% top seam */
+
+            aspect-ratio: 16/11.1; /* Compensate for width expansion to keep physical height identical */
+
+            background-size: cover;
+
+            background-position: center;
+
+            transform: translateY(0%) scale(0.88);
+
+            transform-origin: bottom center; /* Anchor scaling to bottom edge to keep borders touching */
+
+            border-bottom: 2.5px solid rgba(255,255,255,0.35) !important; /* Thickened pronounced contact line */
+
+        }
+
+
+
+        .special-wrap .overview-bottom {
+
+            top: 55%; /* Shifted down by an additional 14px (5% of height) to meet at 55% top seam */
+
+            aspect-ratio: 16/8.5; /* A little shorter in height */
+
+            background-size: cover;
+
+            background-position: center;
+
+            transform: translateY(0%) scale(0.88);
+
+            transform-origin: top center; /* Anchor scaling to top edge to keep borders touching */
+
+            border-top: 2.5px solid rgba(255,255,255,0.35) !important; /* Thickened pronounced contact line */
+
+        }
+
+
+
+        /* Hide the labels inside split boxes */
+
+        .special-wrap .overview-top .preview-img-label,
+
+        .special-wrap .overview-bottom .preview-img-label,
+
+        .special-wrap .timetable-top .preview-img-label,
+
+        .special-wrap .timetable-bottom .preview-img-label {
+
+            display: none;
+
+        }
+
+
+
+        /* 2. Timetable on the far left: Taller overall height, split 4/5 (top) and 1/5 (bottom) */
+
+        .special-wrap .timetable-top,
+
+        .special-wrap .timetable-bottom {
+
+            width: 48%;
+
+            left: 0;
+
+            z-index: 2;
+
+        }
+
+
+
+        .special-wrap .timetable-top {
+
+            bottom: 32%; /* Pushed down as a whole so the top lines up with focus top */
+
+            aspect-ratio: 16/11.6; /* 80% (4/5) of the taller 16/14.5 total stack */
+
+            transform: translateX(-12%) translateY(2%) scale(0.85);
+
+            background-size: cover;
+
+            background-position: center;
+
+            transform-origin: bottom center; /* Keep seam touching when scaled */
+
+            border-bottom: 2.5px solid rgba(255,255,255,0.35) !important; /* Thickened pronounced contact line */
+
+        }
+
+
+
+        .special-wrap .timetable-bottom {
+
+            top: 68%; /* Pushed down as a whole so the top lines up with focus top */
+
+            aspect-ratio: 16/2.9; /* 20% (1/5) of the taller 16/14.5 total stack */
+
+            transform: translateX(-12%) translateY(2%) scale(0.85);
+
+            background-size: cover;
+
+            background-position: center;
+
+            transform-origin: top center; /* Keep seam touching when scaled */
+
+            border-top: 2.5px solid rgba(255,255,255,0.28) !important; /* Thickened pronounced contact line */
+
+        }
+
+        .special-wrap .timetable-all {
+
+            width: 48%;
+
+            left: 0;
+
+            z-index: 2;
+
+            top: 68%;
+
+            aspect-ratio: 16/14.8; /* Combined aspect ratio height */
+
+            transform: translateX(-12%) translateY(-72%) scale(0.85);
+
+            background-size: cover;
+
+            background-position: center;
+
+        }
+
+        .special-wrap .timetable-all .preview-img-label {
+
+            display: none;
+
+        }
+
+
+
+        /* 3. Focus on the far right: Make it larger but not as large as the timetable box */
+
+        .special-wrap .focus {
+
+            width: 44%; /* Larger but smaller than timetable */
+
+            aspect-ratio: 16/11.5; /* Minimally taller in height */
+
+            z-index: 1;
+
+            right: 0;
+
+            top: 68%; /* Center aligns with combined timetable stack seam */
+
+            transform: translateX(12%) translateY(-91.3%) scale(0.85); /* Aligns vertical center of focus with center of timetable stack */
+
+            background-size: cover;
+
+            background-position: center;
+
+        }
+
+        .special-wrap .focus .preview-img-label {
+
+            display: none;
+
+        }
+
+
+
+        /* Revealed Glowing & Spinning Icon (Hidden behind perfect center split when closed) */
+
+        .special-wrap .revealed-icon {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 55%; /* Exactly centered at the overview division seam */
+
+            transform: translate(-50%, -50%) scale(0.4);
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 50%;
+
+            z-index: 1; /* Render behind overview boxes (z-index 3) but above container */
+
+            opacity: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 2.3rem;
+
+            color: #FFF;
+
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-out;
+
+            pointer-events: none;
+
+        }
+
+
+
+        /* 4. Parent hover transitions: Spreading the layout & revealing the icon */
+
+        .special-wrap:hover .overview-top {
+
+            transform: translateY(-6px) scale(0.92);
+
+        }
+
+        .special-wrap:hover .overview-bottom {
+
+            transform: translateY(6px) scale(0.92);
+
+        }
+
+        .special-wrap:hover .timetable-top {
+
+            transform: translateX(-24%) translateY(-6px) scale(0.90);
+
+        }
+
+        .special-wrap:hover .timetable-bottom {
+
+            transform: translateX(-24%) translateY(6px) scale(0.90);
+
+        }
+
+        .special-wrap:hover .timetable-all {
+
+            transform: translateX(-24%) translateY(-72%) scale(0.90);
+
+        }
+
+        .special-wrap:hover .focus {
+
+            transform: translateX(24%) translateY(-91.3%) scale(0.90); /* Aligns vertical center of focus with center of timetable stack */
+
+        }
+
+        .special-wrap:hover .revealed-icon {
+
+            opacity: 1;
+
+            transform: translate(-50%, -50%) scale(1.1);
+
+        }
+
+
+
+        /* 5. Individual hover zooms: The two middle ones zoom *more* than the sides */
+
+        .special-wrap .overview-top:hover {
+
+            transform: translateY(-16px) scale(1.28) !important;
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+        .special-wrap .overview-bottom:hover {
+
+            transform: translateY(16px) scale(1.28) !important;
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        /* Side box zooms */
+
+        .special-wrap .timetable-top:hover {
+
+            transform: translateX(-28%) translateY(-16px) scale(1.15) !important;
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+        .special-wrap .timetable-bottom:hover {
+
+            transform: translateX(-28%) translateY(16px) scale(1.15) !important;
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+        .special-wrap .timetable-all:hover {
+
+            transform: translateX(-28%) translateY(-72%) scale(0.96) !important;
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+        .special-wrap .focus:hover {
+
+            transform: translateX(28%) translateY(-91.3%) scale(0.96) !important; /* Aligns vertical center of focus with center of timetable stack */
+
+            z-index: 10 !important;
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        /* === EDITION SPECIFIC BACKGROUNDS & ICON GLOWS === */
+
+
+
+        /* Summer Sun */
+
+        .special-wrap.summer .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-top.png'); }
+
+        .special-wrap.summer .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-bottom.png'); }
+
+        .special-wrap.summer .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-Timetable.png'); }
+
+        .special-wrap.summer .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-Focus.png'); }
+
+
+
+        .special-wrap.summer .revealed-icon {
+
+            background: radial-gradient(circle, #FFF4D4 30%, #FFD57A 65%, #F5A623 100%);
+
+            box-shadow: 0 0 12px rgba(245, 166, 35, 0.5), 0 0 25px rgba(255, 170, 0, 0.3);
+
+        }
+
+        .special-wrap.summer:hover .revealed-icon {
+
+            animation: sun-pulse 2s infinite alternate, sun-spin 15s linear infinite;
+
+        }
+
+        .special-wrap.summer .preview-img-slot:hover ~ .revealed-icon {
+
+            animation: sun-pulse-hover 1s infinite alternate, sun-spin-hover 5s linear infinite !important;
+
+            opacity: 1;
+
+        }
+
+
+
+        /* Winter Frost */
+
+        .special-wrap.winter .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/winterfrost-screenshot-oveerveiw-2a.png'); }
+
+        .special-wrap.winter .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/winterfrost-screenshot-oveerveiw-2b.png'); }
+
+        .special-wrap.winter .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/timetable-winter-all.png'); }
+
+        .special-wrap.winter .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/winterfrost-screenshot-focus-2.png'); }
+
+
+
+        .special-wrap.winter .revealed-icon {
+
+            background: radial-gradient(circle, #E0F2FE 25%, #38BDF8 70%, #0369A1 100%);
+
+            box-shadow: 0 0 20px #38BDF8, 0 0 45px #0EA5E9, 0 0 70px #0284C7;
+
+        }
+
+        .special-wrap.winter:hover .revealed-icon {
+
+            animation: winter-pulse 2s infinite alternate, winter-spin 15s linear infinite;
+
+        }
+
+        .special-wrap.winter .preview-img-slot:hover ~ .revealed-icon {
+
+            animation: winter-pulse-hover 1s infinite alternate, winter-spin-hover 5s linear infinite !important;
+
+            opacity: 1;
+
+        }
+
+
+
+        /* Autumn Ember */
+
+        .special-wrap.autumn .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Overveiw-aa-v2.png'); }
+
+        .special-wrap.autumn .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Overveiw-ba-v2.png'); }
+
+        .special-wrap.autumn .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/timetable-autumn.png'); }
+
+        .special-wrap.autumn .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/focus-autumn.png'); }
+
+
+
+        .special-wrap.autumn .revealed-icon {
+
+            background: radial-gradient(circle, #FED7AA 25%, #F97316 70%, #C2410C 100%);
+
+            box-shadow: 0 0 20px #F97316, 0 0 45px #EA580C, 0 0 70px #C2410C;
+
+        }
+
+        .special-wrap.autumn:hover .revealed-icon {
+
+            animation: autumn-pulse 2s infinite alternate, autumn-spin 15s linear infinite;
+
+        }
+
+        .special-wrap.autumn .preview-img-slot:hover ~ .revealed-icon {
+
+            animation: autumn-pulse-hover 1s infinite alternate, autumn-spin-hover 5s linear infinite !important;
+
+            opacity: 1;
+
+        }
+
+
+
+        /* Spring Bloom */
+
+        .special-wrap.spring .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Overview-as.png'); }
+
+        .special-wrap.spring .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Overveiw-bs.png'); }
+
+        .special-wrap.spring .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/timetable-spring.png'); }
+
+        .special-wrap.spring .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/focus-spring.png'); }
+
+
+
+        .special-wrap.spring .revealed-icon {
+
+            background: radial-gradient(circle, #FBCFE8 25%, #EC4899 70%, #BE185D 100%);
+
+            box-shadow: 0 0 20px #EC4899, 0 0 45px #D946EF, 0 0 70px #BE185D;
+
+        }
+
+        .special-wrap.spring:hover .revealed-icon {
+
+            animation: spring-pulse 2s infinite alternate, spring-spin 15s linear infinite;
+
+        }
+
+        .special-wrap.spring .preview-img-slot:hover ~ .revealed-icon {
+
+            animation: spring-pulse-hover 1s infinite alternate, spring-spin-hover 5s linear infinite !important;
+
+            opacity: 1;
+
+        }
+
+
+
+        /* === KEYFRAME ANIMATIONS === */
+
+        
+
+        /* Sun */
+
+        @keyframes sun-pulse {
+
+            0% { box-shadow: 0 0 12px rgba(245, 166, 35, 0.5), 0 0 25px rgba(255, 170, 0, 0.3); filter: brightness(1); }
+
+            100% { box-shadow: 0 0 18px rgba(245, 166, 35, 0.6), 0 0 35px rgba(255, 170, 0, 0.35), 0 0 50px rgba(245, 166, 35, 0.15); filter: brightness(1.08); }
+
+        }
+
+        @keyframes sun-pulse-hover {
+
+            0% { box-shadow: 0 0 18px rgba(245, 166, 35, 0.6), 0 0 35px rgba(255, 170, 0, 0.35), 0 0 50px rgba(245, 166, 35, 0.15); filter: brightness(1.05); }
+
+            100% { box-shadow: 0 0 25px rgba(245, 166, 35, 0.7), 0 0 45px rgba(255, 170, 0, 0.4), 0 0 65px rgba(245, 166, 35, 0.2); filter: brightness(1.15); }
+
+        }
+
+        @keyframes sun-spin {
+
+            0% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.1) rotate(360deg); }
+
+        }
+
+        @keyframes sun-spin-hover {
+
+            0% { transform: translate(-50%, -50%) scale(1.25) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.25) rotate(360deg); }
+
+        }
+
+
+
+        /* Snowflake */
+
+        @keyframes winter-pulse {
+
+            0% { box-shadow: 0 0 20px #38BDF8, 0 0 45px #0EA5E9, 0 0 70px #0284C7; filter: brightness(1); }
+
+            100% { box-shadow: 0 0 35px #38BDF8, 0 0 65px #0EA5E9, 0 0 95px #0284C7, 0 0 120px #38BDF8; filter: brightness(1.25); }
+
+        }
+
+        @keyframes winter-pulse-hover {
+
+            0% { box-shadow: 0 0 35px #38BDF8, 0 0 65px #0EA5E9, 0 0 95px #0284C7, 0 0 120px #38BDF8; filter: brightness(1.2); }
+
+            100% { box-shadow: 0 0 55px #38BDF8, 0 0 95px #0EA5E9, 0 0 135px #0284C7, 0 0 180px #38BDF8; filter: brightness(1.55); }
+
+        }
+
+        @keyframes winter-spin {
+
+            0% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.1) rotate(360deg); }
+
+        }
+
+        @keyframes winter-spin-hover {
+
+            0% { transform: translate(-50%, -50%) scale(1.25) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.25) rotate(360deg); }
+
+        }
+
+
+
+        /* Leaf */
+
+        @keyframes autumn-pulse {
+
+            0% { box-shadow: 0 0 20px #F97316, 0 0 45px #EA580C, 0 0 70px #C2410C; filter: brightness(1); }
+
+            100% { box-shadow: 0 0 35px #F97316, 0 0 65px #EA580C, 0 0 95px #C2410C, 0 0 120px #F97316; filter: brightness(1.25); }
+
+        }
+
+        @keyframes autumn-pulse-hover {
+
+            0% { box-shadow: 0 0 35px #F97316, 0 0 65px #EA580C, 0 0 95px #C2410C, 0 0 120px #F97316; filter: brightness(1.2); }
+
+            100% { box-shadow: 0 0 55px #F97316, 0 0 95px #EA580C, 0 0 135px #C2410C, 0 0 180px #F97316; filter: brightness(1.55); }
+
+        }
+
+        @keyframes autumn-spin {
+
+            0% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.1) rotate(360deg); }
+
+        }
+
+        @keyframes autumn-spin-hover {
+
+            0% { transform: translate(-50%, -50%) scale(1.25) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.25) rotate(360deg); }
+
+        }
+
+
+
+        /* Blossom */
+
+        @keyframes spring-pulse {
+
+            0% { box-shadow: 0 0 20px #EC4899, 0 0 45px #D946EF, 0 0 70px #BE185D; filter: brightness(1); }
+
+            100% { box-shadow: 0 0 35px #EC4899, 0 0 65px #D946EF, 0 0 95px #BE185D, 0 0 120px #EC4899; filter: brightness(1.25); }
+
+        }
+
+        @keyframes spring-pulse-hover {
+
+            0% { box-shadow: 0 0 35px #EC4899, 0 0 65px #D946EF, 0 0 95px #BE185D, 0 0 120px #EC4899; filter: brightness(1.2); }
+
+            100% { box-shadow: 0 0 55px #EC4899, 0 0 95px #D946EF, 0 0 135px #BE185D, 0 0 180px #EC4899; filter: brightness(1.55); }
+
+        }
+
+        @keyframes spring-spin {
+
+            0% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.1) rotate(360deg); }
+
+        }
+
+        @keyframes spring-spin-hover {
+
+            0% { transform: translate(-50%, -50%) scale(1.25) rotate(0deg); }
+
+            100% { transform: translate(-50%, -50%) scale(1.25) rotate(360deg); }
+
+        }
+
+
+
+
+/* Theme Colors for Botanical Preview Slots (Softer Pastel Tones) */
+.special-wrap.eucalyptus .overview-top { background: #F7FDF9 !important; border: 1.5px solid #E6F4EA !important; }
+.special-wrap.eucalyptus .overview-bottom { background: #F0FDF4 !important; border: 1.5px solid #E6F4EA !important; }
+.special-wrap.eucalyptus .timetable-all { background: #ECFDF5 !important; border: 1.5px solid #D1FAE5 !important; }
+.special-wrap.eucalyptus .focus { background: #D1FAE5 !important; border: 1.5px solid #A7F3D0 !important; }
+
+.special-wrap.lavender .overview-top { background: #FDFBFD !important; border: 1.5px solid #F5F3FF !important; }
+.special-wrap.lavender .overview-bottom { background: #F9F5FF !important; border: 1.5px solid #F5F3FF !important; }
+.special-wrap.lavender .timetable-all { background: #F3E8FF !important; border: 1.5px solid #E9D5FF !important; }
+.special-wrap.lavender .focus { background: #E9D5FF !important; border: 1.5px solid #D8B4FE !important; }
+
+.special-wrap.rose .overview-top { background: #FFFDFD !important; border: 1.5px solid #FFF1F2 !important; }
+.special-wrap.rose .overview-bottom { background: #FFF1F2 !important; border: 1.5px solid #FFF1F2 !important; }
+.special-wrap.rose .timetable-all { background: #FFE4E6 !important; border: 1.5px solid #FECDD3 !important; }
+.special-wrap.rose .focus { background: #FECDD3 !important; border: 1.5px solid #FDA4AF !important; }
+
+.special-wrap.wildflower .overview-top { background: #FFFDFD !important; border: 1.5px solid #FEF2F2 !important; }
+.special-wrap.wildflower .overview-bottom { background: #FEF2F2 !important; border: 1.5px solid #FEF2F2 !important; }
+.special-wrap.wildflower .timetable-all { background: #FEE2E2 !important; border: 1.5px solid #FCA5A5 !important; }
+.special-wrap.wildflower .focus { background: #FCA5A5 !important; border: 1.5px solid #F87171 !important; }
+
+/* Corrected Center Positioning Animations (Restoring translate(-50%, -50%)) */
+.special-wrap.eucalyptus .revealed-icon {
+    background: radial-gradient(circle, #E6F4EA 25%, #A7F3D0 70%, #059669 100%);
+    box-shadow: 0 0 10px rgba(5, 150, 105, 0.3);
+}
+.special-wrap.eucalyptus:hover .revealed-icon {
+    animation: eucalyptus-pulse 2s infinite alternate, eucalyptus-sway 6s ease-in-out infinite alternate;
+}
+.special-wrap.eucalyptus .preview-img-slot:hover ~ .revealed-icon {
+    animation: eucalyptus-pulse-hover 1s infinite alternate, eucalyptus-sway-hover 3s ease-in-out infinite alternate !important;
+}
+
+.special-wrap.lavender .revealed-icon {
+    background: radial-gradient(circle, #F3E8FF 25%, #D8B4FE 70%, #7C3AED 100%);
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+}
+.special-wrap.lavender:hover .revealed-icon {
+    animation: lavender-pulse 2s infinite alternate, lavender-sway 5s ease-in-out infinite alternate;
+}
+.special-wrap.lavender .preview-img-slot:hover ~ .revealed-icon {
+    animation: lavender-pulse-hover 1s infinite alternate, lavender-sway-hover 2.5s ease-in-out infinite alternate !important;
+}
+
+.special-wrap.rose .revealed-icon {
+    background: radial-gradient(circle, #FFE4E6 25%, #FDA4AF 70%, #E11D48 100%);
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.3);
+}
+.special-wrap.rose:hover .revealed-icon {
+    animation: rose-pulse 2s infinite alternate, rose-sway 5s ease-in-out infinite alternate;
+}
+.special-wrap.rose .preview-img-slot:hover ~ .revealed-icon {
+    animation: rose-pulse-hover 1s infinite alternate, rose-sway-hover 2.5s ease-in-out infinite alternate !important;
+}
+
+.special-wrap.wildflower .revealed-icon {
+    background: radial-gradient(circle, #FFF1F2 25%, #FCA5A5 70%, #DC2626 100%);
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+}
+.special-wrap.wildflower:hover .revealed-icon {
+    animation: wildflower-pulse 2s infinite alternate, wildflower-spin 15s linear infinite;
+}
+.special-wrap.wildflower .preview-img-slot:hover ~ .revealed-icon {
+    animation: wildflower-pulse-hover 1s infinite alternate, wildflower-spin-hover 5s linear infinite !important;
+}
+
+@keyframes eucalyptus-pulse {
+    0% { box-shadow: 0 0 12px rgba(5, 150, 105, 0.5); filter: brightness(1); }
+    100% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 0 35px rgba(5, 150, 105, 0.4); filter: brightness(1.05); }
+}
+@keyframes eucalyptus-pulse-hover {
+    0% { box-shadow: 0 0 18px rgba(5, 150, 105, 0.6); filter: brightness(1.02); }
+    100% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.9), 0 0 50px rgba(5, 150, 105, 0.5); filter: brightness(1.1); }
+}
+@keyframes eucalyptus-sway {
+    0% { transform: translate(-50%, -50%) rotate(-6deg) scale(1); }
+    100% { transform: translate(-50%, -50%) rotate(6deg) scale(1.05); }
+}
+@keyframes eucalyptus-sway-hover {
+    0% { transform: translate(-50%, -50%) rotate(-12deg) scale(1.05); }
+    100% { transform: translate(-50%, -50%) rotate(12deg) scale(1.15); }
+}
+
+@keyframes lavender-pulse {
+    0% { box-shadow: 0 0 12px rgba(124, 58, 237, 0.5); filter: brightness(1); }
+    100% { box-shadow: 0 0 25px rgba(139, 92, 246, 0.8); filter: brightness(1.05); }
+}
+@keyframes lavender-pulse-hover {
+    0% { box-shadow: 0 0 18px rgba(124, 58, 237, 0.6); }
+    100% { box-shadow: 0 0 35px rgba(139, 92, 246, 0.9), 0 0 50px rgba(124, 58, 237, 0.5); }
+}
+@keyframes lavender-sway {
+    0% { transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+    100% { transform: translate(-50%, -50%) rotate(8deg) scale(1.05); }
+}
+@keyframes lavender-sway-hover {
+    0% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.05); }
+    100% { transform: translate(-50%, -50%) rotate(15deg) scale(1.15); }
+}
+
+@keyframes rose-pulse {
+    0% { box-shadow: 0 0 12px rgba(225, 29, 72, 0.5); }
+    100% { box-shadow: 0 0 25px rgba(244, 63, 94, 0.8); }
+}
+@keyframes rose-pulse-hover {
+    0% { box-shadow: 0 0 18px rgba(225, 29, 72, 0.6); }
+    100% { box-shadow: 0 0 35px rgba(244, 63, 94, 0.9), 0 0 50px rgba(225, 29, 72, 0.5); }
+}
+@keyframes rose-sway {
+    0% { transform: translate(-50%, -50%) scale(1) translateY(0); }
+    100% { transform: translate(-50%, -50%) scale(1.08) translateY(-4px); }
+}
+@keyframes rose-sway-hover {
+    0% { transform: translate(-50%, -50%) scale(1.05) translateY(-2px); }
+    100% { transform: translate(-50%, -50%) scale(1.18) translateY(-8px); }
+}
+
+@keyframes wildflower-pulse {
+    0% { box-shadow: 0 0 12px rgba(220, 38, 38, 0.5); }
+    100% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); }
+}
+@keyframes wildflower-pulse-hover {
+    0% { box-shadow: 0 0 18px rgba(220, 38, 38, 0.6); }
+    100% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.9), 0 0 50px rgba(220, 38, 38, 0.5); }
+}
+@keyframes wildflower-spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1.05); }
+}
+@keyframes wildflower-spin-hover {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.05); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1.18); }
+}
+
+        /* Dynamic body fade */
+        body {
+            transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Showcase boxes soft hover fade background and border glow */
+        .special-wrap {
+            border-radius: var(--radius-lg);
+            transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0);
+        }
+        .special-wrap.summer:hover {
+            background: rgba(255, 248, 237, 0.7) !important;
+            box-shadow: 0 0 30px rgba(245, 166, 35, 0.1);
+        }
+        .special-wrap.winter:hover {
+            background: rgba(238, 244, 252, 0.7) !important;
+            box-shadow: 0 0 30px rgba(133, 183, 235, 0.1);
+        }
+        .special-wrap.autumn:hover {
+            background: rgba(255, 244, 236, 0.7) !important;
+            box-shadow: 0 0 30px rgba(216, 90, 48, 0.1);
+        }
+        .special-wrap.spring:hover {
+            background: rgba(253, 242, 248, 0.7) !important;
+            box-shadow: 0 0 30px rgba(244, 114, 182, 0.1);
+        }
+        .special-wrap.eucalyptus:hover {
+            background: rgba(236, 253, 245, 0.7) !important;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+        }
+        .special-wrap.lavender:hover {
+            background: rgba(245, 243, 255, 0.7) !important;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+        .special-wrap.rose:hover {
+            background: rgba(255, 241, 242, 0.7) !important;
+            box-shadow: 0 0 30px rgba(244, 63, 94, 0.1);
+        }
+        .special-wrap.wildflower:hover {
+            background: rgba(255, 253, 245, 0.7) !important;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+        }
+
+        /* Active tabs outline soft glow */
+        .shop-tab {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .shop-tab[data-tab="seasonal"].active {
+            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: white !important;
+            box-shadow: 0 0 0 3px rgba(232, 160, 32, 0.3) !important;
+        }
+        .shop-tab[data-tab="botanical"].active {
+            background: #059669 !important;
+            border-color: #059669 !important;
+            color: white !important;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.3) !important;
+        }
+        .shop-tab[data-tab="nature"].active {
+            background: #639922 !important;
+            border-color: #639922 !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        /* Soft glow outline for navigation icons inside tabs */
+        .shop-tab img.emoji-svg {
+            transition: filter 0.3s ease;
+        }
+        .shop-tab[data-tab="seasonal"].active img.emoji-svg {
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
+        }
+        .shop-tab[data-tab="botanical"].active img.emoji-svg {
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
+        }
+
+    
+        /* Added by patch */
+        .section-header .label, .label, .tt-chrome-label {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+</style>
+
+    <!-- Lottie Player CDN -->
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Vercel Web Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <nav>
+
+        <div class="container">
+
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 48px; width: 48px; fill: none; vertical-align: middle;">
+                  <defs>
+                    <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFB7B2" />
+                      <stop offset="33%" stop-color="#E2F0CB" />
+                      <stop offset="66%" stop-color="#B5EAD7" />
+                      <stop offset="100%" stop-color="#C7CEEA" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+                    <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+                    <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+                    <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+                    <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+                    <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+                    <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+                    <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+                    <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+                    <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+                    <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+                    <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+                    <polygon points="40,52 37,58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+                    <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+                    <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+                    <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+                    <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+                    <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+                    <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+                    <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+                  </g>
+                </svg>
+                Plannit</a>
+
+            <div class="nav-links">
+
+                <a href="index.html#collections">Collections</a>
+
+                <a href="index.html#features">Features</a>
+
+                <a href="index.html#roadmap">Roadmap</a>
+
+                <a href="index.html#community">Community</a>
+
+                <a href="library.html" style="color: var(--accent); font-weight: 700;">Library <i data-lucide="key" class="lucide" style="width: 16px; height: 16px;"></i></a>
+
+                
+
+                <!-- Basket Icon -->
+
+                <div class="nav-cart-btn" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+
+                    <span class="cart-badge" style="position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: none;">0</span>
+
+                </div>
+
+                <a href="auth.html" class="nav-profile-btn" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary); text-decoration: none;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+
+
+
+                <a href="shop.html" class="nav-shop">Shop</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <main class="shop-page">
+        <div class="shop-lifestyle-bg"></div>
+        <div class="container">
+
+            <!-- Tabs -->
+
+            <div class="shop-tabs">
+
+                <button class="shop-tab active" data-tab="seasonal" onclick="switchCollection('seasonal')">
+                    <img src="emojis/sun.svg" class="emoji-svg" style="width: 16px; height: 16px; margin-top: -2px;" alt=""> Seasonal
+                </button>
+
+                <button class="shop-tab" data-tab="botanical" onclick="switchCollection('botanical')">
+                    <img src="emojis/eucalyptus.svg" class="emoji-svg" style="width: 16px; height: 16px; margin-top: -2px;" alt=""> Botanical
+                </button>
+
+                <button class="shop-tab" data-tab="nature" onclick="switchCollection('nature')">
+                    <svg class="svg-icon" style="width: 16px; height: 16px; fill: currentColor; vertical-align: middle;" viewBox="0 0 24 24"><path d="m12 19 7-7H5l7 7zM12 12 17 7H7l5 5zM12 5l3-3H9l3 3zM12 19v3"/></svg> Nature
+                </button>
+
+            </div>
+
+
+
+            <!-- Collection Banner -->
+
+            <div id="shop-banner" class="shop-banner" style="background:#FFF8ED; border: 1px solid rgba(245, 166, 35, 0.25);">
+
+                <div id="banner-badge" class="shop-banner-badge" style="background:#FAEEDA; color:#633806;">Seasonal Collection</div>
+
+                <h1 id="banner-title" style="font-family: 'Playfair Display', Georgia, serif !important; font-size: clamp(2.2rem, 5vw, 3.8rem) !important; line-height: 1.15 !important; color: var(--charcoal) !important; font-weight: 500 !important; margin-bottom: 1.5rem !important;">Plan through<br><span style="color: var(--copper); font-style: italic;">every season.</span></h1>
+
+                <p id="banner-sub">Our first collection. Something tailored for everybody and universal - each of the 4 seasons coming to your computers, laptops, and iPads.</p>
+
+                <div id="banner-editions-info" style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed rgba(245, 166, 35, 0.25);">
+                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; margin-bottom: 0.25rem;">Choose your edition</div>
+                    <strong style="display: block; font-size: 1.25rem; font-family: var(--font-serif); margin-bottom: 0.25rem;">Four editions, one for every mood.</strong>
+                    <span id="banner-editions-sub" style="font-size: 0.92rem; opacity: 0.85; line-height: 1.5; display: block;">Each edition features a unique color palette, custom-designed widgets, and tailored layouts to match your personal workflow aesthetic.</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- Preview/Coming Soon Alert -->
+
+            <div id="preview-alert" class="preview-alert" style="display: none; align-items: center; gap: 0.75rem; margin-top: 1rem; padding: 1.25rem 1.5rem; background: #FFFDF5; border: 1px dashed #D97706; border-radius: var(--radius-md); font-size: 0.95rem; color: #92400E; transition: var(--transition); line-height: 1.5;">
+
+                <span style="font-size: 1.5rem; display: inline-flex; align-items: center; color: var(--accent);"><i data-lucide="megaphone" class="lucide" style="width: 24px; height: 24px;"></i></span>
+
+                <div>
+
+                    <strong>Preview / In Development:</strong> The Botanical & Nature collections are concepts undergoing active design. Features, cosmetics, and layouts are preview-only and <strong>subject to change based on community feedback.</strong> Prices are to be decided (TBD) upon official release.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EDITION DETAIL CARDS -->
+
+            <div class="editions-stack">
+
+
+
+                <!-- SUMMER SUN -->
+
+                <div class="ed-detail summer" data-collection="seasonal">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px; margin-left: -20px; white-space: nowrap;"><img src="emojis/sun.svg" class="emoji-svg svg-lg spin-slow" alt="Summer Sun"> Summer Sun <span style="color: var(--accent); font-style: italic; font-weight: 500; font-family: var(--font-serif);">Edition</span></div>
+
+                            <p class="ed-desc">Warm golds and sunset tones. Energising, vibrant, made for long productive days and bright ideas.</p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Warm palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block" style="display: flex; flex-direction: column; align-items: flex-end;">
+
+                            <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.6rem; font-weight: 800; color:#412402;">£3.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">subscription</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #412402;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.1rem; color:#412402; opacity: 0.75; font-weight: 600;">£5.99</div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">one-time</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #412402;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+
+                                <button class="ed-buy-inline" data-mode="subscription" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--accent); color: #FFFFFF; font-weight: 700; border: 1px solid var(--accent);">Subscribe</button>
+
+                                <button class="ed-buy-inline" data-mode="payment" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; color: var(--accent); border: 1px solid var(--border);">Buy one-time</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap summer">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/sun.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Summer Sun">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">3 Unique Wallpapers</div><div class="cosm-type">Wallpaper pack</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Sunflower Ring</div><div class="cosm-type">Card decoration</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="clock" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Accumulated Timer</div><div class="cosm-type">Focus enhancement</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="music" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Music Player (Spotify Compatible)</div><div class="cosm-type">Widget upgrade</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WINTER FROST -->
+
+                <div class="ed-detail winter" data-collection="seasonal">
+
+                    <div class="ed-top-row">
+
+                        <div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/winter.svg" class="emoji-svg svg-lg spin-slow" alt="Winter Frost"> Winter Frost</div>
+
+                            <p class="ed-desc">Cool blues and icy whites. Crisp, focused, made for deep work and winter clarity.</p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Cool palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block" style="display: flex; flex-direction: column; align-items: flex-end;">
+
+                            <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.6rem; font-weight: 800; color:#0C447C;">£3.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">subscription</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #0C447C;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.1rem; color:#0C447C; opacity: 0.75; font-weight: 600;">£5.99</div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">one-time</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #0C447C;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+
+                                <button class="ed-buy-inline" data-mode="subscription" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #0C447C; color: #E6F1FB; border: 1px solid #0C447C;">Subscribe</button>
+
+                                <button class="ed-buy-inline" data-mode="payment" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; border: 1px solid #0C447C; color: #0C447C;">Buy one-time</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap winter">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/winter.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Winter Frost">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="snowflake" class="lucide" style="color:#85B7EB;"></i></div><div><div class="cosm-name">Frost glass UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="gem" class="lucide" style="color:#38BDF8;"></i></div><div><div class="cosm-name">Ice crystal</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Snow drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-snow" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Frost icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                            <div style="font-size: 0.72rem; color: #64748B; margin-top: 0.8rem; font-style: italic; opacity: 0.8;">Cosmetics and designs subject to changes</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- AUTUMN EMBER -->
+
+                <div class="ed-detail autumn" data-collection="seasonal">
+
+                    <div class="ed-top-row">
+
+                        <div>                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/autumn.svg" class="emoji-svg svg-lg sway-subtle" alt="Autumn Ember"> Autumn Ember</div>
+
+                            <p class="ed-desc">Burnt oranges and deep ambers. Cosy, grounded, made for winding down and reflection.</p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Earthy palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block" style="display: flex; flex-direction: column; align-items: flex-end;">
+
+                            <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.6rem; font-weight: 800; color:#712B13;">£3.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">subscription</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #712B13;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.1rem; color:#712B13; opacity: 0.75; font-weight: 600;">£5.99</div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">one-time</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #712B13;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+
+                                <button class="ed-buy-inline" data-mode="subscription" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #712B13; color: #FAECE7; border: 1px solid #712B13;">Subscribe</button>
+
+                                <button class="ed-buy-inline" data-mode="payment" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; border: 1px solid #712B13; color: #712B13;">Buy one-time</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap autumn">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/autumn.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Autumn Ember">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="flame" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember glow UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Amber highlight</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Leaf fall bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="tent" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                            <div style="font-size: 0.72rem; color: #9A3412; margin-top: 0.8rem; font-style: italic; opacity: 0.8;">Cosmetics and designs subject to changes</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SPRING BLOOM -->
+
+                <div class="ed-detail spring" data-collection="seasonal">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/spring.svg" class="emoji-svg svg-lg pulse-subtle" alt="Spring Bloom"> Spring Bloom</div>
+
+                            <p class="ed-desc">Fresh greens and soft pinks. Light, optimistic, made for new beginnings and growth.</p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Pastel palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block" style="display: flex; flex-direction: column; align-items: flex-end;">
+
+                            <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.6rem; font-weight: 800; color:#B8205C;">£3.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">subscription</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #B8205C;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                                <div style="text-align: right;">
+
+                                    <div class="ed-price-amount" style="font-size: 1.1rem; color:#B8205C; opacity: 0.75; font-weight: 600;">£5.99</div>
+
+                                    <div class="ed-price-note" style="font-size: 0.7rem;">one-time</div>
+
+                                    <div class="ed-price-note-soon" style="font-size: 0.52rem; opacity: 0.5; margin-top: 0.15rem; font-style: italic; white-space: nowrap; color: #B8205C;">3 & 12 mo coming soon</div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+
+                                <button class="ed-buy-inline" data-mode="subscription" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #B8205C; color: #FBEAF0; border: 1px solid #B8205C;">Subscribe</button>
+
+                                <button class="ed-buy-inline" data-mode="payment" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; border: 1px solid #B8205C; color: #B8205C;">Buy one-time</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid rgba(0,0,0,0.08);">
+
+                    <div class="ed-cols">
+                        <div>
+                            <div class="ed-block-title">Planner pages included</div>
+                            <div class="planner-preview-wrap special-wrap spring">
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+                                <div class="revealed-icon" style="display: flex; align-items: center; justify-content: center;">
+                                    <img src="emojis/spring.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Spring Bloom">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+                            <div class="cosm-grid">
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#D4537E;"></i></div><div><div class="cosm-name">Blossom UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#D4537E;"></i></div><div><div class="cosm-name">Petal highlight</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="sprout" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal icons</div><div class="cosm-type">Icon pack</div></div></div>
+                            </div>
+                            <div style="font-size: 0.72rem; color: #BE185D; margin-top: 0.8rem; font-style: italic; opacity: 0.8;">Cosmetics and designs subject to changes</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- ==================== BOTANICAL COLLECTION ==================== -->
+
+                <!-- EUCALYPTUS -->
+
+                <div class="ed-detail eucalyptus" data-collection="botanical">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/eucalyptus.svg" class="emoji-svg svg-lg sway-subtle" alt="Eucalyptus"> Eucalyptus Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(5, 150, 105, 0.1); color: #059669; border: 1px solid rgba(5, 150, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Crisp sage and organic greens. Fresh, restorative, made for clear heads and steady, grounded progress. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#059669; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Sage palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#059669; font-size: 1rem; border: 1px dashed rgba(5, 150, 105, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(5, 150, 105, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap eucalyptus">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/eucalyptus.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Eucalyptus">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Eucalyptus UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="coins" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Silver dollar</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Forest breeze bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="pencil" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Botanical sketch</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LAVENDER -->
+
+                <div class="ed-detail lavender" data-collection="botanical">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/lavender.svg" class="emoji-svg svg-lg sway-subtle" alt="Lavender"> Lavender Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(109, 40, 217, 0.1); color: #6D28D9; border: 1px solid rgba(109, 40, 217, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Soft purple tones and soothing lavender accents. Calm, focused, designed for elegant planning and peaceful work sessions. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#6D28D9; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Soothing palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#6D28D9; font-size: 1rem; border: 1px dashed rgba(109, 40, 217, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(109, 40, 217, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap lavender">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/lavender.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Lavender">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Lavender UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Amethyst glow</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal sway bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="box" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Herbarium icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ROSE GARDEN -->
+
+                <div class="ed-detail rose-garden" data-collection="botanical">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/rose.svg" class="emoji-svg svg-lg pulse-subtle" alt="Rose"> Rose Garden Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(225, 29, 72, 0.1); color: #E11D48; border: 1px solid rgba(225, 29, 72, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Soft blushes and classic rose pinks. Romantic, classic, and inspired by timeless English cottage gardens. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#E11D48; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Rose palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#E11D48; font-size: 1rem; border: 1px dashed rgba(225, 29, 72, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(225, 29, 72, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap rose">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/rose.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Rose">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Rose Quartz UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Petal pink glow</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Falling petals bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="award" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Floral sketch</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WILDFLOWER -->
+
+                <div class="ed-detail wildflower" data-collection="botanical">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/wildflower.svg" class="emoji-svg svg-lg pulse-subtle" alt="Wildflower"> Wildflower Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(217, 119, 6, 0.1); color: #D97706; border: 1px solid rgba(217, 119, 6, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Joyful yellows and field greens. Cheerful, free-spirited, and filled with the warmth of rustic open meadows. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#D97706; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Meadow palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#D97706; font-size: 1rem; border: 1px dashed rgba(217, 119, 6, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(217, 119, 6, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap special-wrap wildflower">
+
+                                <div class="preview-img-slot overview-top"><span class="preview-img-label">Overview Top</span></div>
+
+                                <div class="preview-img-slot overview-bottom"><span class="preview-img-label">Overview Bottom</span></div>
+
+                                <div class="preview-img-slot timetable-all"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                                <div class="revealed-icon">
+
+                                    <img src="emojis/wildflower.svg" class="emoji-svg" style="width: 40px; height: 40px;" alt="Wildflower">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Daisy UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Buttercup glow</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wheat" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Pollen drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="book-open" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Fieldguide icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================== NATURE COLLECTION ==================== -->
+
+                <!-- RAINFALL -->
+
+                <div class="ed-detail rainfall" data-collection="nature">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" style="color: #475569;"></i> Rainfall Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(71, 85, 105, 0.1); color: #475569; border: 1px solid rgba(71, 85, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Misty slate greys and quiet blues. Cozy rain-day vibe designed for deep-focus study and writing tracks. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#475569; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Stormy palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#475569; font-size: 1rem; border: 1px dashed rgba(71, 85, 105, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(71, 85, 105, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap">
+
+                                <div class="preview-img-slot overview"><span class="preview-img-label">Overview</span></div>
+
+                                <div class="preview-img-slot timetable"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-rain" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Storm Cloud UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="droplet" class="lucide" style="color:#3B82F6;"></i></div><div><div class="cosm-name">Raindrop glow</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-lightning" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Falling rain bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Nimbus icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MOUNTAIN PEAK -->
+
+                <div class="ed-detail mountain-peak" data-collection="nature">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" style="color: #334155;"></i> Mountain Peak Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(51, 65, 85, 0.1); color: #334155; border: 1px solid rgba(51, 65, 85, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">High-altitude whites and granite greys. Majestic and clear, built for ambitious goals and reaching new summits. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#334155; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Alpine palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#334155; font-size: 1rem; border: 1px dashed rgba(51, 65, 85, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(51, 65, 85, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap">
+
+                                <div class="preview-img-slot overview"><span class="preview-img-label">Overview</span></div>
+
+                                <div class="preview-img-slot timetable"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="mountain" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Altitude UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Peak shimmer</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Cloud drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="flag" class="lucide" style="color:#EF4444;"></i></div><div><div class="cosm-name">Summit icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DESERT SAND -->
+
+                <div class="ed-detail desert-sand" data-collection="nature">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" style="color: #D97706;"></i> Desert Sand Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(217, 119, 6, 0.1); color: #D97706; border: 1px solid rgba(217, 119, 6, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Warm ochres and sand dunes. Minimalist, serene, and inspired by the wide quiet expanse of desert sands. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#D97706; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Dune palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#D97706; font-size: 1rem; border: 1px dashed rgba(217, 119, 6, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(217, 119, 6, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap">
+
+                                <div class="preview-img-slot overview"><span class="preview-img-label">Overview</span></div>
+
+                                <div class="preview-img-slot timetable"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sun" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Oasis UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Amber shine</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Mirage warp bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="compass" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Nomad icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FOREST MIST -->
+
+                <div class="ed-detail forest-mist" data-collection="nature">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" style="color: #059669;"></i> Forest Mist Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(5, 150, 105, 0.1); color: #059669; border: 1px solid rgba(5, 150, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Woodland greens and silver fog. Peaceful, deep, inspired by walking through a dense early-morning pine forest. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#059669; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Pine palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#059669; font-size: 1rem; border: 1px dashed rgba(5, 150, 105, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(5, 150, 105, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap">
+
+                                <div class="preview-img-slot overview"><span class="preview-img-label">Overview</span></div>
+
+                                <div class="preview-img-slot timetable"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="tree-pine" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Timber UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="circle" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Moss highlight</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-fog" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Mist rising bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="trees" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Woodland icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OCEAN TIDE -->
+
+                <div class="ed-detail ocean-tide" data-collection="nature">
+
+                    <div class="ed-top-row">
+
+                        <div>
+
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" style="color: #0891B2;"></i> Ocean Tide Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(8, 145, 178, 0.1); color: #0891B2; border: 1px solid rgba(8, 145, 178, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+
+                            <p class="ed-desc">Deep teals and cool seafoams. Restorative, ocean-inspired tones designed to keep you drifting smoothly forward. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#0891B2; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
+
+                            <div class="ed-tag-row">
+
+                                <span class="ed-pill">3 planner layouts</span>
+
+                                <span class="ed-pill">Exclusive cosmetics</span>
+
+                                <span class="ed-pill">Marine palette</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ed-price-block">
+
+                            <div class="ed-price-amount" style="color:#0891B2; font-size: 1rem; border: 1px dashed rgba(8, 145, 178, 0.3); padding: 0.35rem 0.75rem; border-radius: 50px; background: rgba(8, 145, 178, 0.05); text-align: center; white-space: nowrap;">Coming Soon</div>
+
+                            <div class="ed-price-note" style="margin-top: 0.25rem;">TBD (Feedback)</div>
+
+                            <button class="ed-buy-inline" style="margin-top:0.75rem;background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Concept Preview</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ed-cols">
+
+                        <div>
+
+                            <div class="ed-block-title">Planner pages included</div>
+
+                            <div class="planner-preview-wrap">
+
+                                <div class="preview-img-slot overview"><span class="preview-img-label">Overview</span></div>
+
+                                <div class="preview-img-slot timetable"><span class="preview-img-label">Timetable</span></div>
+
+                                <div class="preview-img-slot focus"><span class="preview-img-label">Focus</span></div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ed-block-title">Exclusive cosmetics</div>
+
+                            <div class="cosm-grid">
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Seafoam UI</div><div class="cosm-type">Interface theme</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="shrub" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Coral highlight</div><div class="cosm-type">Task highlight</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Wave swell bg</div><div class="cosm-type">Animated bg</div></div></div>
+
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Reef icons</div><div class="cosm-type">Icon pack</div></div></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div><!-- end .editions-stack -->
+
+
+
+            <div class="shop-divider"></div>
+
+
+
+            <!-- TIMETABLE PREVIEW -->
+
+            <div class="section-header">
+
+                <div class="label">Timetable preview</div>
+
+                <h2>See the layout <span style="color: var(--accent); font-style: italic; font-weight: 500; font-family: var(--font-serif);">before you buy.</span></h2>
+
+                <p>This is the actual timetable structure inside every Plannit edition.</p>
+
+            </div>
+
+            <div class="tt-preview-section">
+
+                <div class="tt-chrome">
+
+                    <div class="tt-chrome-dots"><span></span><span></span><span></span></div>
+
+                    <span class="tt-chrome-label">Lavender / Weekly view</span>
+
+                </div>
+
+                <div class="tt-nav-bar"><span>&larr;</span><span>This week</span><span>&rarr;</span></div>
+
+                <div class="tt-grid">
+
+                    <div class="tt-day"><div class="tt-day-name">Mon</div><div class="tt-day-num">12</div><div class="tt-chip" style="background:#E6F1FB;color:#0C447C;">Maths</div><div class="tt-chip" style="background:#EAF3DE;color:#27500A;">Gym</div></div>
+
+                    <div class="tt-day today"><div class="tt-day-name">Tue</div><div class="tt-day-num">13</div><div class="tt-chip" style="background:#FBEAF0;color:#72243E;">English</div><div class="tt-chip" style="background:#FAEEDA;color:#633806;">Focus</div></div>
+
+                    <div class="tt-day"><div class="tt-day-name">Wed</div><div class="tt-day-num">14</div><div class="tt-chip" style="background:#EEEDFE;color:#3C3489;">History</div></div>
+
+                    <div class="tt-day"><div class="tt-day-name">Thu</div><div class="tt-day-num">15</div><div class="tt-chip" style="background:#E1F5EE;color:#085041;">Biology</div><div class="tt-chip" style="background:#FAECE7;color:#712B13;">Art</div></div>
+
+                    <div class="tt-day"><div class="tt-day-name">Fri</div><div class="tt-day-num">16</div><div class="tt-chip" style="background:#E6F1FB;color:#0C447C;">Maths</div></div>
+
+                    <div class="tt-day"><div class="tt-day-name">Sat</div><div class="tt-day-num">17</div><div class="tt-chip" style="background:#F1EFE8;color:#444441;">Rest</div></div>
+
+                    <div class="tt-day"><div class="tt-day-name">Sun</div><div class="tt-day-num">18</div><div class="tt-chip" style="background:#FAEEDA;color:#633806;">Plan</div></div>
+
+                </div>
+
+                <div class="tt-callout">
+
+                    <div class="tt-feat"><div class="tt-feat-title" style="display: inline-flex; align-items: center; gap: 6px;"><i data-lucide="arrow-left-right" class="lucide" style="width: 16px; height: 16px;"></i> Week navigation</div><div class="tt-feat-desc">Move between past and future weeks instantly.</div></div>
+
+                    <div class="tt-feat"><div class="tt-feat-title" style="display: inline-flex; align-items: center; gap: 6px;"><i data-lucide="palette" class="lucide" style="width: 16px; height: 16px;"></i> Colour-coded events</div><div class="tt-feat-desc">Every event gets its own colour chip </div></div>
+
+                    <div class="tt-feat"><div class="tt-feat-title" style="display: inline-flex; align-items: center; gap: 6px;"><i data-lucide="repeat" class="lucide" style="width: 16px; height: 16px;"></i> Recurring events</div><div class="tt-feat-desc">Set events once and they propagate automatically across future weeks.</div></div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="shop-divider"></div>
+
+
+
+            <!-- SHARED FEATURES -->
+
+            <div class="section-header scroll-fade">
+
+                <div class="label">Shared across all editions</div>
+
+                <h2>Comes with <span style="color: var(--accent); font-style: italic; font-weight: 500; font-family: var(--font-serif);">every purchase.</span></h2>
+
+                <p>These features are included no matter which edition you choose.</p>
+
+            </div>
+
+            <div class="shared-grid scroll-fade">
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="calendar" class="lucide"></i></div><div class="shared-name">Dynamic timetable</div><div class="shared-desc">Full 7-day weekly view with recurring events and colour tags.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="timer" class="lucide"></i></div><div class="shared-name">Focus Lab</div><div class="shared-desc">Pomodoro timer with streak tracking and session history.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="coins" class="lucide" style="color: var(--accent);"></i></div><div class="shared-name">Coin economy</div><div class="shared-desc">Earn coins by completing tasks and sessions. Spend in The Market.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="shopping-bag" class="lucide"></i></div><div class="shared-name">The Market</div><div class="shared-desc">Buy cosmetics with earned coins </div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="music" style="color: var(--accent); width: 20px; height: 20px;"></i></div><div class="shared-name">Music Player (Spotify Compatible)</div><div class="shared-desc">See your current track live inside the planner dashboard. (Not affiliated with Spotify)</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="target" class="lucide" style="color: #EF4444;"></i></div><div class="shared-name">Weekly goals</div><div class="shared-desc">Set, check off, and track your goals every week.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="moon" class="lucide" style="color: #3B82F6;"></i></div><div class="shared-name">Night mode</div><div class="shared-desc">Dark UI available across all editions via The Market.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="repeat" class="lucide" style="color: #10B981;"></i></div><div class="shared-name">Recurring events</div><div class="shared-desc">Set events once and they propagate automatically across all future weeks.</div></div>
+
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="cloud" class="lucide" style="color: #38BDF8;"></i></div><div class="shared-name">Cloud sync</div><div class="shared-desc">Your data follows you across devices via Supabase (coming soon).</div></div>
+
+            </div>
+
+
+
+            <div class="shop-divider"></div>
+
+
+
+
+
+
+
+            <!-- PRICING -->
+
+            <div class="section-header scroll-fade">
+
+                <div class="label">Pricing</div>
+
+                <h2>Pick your <span style="color: var(--accent); font-style: italic; font-weight: 500; font-family: var(--font-serif);">edition.</span></h2>
+
+                <p>Choose a flexible monthly plan or purchase for lifetime access.</p>
+
+            </div>
+
+            <!-- SEASONAL PRICING -->
+
+            <div class="price-grid scroll-fade" data-collection="seasonal">
+
+                <div class="price-card featured scroll-fade" data-collection="seasonal">
+
+                    <div class="featured-badge">Most popular</div>
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px; white-space: nowrap;"><img src="emojis/sun.svg" class="emoji-svg svg-lg spin-slow" alt="Summer Sun"> Summer Sun <span style="color: var(--accent); font-style: italic; font-weight: 500; font-family: var(--font-serif);">Edition</span></div>
+
+                    <div class="price-desc">Warm golds, heat wave bg, citrus icons.</div>
+
+                    <div style="display: flex; justify-content: center; gap: 1rem; align-items: baseline; margin: 1rem 0;">
+
+                        <div style="text-align: center;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£3.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">/ month</div>
+
+                        </div>
+
+                        <div style="text-align: center; border-left: 1px solid var(--border); padding-left: 1rem;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£5.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">one-time</div>
+
+                        </div>
+
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+
+                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: var(--primary); color: #FFFFFF; font-weight: 700; border: 1px solid var(--primary); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+
+                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+
+                    </div>
+
+                </div>
+
+                <div class="price-card" data-collection="seasonal">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/winter.svg" class="emoji-svg svg-lg spin-slow" alt="Winter Frost"> Winter Frost</div>
+
+                    <div class="price-desc">Cool blues, snow drift bg, frost icons.</div>
+
+                    <div style="display: flex; justify-content: center; gap: 1rem; align-items: baseline; margin: 1rem 0;">
+
+                        <div style="text-align: center;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£3.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">/ month</div>
+
+                        </div>
+
+                        <div style="text-align: center; border-left: 1px solid var(--border); padding-left: 1rem;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£5.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">one-time</div>
+
+                        </div>
+
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+
+                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+
+                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+
+                    </div>
+
+                </div>
+
+                <div class="price-card" data-collection="seasonal">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/autumn.svg" class="emoji-svg svg-lg sway-subtle" alt="Autumn Ember"> Autumn Ember</div>
+
+                    <div class="price-desc">Deep ambers, leaf fall bg, ember icons.</div>
+
+                    <div style="display: flex; justify-content: center; gap: 1rem; align-items: baseline; margin: 1rem 0;">
+
+                        <div style="text-align: center;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£3.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">/ month</div>
+
+                        </div>
+
+                        <div style="text-align: center; border-left: 1px solid var(--border); padding-left: 1rem;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£5.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">one-time</div>
+
+                        </div>
+
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+
+                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+
+                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+
+                    </div>
+
+                </div>
+
+                <div class="price-card" data-collection="seasonal">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/spring.svg" class="emoji-svg svg-lg pulse-subtle" alt="Spring Bloom"> Spring Bloom</div>
+
+                    <div class="price-desc">Fresh greens, petal drift bg, petal icons.</div>
+
+                    <div style="display: flex; justify-content: center; gap: 1rem; align-items: baseline; margin: 1rem 0;">
+
+                        <div style="text-align: center;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£3.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">/ month</div>
+
+                        </div>
+
+                        <div style="text-align: center; border-left: 1px solid var(--border); padding-left: 1rem;">
+
+                            <div class="price-amount" style="font-size: 1.8rem; font-weight: 800;">£5.99</div>
+
+                            <div class="price-period" style="margin-bottom:0; font-size: 0.75rem;">one-time</div>
+
+                        </div>
+
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+
+                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+
+                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="bundle-banner scroll-fade" data-collection="seasonal">
+
+                <div>
+
+                    <div class="bundle-title">Full Seasonal bundle <span class="bundle-badge">Best Value</span></div>
+
+                    <div class="bundle-sub">All four editions, all cosmetics, all animated backgrounds.</div>
+
+                </div>
+
+                <div style="display:flex;align-items:center;gap:2rem;">
+
+                    <div style="text-align:right;">
+
+                        <div class="bundle-price">£14.99</div>
+
+                        <div class="bundle-note">save £8.97</div>
+
+                    </div>
+
+                    <button class="bundle-btn">Buy bundle</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOTANICAL PRICING -->
+
+            <div class="price-grid scroll-fade" data-collection="botanical">
+
+                <div class="price-card featured" data-collection="botanical" style="border-style: dashed; border-color: rgba(93, 202, 165, 0.4); background: rgba(240, 250, 245, 0.4);">
+
+                    <div class="featured-badge" style="background:#E1F5EE;color:#085041;">Preview</div>
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/lavender.svg" class="emoji-svg svg-lg sway-subtle" alt="Lavender"> Lavender</div>
+
+                    <div class="price-desc">Soothing purples, petal sway bg, herbarium icons. <br><span style="font-size: 0.72rem; color: #085041; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="botanical" style="border-style: dashed; border-color: rgba(93, 202, 165, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/eucalyptus.svg" class="emoji-svg svg-lg sway-subtle" alt="Eucalyptus"> Eucalyptus</div>
+
+                    <div class="price-desc">Organic greens, forest breeze bg, sketch icons. <br><span style="font-size: 0.72rem; color: #085041; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="botanical" style="border-style: dashed; border-color: rgba(93, 202, 165, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/rose.svg" class="emoji-svg svg-lg pulse-subtle" alt="Rose"> Rose Garden</div>
+
+                    <div class="price-desc">Soft blushes, falling petals bg, floral icons. <br><span style="font-size: 0.72rem; color: #085041; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="botanical" style="border-style: dashed; border-color: rgba(93, 202, 165, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><img src="emojis/wildflower.svg" class="emoji-svg svg-lg pulse-subtle" alt="Wildflower"> Wildflower</div>
+
+                    <div class="price-desc">Joyful yellows, pollen drift bg, fieldguide icons. <br><span style="font-size: 0.72rem; color: #085041; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+            </div>
+
+            <div class="bundle-banner scroll-fade" data-collection="botanical" style="border-style: dashed; border-color: rgba(93, 202, 165, 0.4); background: rgba(93, 202, 165, 0.03);">
+
+                <div>
+
+                    <div class="bundle-title">Full Botanical bundle <span style="font-size: 0.75rem; font-weight: 600; background:#E1F5EE; color:#085041; padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle;">Preview</span></div>
+
+                    <div class="bundle-sub">All four botanical editions, cosmetics, and layouts. <strong>Subject to change based on community.</strong></div>
+
+                </div>
+
+                <div style="display:flex;align-items:center;gap:2rem;">
+
+                    <div style="text-align:right;">
+
+                        <div class="bundle-price">TBD</div>
+
+                        <div class="bundle-note">Coming soon</div>
+
+                    </div>
+
+                    <button class="bundle-btn" style="background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Coming soon</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NATURE PRICING -->
+
+            <div class="price-grid scroll-fade" data-collection="nature">
+
+                <div class="price-card featured" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.4); background: rgba(242, 250, 232, 0.4);">
+
+                    <div class="featured-badge" style="background:#EAF3DE;color:#27500A;">Preview</div>
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" style="color: #475569;"></i> Rainfall</div>
+
+                    <div class="price-desc">Slate greys, falling rain bg, nimbus icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" style="color: #334155;"></i> Mountain Peak</div>
+
+                    <div class="price-desc">Granite greys, cloud drift bg, summit icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" style="color: #D97706;"></i> Desert Sand</div>
+
+                    <div class="price-desc">Warm ochres, mirage warp bg, nomad icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" style="color: #059669;"></i> Forest Mist</div>
+
+                    <div class="price-desc">Woodland greens, mist rising bg, woodland icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+                <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
+
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" style="color: #0891B2;"></i> Ocean Tide</div>
+
+                    <div class="price-desc">Deep teals, wave swell bg, reef icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
+
+                    <div class="price-amount" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon</div>
+
+                    <div class="price-period">TBD</div>
+
+                    <button class="price-btn" style="background:var(--border);color:var(--secondary);border-color:var(--border);cursor:not-allowed; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;" disabled>Preview only</button>
+
+                </div>
+
+            </div>
+
+            <div class="bundle-banner scroll-fade" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.4); background: rgba(151, 196, 89, 0.03);">
+
+                <div>
+
+                    <div class="bundle-title">Full Nature bundle <span style="font-size: 0.75rem; font-weight: 600; background:#EAF3DE; color:#27500A; padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle;">Preview</span></div>
+
+                    <div class="bundle-sub">All five element-grounded nature editions and all cosmetics. <strong>Subject to change based on community feedback.</strong></div>
+
+                </div>
+
+                <div style="display:flex;align-items:center;gap:2rem;">
+
+                    <div style="text-align:right;">
+
+                        <div class="bundle-price">TBD</div>
+
+                        <div class="bundle-note">Coming soon</div>
+
+                    </div>
+
+                    <button class="bundle-btn" style="background:var(--border);color:var(--secondary);cursor:not-allowed;" disabled>Coming soon</button>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </main>
+
+
+
+
+
+
+
+    <footer class="scroll-fade" style="padding: 4rem 0 3rem; background: var(--bg-alt); border-top: 1px solid var(--border); margin-top: 6rem;">
+
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 1.25rem;">
+
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--primary); font-size: 1.1rem;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: 28px; fill: none; vertical-align: middle;">
+                  <defs>
+                    <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFB7B2" />
+                      <stop offset="33%" stop-color="#E2F0CB" />
+                      <stop offset="66%" stop-color="#B5EAD7" />
+                      <stop offset="100%" stop-color="#C7CEEA" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+                    <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+                    <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+                    <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+                    <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+                    <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+                    <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+                    <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+                    <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+                    <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+                    <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+                    <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+                    <polygon points="40,52 37,58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+                    <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+                    <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+                    <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+                    <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+                    <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+                    <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+                    <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+                  </g>
+                </svg>
+                <span>Plannit.</span>
+
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--secondary); margin: 0; font-weight: 600;">Don't improvise it. Plannit.</p>
+
+            <p style="font-size: 0.75rem; color: var(--secondary); opacity: 0.7; margin: 0;">&copy; 2026 Plannit Studio. All rights reserved. &bull; <a href="terms.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Terms &amp; Conditions</a> &bull; <a href="privacy.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Privacy Policy</a> &bull; <a href="eula.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">EULA</a> &bull; <a href="credits.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Credits</a></p>
+
+        </div>
+
+    </footer>
+
+
+
+    <script>
+
+        const COLLECTIONS = {
+
+            seasonal: {
+
+                title: "Plan through every season.",
+
+                sub: "Our first collection. Something tailored for everybody and universal - each of the 4 seasons coming to your computers, laptops, and iPads.",
+
+                editionsTitle: "Four editions, one for every mood.",
+
+                editionsSub: "Each edition features a unique color palette, custom-designed widgets, and tailored layouts to match your personal workflow aesthetic.",
+
+                bg: "#FFF8ED",
+
+                border: "rgba(245, 166, 35, 0.25)",
+
+                badge: "Seasonal Collection",
+
+                badgeBg: "#FAEEDA",
+
+                badgeText: "#633806"
+
+            },
+
+            nature: {
+
+                title: "Grounded in the elements.",
+
+                sub: "Five editions ",
+
+                editionsTitle: "Five editions, grounded in the elements.",
+
+                editionsSub: "Each nature edition features rich, earthy tones and specialized layouts to align your daily task planning with natural aesthetics.",
+
+                bg: "#F2FAE8",
+
+                border: "rgba(151, 196, 89, 0.25)",
+
+                badge: "Nature Collection",
+
+                badgeBg: "#EAF3DE",
+
+                badgeText: "#27500A"
+
+            },
+
+            botanical: {
+
+                title: "Grown for clarity.",
+
+                sub: "Four editions ",
+
+                editionsTitle: "Four editions, grown for clarity.",
+
+                editionsSub: "Each botanical edition features organic tones, custom widgets, and relaxed layouts designed to bring peace and focus to your workday.",
+
+                bg: "#F0FAF5",
+
+                border: "rgba(93, 202, 165, 0.25)",
+
+                badge: "Botanical Collection",
+
+                badgeBg: "#E1F5EE",
+
+                badgeText: "#085041"
+
+            }
+
+        };
+
+
+
+        function switchCollection(id) {
+            const config = COLLECTIONS[id];
+            if (!config) return;
+
+            // Transition effect: Fade out active sections
+            const mainContentEls = document.querySelectorAll('.editions-stack, .price-grid, .bundle-banner, .compare-wrap, #shop-banner, #preview-alert');
+            mainContentEls.forEach(el => {
+                el.style.transition = 'opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(6px)';
+            });
+
+            setTimeout(() => {
+                // Update UI
+                const shopBanner = document.getElementById('shop-banner');
+                shopBanner.style.background = config.bg;
+                shopBanner.style.borderColor = config.border;
+                document.getElementById('banner-badge').textContent = config.badge;
+                document.getElementById('banner-badge').style.background = config.badgeBg;
+                document.getElementById('banner-badge').style.color = config.badgeText;
+                document.getElementById('banner-title').textContent = config.title;
+                document.getElementById('banner-sub').textContent = config.sub;
+
+                // Update merged editions sub-header
+                document.getElementById('banner-editions-info').querySelector('strong').textContent = config.editionsTitle;
+                document.getElementById('banner-editions-sub').textContent = config.editionsSub;
+                document.getElementById('banner-editions-info').style.borderTopColor = config.border;
+
+                // Update Tabs
+                document.querySelectorAll('.shop-tab').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-tab') === id);
+                });
+
+                // Set body attribute for dynamic CSS swaps
+                document.body.setAttribute('data-active-collection', id);
+
+                // Update body background for soft color fade
+                if (id === 'seasonal') {
+                    document.body.style.backgroundColor = '#FFF8ED';
+                } else if (id === 'botanical') {
+                    document.body.style.backgroundColor = '#F0FAF5';
+                } else {
+                    document.body.style.backgroundColor = 'var(--bg)';
+                }
+
+                // Preview alert logic
+                const previewAlert = document.getElementById('preview-alert');
+                if (id === 'seasonal') {
+                    previewAlert.style.display = 'none';
+                } else {
+                    previewAlert.style.display = 'flex';
+                    if (id === 'botanical') {
+                        previewAlert.style.background = '#F0FAF5';
+                        previewAlert.style.borderColor = 'rgba(93, 202, 165, 0.5)';
+                        previewAlert.style.color = '#085041';
+                    } else if (id === 'nature') {
+                        previewAlert.style.background = '#F2FAE8';
+                        previewAlert.style.borderColor = 'rgba(151, 196, 89, 0.5)';
+                        previewAlert.style.color = '#27500A';
+                    }
+                }
+
+                // Fade back in
+                setTimeout(() => {
+                    mainContentEls.forEach(el => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+                    adjustShopBackground();
+                }, 50);
+            }, 200);
+        }
+
+        function adjustShopBackground() {
+            const bg = document.querySelector('.shop-lifestyle-bg');
+            if (!bg) return;
+            
+            const springHr = document.querySelector('.ed-detail.spring hr');
+            const activeCol = document.body.getAttribute('data-active-collection') || 'seasonal';
+            
+            if (springHr && activeCol === 'seasonal') {
+                const targetTop = springHr.getBoundingClientRect().top + window.scrollY;
+                const bgTop = bg.getBoundingClientRect().top + window.scrollY;
+                bg.style.height = (targetTop - bgTop) + 'px';
+                bg.style.bottom = 'auto';
+            } else {
+                bg.style.height = 'auto';
+                bg.style.bottom = '80px';
+            }
+        }
+
+        window.addEventListener('load', adjustShopBackground);
+        window.addEventListener('resize', adjustShopBackground);
+
+
+
+        // Handle URL params and Hash anchors
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+
+
+        function initCollectionFromUrl() {
+
+            let col = urlParams.get('collection');
+
+            
+
+            if (!col && window.location.hash) {
+
+                const cleanHash = window.location.hash.substring(1);
+
+                if (COLLECTIONS[cleanHash]) {
+
+                    col = cleanHash;
+
+                }
+
+            }
+
+            
+
+            switchCollection(col || 'seasonal');
+
+        }
+
+        initCollectionFromUrl();
+
+        window.addEventListener('hashchange', initCollectionFromUrl);
+
+
+
+        if (urlParams.get('vault') === 'true') {
+
+            // Redirect to the dedicated library page instead of the old modal
+
+            window.location.href = 'library.html';
+
+        }
+
+
+
+        // High-Performance IntersectionObserver for Scroll Fades
+
+        const observerOptions = {
+
+            root: null,
+
+            rootMargin: '0px 0px -50px 0px',
+
+            threshold: 0.05
+
+        };
+
+
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('visible');
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+
+        }, observerOptions);
+
+
+
+        document.querySelectorAll('.scroll-fade').forEach(el => {
+
+            scrollObserver.observe(el);
+
+        });
+
+
+
+
+    </script>
+
+
+
+    <!-- Stripe Checkout Integration Script -->
+
+    <script>
+
+        function initiateCheckout(plannerSlug, paymentMode, buttonElement) {
+
+            const originalText = buttonElement.textContent;
+
+            buttonElement.textContent = "Loading...";
+
+            buttonElement.disabled = true;
+
+            buttonElement.style.opacity = "0.7";
+
+
+
+            // Dummy user data for now until Supabase Auth UI is implemented
+
+            const payload = {
+
+                planner_slug: plannerSlug,
+
+                payment_mode: paymentMode,
+
+                user_id: 'guest-user-id',
+
+                user_email: 'guest@example.com'
+
+            };
+
+
+
+            fetch('https://plannit-backend-private.vercel.app/api/create-checkout-session', {
+
+                method: 'POST',
+
+                headers: { 'Content-Type': 'application/json' },
+
+                body: JSON.stringify(payload)
+
+            })
+
+            .then(res => res.json())
+
+            .then(data => {
+
+                if (data.url) {
+
+                    window.location.href = data.url;
+
+                } else {
+
+                    console.error('Checkout error:', data.error);
+
+                    alert("Checkout is currently unavailable in preview mode.");
+
+                    buttonElement.textContent = originalText;
+
+                    buttonElement.disabled = false;
+
+                    buttonElement.style.opacity = "1";
+
+                }
+
+            })
+
+            .catch(err => {
+
+                console.error(err);
+
+                alert("Network error while contacting payment server.");
+
+                buttonElement.textContent = originalText;
+
+                buttonElement.disabled = false;
+
+                buttonElement.style.opacity = "1";
+
+            });
+
+        }
+
+        
+
+        // Auto-bind to all Buy buttons
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const buyButtons = document.querySelectorAll('.ed-buy-inline, .price-btn, .bundle-btn');
+
+            buyButtons.forEach(btn => {
+
+                // Ignore "Coming Soon" or preview buttons
+
+                if(btn.textContent.includes('Coming Soon') || btn.textContent.includes('Preview only') || btn.disabled) return;
+
+
+
+                btn.addEventListener('click', function(e) {
+
+                    e.preventDefault();
+
+                    
+
+                    // Determine slug from parent card classes
+
+                    const card = this.closest('.ed-detail, .price-card, .bundle-banner');
+
+                    let slug = 'summer-sun'; // default
+
+                    
+
+                    if (card) {
+
+                        if (card.classList.contains('summer')) slug = 'summer-sun';
+
+                        else if (card.classList.contains('winter')) slug = 'winter-frost';
+
+                        else if (card.classList.contains('autumn')) slug = 'autumn-ember';
+
+                        else if (card.classList.contains('spring')) slug = 'spring-bloom';
+
+                        else if (card.classList.contains('bundle-banner')) slug = 'seasonal-bundle';
+
+                    } else if (this.classList.contains('bundle-btn')) {
+
+                        slug = 'seasonal-bundle';
+
+                    }
+
+                    
+
+                    // Detect mode from data-mode attribute. Bundle defaults to "payment".
+
+                    const mode = this.getAttribute('data-mode') || 'payment';
+
+                    
+
+                    if (typeof addItemToCart === 'function') {
+
+                        addItemToCart(slug, mode);
+
+                    } else {
+
+                        console.error('Basket system is not loaded.');
+
+                    }
+
+                });
+
+            });
+
+        });
+
+    </script>
+
+
+<script>
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  if (window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    const pageMap = {
+      'index.html': 'mobile-site/index-mobile.html',
+      'shop.html': 'mobile-site/shop-mobile.html',
+      'library.html': 'mobile-site/library-mobile.html',
+      'auth.html': 'mobile-site/auth-mobile.html',
+      'checkout.html': 'mobile-site/checkout-mobile.html',
+      'loading.html': 'mobile-site/loading-mobile.html'
+    };
+    const parts = window.location.pathname.split('/');
+    const currentFile = parts[parts.length - 1] || 'index.html';
+    const target = pageMap[currentFile] || pageMap['index.html'];
+    window.location.replace(target + window.location.search + window.location.hash);
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plannit - My Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<style>
+/* Base / Override Styles for Library */
+:root {
+--primary: #0F172A;
+--secondary: #64748B;
+--accent: #E8A020;
+--bg: #FDFCFB;
+--bg-alt: #F8FAFC;
+--border: rgba(15, 23, 42, 0.08);
+--border-hover: rgba(15, 23, 42, 0.2);
+--radius-lg: 24px;
+--radius-md: 16px;
+--radius-sm: 8px;
+--transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+--font-serif: 'Cormorant Garamond', Georgia, serif;
+--forest: #223C2B;
+--forest-hover: #1A3022;
+--charcoal: #0F172A;
+--muted: #64748B;
+--copper: #E8A020;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; box-sizing: border-box; }
+nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+nav .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.2rem; color: var(--primary); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links a { color: var(--secondary); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: var(--transition); }
+.nav-links a:hover { color: var(--primary); }
+.nav-shop {
+    background: var(--accent); color: var(--primary) !important; padding: 0.55rem 1.4rem; border-radius: 50px;
+    font-weight: 700; transition: var(--transition); text-decoration: none; font-size: 0.9rem;
+}
+.nav-shop:hover { background: var(--accent-hover); }
+footer { padding: 3rem 0; border-top: 1px solid var(--border); text-align: center; margin-top: 2rem; }
+@media (max-width: 640px) {
+    nav .library-container { flex-wrap: wrap; padding: 0.85rem 1.25rem !important; gap: 0.75rem; }
+}
+.emoji-svg { display: inline-block; vertical-align: middle; width: 24px; height: 24px; }
+.svg-lg { width: 40px; height: 40px; }
+.emblem-wrap .emoji-svg.svg-lg { width: 48px; height: 48px; }
+
+body {
+font-family: 'Inter', sans-serif;
+background: linear-gradient(180deg, #FDFCFB 0%, #F8FAFC 50%) !important;
+background-attachment: fixed !important;
+color: var(--primary);
+padding-top: 80px; /* nav offset */
+margin: 0;
+}
+
+/* Layout Philosophy */
+.library-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 24px;
+}
+
+/* --- Hero & Redeem --- */
+.library-hero {
+padding: 60px 0 30px;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+flex-wrap: wrap;
+gap: 20px;
+}
+
+.library-hero-text h1 {
+font-family: var(--font-serif);
+font-size: 2.8rem;
+margin-bottom: 0.5rem;
+font-weight: 600;
+}
+
+.library-hero-text p {
+color: var(--secondary);
+font-size: 1.05rem;
+}
+
+.redeem-box {
+display: flex;
+gap: 8px;
+position: relative;
+}
+
+.redeem-input {
+padding: 12px 16px;
+border: 1px solid var(--border);
+border-radius: var(--radius-sm);
+font-size: 0.9rem;
+font-family: 'Inter', sans-serif;
+width: 240px;
+outline: none;
+transition: var(--transition);
+}
+
+.redeem-input:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
+}
+
+.redeem-btn {
+padding: 12px 24px;
+background: var(--primary);
+color: white;
+border: none;
+border-radius: var(--radius-sm);
+font-size: 0.9rem;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.redeem-btn:hover {
+background: #1E293B;
+transform: translateY(-2px);
+}
+
+.redeem-feedback {
+font-size: 0.75rem;
+font-weight: 600;
+min-height: 1rem;
+text-align: right;
+}
+
+.feedback-success { color: #059669; }
+.feedback-error { color: #DC2626; }
+
+/* Row background washes */
+.shelf-row-wrapper {
+    padding: 40px 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.shelf-row-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shelf-row-wrapper.seasonal {
+background: linear-gradient(135deg, #FFF9F0 0%, #FDF6EC 100%);
+border-bottom: 1px solid rgba(245, 166, 35, 0.1);
+}
+.shelf-row-wrapper.seasonal::before {
+background: radial-gradient(circle at 10% 50%, rgba(245, 166, 35, 0.08) 0%, transparent 40%),
+radial-gradient(circle at 90% 50%, rgba(216, 90, 48, 0.05) 0%, transparent 40%);
+}
+
+.shelf-row-wrapper.botanical {
+background: linear-gradient(135deg, #F5FCF9 0%, #F0FBF7 100%);
+border-bottom: 1px solid rgba(93, 202, 165, 0.1);
+}
+.shelf-row-wrapper.botanical::before {
+background: radial-gradient(circle at 10% 50%, rgba(93, 202, 165, 0.08) 0%, transparent 40%),
+radial-gradient(circle at 90% 50%, rgba(175, 169, 236, 0.05) 0%, transparent 40%);
+}
+
+.shelf-row-wrapper.nature {
+background: linear-gradient(135deg, #F8FBF3 0%, #F3F8EC 100%);
+border-bottom: 1px solid rgba(99, 153, 34, 0.1);
+}
+.shelf-row-wrapper.nature::before {
+background: radial-gradient(circle at 10% 50%, rgba(55, 138, 221, 0.08) 0%, transparent 40%),
+radial-gradient(circle at 90% 50%, rgba(99, 153, 34, 0.05) 0%, transparent 40%);
+}
+
+.shelf-row-wrapper.cities {
+background: linear-gradient(135deg, #F8F9FA 0%, #F4F5F7 100%);
+border-bottom: 1px solid rgba(136, 135, 128, 0.1);
+}
+.shelf-row-wrapper.cities::before {
+background: radial-gradient(circle at 10% 50%, rgba(136, 135, 128, 0.08) 0%, transparent 40%),
+radial-gradient(circle at 90% 50%, rgba(0, 242, 254, 0.05) 0%, transparent 40%);
+}
+
+.shelf-row-wrapper .library-container {
+position: relative;
+z-index: 1;
+}
+
+.shelf-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 16px;
+}
+
+.shelf-label {
+font-size: 0.75rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(--secondary);
+}
+
+.buy-collection-btn {
+font-size: 0.8rem;
+font-weight: 600;
+color: var(--primary);
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 4px;
+transition: var(--transition);
+}
+
+.buy-collection-btn:hover {
+color: var(--accent);
+}
+
+/* Grid Specs */
+.shelf-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+}
+
+.shelf-horizontal {
+display: flex;
+gap: 16px;
+overflow-x: auto;
+padding-bottom: 16px;
+scrollbar-width: none;
+-ms-overflow-style: none;
+position: relative;
+}
+
+.shelf-horizontal::-webkit-scrollbar {
+display: none;
+}
+
+/* Scroll Hint Arrow */
+.scroll-hint-wrapper {
+position: relative;
+}
+
+.scroll-hint {
+position: absolute;
+right: 0;
+top: 50%;
+transform: translateY(-50%);
+width: 40px;
+height: 40px;
+background: white;
+border: 1px solid var(--border);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+cursor: pointer;
+z-index: 10;
+opacity: 0.9;
+transition: var(--transition);
+}
+
+.scroll-hint:hover {
+transform: translateY(-50%) scale(1.05);
+box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Cards */
+.planner-card {
+min-width: 220px;
+aspect-ratio: 3/4;
+border-radius: var(--radius-md);
+padding: 24px;
+display: flex;
+flex-direction: column;
+text-decoration: none;
+color: inherit;
+position: relative;
+flex: 0 0 auto;
+}
+
+.emblem-wrap {
+font-size: 60px;
+line-height: 1;
+text-align: center;
+margin-bottom: auto; /* push rest to bottom */
+padding-top: 10%;
+}
+
+.emblem {
+display: inline-block;
+transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), filter 0.3s ease;
+transform: scale(1);
+}
+
+.card-info {
+margin-top: auto;
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.card-name {
+font-family: 'Inter', sans-serif;
+font-weight: 600;
+font-size: 14px;
+color: var(--primary);
+line-height: 1.2;
+}
+
+.card-subtitle {
+font-family: 'Inter', sans-serif;
+font-weight: 400;
+font-size: 11px;
+color: var(--secondary);
+margin-top: -4px;
+}
+
+.swatches {
+display: flex;
+gap: 4px;
+margin-bottom: 12px;
+justify-content: center;
+}
+
+.swatch {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+}
+
+.cta-btn {
+width: 100%;
+padding: 10px;
+border-radius: var(--radius-sm);
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+transition: all 0.2s ease;
+box-sizing: border-box;
+}
+
+/* State: Greyed-out (Unowned) */
+.planner-card:not(.owned) {
+background: #F1F2F4;
+border: 0.5px solid #E2E4E8;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.planner-card:not(.owned)[href]:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 36px rgba(43,43,43,0.05); border: 1px solid var(--border-hover) !important;
+border-color: #CBD5E1;
+}
+
+/* Inert coming soon state */
+.planner-card:not(.owned):not([href]) {
+cursor: default;
+}
+
+.planner-card:not(.owned) .emblem {
+filter: grayscale(1) opacity(0.4);
+}
+
+.planner-card:not(.owned) .card-name,
+.planner-card:not(.owned) .card-subtitle {
+color: #64748B;
+}
+
+.planner-card:not(.owned) .swatch {
+opacity: 0.3;
+filter: grayscale(1);
+}
+
+.planner-card:not(.owned) .cta-btn {
+background: #E2E8F0; /* Dullish, but looks clickable */
+color: #475569;
+border: none;
+}
+
+/* Unowned planners still show their theme colour on the CTA, just softened */
+.planner-card:not(.owned)[data-id="summer-sun"] .cta-btn { background: rgba(245, 166, 35, 0.16); color: #92610C; }
+.planner-card:not(.owned)[data-id="winter-frost"] .cta-btn { background: rgba(133, 183, 235, 0.2); color: #1D5A96; }
+.planner-card:not(.owned)[data-id="autumn-ember"] .cta-btn { background: rgba(216, 90, 48, 0.16); color: #A03D1C; }
+.planner-card:not(.owned)[data-id="spring-bloom"] .cta-btn { background: rgba(212, 83, 126, 0.16); color: #A02F58; }
+.planner-card:not(.owned)[data-id="botanical-eucalyptus"] .cta-btn { background: rgba(93, 202, 165, 0.2); color: #0F6E56; }
+.planner-card:not(.owned)[data-id="botanical-rose"] .cta-btn { background: rgba(212, 83, 126, 0.16); color: #A02F58; }
+.planner-card:not(.owned)[data-id="botanical-lavender"] .cta-btn { background: rgba(175, 169, 236, 0.22); color: #4C43A8; }
+.planner-card:not(.owned)[data-id="botanical-wildflower"] .cta-btn { background: rgba(252, 165, 165, 0.28); color: #B33A3A; }
+
+.planner-card:not(.owned)[href]:hover .cta-btn {
+background: #CBD5E1;
+}
+
+/* State: Owned */
+.planner-card.owned {
+cursor: pointer;
+transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.planner-card.owned:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 24px rgba(232, 160, 32, 0.08), 0 4px 12px rgba(15, 23, 42, 0.03) !important;
+}
+
+.planner-card.owned:hover .emblem {
+transform: scale(1.15);
+}
+
+.planner-card.owned .cta-btn {
+color: white;
+border: none;
+}
+
+.planner-card.owned .cta-btn:hover {
+filter: brightness(0.9);
+}
+
+/* === SPECIFIC COLOR TINTS & HOVER WASH TRANSITIONS FOR OWNED PLANNERS === */
+
+/* Summer Sun */
+.planner-card.owned[data-id="summer-sun"] { background: linear-gradient(135deg, rgba(254, 252, 232, 0.95) 0%, rgba(254, 249, 236, 0.95) 100%); border: 1.5px solid rgba(245, 166, 35, 0.22); }
+.planner-card.owned[data-id="summer-sun"]:hover { border-color: rgba(245, 166, 35, 0.8); background: rgba(245, 166, 35, 0.25); }
+.planner-card.owned[data-id="summer-sun"] .cta-btn { background: #F5A623; }
+
+/* Winter Frost */
+.planner-card.owned[data-id="winter-frost"] { background: linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(230, 240, 250, 0.95) 100%); border: 1.5px solid rgba(133, 183, 235, 0.22); }
+.planner-card.owned[data-id="winter-frost"]:hover { border-color: rgba(133, 183, 235, 0.8); background: rgba(133, 183, 235, 0.25); }
+.planner-card.owned[data-id="winter-frost"] .cta-btn { background: #85B7EB; }
+
+/* Autumn Ember */
+.planner-card.owned[data-id="autumn-ember"] { background: linear-gradient(135deg, rgba(253, 244, 240, 0.95) 0%, rgba(248, 230, 224, 0.95) 100%); border: 1.5px solid rgba(216, 90, 48, 0.22); }
+.planner-card.owned[data-id="autumn-ember"]:hover { border-color: rgba(216, 90, 48, 0.8); background: rgba(216, 90, 48, 0.25); }
+.planner-card.owned[data-id="autumn-ember"] .cta-btn { background: #D85A30; }
+
+/* Spring Bloom */
+.planner-card.owned[data-id="spring-bloom"] { background: linear-gradient(135deg, rgba(250, 245, 255, 0.95) 0%, rgba(243, 232, 255, 0.95) 100%); border: 1.5px solid rgba(151, 196, 89, 0.22); }
+.planner-card.owned[data-id="spring-bloom"]:hover { border-color: rgba(151, 196, 89, 0.8); background: rgba(151, 196, 89, 0.25); }
+.planner-card.owned[data-id="spring-bloom"] .cta-btn { background: #D4537E; }
+
+/* Botanical Variants */
+.planner-card.owned[data-id="botanical-eucalyptus"] { background: rgba(93, 202, 165, 0.15); border: 0.5px solid rgba(93, 202, 165, 0.3); }
+.planner-card.owned[data-id="botanical-eucalyptus"]:hover { border-color: rgba(93, 202, 165, 0.8); background: rgba(93, 202, 165, 0.25); }
+.planner-card.owned[data-id="botanical-eucalyptus"] .cta-btn { background: #5DCAA5; }
+
+.planner-card.owned[data-id="botanical-rose"] { background: rgba(212, 83, 126, 0.15); border: 0.5px solid rgba(212, 83, 126, 0.3); }
+.planner-card.owned[data-id="botanical-rose"]:hover { border-color: rgba(212, 83, 126, 0.8); background: rgba(212, 83, 126, 0.25); }
+.planner-card.owned[data-id="botanical-rose"] .cta-btn { background: #D4537E; }
+
+.planner-card.owned[data-id="botanical-lavender"] { background: rgba(175, 169, 236, 0.15); border: 0.5px solid rgba(175, 169, 236, 0.3); }
+.planner-card.owned[data-id="botanical-lavender"]:hover { border-color: rgba(175, 169, 236, 0.8); background: rgba(175, 169, 236, 0.25); }
+.planner-card.owned[data-id="botanical-lavender"] .cta-btn { background: #AFA9EC; }
+
+.planner-card.owned[data-id="botanical-wildflower"] { background: rgba(252, 165, 165, 0.15); border: 0.5px solid rgba(252, 165, 165, 0.3); }
+.planner-card.owned[data-id="botanical-wildflower"]:hover { border-color: rgba(252, 165, 165, 0.8); background: rgba(252, 165, 165, 0.25); }
+.planner-card.owned[data-id="botanical-wildflower"] .cta-btn { background: #FCA5A5; }
+
+/* Nature Variants */
+.planner-card.owned[data-id="nature-rain"] { background: rgba(112, 128, 144, 0.15); border: 0.5px solid rgba(112, 128, 144, 0.3); }
+.planner-card.owned[data-id="nature-rain"]:hover { border-color: rgba(112, 128, 144, 0.8); background: rgba(112, 128, 144, 0.25); }
+.planner-card.owned[data-id="nature-rain"] .cta-btn { background: #708090; }
+
+.planner-card.owned[data-id="nature-forest"] { background: rgba(99, 153, 34, 0.15); border: 0.5px solid rgba(99, 153, 34, 0.3); }
+.planner-card.owned[data-id="nature-forest"]:hover { border-color: rgba(99, 153, 34, 0.8); background: rgba(99, 153, 34, 0.25); }
+.planner-card.owned[data-id="nature-forest"] .cta-btn { background: #639922; }
+
+.planner-card.owned[data-id="nature-ocean"] { background: rgba(55, 138, 221, 0.15); border: 0.5px solid rgba(55, 138, 221, 0.3); }
+.planner-card.owned[data-id="nature-ocean"]:hover { border-color: rgba(55, 138, 221, 0.8); background: rgba(55, 138, 221, 0.25); }
+.planner-card.owned[data-id="nature-ocean"] .cta-btn { background: #378ADD; }
+
+.planner-card.owned[data-id="nature-mountain"] { background: rgba(139, 109, 63, 0.15); border: 0.5px solid rgba(139, 109, 63, 0.3); }
+.planner-card.owned[data-id="nature-mountain"]:hover { border-color: rgba(139, 109, 63, 0.8); background: rgba(139, 109, 63, 0.25); }
+.planner-card.owned[data-id="nature-mountain"] .cta-btn { background: #8B6D3F; }
+
+.planner-card.owned[data-id="nature-desert"] { background: rgba(210, 180, 140, 0.15); border: 0.5px solid rgba(210, 180, 140, 0.3); }
+.planner-card.owned[data-id="nature-desert"]:hover { border-color: rgba(210, 180, 140, 0.8); background: rgba(210, 180, 140, 0.25); }
+.planner-card.owned[data-id="nature-desert"] .cta-btn { background: #D2B48C; }
+
+
+/* Capital Cities */
+.planner-card.owned[data-col="cities"] { background: rgba(136, 135, 128, 0.15); border: 0.5px solid rgba(136, 135, 128, 0.3); }
+.planner-card.owned[data-col="cities"]:hover { border-color: rgba(136, 135, 128, 0.8); background: rgba(136, 135, 128, 0.25); }
+.planner-card.owned[data-col="cities"] .cta-btn { background: #888780; }
+
+/* Custom Fine-Line Art / Organic SVG styles */
+.seasonal-icon {
+width: 52px;
+height: 52px;
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+display: block;
+margin: 0 auto;
+}
+
+/* Sun-specific animations */
+.sun-rays {
+transform-origin: center;
+transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.planner-card:hover .sun-rays {
+transform: rotate(45deg);
+}
+.planner-card.owned:hover .organic-sun {
+transform: scale(1.1);
+}
+
+/* Snowflake-specific animations */
+.organic-frost {
+transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.planner-card:hover .organic-frost {
+transform: scale(1.1) rotate(60deg);
+}
+
+/* Leaf-specific animations */
+.organic-ember {
+transform-origin: bottom right;
+transition: transform 0.6s ease-in-out;
+}
+@keyframes leaf-sway {
+0%, 100% { transform: scale(1.08) rotate(0deg); }
+50% { transform: scale(1.08) rotate(-12deg); }
+}
+.planner-card:hover .organic-ember {
+animation: leaf-sway 1.8s ease-in-out infinite;
+}
+
+/* Flower-specific animations */
+.organic-spring {
+transform-origin: center;
+transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes flower-bloom {
+0%, 100% { transform: scale(1) rotate(0deg); }
+50% { transform: scale(1.08) rotate(5deg); }
+}
+.planner-card:hover .organic-spring {
+animation: flower-bloom 2s ease-in-out infinite;
+}
+
+.library-main-content {
+opacity: 0;
+transform: translateY(12px);
+transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+        /* Added by patch */
+        body { margin: 0 !important; padding: 0 !important; }
+        nav { margin: 0 !important; }
+        .shelf-horizontal .planner-card {
+            width: 260px !important;
+            flex: 0 0 auto;
+        }
+        
+        /* Remove background colors for Botanical Collection */
+        .planner-card.owned[data-col="botanical"],
+        .planner-card.owned[data-id^="botanical-"] {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+        }
+        .planner-card.owned[data-id^="botanical-"]:hover {
+            border-color: var(--charcoal) !important;
+            background: rgba(15, 23, 42, 0.02) !important;
+        }
+</style>
+<script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav>
+
+        <div class="container">
+
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 48px; width: 48px; fill: none; vertical-align: middle;">
+                  <defs>
+                    <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFB7B2" />
+                      <stop offset="33%" stop-color="#E2F0CB" />
+                      <stop offset="66%" stop-color="#B5EAD7" />
+                      <stop offset="100%" stop-color="#C7CEEA" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+                    <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+                    <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+                    <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+                    <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+                    <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+                    <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+                    <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+                    <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+                    <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+                    <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+                    <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+                    <polygon points="40,52 37,58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+                    <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+                    <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+                    <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+                    <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+                    <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+                    <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+                    <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+                    <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+                  </g>
+                </svg>
+                Plannit</a>
+
+            <div class="nav-links">
+
+                <a href="index.html#collections">Collections</a>
+
+                <a href="index.html#features">Features</a>
+
+                <a href="index.html#roadmap">Roadmap</a>
+
+                <a href="index.html#community">Community</a>
+
+                <a href="library.html" style="color: var(--accent); font-weight: 700;">Library <i data-lucide="key" class="lucide" style="width: 16px; height: 16px;"></i></a>
+
+                
+
+                <!-- Basket Icon -->
+
+                <div class="nav-cart-btn" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+
+                    <span class="cart-badge" style="position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: none;">0</span>
+
+                </div>
+
+                <a href="auth.html" class="nav-profile-btn" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary); text-decoration: none;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+
+
+
+                <a href="shop.html" class="nav-shop">Shop</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+<div class="library-container">
+<header class="library-hero">
+<div class="library-hero-text">
+            <h1 style="font-family: 'Playfair Display', Georgia, serif !important; font-size: clamp(2.2rem, 5vw, 3.8rem) !important; line-height: 1.15 !important; color: var(--charcoal) !important; font-weight: 500 !important; margin-bottom: 0.5rem !important;">Your Library</h1>
+            <p style="font-size: 1.25rem !important; color: var(--muted) !important; margin: 0 0 1.5rem 0 !important;">All your planners in one place.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <div class="redeem-box">
+      <input type="text" id="redeemInput" class="redeem-input" placeholder="Enter access code...">
+      <button id="redeemBtn" class="redeem-btn">Redeem</button>
+    </div>
+    <a href="#" id="syncLibraryBtn" style="font-size: 0.8rem; color: var(--secondary); text-decoration: none; font-weight: 600; transition: var(--transition); display: flex; align-items: center; gap: 4px; white-space: nowrap;"><i data-lucide="refresh-cw" class="lucide" style="width: 14px; height: 14px; margin-right: 4px;"></i> Sync Purchases</a>
+  </div>
+  <div id="redeemFeedback" class="redeem-feedback"></div>
+</div>
+</header>
+</div>
+
+<!-- Row 1: Seasonal -->
+<div class="shelf-row-wrapper seasonal">
+<div class="library-container">
+<div class="shelf-header">
+<span class="shelf-label">Seasonal Collection</span>
+<a href="shop.html#seasonal" class="buy-collection-btn" id="buy-seasonal">Buy collection <i data-lucide="arrow-right" class="lucide" style="width: 14px; height: 14px;"></i></a>
+</div>
+<div class="shelf-grid">
+
+<!-- Summer Sun -->
+<a href="shop.html#seasonal" class="planner-card" data-id="summer-sun" data-col="seasonal">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/sun.svg" class="emoji-svg svg-lg" alt="Summer Sun"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#F5A623"></div>
+<div class="swatch" style="background:#FAC775"></div>
+<div class="swatch" style="background:#5DCAA5"></div>
+</div>
+<div class="card-name">Summer Sun Edition</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Winter Frost -->
+<a href="shop.html#seasonal" class="planner-card" data-id="winter-frost" data-col="seasonal">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/winter.svg" class="emoji-svg svg-lg" alt="Winter Frost"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#85B7EB"></div>
+<div class="swatch" style="background:#AECDEF"></div>
+<div class="swatch" style="background:#C4D8EE"></div>
+</div>
+<div class="card-name">Winter Frost</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Autumn Ember -->
+<a href="shop.html#seasonal" class="planner-card" data-id="autumn-ember" data-col="seasonal">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/autumn.svg" class="emoji-svg svg-lg" alt="Autumn Ember"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#E8593C"></div>
+<div class="swatch" style="background:#ECA332"></div>
+<div class="swatch" style="background:#FAECE7"></div>
+</div>
+<div class="card-name">Autumn Ember</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Spring Bloom -->
+<a href="shop.html#seasonal" class="planner-card" data-id="spring-bloom" data-col="seasonal">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/spring.svg" class="emoji-svg svg-lg" alt="Spring Bloom"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#97C459"></div>
+<div class="swatch" style="background:#D4537E"></div>
+<div class="swatch" style="background:#FBEAF0"></div>
+</div>
+<div class="card-name">Spring Bloom</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+</div>
+</div>
+</div>
+
+<div class="shelf-row-wrapper botanical">
+<div class="library-container">
+<div class="shelf-header">
+<span class="shelf-label">Botanical Collection</span>
+<a href="shop.html#botanical" class="buy-collection-btn" id="buy-botanical">Buy collection <i data-lucide="arrow-right" class="lucide" style="width: 14px; height: 14px;"></i></a>
+</div>
+<div class="shelf-grid">
+
+<!-- Eucalyptus -->
+<a href="shop.html#botanical" class="planner-card" data-id="botanical-eucalyptus" data-col="botanical">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/eucalyptus.svg" class="emoji-svg svg-lg sway-subtle" alt="Eucalyptus"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#5DCAA5"></div>
+<div class="swatch" style="background:#D4537E"></div>
+<div class="swatch" style="background:#AFA9EC"></div>
+<div class="swatch" style="background:#E1F5EE"></div>
+</div>
+<div class="card-name">Eucalyptus</div>
+<div class="cta-btn">Coming soon</div>
+</div>
+</a>
+
+<!-- Lavender -->
+<a href="shop.html#botanical" class="planner-card" data-id="botanical-lavender" data-col="botanical">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/lavender.svg" class="emoji-svg svg-lg sway-subtle" alt="Lavender"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#AFA9EC"></div>
+<div class="swatch" style="background:#5DCAA5"></div>
+<div class="swatch" style="background:#D4537E"></div>
+<div class="swatch" style="background:#E1F5EE"></div>
+</div>
+<div class="card-name">Lavender</div>
+<div class="cta-btn">Coming soon</div>
+</div>
+</a>
+
+<!-- Rose -->
+<a href="shop.html#botanical" class="planner-card" data-id="botanical-rose" data-col="botanical">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/rose.svg" class="emoji-svg svg-lg pulse-subtle" alt="Rose"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#D4537E"></div>
+<div class="swatch" style="background:#5DCAA5"></div>
+<div class="swatch" style="background:#AFA9EC"></div>
+<div class="swatch" style="background:#E1F5EE"></div>
+</div>
+<div class="card-name">Rose</div>
+<div class="cta-btn">Coming soon</div>
+</div>
+</a>
+
+<!-- Wildflower -->
+<a href="shop.html#botanical" class="planner-card" data-id="botanical-wildflower" data-col="botanical">
+<div class="emblem-wrap"><span class="emblem"><img src="emojis/wildflower.svg" class="emoji-svg svg-lg pulse-subtle" alt="Wildflower"></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#FCA5A5"></div>
+<div class="swatch" style="background:#5DCAA5"></div>
+<div class="swatch" style="background:#D4537E"></div>
+<div class="swatch" style="background:#E1F5EE"></div>
+</div>
+<div class="card-name">Wildflower</div>
+<div class="cta-btn">Coming soon</div>
+</div>
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- Row 3: Nature -->
+<div class="shelf-row-wrapper nature">
+<div class="library-container">
+<div class="shelf-header">
+<span class="shelf-label">Nature Collection</span>
+<a href="shop.html#nature" class="buy-collection-btn" id="buy-nature">Buy collection <i data-lucide="arrow-right" class="lucide" style="width: 14px; height: 14px;"></i></a>
+</div>
+<div class="scroll-hint-wrapper">
+<div class="shelf-horizontal" id="scrollRowNature">
+
+<!-- Rain -->
+<a href="shop.html#nature" class="planner-card" data-id="nature-rain" data-col="nature">
+<div class="emblem-wrap"><span class="emblem" style="color: #475569; display: inline-flex; align-items: center; justify-content: center;"><i data-lucide="cloud-rain" class="lucide" style="width: 48px; height: 48px;"></i></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#708090"></div>
+<div class="swatch" style="background:#639922"></div>
+<div class="swatch" style="background:#378ADD"></div>
+<div class="swatch" style="background:#EAF3DE"></div>
+</div>
+<div class="card-name">Rain</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Forest -->
+<a href="shop.html#nature" class="planner-card" data-id="nature-forest" data-col="nature">
+<div class="emblem-wrap"><span class="emblem" style="color: #639922; display: inline-flex; align-items: center; justify-content: center;"><i data-lucide="tree-pine" class="lucide" style="width: 48px; height: 48px;"></i></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#639922"></div>
+<div class="swatch" style="background:#97C459"></div>
+<div class="swatch" style="background:#B4B2A9"></div>
+<div class="swatch" style="background:#EAF3DE"></div>
+</div>
+<div class="card-name">Forest</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Ocean -->
+<a href="shop.html#nature" class="planner-card" data-id="nature-ocean" data-col="nature">
+<div class="emblem-wrap"><span class="emblem" style="color: #0891B2; display: inline-flex; align-items: center; justify-content: center;"><i data-lucide="waves" class="lucide" style="width: 48px; height: 48px;"></i></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#378ADD"></div>
+<div class="swatch" style="background:#639922"></div>
+<div class="swatch" style="background:#B4B2A9"></div>
+<div class="swatch" style="background:#EAF3DE"></div>
+</div>
+<div class="card-name">Ocean</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Mountain -->
+<a href="shop.html#nature" class="planner-card" data-id="nature-mountain" data-col="nature">
+<div class="emblem-wrap"><span class="emblem" style="color: #8B6D3F; display: inline-flex; align-items: center; justify-content: center;"><i data-lucide="mountain" class="lucide" style="width: 48px; height: 48px;"></i></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#8B6D3F"></div>
+<div class="swatch" style="background:#639922"></div>
+<div class="swatch" style="background:#B4B2A9"></div>
+<div class="swatch" style="background:#EAF3DE"></div>
+</div>
+<div class="card-name">Mountain</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+<!-- Desert -->
+<a href="shop.html#nature" class="planner-card" data-id="nature-desert" data-col="nature">
+<div class="emblem-wrap"><span class="emblem" style="color: #D97706; display: inline-flex; align-items: center; justify-content: center;"><i data-lucide="sun" class="lucide" style="width: 48px; height: 48px;"></i></span></div>
+<div class="card-info">
+<div class="swatches">
+<div class="swatch" style="background:#D2B48C"></div>
+<div class="swatch" style="background:#639922"></div>
+<div class="swatch" style="background:#B4B2A9"></div>
+<div class="swatch" style="background:#EAF3DE"></div>
+</div>
+<div class="card-name">Desert</div>
+<div class="cta-btn">Purchase</div>
+</div>
+</a>
+
+</div>
+<!-- Scroll Hint -->
+<div class="scroll-hint" id="scrollHintNature">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Row 4: Capital Cities -->
+<div class="shelf-row-wrapper cities">
+    <div class="library-container">
+        <div class="shelf-header">
+                <span class="shelf-label">Capital Cities Collection</span>
+                <a href="shop.html#capital-cities" class="buy-collection-btn" id="buy-cities">Buy collection <i data-lucide="arrow-right" class="lucide" style="width: 14px; height: 14px;"></i></a>
+            </div>
+            
+            <div class="scroll-hint-wrapper">
+                <div class="shelf-horizontal" id="scrollRowCities">
+                    
+                    <!-- Tokyo -->
+                    <a href="shop.html#capital-cities" class="planner-card" data-id="tokyo" data-col="cities">
+                        <div class="emblem-wrap"><span class="emblem">🏯</span></div>
+                        <div class="card-info">
+                            <div class="swatches">
+                                <div class="swatch" style="background:#888780"></div>
+                                <div class="swatch" style="background:#444441"></div>
+                                <div class="swatch" style="background:#378ADD"></div>
+                                <div class="swatch" style="background:#D3D1C7"></div>
+                            </div>
+                            <div class="card-name">Tokyo</div>
+                            <div class="cta-btn">Purchase</div>
+                        </div>
+                    </a>
+
+                    <!-- London -->
+                    <a href="shop.html#capital-cities" class="planner-card" data-id="london" data-col="cities">
+                        <div class="emblem-wrap"><span class="emblem">🎡</span></div>
+                        <div class="card-info">
+                            <div class="swatches">
+                                <div class="swatch" style="background:#888780"></div>
+                                <div class="swatch" style="background:#444441"></div>
+                                <div class="swatch" style="background:#378ADD"></div>
+                                <div class="swatch" style="background:#D3D1C7"></div>
+                            </div>
+                            <div class="card-name">London</div>
+                            <div class="cta-btn">Purchase</div>
+                        </div>
+                    </a>
+
+                    <!-- Paris -->
+                    <a href="shop.html#capital-cities" class="planner-card" data-id="paris" data-col="cities">
+                        <div class="emblem-wrap"><span class="emblem">🗼</span></div>
+                        <div class="card-info">
+                            <div class="swatches">
+                                <div class="swatch" style="background:#888780"></div>
+                                <div class="swatch" style="background:#444441"></div>
+                                <div class="swatch" style="background:#378ADD"></div>
+                                <div class="swatch" style="background:#D3D1C7"></div>
+                            </div>
+                            <div class="card-name">Paris</div>
+                            <div class="cta-btn">Purchase</div>
+                        </div>
+                    </a>
+
+                    <!-- Toronto -->
+                    <a href="shop.html#capital-cities" class="planner-card" data-id="toronto" data-col="cities">
+                        <div class="emblem-wrap"><span class="emblem">🍁</span></div>
+                        <div class="card-info">
+                            <div class="swatches">
+                                <div class="swatch" style="background:#888780"></div>
+                                <div class="swatch" style="background:#444441"></div>
+                                <div class="swatch" style="background:#378ADD"></div>
+                                <div class="swatch" style="background:#D3D1C7"></div>
+                            </div>
+                            <div class="card-name">Toronto</div>
+                            <div class="cta-btn">Purchase</div>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- Scroll Hint -->
+                <div class="scroll-hint" id="scrollHintCities">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="library-container">
+            <p style="font-size: 0.75rem; color: var(--secondary); opacity: 0.7; margin: 0;">&copy; 2026 Plannit Studio. All rights reserved. &bull; <a href="terms.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Terms &amp; Conditions</a> &bull; <a href="privacy.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Privacy Policy</a> &bull; <a href="eula.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">EULA</a> &bull; <a href="credits.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Credits</a></p>
+        </div>
+    </footer>
+
+
+    <!-- Toast Container -->
+    <div id="toastContainer" style="position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 8px; z-index: 99999; pointer-events: none;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate library loading overlay
+            const libLoader = document.getElementById('library-loader-overlay');
+            if (libLoader) {
+                const emblems = libLoader.querySelectorAll('.lib-loader-emblem');
+                let idx = 0;
+                function cycleEmblems() {
+                    emblems.forEach(e => {
+                        e.style.opacity = '0';
+                        e.style.transform = 'scale(0.8)';
+                    });
+                    if (idx < emblems.length) {
+                        emblems[idx].style.opacity = '1';
+                        emblems[idx].style.transform = 'scale(1)';
+                        idx++;
+                        setTimeout(cycleEmblems, 200);
+                    } else {
+                        // Fade out overlay
+                        libLoader.style.opacity = '0';
+                        setTimeout(() => {
+                            libLoader.style.display = 'none';
+                            // Trigger fade-in of main content wrapper
+                            const mainContent = document.querySelector('.library-main-content');
+                            if (mainContent) {
+                                mainContent.style.opacity = '1';
+                                mainContent.style.transform = 'translateY(0)';
+                            }
+                        }, 500);
+                    }
+                }
+                setTimeout(cycleEmblems, 150);
+            }
+
+            // Retrieve ownership from localStorage
+            let ownedPlanners = [];
+            const stored = localStorage.getItem('plannit_owned');
+            try {
+                if (stored) {
+                    ownedPlanners = JSON.parse(stored);
+                } else {
+                    // Default fallback: empty library
+                    ownedPlanners = [];
+                    localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                }
+            } catch (e) {
+                console.error("Error reading plannit_owned", e);
+                ownedPlanners = [];
+            }
+
+            const loggedInEmail = localStorage.getItem('plannit_user_email');
+            if (loggedInEmail) {
+                fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Auto-sync failed");
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.allowedEditions) {
+                            // Merge server list with locally-unlocked planners — never discard local unlocks
+                            const serverList = data.allowedEditions;
+                            const merged = [...new Set([...ownedPlanners, ...serverList])];
+                            ownedPlanners = merged;
+                            localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                            if (data.userId) {
+                                localStorage.setItem('plannit_user_id', data.userId);
+                            }
+                            renderLibrary();
+                        }
+                    })
+                    .catch(err => console.error("Error auto-syncing library:", err));
+            }
+
+            // Collection mapping
+            const collectionMap = {
+                'seasonal': ['summer-sun', 'winter-frost', 'autumn-ember', 'spring-bloom'],
+                'botanical': ['botanical-eucalyptus', 'botanical-rose', 'botanical-lavender', 'botanical-wildflower'],
+                'nature': ['nature-rain', 'nature-forest', 'nature-ocean', 'nature-mountain', 'nature-desert'],
+                'cities': [] // Capital Cities never owned
+            };
+
+            function renderLibrary() {
+                // Render Cards
+                const cards = document.querySelectorAll('.planner-card');
+                cards.forEach(card => {
+                    const id = card.getAttribute('data-id');
+                    const col = card.getAttribute('data-col');
+                    const btn = card.querySelector('.cta-btn');
+
+                    if (col !== 'cities' && ownedPlanners.includes(id)) {
+                        card.classList.add('owned');
+                        btn.textContent = 'Plan';
+                        card.removeAttribute('href'); // prevent any accidental shop navigation
+                        card.style.cursor = 'pointer';
+                        card.style.pointerEvents = 'auto';
+                    } else {
+                        card.classList.remove('owned');
+
+                        if (col === 'nature' || col === 'cities') {
+                            btn.textContent = 'Planned';
+                            card.removeAttribute('href'); // makes it completely inert and unclickable
+                        } else {
+                            btn.textContent = 'Purchase';
+                            card.href = 'shop.html#' + col;
+                        }
+                    }
+                });
+
+                // Render "Buy Collection" Buttons
+                ['seasonal', 'botanical', 'nature'].forEach(col => {
+                    const hasAny = collectionMap[col].some(id => ownedPlanners.includes(id));
+                    const buyBtn = document.getElementById(`buy-${col}`);
+                    if (buyBtn) {
+                        buyBtn.style.display = hasAny ? 'none' : 'flex';
+                    }
+                });
+            }
+
+            renderLibrary();
+
+            // --- Redeem Code Logic ---
+            // ⚠️ Keep in sync with api/auth.js codeMapping and REDEEM-CODES.md
+            const redeemInput = document.getElementById('redeemInput');
+            const redeemBtn = document.getElementById('redeemBtn');
+            const redeemFeedback = document.getElementById('redeemFeedback');
+
+            const VALID_CODES = {
+                // Individual Seasonal Planners
+                'REDACTED': 'summer-sun',
+                'REDACTED': 'winter-frost',
+                'REDACTED': 'autumn-ember',
+                'REDACTED': 'spring-bloom',
+
+                // Botanical Collection
+                'REDACTED':  'botanical-eucalyptus',
+                'REDACTED': 'botanical-rose',
+                'REDACTED':  'botanical-lavender',
+                'REDACTED': 'botanical-wildflower',
+
+                // Full Collections
+                'REDACTED': ['summer-sun', 'winter-frost', 'autumn-ember', 'spring-bloom'],
+                'REDACTED':  ['botanical-eucalyptus', 'botanical-rose', 'botanical-lavender', 'botanical-wildflower'],
+
+                // Master Code
+                'REDACTED': [
+                    'summer-sun', 'winter-frost', 'autumn-ember', 'spring-bloom',
+                    'botanical-eucalyptus', 'botanical-rose', 'botanical-lavender', 'botanical-wildflower'
+                ]
+            };
+
+            function showFeedback(msg, isError) {
+                redeemFeedback.textContent = msg;
+                redeemFeedback.className = 'redeem-feedback ' + (isError ? 'feedback-error' : 'feedback-success');
+                setTimeout(() => { redeemFeedback.textContent = ''; }, 3000);
+            }
+
+            if (redeemBtn) {
+                redeemBtn.addEventListener('click', () => {
+                    // Normalize input: strip extra spaces, convert en/em dashes to regular hyphen
+                    const raw = redeemInput.value.trim();
+                    const code = raw.replace(/[\u2013\u2014\u2212]/g, '-').replace(/\s+/g, '').toUpperCase();
+                    if (!code) return;
+
+                    const email = localStorage.getItem('plannit_user_email');
+
+                    if (email) {
+                        // Logged in: try server first, fall back to local VALID_CODES if server rejects
+                        redeemBtn.disabled = true;
+                        const originalText = redeemBtn.textContent;
+                        redeemBtn.textContent = 'Verifying...';
+
+                        fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'redeem', email, code })
+                        })
+                        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+                        .then(({ ok, data }) => {
+                            if (ok && data.success) {
+                                // Server confirmed — merge with local to avoid losing local unlocks
+                                const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
+                                ownedPlanners = merged;
+                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                                // Track local redemptions
+                                const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
+                                data.allowedEditions.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
+                                localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
+                                // Store per-edition access tokens for gateway fallback
+                                if (data.tokens) {
+                                    const allTokens = JSON.parse(localStorage.getItem('plannit_tokens') || '{}');
+                                    Object.assign(allTokens, data.tokens);
+                                    localStorage.setItem('plannit_tokens', JSON.stringify(allTokens));
+                                }
+                                renderLibrary();
+                                redeemInput.value = '';
+                                showFeedback('Code redeemed successfully! 🎉', false);
+                            } else {
+                                // Server rejected — try local VALID_CODES as fallback
+                                const match = VALID_CODES[code];
+                                if (match) {
+                                    let newlyUnlocked = false;
+                                    const itemsToUnlock = Array.isArray(match) ? match : [match];
+                                    itemsToUnlock.forEach(id => {
+                                        if (!ownedPlanners.includes(id)) {
+                                            ownedPlanners.push(id);
+                                            newlyUnlocked = true;
+                                        }
+                                    });
+                                    if (newlyUnlocked) {
+                                        localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                                        // Track local redemptions so accessPlanner doesn't strip them
+                                        const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
+                                        itemsToUnlock.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
+                                        localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
+                                        renderLibrary();
+                                        redeemInput.value = '';
+                                        showFeedback('Unlocked! 🎉', false);
+                                    } else {
+                                        showFeedback('You already own this planner.', false);
+                                        redeemInput.value = '';
+                                    }
+                                } else {
+                                    showFeedback(data.error || 'Invalid or expired code.', true);
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            // Network failure — still try local
+                            const match = VALID_CODES[code];
+                            if (match) {
+                                const itemsToUnlock = Array.isArray(match) ? match : [match];
+                                itemsToUnlock.forEach(id => { if (!ownedPlanners.includes(id)) ownedPlanners.push(id); });
+                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                                // Track local redemptions
+                                const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
+                                itemsToUnlock.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
+                                localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
+                                renderLibrary();
+                                redeemInput.value = '';
+                                showFeedback('Unlocked locally! Sync to save permanently.', false);
+                            } else {
+                                showFeedback('Invalid or expired code.', true);
+                            }
+                        })
+                        .finally(() => {
+                            redeemBtn.disabled = false;
+                            redeemBtn.textContent = originalText;
+                        });
+
+                    } else {
+                        // Guest: client-side localStorage fallback
+                        const match = VALID_CODES[code];
+                        if (match) {
+                            let newlyUnlocked = false;
+                            const itemsToUnlock = Array.isArray(match) ? match : [match];
+                            itemsToUnlock.forEach(id => {
+                                if (!ownedPlanners.includes(id)) {
+                                    ownedPlanners.push(id);
+                                    newlyUnlocked = true;
+                                }
+                            });
+                            if (newlyUnlocked) {
+                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                                renderLibrary();
+                                redeemInput.value = '';
+                                showFeedback('Unlocked! Sign in to sync permanently.', false);
+                            } else {
+                                showFeedback('You already own this planner.', false);
+                                redeemInput.value = '';
+                            }
+                        } else {
+                            showFeedback('Invalid code: "' + code + '"', true);
+                        }
+                    }
+                });
+            }
+
+// Handle Horizontal Scroll Hint for Rows 3 and 4
+function setupScrollRow(rowId, hintId) {
+const scrollRow = document.getElementById(rowId);
+const scrollHint = document.getElementById(hintId);
+if (!scrollRow || !scrollHint) return;
+
+function updateScrollHint() {
+const maxScrollLeft = scrollRow.scrollWidth - scrollRow.clientWidth;
+if (scrollRow.scrollLeft >= maxScrollLeft - 10) {
+scrollHint.style.opacity = '0';
+scrollHint.style.pointerEvents = 'none';
+} else {
+scrollHint.style.opacity = '0.9';
+scrollHint.style.pointerEvents = 'all';
+}
+}
+
+scrollRow.addEventListener('scroll', updateScrollHint);
+window.addEventListener('resize', updateScrollHint);
+
+const cardsInScroll = scrollRow.querySelectorAll('.planner-card');
+cardsInScroll.forEach(c => {
+c.style.flex = `0 0 calc(25% - 12px)`; 
+});
+
+updateScrollHint();
+
+scrollHint.addEventListener('click', () => {
+scrollRow.scrollBy({ left: 300, behavior: 'smooth' });
+});
+}
+
+setupScrollRow('scrollRowNature', 'scrollHintNature');
+setupScrollRow('scrollRowCities', 'scrollHintCities');
+
+// Toast Notification System
+function showToast(message, type = 'success') {
+const container = document.getElementById('toastContainer');
+if (!container) return;
+
+const toast = document.createElement('div');
+toast.style.pointerEvents = 'auto';
+toast.style.background = type === 'success' ? '#059669' : type === 'error' ? '#DC2626' : '#0F172A';
+toast.style.color = 'white';
+toast.style.padding = '0.9rem 1.8rem';
+toast.style.borderRadius = '50px';
+toast.style.fontWeight = '600';
+toast.style.fontSize = '0.85rem';
+toast.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.08)';
+toast.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+toast.style.transform = 'translateY(50px)';
+toast.style.opacity = '0';
+toast.textContent = message;
+
+container.appendChild(toast);
+
+setTimeout(() => {
+toast.style.transform = 'translateY(0)';
+toast.style.opacity = '1';
+}, 50);
+
+setTimeout(() => {
+toast.style.transform = 'translateY(-20px)';
+toast.style.opacity = '0';
+setTimeout(() => toast.remove(), 400);
+}, 3500);
+}
+
+// Secure Gateway Access
+async function accessPlanner(id) {
+let email = localStorage.getItem('plannit_user_email');
+
+// Helper to bypass iOS Safari popup blocker by navigating in the same tab on mobile
+function openUrl(url) {
+    const isMobile = /iPhone|iPad|iPod|Android|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
+    if (isMobile || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        window.location.href = url;
+    } else {
+        window.open(url, '_blank');
+    }
+}
+
+showToast("Decrypting secure planner...", "info");
+
+// If running locally without an email (e.g. redeemed via mock code)
+if (!email) {
+setTimeout(() => {
+showToast("Access granted (Offline Mode).", "success");
+openUrl(`loading.html?planner=${encodeURIComponent(id)}`);
+}, 800);
+return;
+}
+
+try {
+const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
+    signal: controller.signal
+});
+clearTimeout(timeoutId);
+const data = await res.json();
+
+if (res.ok && data.success && data.signedUrl) {
+openUrl(data.signedUrl);
+} else {
+// Handle guest bypass failure or server error falling back to local offline mode
+if (res.status >= 500) {
+throw new Error(data.error || `Server error: ${res.status}`);
+}
+
+showToast(data.error || "Verification failed.", "error");
+if (res.status === 401 || res.status === 403) {
+const isLoggedIn = !!localStorage.getItem('plannit_user_id');
+const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
+if (localRedeemed.includes(id)) {
+    showToast('Access granted (Offline Mode).', 'success');
+    openUrl('loading.html?planner=' + encodeURIComponent(id));
+} else if (isLoggedIn) {
+    ownedPlanners = ownedPlanners.filter(slug => slug !== id);
+    localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+    renderLibrary();
+} else {
+    localStorage.removeItem('plannit_user_email');
+    openEmailModal(id);
+}
+}
+}
+} catch (err) {
+console.warn("Secure Gateway failed, falling back to local mock access.", err);
+showToast("Access granted (Offline Mode).", "success");
+openUrl(`loading.html?planner=${encodeURIComponent(id)}`);
+}
+}
+
+// Event Delegation for Owned Planners Click
+document.addEventListener('click', (e) => {
+const card = e.target.closest('.planner-card');
+if (!card) return;
+
+if (card.classList.contains('owned')) {
+e.preventDefault();
+const id = card.getAttribute('data-id');
+accessPlanner(id);
+}
+});
+
+// Modal DOM elements
+const emailModalOverlay = document.getElementById('emailModalOverlay');
+const emailModal = document.getElementById('emailModal');
+const emailModalCloseBtn = document.getElementById('emailModalCloseBtn');
+const emailModalInput = document.getElementById('emailModalInput');
+const emailModalSubmitBtn = document.getElementById('emailModalSubmitBtn');
+const emailModalFeedback = document.getElementById('emailModalFeedback');
+const syncLibraryBtn = document.getElementById('syncLibraryBtn');
+
+let targetEditionAfterVerify = null;
+
+function openEmailModal(editionId = null) {
+targetEditionAfterVerify = editionId;
+emailModalInput.value = localStorage.getItem('plannit_user_email') || '';
+emailModalFeedback.style.display = 'none';
+emailModalInput.style.borderColor = 'rgba(15, 23, 42, 0.1)';
+
+emailModalOverlay.style.opacity = '1';
+emailModalOverlay.style.pointerEvents = 'auto';
+emailModal.style.transform = 'scale(1)';
+}
+
+function closeEmailModal() {
+emailModalOverlay.style.opacity = '0';
+emailModalOverlay.style.pointerEvents = 'none';
+emailModal.style.transform = 'scale(0.9)';
+targetEditionAfterVerify = null;
+}
+
+if (emailModalCloseBtn) emailModalCloseBtn.addEventListener('click', closeEmailModal);
+if (emailModalOverlay) {
+emailModalOverlay.addEventListener('click', (e) => {
+if (e.target === emailModalOverlay) closeEmailModal();
+});
+}
+if (syncLibraryBtn) {
+syncLibraryBtn.addEventListener('click', async (e) => {
+e.preventDefault();
+const loggedInEmail = localStorage.getItem('plannit_user_email');
+const isLoggedIn = !!localStorage.getItem('plannit_user_id');
+if (isLoggedIn && loggedInEmail) {
+showToast("Syncing your library...", "info");
+try {
+const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`);
+const data = await res.json();
+if (res.ok && data.success) {
+// Merge server list with local — never discard local unlocks on manual sync
+const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
+ownedPlanners = merged;
+localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+if (data.userId) {
+localStorage.setItem('plannit_user_id', data.userId);
+}
+renderLibrary();
+showToast("Library synced successfully! ", "success");
+} else {
+showToast(data.error || "Failed to sync library.", "error");
+}
+} catch (err) {
+console.error(err);
+showToast("Connection error while syncing.", "error");
+}
+} else {
+openEmailModal();
+}
+});
+}
+
+async function handleEmailSync() {
+const email = emailModalInput.value.trim().toLowerCase();
+if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+emailModalFeedback.textContent = "Please enter a valid email address.";
+emailModalFeedback.style.display = 'block';
+emailModalInput.style.borderColor = '#DC2626';
+return;
+}
+
+emailModalFeedback.style.display = 'none';
+emailModalInput.style.borderColor = 'rgba(15, 23, 42, 0.1)';
+emailModalSubmitBtn.disabled = true;
+emailModalSubmitBtn.textContent = 'Syncing...';
+
+try {
+const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(email)}`);
+const data = await res.json();
+
+if (res.ok && data.success) {
+localStorage.setItem('plannit_user_email', email);
+if (data.userId) {
+localStorage.setItem('plannit_user_id', data.userId);
+}
+
+const backendEditions = data.allowedEditions || [];
+
+let owned = [];
+try {
+owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
+} catch (e) {
+owned = [];
+}
+
+backendEditions.forEach(ed => {
+if (!owned.includes(ed)) owned.push(ed);
+});
+
+localStorage.setItem('plannit_owned', JSON.stringify(owned));
+ownedPlanners = owned;
+
+renderLibrary();
+showToast("Library synced successfully! ", "success");
+closeEmailModal();
+
+if (targetEditionAfterVerify) {
+accessPlanner(targetEditionAfterVerify);
+}
+} else {
+emailModalFeedback.textContent = data.error || "Email not found in database.";
+emailModalFeedback.style.display = 'block';
+emailModalInput.style.borderColor = '#DC2626';
+}
+} catch (err) {
+console.error(err);
+emailModalFeedback.textContent = "Connection error. Please try again.";
+emailModalFeedback.style.display = 'block';
+} finally {
+emailModalSubmitBtn.disabled = false;
+emailModalSubmitBtn.textContent = 'Sync & Access';
+}
+}
+
+if (emailModalSubmitBtn) {
+emailModalSubmitBtn.addEventListener('click', handleEmailSync);
+}
+if (emailModalInput) {
+emailModalInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') handleEmailSync();
+});
+}
+
+// Check for checkout success
+const urlParams = new URLSearchParams(window.location.search);
+
+// Sent back from loading.html when gateway returns 403 (purchase not in Supabase yet)
+if (urlParams.has('sync_needed')) {
+    const plannerName = urlParams.get('sync_needed');
+    showToast(`Re-enter your access code for "${plannerName}" to sync it to your account.`, 'error');
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+if (urlParams.has('checkout_success')) {
+// Show a beautiful notification toast
+const alertBox = document.createElement('div');
+alertBox.style.position = 'fixed';
+alertBox.style.bottom = '24px';
+alertBox.style.right = '24px';
+alertBox.style.background = '#059669';
+alertBox.style.color = 'white';
+alertBox.style.padding = '1rem 2rem';
+alertBox.style.borderRadius = '50px';
+alertBox.style.fontWeight = '700';
+alertBox.style.fontSize = '0.95rem';
+alertBox.style.boxShadow = '0 10px 30px rgba(5, 150, 105, 0.3)';
+alertBox.style.zIndex = '99999';
+alertBox.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+alertBox.style.transform = 'translateY(100px)';
+alertBox.style.opacity = '0';
+
+alertBox.innerHTML = ' Checkout completed successfully! Planners unlocked.';
+document.body.appendChild(alertBox);
+
+// Animate in
+setTimeout(() => {
+alertBox.style.transform = 'translateY(0)';
+alertBox.style.opacity = '1';
+}, 100);
+
+// Animate out
+setTimeout(() => {
+alertBox.style.transform = 'translateY(100px)';
+alertBox.style.opacity = '0';
+setTimeout(() => alertBox.remove(), 500);
+}, 4000);
+
+// Clean URL params
+window.history.replaceState({}, document.title, window.location.pathname);
+}
+});
+</script>
+
+<script>
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>
+</body>
+</html>
+
