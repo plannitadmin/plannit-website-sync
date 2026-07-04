@@ -254,6 +254,116 @@
      --season-winter: #378ADD;
   }
 </style>
+
+<style>
+/* Drawer & Modal CSS */
+.cart-drawer-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:998; opacity:0; pointer-events:none; transition:0.3s ease; }
+.cart-drawer-overlay.active { opacity:1; pointer-events:auto; }
+.cart-drawer { position:fixed; top:0; right:-320px; width:300px; height:100vh; background:var(--white); z-index:999; box-shadow:-4px 0 24px rgba(0,0,0,0.1); transition:0.3s ease; display:flex; flex-direction:column; }
+.cart-drawer.active { right:0; }
+.cart-drawer-header { padding:16px; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; align-items:center; }
+.cart-drawer-title { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--charcoal); }
+.cart-drawer-close { background:none; border:none; font-size:24px; color:var(--muted); cursor:pointer; }
+.cart-drawer-body { padding:16px; flex:1; overflow-y:auto; }
+.cart-item { display:flex; gap:12px; margin-bottom:16px; border-bottom:1px solid var(--border-soft); padding-bottom:16px; }
+.cart-item img { width:60px; height:60px; border-radius:8px; object-fit:cover; border:1px solid var(--border-soft); }
+.cart-item-details { flex:1; }
+.cart-item-title { font-size:14px; font-weight:600; color:var(--charcoal); }
+.cart-item-price { font-size:12px; color:var(--forest); font-weight:600; margin-top:4px; }
+.cart-empty { text-align:center; color:var(--muted); font-size:14px; margin-top:40px; }
+.cart-drawer-footer { padding:16px; border-top:1px solid var(--border-soft); }
+.cart-drawer-checkout { display:block; width:100%; padding:12px; background:var(--forest); color:var(--white); text-align:center; border-radius:9999px; font-weight:600; text-decoration:none; }
+
+.ea-modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9998; opacity:0; pointer-events:none; transition:0.3s ease; display:flex; align-items:center; justify-content:center; padding:16px; }
+.ea-modal-overlay.active { opacity:1; pointer-events:auto; }
+.ea-modal { background:var(--white); width:100%; max-width:340px; border-radius:16px; padding:24px; position:relative; transform:translateY(20px); transition:0.3s ease; }
+.ea-modal-overlay.active .ea-modal { transform:translateY(0); }
+.ea-close { position:absolute; top:12px; right:12px; background:none; border:none; font-size:20px; color:var(--muted); cursor:pointer; }
+.ea-title { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--charcoal); margin-bottom:8px; text-align:center; }
+.ea-desc { font-size:13px; color:var(--muted); text-align:center; margin-bottom:16px; line-height:1.5; }
+.ea-input { width:100%; padding:12px; border:1px solid var(--border-soft); border-radius:8px; margin-bottom:12px; font-family:var(--font-sans); }
+.ea-btn { width:100%; padding:12px; background:var(--copper); color:var(--white); border:none; border-radius:9999px; font-weight:600; cursor:pointer; }
+
+.slider-container { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; gap:16px; padding-bottom:8px; }
+.slider-container::-webkit-scrollbar { display:none; }
+.slider-item { flex:0 0 100%; scroll-snap-align:center; }
+.feat-dots { display:flex; justify-content:center; gap:6px; margin-top:8px; }
+.feat-dots span { width:6px; height:6px; border-radius:50%; background:var(--border-soft); transition:0.2s; }
+.feat-dots span.active { background:var(--forest); width:16px; border-radius:4px; }
+</style>
+<script>
+function toggleCartDrawer() {
+    const overlay = document.getElementById('cartOverlay');
+    const drawer = document.getElementById('cartDrawer');
+    if(!overlay) return;
+    if(overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        drawer.classList.remove('active');
+    } else {
+        overlay.classList.add('active');
+        drawer.classList.add('active');
+    }
+}
+
+function addToCart(title, price, img) {
+    const body = document.getElementById('cartBody');
+    const empty = document.getElementById('cartEmpty');
+    if(empty) empty.style.display = 'none';
+    
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `<img src="${img}"><div class="cart-item-details"><div class="cart-item-title">${title}</div><div class="cart-item-price">${price}</div></div>`;
+    body.appendChild(item);
+    
+    toggleCartDrawer();
+}
+
+function toggleEA() {
+    const ea = document.getElementById('eaOverlay');
+    if(!ea) return;
+    if(ea.classList.contains('active')) {
+        ea.classList.remove('active');
+    } else {
+        ea.classList.add('active');
+    }
+}
+
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const ea = document.getElementById('eaOverlay');
+        if(ea) ea.classList.add('active');
+    }, 1500);
+    
+    const slider = document.getElementById('featSlider');
+    const dots = document.querySelectorAll('.feat-dots span');
+    if(slider && dots.length) {
+        slider.addEventListener('scroll', () => {
+            const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+            dots.forEach((d, i) => d.className = i === index ? 'active' : '');
+        });
+    }
+});
+
+let timerInt;
+function startTimer() {
+    const el = document.querySelector('.timer-num');
+    if(!el) return;
+    let parts = el.innerText.split(':');
+    let m = parseInt(parts[0]);
+    let s = parseInt(parts[1]);
+    clearInterval(timerInt);
+    timerInt = setInterval(() => {
+        if(s===0) { if(m===0) { clearInterval(timerInt); return; } m--; s=59; } else { s--; }
+        el.innerText = `${m}:${s<10?'0':''}${s}`;
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInt);
+    const el = document.querySelector('.timer-num');
+    if(el) el.innerText = '25:00';
+}
+</script>
+
 </head>
 <body>
 <div class="mobile-page">
@@ -268,9 +378,14 @@
     </div>
 
     <div class="section white" style="padding-bottom:6px;">
-      <div class="access-bar-fill" style="justify-content:center;">
-        <span style="font-size:14px;">🚀</span>
-        <div class="count" style="color:var(--copper); font-size:12px;">Early access sign ups</div>
+      <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:4px;">
+        <div style="font-size:10px; font-weight:700; color:#E8593C; text-transform:uppercase; letter-spacing:0.05em;">Early access sign ups</div>
+        <div class="access-bar-fill" style="width:100%;">
+          <span style="font-size:14px;">🚀</span>
+          <div class="track" style="border-color:var(--copper); background:var(--white); flex:1;"><i style="width:64%; background:linear-gradient(90deg, #E8593C, #F5A623);"></i></div>
+          <div class="count" style="color:#E8593C;">160 / 250 claimed</div>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -287,8 +402,14 @@
     <div class="section cream hair-top">
       <div class="eyebrow">Featured — Rare Gold</div>
       <div class="card">
-        <div style="padding:10px;"><img src="https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-top.png" style="width: 100%; aspect-ratio:16/10; object-fit:cover; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" alt="featured mockup"></div>
-        <div class="dots"><span class="active"></span><span></span><span></span></div>
+        <div style="padding:4px;">
+          <div class="slider-container" id="featSlider">
+            <div class="slider-item"><img src="https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-top.png" style="width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);" alt="Slide 1"></div>
+            <div class="slider-item"><img src="https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-timetable-all.png" style="width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);" alt="Slide 2"></div>
+            <div class="slider-item"><img src="https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-bottom.png" style="width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);" alt="Slide 3"></div>
+          </div>
+        </div>
+        <div class="feat-dots"><span class="active"></span><span></span><span></span></div>
         <div class="feat-box-row">
           <div class="feat-box"><div class="ic">🖼️</div><div class="lbl">4 Unique Wallpapers</div></div>
           <div class="feat-box"><div class="ic">🌙</div><div class="lbl">Night Mode</div></div>
@@ -297,7 +418,7 @@
         <div class="price-row"><span class="price">£5.99</span><span class="price-note">one-time · own it forever</span></div>
         <div class="btn-row">
           <a href="shop-mobile.html" class="btn-pill btn-pop-copper" style="text-decoration:none; display:block;">Subscribe</a>
-          <a href="shop-mobile.html" class="btn-pill btn-outline" style="text-decoration:none; display:block;">Buy now</a>
+          <a href="javascript:void(0)" onclick="addToCart('Summer Sun Planner', '£5.99', '../emojis/sun.svg')" class="btn-pill btn-outline" style="text-decoration:none; display:block;">Buy now</a>
         </div>
       </div>
     </div>
@@ -308,8 +429,8 @@
       <div class="grid-2x2">
         <a href="shop-mobile.html?collection=seasonal" class="coll-card" style="text-decoration:none;"><div style="background:#FFF8ED; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><img src="../emojis/sun.svg" style="width:24px;"></div><div class="coll-name">Seasonal</div></a>
         <a href="shop-mobile.html?collection=botanical" class="coll-card" style="text-decoration:none;"><div style="background:#F4F7F4; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><img src="../emojis/eucalyptus.svg" style="width:24px;"></div><div class="coll-name">Botanical</div></a>
-        <a href="shop-mobile.html?collection=nature" class="coll-card" style="text-decoration:none;"><div style="background:#F2FAE8; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><img src="../emojis/wildflower.svg" style="width:24px;"></div><div class="coll-name">Nature</div></a>
-        <a href="shop-mobile.html?collection=cities" class="coll-card" style="text-decoration:none;"><div style="background:#F8F9FA; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><img src="../emojis/coins.svg" style="width:24px;"></div><div class="coll-name">Cap. Cities</div></a>
+        <a href="shop-mobile.html?collection=nature" class="coll-card" style="text-decoration:none;"><div style="background:#F2FAE8; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><svg class="svg-icon svg-sm" viewBox="0 0 24 24" style="width:24px; height:24px; fill:var(--forest);"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></svg></div><div class="coll-name">Nature</div></a>
+        <a href="shop-mobile.html?collection=cities" class="coll-card" style="text-decoration:none;"><div style="background:#F8F9FA; border-radius:50%; width:48px; height:48px; margin:0 auto; display:flex; align-items:center; justify-content:center;"><svg class="svg-icon svg-sm" viewBox="0 0 24 24" style="width:24px; height:24px; fill:none; stroke:var(--forest); stroke-width:2;"><path d="M9 22V12h6v10M4 22V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v18M12 5h.01M12 9h.01M8 5h.01M8 9h.01M16 5h.01M16 9h.01"></path></svg></div><div class="coll-name">Cap. Cities</div></a>
       </div>
     </div>
 
@@ -331,7 +452,7 @@
         <div class="mini-chrome"><div class="mini-dots"><span></span><span></span><span></span></div><div class="mini-tag" style="color:var(--copper);">Autumn / Focus</div></div>
         <div class="mini-body timer-face">
           <div class="timer-num">25:00</div>
-          <div class="timer-btns"><a href="#" class="btn-pill btn-copper" style="padding:6px 16px; text-decoration:none; display:inline-block;">Start</a><a href="#" class="btn-pill btn-outline" style="padding:6px 16px; text-decoration:none; display:inline-block;">Reset</a></div>
+          <div class="timer-btns"><a href="javascript:void(0)" onclick="startTimer()" class="btn-pill btn-copper" style="padding:6px 16px; text-decoration:none; display:inline-block;">Start</a><a href="javascript:void(0)" onclick="resetTimer()" class="btn-pill btn-outline" style="padding:6px 16px; text-decoration:none; display:inline-block;">Reset</a></div>
         </div>
       </div>
 
@@ -397,12 +518,37 @@
     <div class="section cream hair-top">
       <div class="h2">Stay in the loop.</div>
       <p class="p-muted">Get early access to new drops and collections.</p>
-      <a href="#" class="btn-pill btn-forest" style="width:100%; text-align:center; margin-top:12px; text-decoration:none; display:block; box-sizing:border-box;">Join now</a>
+      <a href="javascript:void(0)" onclick="toggleEA()" class="btn-pill btn-forest" style="width:100%; text-align:center; margin-top:12px; text-decoration:none; display:block; box-sizing:border-box;">Join now</a>
       <div class="footer-links">
         <span>© 2026 Plannit</span><span>Terms</span><span>Privacy</span><span>EULA</span>
       </div>
     </div>
   
 </div>
+
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+        <span class="cart-drawer-title">Your Basket</span>
+        <button class="cart-drawer-close" onclick="toggleCartDrawer()">&times;</button>
+    </div>
+    <div class="cart-drawer-body" id="cartBody">
+        <div class="cart-empty" id="cartEmpty">Your basket is empty.</div>
+    </div>
+    <div class="cart-drawer-footer">
+        <a href="checkout-mobile.html" class="cart-drawer-checkout">Checkout</a>
+    </div>
+</div>
+
+<div class="ea-modal-overlay" id="eaOverlay">
+    <div class="ea-modal">
+        <button class="ea-close" onclick="toggleEA()">&times;</button>
+        <div class="ea-title">Early Access</div>
+        <div class="ea-desc">Be the first to know when the new collections drop. Spots are limited!</div>
+        <input type="email" class="ea-input" placeholder="Your email address">
+        <button class="ea-btn" onclick="toggleEA()">Join the List</button>
+    </div>
+</div>
+
 </body>
 </html>
