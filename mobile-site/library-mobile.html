@@ -21,6 +21,7 @@
 </script>
 <meta charset="UTF-8">
 <title>Plannit — Mobile Library</title>
+<link rel="icon" type="image/x-icon" href="../logo.svg">
 <link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -262,6 +263,25 @@
   .mobile-page { max-width:480px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
   .pnav-min, .pnav, .pnav.white, .disclaimer-bar { position:sticky; top:0; z-index:50; background:var(--white); }
 </style>
+<style>
+  :root {
+     --charcoal: #2B2B2B;
+     --copper: #C86B45;
+     --muted: #6B6B6B;
+     --cream: #F9F8F6;
+     --white: #FFFFFF;
+     --forest: #223C2B;
+     --border-soft: rgba(43,43,43,0.1);
+     --shadow-sm: 0 2px 8px rgba(43,43,43,0.06);
+     --shadow-md: 0 8px 24px rgba(43,43,43,0.08);
+     --shadow-xl: 0 20px 40px rgba(43,43,43,0.12);
+     --font-sans: 'Inter', sans-serif;
+     --font-display: 'Cormorant Garamond', serif;
+     --bot-lavender: #AFA9EC;
+     --season-summer: #E8A020;
+     --season-winter: #378ADD;
+  }
+</style>
 </head>
 <body>
 <div class="mobile-page">
@@ -297,9 +317,9 @@
     <div class="section white hair-top">
       <div class="shelf-label">Botanical collection</div>
       <div class="shelf-scroll">
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Eucalyptus</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Lavender</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Rose</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/eucalyptus.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/lavender.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/rose.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
       </div>
       <div class="swipe-hint" style="text-align:left;">Swipe for more →</div>
     </div>
@@ -307,9 +327,9 @@
     <div class="section cream hair-top">
       <div class="shelf-label">Nature collection</div>
       <div class="shelf-scroll">
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Rain</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Forest</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Ocean</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/spring.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/autumn.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div style="background:var(--cream); aspect-ratio:1/1; border-radius:8px; display:flex; align-items:center; justify-content:center;"><img src="../emojis/winter.svg" style="width:30px;"></div><div class="lib-cta">Planned</div></div>
       </div>
       <div class="footer-links">
         <span>© 2026 Plannit</span><span>Terms</span><span>Privacy</span><span>EULA</span>
