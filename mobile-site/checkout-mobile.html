@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-  if (window.innerWidth >= 768) {
+  const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  if (!isMobile) {
     const pageMap = {
       'index-mobile.html': '../index.html',
       'shop-mobile.html': '../shop.html',
@@ -18,7 +20,6 @@
   }
 </script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plannit — Mobile Checkout</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
