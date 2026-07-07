@@ -7669,8 +7669,8 @@ body {
             const localCount = parseInt(localStorage.getItem('plannit_early_access_count') || '0');
             renderCounters(localCount);
 
-            // Fetch live database count securely in background
-            fetch('https://plannit-backend-private.vercel.app/api/get-signup-count')
+            // Fetch live database count securely in background, bypassing cache
+            fetch(`https://plannit-backend-private.vercel.app/api/get-signup-count?t=${Date.now()}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data && typeof data.count === 'number') {

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-  const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
-  if (!isMobile) {
+  if (window.innerWidth >= 768) {
     const pageMap = {
       'index-mobile.html': '../index.html',
       'shop-mobile.html': '../shop.html',
@@ -19,6 +17,8 @@
     window.location.replace(target + window.location.search + window.location.hash);
   }
 </script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta charset="UTF-8">
 <title>Plannit — Mobile Home</title>
 <link rel="icon" type="image/x-icon" href="../logo.svg">
@@ -328,7 +328,32 @@ function toggleEA() {
     }
 }
 
+
+function updateMobileCounters() {
+    const localCount = parseInt(localStorage.getItem('plannit_early_access_count') || '160');
+    renderMobileCounters(localCount);
+
+    fetch(`https://plannit-backend-private.vercel.app/api/get-signup-count?t=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data && typeof data.count === 'number') {
+                localStorage.setItem('plannit_early_access_count', String(data.count));
+                renderMobileCounters(data.count);
+            }
+        })
+        .catch(err => console.log('Local environment: Using offline local counter cache.'));
+}
+
+function renderMobileCounters(count) {
+    const percentage = Math.min((count / 250) * 100, 100);
+    const countDiv = document.getElementById('mobileAccessCount');
+    if (countDiv) countDiv.textContent = `${count} / 250 claimed`;
+    const progressBar = document.getElementById('mobileAccessProgress');
+    if (progressBar) progressBar.style.width = percentage + '%';
+}
+
 window.addEventListener('load', function() {
+    updateMobileCounters();
     setTimeout(() => {
         const ea = document.getElementById('eaOverlay');
         if(ea) ea.classList.add('active');
@@ -382,10 +407,9 @@ function resetTimer() {
         <div style="font-size:10px; font-weight:700; color:#E8593C; text-transform:uppercase; letter-spacing:0.05em;">Early access sign ups</div>
         <div class="access-bar-fill" style="width:100%;">
           <span style="font-size:14px;">🚀</span>
-          <div class="track" style="border-color:var(--copper); background:var(--white); flex:1;"><i style="width:64%; background:linear-gradient(90deg, #E8593C, #F5A623);"></i></div>
-          <div class="count" style="color:#E8593C;">160 / 250 claimed</div>
+          <div class="track" style="border-color:var(--copper); background:var(--white); flex:1;"><i id="mobileAccessProgress" style="width:64%; background:linear-gradient(90deg, #E8593C, #F5A623);"></i></div>
+          <div class="count" id="mobileAccessCount" style="color:#E8593C;">160 / 250 claimed</div>
         </div>
-      </div>
       </div>
     </div>
 

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-  const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
-  if (!isMobile) {
+  if (window.innerWidth >= 768) {
     const pageMap = {
       'index-mobile.html': '../index.html',
       'shop-mobile.html': '../shop.html',
@@ -20,8 +18,8 @@
   }
 </script>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plannit — Mobile Loading</title>
-<link rel="icon" type="image/x-icon" href="../logo.svg">
 <link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,25 +48,6 @@
   .step-row.done .step-dot svg { width:9px; height:9px; }
   .step-row.done { color:var(--charcoal); font-weight:600; }
   .step-row.active .step-dot { border-color:var(--copper); box-shadow:0 0 0 3px rgba(200,107,69,0.15); }
-</style>
-<style>
-  :root {
-     --charcoal: #2B2B2B;
-     --copper: #C86B45;
-     --muted: #6B6B6B;
-     --cream: #F9F8F6;
-     --white: #FFFFFF;
-     --forest: #223C2B;
-     --border-soft: rgba(43,43,43,0.1);
-     --shadow-sm: 0 2px 8px rgba(43,43,43,0.06);
-     --shadow-md: 0 8px 24px rgba(43,43,43,0.08);
-     --shadow-xl: 0 20px 40px rgba(43,43,43,0.12);
-     --font-sans: 'Inter', sans-serif;
-     --font-display: 'Cormorant Garamond', serif;
-     --bot-lavender: #AFA9EC;
-     --season-summer: #E8A020;
-     --season-winter: #378ADD;
-  }
 </style>
 </head>
 <body>
