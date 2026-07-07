@@ -239,6 +239,42 @@
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
+
+/* Drawer & Modal CSS */
+.cart-drawer-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:998; opacity:0; pointer-events:none; transition:0.3s ease; }
+.cart-drawer-overlay.active { opacity:1; pointer-events:auto; }
+.cart-drawer { position:fixed; top:0; right:-320px; width:300px; height:100vh; background:var(--white); z-index:999; box-shadow:-4px 0 24px rgba(0,0,0,0.1); transition:0.3s ease; display:flex; flex-direction:column; }
+.cart-drawer.active { right:0; }
+.cart-drawer-header { padding:16px; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; align-items:center; }
+.cart-drawer-title { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--charcoal); }
+.cart-drawer-close { background:none; border:none; font-size:24px; color:var(--muted); cursor:pointer; }
+.cart-drawer-body { padding:16px; flex:1; overflow-y:auto; }
+.cart-item { display:flex; gap:12px; margin-bottom:16px; border-bottom:1px solid var(--border-soft); padding-bottom:16px; }
+.cart-item img { width:60px; height:60px; border-radius:8px; object-fit:cover; border:1px solid var(--border-soft); }
+.cart-item-details { flex:1; }
+.cart-item-title { font-size:14px; font-weight:600; color:var(--charcoal); }
+.cart-item-price { font-size:12px; color:var(--forest); font-weight:600; margin-top:4px; }
+.cart-empty { text-align:center; color:var(--muted); font-size:14px; margin-top:40px; }
+.cart-drawer-footer { padding:16px; border-top:1px solid var(--border-soft); }
+.cart-drawer-checkout { display:block; width:100%; padding:12px; background:var(--forest); color:var(--white); text-align:center; border-radius:9999px; font-weight:600; text-decoration:none; }
+
+.ea-modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9998; opacity:0; pointer-events:none; transition:0.3s ease; display:flex; align-items:center; justify-content:center; padding:16px; }
+.ea-modal-overlay.active { opacity:1; pointer-events:auto; }
+.ea-modal { background:var(--white); width:100%; max-width:340px; border-radius:16px; padding:24px; position:relative; transform:translateY(20px); transition:0.3s ease; }
+.ea-modal-overlay.active .ea-modal { transform:translateY(0); }
+.ea-close { position:absolute; top:12px; right:12px; background:none; border:none; font-size:20px; color:var(--muted); cursor:pointer; }
+.ea-title { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--charcoal); margin-bottom:8px; text-align:center; }
+.ea-desc { font-size:13px; color:var(--muted); text-align:center; margin-bottom:16px; line-height:1.5; }
+.ea-input { width:100%; padding:12px; border:1px solid var(--border-soft); border-radius:8px; margin-bottom:12px; font-family:var(--font-sans); }
+.ea-btn { width:100%; padding:12px; background:var(--copper); color:var(--white); border:none; border-radius:9999px; font-weight:600; cursor:pointer; }
+
+.slider-container { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; gap:16px; padding-bottom:8px; }
+.slider-container::-webkit-scrollbar { display:none; }
+.slider-item { flex:0 0 100%; scroll-snap-align:center; }
+.feat-dots { display:flex; justify-content:center; gap:6px; margin-top:8px; }
+.feat-dots span { width:6px; height:6px; border-radius:50%; background:var(--border-soft); transition:0.2s; }
+.feat-dots span.active { background:var(--forest); width:16px; border-radius:4px; }
+
 </style>
 <style>
   html, body { margin:0; background:var(--cream); }
@@ -268,11 +304,12 @@
 <body>
 <div class="mobile-page">
 
-    <div class="pnav white">
-      <div class="hamb"><span></span><span></span><span></span></div>
-      <div class="plogo">Plannit</div>
-      <div class="nav-right">
-        <svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <div class="pnav-min">
+      <a href="index-mobile.html" class="plogo" style="text-decoration:none;">Plannit</a>
+      <div class="nav-icons">
+        <a href="auth-mobile.html" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></a>
+        <svg onclick="toggleCartDrawer()" style="cursor:pointer;" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <a href="library-mobile.html" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><circle cx="7.5" cy="7.5" r="3.4"/><path d="M9.9 9.9 20 20M15.5 15.5l2.2-2.2M18.4 18.4l2.2-2.2"/></svg></a>
       </div>
     </div>
     <div class="disclaimer-bar">Planners can't be opened on mobile yet — phone isn't a supported platform. Browse your library below; open on Desktop, Laptop, or iPad to plan.</div>
@@ -335,6 +372,131 @@ document.querySelectorAll('.lib-card.owned').forEach(card => {
     }, 4000);
   });
 });
+</script>
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+        <span class="cart-drawer-title">Your Basket</span>
+        <button class="cart-drawer-close" onclick="toggleCartDrawer()">&times;</button>
+    </div>
+    <div class="cart-drawer-body" id="cartBody">
+        <div class="cart-empty" id="cartEmpty">Your basket is empty.</div>
+    </div>
+    <div class="cart-drawer-footer">
+        <a href="checkout-mobile.html" class="cart-drawer-checkout">Checkout</a>
+    </div>
+</div>
+
+<div class="ea-modal-overlay" id="eaOverlay">
+    <div class="ea-modal">
+        <button class="ea-close" onclick="toggleEA()">&times;</button>
+        <div class="ea-title">Early Access</div>
+        <div class="ea-desc">Be the first to know when the new collections drop. Spots are limited!</div>
+        <input type="email" class="ea-input" placeholder="Your email address">
+        <button class="ea-btn" onclick="toggleEA()">Join the List</button>
+    </div>
+</div>
+
+</body>
+
+<script>
+
+function toggleCartDrawer() {
+    const overlay = document.getElementById('cartOverlay');
+    const drawer = document.getElementById('cartDrawer');
+    if(!overlay) return;
+    if(overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        drawer.classList.remove('active');
+    } else {
+        overlay.classList.add('active');
+        drawer.classList.add('active');
+    }
+}
+
+function addToCart(title, price, img) {
+    const body = document.getElementById('cartBody');
+    const empty = document.getElementById('cartEmpty');
+    if(empty) empty.style.display = 'none';
+    
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `<img src="${img}"><div class="cart-item-details"><div class="cart-item-title">${title}</div><div class="cart-item-price">${price}</div></div>`;
+    body.appendChild(item);
+    
+    toggleCartDrawer();
+}
+
+function toggleEA() {
+    const ea = document.getElementById('eaOverlay');
+    if(!ea) return;
+    if(ea.classList.contains('active')) {
+        ea.classList.remove('active');
+    } else {
+        ea.classList.add('active');
+    }
+}
+
+
+function updateMobileCounters() {
+    const localCount = parseInt(localStorage.getItem('plannit_early_access_count') || '160');
+    renderMobileCounters(localCount);
+
+    fetch(`https://plannit-backend-private.vercel.app/api/get-signup-count?t=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data && typeof data.count === 'number') {
+                localStorage.setItem('plannit_early_access_count', String(data.count));
+                renderMobileCounters(data.count);
+            }
+        })
+        .catch(err => console.log('Local environment: Using offline local counter cache.'));
+}
+
+function renderMobileCounters(count) {
+    const percentage = Math.min((count / 250) * 100, 100);
+    const countDiv = document.getElementById('mobileAccessCount');
+    if (countDiv) countDiv.textContent = `${count} / 250 claimed`;
+    const progressBar = document.getElementById('mobileAccessProgress');
+    if (progressBar) progressBar.style.width = percentage + '%';
+}
+
+window.addEventListener('load', function() {
+    updateMobileCounters();
+    setTimeout(() => {
+        const ea = document.getElementById('eaOverlay');
+        if(ea) ea.classList.add('active');
+    }, 1500);
+    
+    const slider = document.getElementById('featSlider');
+    const dots = document.querySelectorAll('.feat-dots span');
+    if(slider && dots.length) {
+        slider.addEventListener('scroll', () => {
+            const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+            dots.forEach((d, i) => d.className = i === index ? 'active' : '');
+        });
+    }
+});
+
+let timerInt;
+function startTimer() {
+    const el = document.querySelector('.timer-num');
+    if(!el) return;
+    let parts = el.innerText.split(':');
+    let m = parseInt(parts[0]);
+    let s = parseInt(parts[1]);
+    clearInterval(timerInt);
+    timerInt = setInterval(() => {
+        if(s===0) { if(m===0) { clearInterval(timerInt); return; } m--; s=59; } else { s--; }
+        el.innerText = `${m}:${s<10?'0':''}${s}`;
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInt);
+    const el = document.querySelector('.timer-num');
+    if(el) el.innerText = '25:00';
+}
+
 </script>
 </body>
 </html>
