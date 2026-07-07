@@ -1,22 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-  if (window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    const pageMap = {
-      'index.html': 'mobile-site/index-mobile.html',
-      'shop.html': 'mobile-site/shop-mobile.html',
-      'library.html': 'mobile-site/library-mobile.html',
-      'auth.html': 'mobile-site/auth-mobile.html',
-      'checkout.html': 'mobile-site/checkout-mobile.html',
-      'loading.html': 'mobile-site/loading-mobile.html'
-    };
-    const parts = window.location.pathname.split('/');
-    const currentFile = parts[parts.length - 1] || 'index.html';
-    const target = pageMap[currentFile] || pageMap['index.html'];
-    window.location.replace(target + window.location.search + window.location.hash);
-  }
-</script>
+
     <meta charset="UTF-8">
 <title>Plannit - One app. Many collections. | Digital Planner Studio</title>
     <meta name="description" content="A modular productivity system designed for focus, aesthetic, and balance. Switch between Seasonal, Nature, and Botanical collections.">
@@ -6616,6 +6601,25 @@ body {
             background: var(--copper) !important;
         }
     </style>
+<script>
+  (function() {
+    const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    if (isMobile) {
+      const pageMap = {
+        'index.html': 'mobile-site/index-mobile.html',
+        'shop.html': 'mobile-site/shop-mobile.html',
+        'library.html': 'mobile-site/library-mobile.html',
+        'auth.html': 'mobile-site/auth-mobile.html',
+        'checkout.html': 'mobile-site/checkout-mobile.html',
+        'loading.html': 'mobile-site/loading-mobile.html'
+      };
+      const parts = window.location.pathname.split('/');
+      const currentFile = parts[parts.length - 1] || 'index.html';
+      const target = pageMap[currentFile] || pageMap['index.html'];
+      window.location.replace(target + window.location.search + window.location.hash);
+    }
+  })();
+</script>
 </head>
 
 <body>

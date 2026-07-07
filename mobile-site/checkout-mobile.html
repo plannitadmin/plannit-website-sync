@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  if (window.innerWidth >= 768) {
-    const pageMap = {
-      'index-mobile.html': '../index.html',
-      'shop-mobile.html': '../shop.html',
-      'library-mobile.html': '../library.html',
-      'auth-mobile.html': '../auth.html',
-      'checkout-mobile.html': '../checkout.html',
-      'loading-mobile.html': '../loading.html'
-    };
-    const parts = window.location.pathname.split('/');
-    const currentFile = parts[parts.length - 1] || 'index-mobile.html';
-    const target = pageMap[currentFile] || pageMap['index-mobile.html'];
-    window.location.replace(target + window.location.search + window.location.hash);
-  }
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plannit — Mobile Checkout</title>
@@ -65,6 +49,25 @@
   .btn-pay { width:100%; margin-top:16px; padding:14px; border-radius:9999px; background:var(--copper); color:var(--white); font-weight:700; font-size:14px; text-align:center; box-shadow:0 8px 20px rgba(200,107,69,.32); }
   .secure-note { display:flex; align-items:center; justify-content:center; gap:6px; font-size:10.5px; color:var(--muted); margin-top:10px; }
 </style>
+<script>
+  (function() {
+    const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    if (!isMobile) {
+      const pageMap = {
+        'index-mobile.html': '../index.html',
+        'shop-mobile.html': '../shop.html',
+        'library-mobile.html': '../library.html',
+        'auth-mobile.html': '../auth.html',
+        'checkout-mobile.html': '../checkout.html',
+        'loading-mobile.html': '../loading.html'
+      };
+      const parts = window.location.pathname.split('/');
+      const currentFile = parts[parts.length - 1] || 'index-mobile.html';
+      const target = pageMap[currentFile] || pageMap['index-mobile.html'];
+      window.location.replace(target + window.location.search + window.location.hash);
+    }
+  })();
+</script>
 </head>
 <body>
 <div class="mobile-page">

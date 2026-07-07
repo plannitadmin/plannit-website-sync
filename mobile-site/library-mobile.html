@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  if (window.innerWidth >= 768) {
-    const pageMap = {
-      'index-mobile.html': '../index.html',
-      'shop-mobile.html': '../shop.html',
-      'library-mobile.html': '../library.html',
-      'auth-mobile.html': '../auth.html',
-      'checkout-mobile.html': '../checkout.html',
-      'loading-mobile.html': '../loading.html'
-    };
-    const parts = window.location.pathname.split('/');
-    const currentFile = parts[parts.length - 1] || 'index-mobile.html';
-    const target = pageMap[currentFile] || pageMap['index-mobile.html'];
-    window.location.replace(target + window.location.search + window.location.hash);
-  }
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plannit — Mobile Library</title>
@@ -261,6 +245,25 @@
   .mobile-page { max-width:480px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
   .pnav-min, .pnav, .pnav.white, .disclaimer-bar { position:sticky; top:0; z-index:50; background:var(--white); }
 </style>
+<script>
+  (function() {
+    const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    if (!isMobile) {
+      const pageMap = {
+        'index-mobile.html': '../index.html',
+        'shop-mobile.html': '../shop.html',
+        'library-mobile.html': '../library.html',
+        'auth-mobile.html': '../auth.html',
+        'checkout-mobile.html': '../checkout.html',
+        'loading-mobile.html': '../loading.html'
+      };
+      const parts = window.location.pathname.split('/');
+      const currentFile = parts[parts.length - 1] || 'index-mobile.html';
+      const target = pageMap[currentFile] || pageMap['index-mobile.html'];
+      window.location.replace(target + window.location.search + window.location.hash);
+    }
+  })();
+</script>
 </head>
 <body>
 <div class="mobile-page">
