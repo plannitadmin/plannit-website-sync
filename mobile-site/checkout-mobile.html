@@ -82,10 +82,11 @@
 
   <div class="section white" style="padding-bottom:10px;">
     <div class="co-title">Review &amp; Checkout</div>
-    <p class="co-sub">Complete your purchase to secure lifetime access to your premium templates.</p>
-    <div class="rec-banner">
-      <span>💡 We recommend signing up first to auto-sync purchases:</span>
-      <span><a href="auth-mobile.html">Sign Up</a> · <a href="auth-mobile.html">Log In</a></span>
+    <p class="co-sub">Complete your purchase to unlock your premium planner.</p>
+    <!-- Auth gate banner — updated by JS -->
+    <div class="rec-banner" id="authGateBanner" style="background:#FEF3C7; border-color:#FCD34D; color:#92400E; font-weight:600;">
+      <span>⚠️ You must have a Plannit account to claim your planner.</span>
+      <span><a href="auth-mobile.html?mode=signup" style="color:#D85A30;">Create account</a> · <a href="auth-mobile.html" style="color:#D85A30;">Log in</a></span>
     </div>
   </div>
 
@@ -156,7 +157,27 @@
       emailInput.value = cachedEmail;
     }
     
-    // 3. Render items and compute pricing
+    // 0. Auth gate — must be logged in
+    const userId = localStorage.getItem('plannit_user_id');
+    const authBanner = document.getElementById('authGateBanner');
+    if (!userId) {
+      // Not logged in — block pay and show hard warning
+      if (authBanner) authBanner.style.display = 'flex';
+      if (payBtn) {
+        payBtn.textContent = 'Account Required to Pay';
+        payBtn.style.opacity = '0.5';
+        payBtn.style.background = '#9CA3AF';
+        payBtn.style.cursor = 'not-allowed';
+        payBtn.style.pointerEvents = 'none';
+        payBtn.addEventListener('click', () => {
+          window.location.href = 'auth-mobile.html';
+        });
+      }
+    } else {
+      // Logged in — hide the warning banner
+      if (authBanner) authBanner.style.display = 'none';
+    }
+
     let subtotal = 0;
     itemsList.innerHTML = '';
     
@@ -207,8 +228,15 @@
         payBtn.style.opacity = '0.7';
         payBtn.style.pointerEvents = 'none';
         
-        // Always use the private Vercel backend — plannit.shop does NOT host the API
+        // Always use the private Vercel backend
         const apiBase = 'https://plannit-backend-private.vercel.app';
+
+        const loggedUserId = localStorage.getItem('plannit_user_id');
+        if (!loggedUserId) {
+          alert('You must be logged in to complete your purchase.');
+          window.location.href = 'auth-mobile.html';
+          return;
+        }
 
         const payload = {
           cart: cart.map(item => {
@@ -224,7 +252,7 @@
             }
             return { slug: cleanSlug || 'summer-sun', mode: isSub ? 'subscription' : 'payment' };
           }),
-          user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
+          user_id: loggedUserId,
           user_email: email
         };
 

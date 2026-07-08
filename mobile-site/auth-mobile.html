@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plannit — Mobile Account</title>
+<title>Plannit — Account</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,32 +21,52 @@
   .auth-mark { width:44px; height:44px; border-radius:12px; background:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
   .auth-mark svg { width:22px; height:22px; }
 
-  .tabs-row { display:flex; gap:8px; margin-bottom:22px; background:var(--cream); border-radius:9999px; padding:4px; width:100%; max-width:280px; }
-  .tab { flex:1; text-align:center; padding:8px 0; border-radius:9999px; font-size:12.5px; font-weight:700; color:var(--muted); }
+  .tabs-row { display:flex; gap:8px; margin-bottom:22px; background:var(--cream); border-radius:9999px; padding:4px; width:100%; max-width:300px; cursor:pointer; }
+  .tab { flex:1; text-align:center; padding:8px 0; border-radius:9999px; font-size:12.5px; font-weight:700; color:var(--muted); transition:0.2s; }
   .tab.active { background:var(--forest); color:var(--white); }
 
-  .auth-title { font-family:var(--font-display); font-weight:600; font-size:26px; color:var(--charcoal); margin:0 0 6px; text-align:center; }
-  .auth-sub { font-size:12.5px; color:var(--muted); text-align:center; margin:0 0 26px; line-height:1.5; max-width:300px; }
+  .auth-panel { width:100%; max-width:340px; }
+  .auth-panel.hidden { display:none; }
 
-  .field-group { width:100%; max-width:340px; display:flex; flex-direction:column; gap:16px; }
+  .auth-title { font-family:var(--font-display); font-weight:600; font-size:26px; color:var(--charcoal); margin:0 0 6px; text-align:center; }
+  .auth-sub { font-size:12.5px; color:var(--muted); text-align:center; margin:0 0 26px; line-height:1.5; }
+
+  .field { margin-bottom:16px; }
   .field label { display:block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:6px; }
   .field input { width:100%; border:1px solid var(--border-soft); border-radius:9999px; padding:12px 16px; font-size:13.5px; color:var(--charcoal); background:var(--white); font-family:var(--font-sans); }
   .field input::placeholder { color:#9E988C; }
   .field-row { display:flex; gap:10px; }
   .field-row .field { flex:1; }
 
-  .forgot { align-self:flex-end; font-size:11.5px; color:var(--copper); font-weight:700; text-decoration:none; margin-top:-8px; }
+  .forgot { display:block; text-align:right; font-size:11.5px; color:var(--copper); font-weight:700; text-decoration:none; margin-top:-10px; margin-bottom:16px; }
 
-  .btn-submit-m { width:100%; max-width:340px; margin-top:22px; padding:13px; border-radius:9999px; background:#3E5C76; color:var(--white); font-weight:700; font-size:13.5px; text-align:center; box-shadow:0 6px 16px rgba(62,92,118,.3); display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-submit-m { width:100%; padding:13px; border-radius:9999px; background:#3E5C76; color:var(--white); font-weight:700; font-size:13.5px; text-align:center; box-shadow:0 6px 16px rgba(62,92,118,.3); display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; font-family:var(--font-sans); margin-top:6px; }
+  .btn-submit-m:disabled { opacity:0.6; pointer-events:none; }
 
-  .divider { display:flex; align-items:center; gap:12px; width:100%; max-width:340px; margin:24px 0; }
+  .divider { display:flex; align-items:center; gap:12px; width:100%; margin:24px 0; }
   .divider .line { flex:1; height:1px; background:var(--border-soft); }
   .divider span { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
 
-  .btn-outline-m { width:100%; max-width:340px; padding:12px; border-radius:9999px; border:1px solid var(--border-soft); background:var(--white); color:var(--charcoal); font-weight:700; font-size:13px; text-align:center; display:flex; align-items:center; justify-content:center; gap:10px; }
+  .btn-outline-m { width:100%; padding:12px; border-radius:9999px; border:1px solid var(--border-soft); background:var(--white); color:var(--charcoal); font-weight:700; font-size:13px; text-align:center; display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; font-family:var(--font-sans); }
 
   .auth-footnote { margin-top:26px; font-size:12px; color:var(--muted); text-align:center; }
-  .auth-footnote a { color:var(--copper); font-weight:700; text-decoration:none; }
+  .auth-footnote a { color:var(--copper); font-weight:700; text-decoration:none; cursor:pointer; }
+
+  .error-msg { color:#DC2626; font-size:12px; padding:10px 14px; background:#FEF2F2; border:1px solid #FECACA; border-radius:10px; margin-bottom:14px; display:none; line-height:1.5; }
+  .success-msg { color:#15803D; font-size:12px; padding:10px 14px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; margin-bottom:14px; display:none; line-height:1.5; text-align:center; }
+
+  .consent-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; }
+  .consent-row input[type="checkbox"] { margin-top:2px; flex-shrink:0; accent-color:var(--forest); width:15px; height:15px; }
+  .consent-row label { font-size:11px; color:var(--muted); line-height:1.5; }
+  .consent-row label a { color:var(--copper); font-weight:700; text-decoration:none; }
+
+  /* Logged-in state */
+  .logged-in-panel { width:100%; max-width:340px; text-align:center; padding:20px 0; }
+  .logged-in-avatar { width:64px; height:64px; border-radius:50%; background:var(--forest); color:white; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:28px; font-weight:600; margin:0 auto 14px; }
+  .logged-in-name { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--charcoal); margin-bottom:4px; }
+  .logged-in-email { font-size:12px; color:var(--muted); margin-bottom:24px; }
+  .btn-signout { padding:11px 24px; border-radius:9999px; border:1.5px solid var(--border-soft); background:transparent; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; font-family:var(--font-sans); }
+  .btn-library { display:block; width:100%; padding:13px; border-radius:9999px; background:var(--forest); color:white; font-weight:700; font-size:13.5px; text-align:center; text-decoration:none; margin-bottom:12px; }
 </style>
 <script>
   (function() {
@@ -84,41 +104,261 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
 
-    <div class="tabs-row">
-      <div class="tab active">Log In</div>
-      <div class="tab">Sign Up</div>
+    <!-- Logged-in panel (shown if already signed in) -->
+    <div class="logged-in-panel hidden" id="loggedInPanel">
+      <div class="logged-in-avatar" id="avatarInitial">?</div>
+      <div class="logged-in-name" id="loggedInName">Welcome back</div>
+      <div class="logged-in-email" id="loggedInEmail"></div>
+      <a href="library-mobile.html" class="btn-library">Go to My Library</a>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
     </div>
 
-    <h1 class="auth-title">Welcome back.</h1>
-    <p class="auth-sub">Log in to sync your library and access purchases across every device.</p>
-
-    <div class="field-group">
-      <div class="field">
-        <label>Email address</label>
-        <input type="email" placeholder="your@email.com">
+    <!-- Auth panels (hidden if logged in) -->
+    <div id="authPanels" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+      <div class="tabs-row">
+        <div class="tab active" id="tabLogin" onclick="switchTab('login')">Log In</div>
+        <div class="tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</div>
       </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" placeholder="••••••••••">
+
+      <!-- LOG IN panel -->
+      <div class="auth-panel" id="panelLogin">
+        <h1 class="auth-title">Welcome back.</h1>
+        <p class="auth-sub">Log in to sync your library and access purchases across every device.</p>
+        <div class="error-msg" id="loginError"></div>
+        <div class="success-msg" id="loginSuccess"></div>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••••" autocomplete="current-password">
+        </div>
+        <a href="#" class="forgot">Forgot password?</a>
+        <button class="btn-submit-m" id="loginBtn" onclick="handleLogin()">
+          Log In
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="divider"><div class="line"></div><span>or continue with</span><div class="line"></div></div>
+        <button class="btn-outline-m" onclick="handleGoogleAuth()">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1a11 11 0 0 0-9.82 6.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+          Continue with Google
+        </button>
+        <p class="auth-footnote">Don't have an account? <a onclick="switchTab('signup')">Sign Up</a></p>
       </div>
-      <a href="#" class="forgot">Forgot password?</a>
+
+      <!-- SIGN UP panel -->
+      <div class="auth-panel hidden" id="panelSignup">
+        <h1 class="auth-title">Join Plannit.</h1>
+        <p class="auth-sub">Create your account to purchase planners and sync your library across all devices.</p>
+        <div class="error-msg" id="signupError"></div>
+        <div class="success-msg" id="signupSuccess"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="signupFirstName" placeholder="First" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="signupLastName" placeholder="Last" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="signupUsername" placeholder="e.g. planner_jane">
+        </div>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="signupEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="consentCheck">
+          <label for="consentCheck">I agree to the <a href="../privacy.html" target="_blank">Privacy Policy</a> and <a href="../privacy.html" target="_blank">Terms of Service</a>.</label>
+        </div>
+        <button class="btn-submit-m" id="signupBtn" onclick="handleSignup()">
+          Create Account
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="divider"><div class="line"></div><span>or continue with</span><div class="line"></div></div>
+        <button class="btn-outline-m" onclick="handleGoogleAuth()">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1a11 11 0 0 0-9.82 6.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+          Continue with Google
+        </button>
+        <p class="auth-footnote">Already have an account? <a onclick="switchTab('login')">Log In</a></p>
+      </div>
     </div>
-
-    <div class="btn-submit-m">
-      Log In
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </div>
-
-    <div class="divider"><div class="line"></div><span>or continue with</span><div class="line"></div></div>
-
-    <div class="btn-outline-m">
-      <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1a11 11 0 0 0-9.82 6.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
-      Continue with Google
-    </div>
-
-    <p class="auth-footnote">Don't have an account? <a href="#">Sign Up</a></p>
   </div>
 
 </div>
+
+<script>
+const API = 'https://plannit-backend-private.vercel.app/api/auth';
+
+// ── On page load: check if already logged in ──
+window.addEventListener('DOMContentLoaded', () => {
+  const userId = localStorage.getItem('plannit_user_id');
+  const email  = localStorage.getItem('plannit_user_email');
+  const name   = localStorage.getItem('plannit_first_name') || localStorage.getItem('plannit_username') || 'You';
+
+  if (userId && email) {
+    document.getElementById('loggedInPanel').classList.remove('hidden');
+    document.getElementById('authPanels').style.display = 'none';
+    document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('loggedInName').textContent  = name;
+    document.getElementById('loggedInEmail').textContent = email;
+  }
+
+  // Check URL for ?mode=signup
+  if (new URLSearchParams(window.location.search).get('mode') === 'signup') {
+    switchTab('signup');
+  }
+});
+
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('panelLogin').classList.toggle('hidden', !isLogin);
+  document.getElementById('panelSignup').classList.toggle('hidden', isLogin);
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+}
+
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function showSuccess(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideMessages(...ids) {
+  ids.forEach(id => { const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+}
+
+function setLoading(btnId, loading, defaultText) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.textContent = loading ? 'Please wait...' : defaultText;
+}
+
+// ── LOG IN ──
+function handleLogin() {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  hideMessages('loginError', 'loginSuccess');
+
+  if (!email || !password) {
+    showError('loginError', 'Please enter your email and password.');
+    return;
+  }
+
+  setLoading('loginBtn', true, 'Log In');
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'login', email, password })
+  })
+  .then(res => res.json().then(data => ({ ok: res.ok, data })))
+  .then(({ ok, data }) => {
+    if (!ok) throw new Error(data.error || 'Login failed. Check your details.');
+    // Save session
+    localStorage.setItem('plannit_user_id',   data.user.id);
+    localStorage.setItem('plannit_user_email', data.user.email);
+    localStorage.setItem('plannit_email',      data.user.email);
+    localStorage.setItem('plannit_first_name', data.user.firstName || '');
+    localStorage.setItem('plannit_last_name',  data.user.lastName  || '');
+    localStorage.setItem('plannit_username',   data.user.username  || data.user.firstName || '');
+    localStorage.setItem('plannit_entered',    'true');
+    if (data.allowedEditions) localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions));
+
+    showSuccess('loginSuccess', '✓ Logged in! Redirecting...');
+    setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
+  })
+  .catch(err => {
+    showError('loginError', err.message);
+    setLoading('loginBtn', false, 'Log In');
+  });
+}
+
+// ── SIGN UP ──
+function handleSignup() {
+  const firstName = document.getElementById('signupFirstName').value.trim();
+  const lastName  = document.getElementById('signupLastName').value.trim();
+  const username  = document.getElementById('signupUsername').value.trim();
+  const email     = document.getElementById('signupEmail').value.trim();
+  const password  = document.getElementById('signupPassword').value;
+  const consent   = document.getElementById('consentCheck').checked;
+  hideMessages('signupError', 'signupSuccess');
+
+  if (!firstName || !lastName || !email || !password) {
+    showError('signupError', 'Please fill in all required fields.');
+    return;
+  }
+  if (password.length < 8) {
+    showError('signupError', 'Password must be at least 8 characters.');
+    return;
+  }
+  if (!consent) {
+    showError('signupError', 'You must agree to the Terms & Conditions and Privacy Policy.');
+    return;
+  }
+
+  setLoading('signupBtn', true, 'Create Account');
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'signup', email, password, firstName, lastName, username })
+  })
+  .then(res => res.json().then(data => ({ ok: res.ok, data })))
+  .then(({ ok, data }) => {
+    if (!ok) throw new Error(data.error || 'Registration failed. Try a different email.');
+    // Save session
+    localStorage.setItem('plannit_user_id',   data.user.id);
+    localStorage.setItem('plannit_user_email', data.user.email);
+    localStorage.setItem('plannit_email',      data.user.email);
+    localStorage.setItem('plannit_first_name', data.user.firstName || firstName);
+    localStorage.setItem('plannit_last_name',  data.user.lastName  || lastName);
+    localStorage.setItem('plannit_username',   data.user.username  || firstName);
+    localStorage.setItem('plannit_entered',    'true');
+
+    showSuccess('signupSuccess', '✓ Account created! Redirecting...');
+    setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
+  })
+  .catch(err => {
+    showError('signupError', err.message);
+    setLoading('signupBtn', false, 'Create Account');
+  });
+}
+
+// ── GOOGLE AUTH ──
+function handleGoogleAuth() {
+  // Redirect to backend OAuth endpoint
+  window.location.href = 'https://plannit-backend-private.vercel.app/api/auth/google?redirect=mobile';
+}
+
+// ── SIGN OUT ──
+function signOut() {
+  ['plannit_user_id','plannit_user_email','plannit_email','plannit_first_name','plannit_last_name',
+   'plannit_username','plannit_entered','plannit_owned'].forEach(k => localStorage.removeItem(k));
+  window.location.reload();
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const panel = document.getElementById('panelLogin').classList.contains('hidden') ? 'signup' : 'login';
+    if (panel === 'login') handleLogin();
+    else handleSignup();
+  }
+});
+</script>
 </body>
 </html>
