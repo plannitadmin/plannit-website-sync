@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Calculate item pricing
     function getItemPrice(slug, mode) {
         if (slug === 'seasonal-bundle') return 14.99;
-        return mode === 'subscription' ? 3.99 : 5.99;
+        return mode === 'subscription' ? 2.49 : 5.99;
     }
 
     // Toggle drawer visibility
