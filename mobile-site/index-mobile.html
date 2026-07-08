@@ -289,37 +289,69 @@ function toggleCartDrawer() {
     }
 }
 
-// Persistent Cart Drawer Logic
+// Persistent Cart with slug lookup table
+const SLUG_MAP = {
+    'summer': 'summer-sun',
+    'summer sun': 'summer-sun',
+    'winter': 'winter-frost',
+    'winter frost': 'winter-frost',
+    'autumn': 'autumn-ember',
+    'autumn ember': 'autumn-ember',
+    'spring': 'spring-bloom',
+    'spring bloom': 'spring-bloom',
+    'eucalyptus': 'botanical-eucalyptus',
+    'rose': 'botanical-rose',
+    'lavender': 'botanical-lavender',
+    'wildflower': 'botanical-wildflower',
+    'bundle': 'seasonal-bundle'
+};
+
+function resolveSlug(title) {
+    const t = title.toLowerCase().replace(' planner', '').replace(' edition', '').replace(' (sub)', '').trim();
+    // Try exact match first
+    if (SLUG_MAP[t]) return SLUG_MAP[t];
+    // Try partial match
+    for (const key in SLUG_MAP) {
+        if (t.includes(key)) return SLUG_MAP[key];
+    }
+    // Fallback: clean slug from title
+    return t.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 function syncCartDrawer() {
     const body = document.getElementById('cartBody');
     const empty = document.getElementById('cartEmpty');
     if (!body) return;
-    
+
     let cart = [];
     try {
         cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch(e) {
         console.error('Error loading cart:', e);
     }
-    
+
     body.innerHTML = '';
     if (cart.length === 0) {
         if(empty) empty.style.display = 'block';
         return;
     }
-    
+
     if(empty) empty.style.display = 'none';
-    
+
     cart.forEach((item, index) => {
+        const isSub = item.price && (item.price.includes('2.49') || item.price.includes('/mo') || item.name.includes('(Sub)'));
+        const displayName = (item.name || '').replace(' (Sub)', '');
+        const modeLabel = isSub ? 'Monthly' : 'Lifetime';
+
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item';
         itemEl.innerHTML = `
-            <img src="${item.img}">
+            <img src="${item.img || '../emojis/sun.svg'}" style="width:28px; height:28px; object-fit:contain;">
             <div class="cart-item-details">
-                <div class="cart-item-title">${item.name}</div>
-                <div class="cart-item-price">${item.price}</div>
+                <div class="cart-item-title">${displayName}</div>
+                <div class="cart-item-price">${item.price} · ${modeLabel}</div>
             </div>
-            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:4px;">&times;</button>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; padding:4px; line-height:1;">&times;</button>
         `;
         body.appendChild(itemEl);
     });
@@ -332,16 +364,17 @@ function addToCart(title, price, img) {
     } catch(e) {
         console.error(e);
     }
-    
-    // Generate clean slug from title
-    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-sub$/, '').replace(/-planner$/, '').replace(/-edition$/, '');
-    
-    // Prevent duplicate items
+
+    const slug = resolveSlug(title);
+    const isSub = title.includes('(Sub)') || price.includes('2.49');
+    const displayName = title.replace(' (Sub)', '');
+
+    // Prevent duplicate: same slug + same mode
     if (!cart.some(item => item.slug === slug && item.name === title)) {
-        cart.push({ name: title, price: price, img: img, slug: slug });
+        cart.push({ name: title, displayName: displayName, price: price, img: img, slug: slug, isSub: isSub });
         localStorage.setItem('plannit_cart', JSON.stringify(cart));
     }
-    
+
     syncCartDrawer();
     toggleCartDrawer();
 }

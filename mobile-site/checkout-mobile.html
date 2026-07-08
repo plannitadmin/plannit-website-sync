@@ -215,9 +215,14 @@
             const isSub = (item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) ||
                           (item.name && item.name.includes('(Sub)')) ||
                           (item.slug && item.slug.includes('-sub'));
-            const rawSlug = (item.slug || item.name || '').toLowerCase()
-              .replace(' (sub)', '').replace(/\s+/g, '-').replace(/-planner$/, '');
-            return { slug: rawSlug, mode: isSub ? 'subscription' : 'payment' };
+            // Use stored slug if clean, otherwise re-resolve from name
+            const SMAP = {'summer sun':'summer-sun','summer':'summer-sun','winter frost':'winter-frost','winter':'winter-frost','autumn ember':'autumn-ember','autumn':'autumn-ember','spring bloom':'spring-bloom','spring':'spring-bloom','eucalyptus':'botanical-eucalyptus','rose':'botanical-rose','lavender':'botanical-lavender','wildflower':'botanical-wildflower','bundle':'seasonal-bundle'};
+            let cleanSlug = (item.slug || '').replace(/-(sub|planner|edition)[-]*/g, '').replace(/[-]+$/,'').replace(/^[-]+/,'');
+            if (!cleanSlug || cleanSlug.includes('planner') || cleanSlug.includes('sub')) {
+                const t = (item.name || '').toLowerCase().replace(' (sub)','').replace(' planner','').replace(' edition','').trim();
+                for (const key in SMAP) { if (t.includes(key)) { cleanSlug = SMAP[key]; break; } }
+            }
+            return { slug: cleanSlug || 'summer-sun', mode: isSub ? 'subscription' : 'payment' };
           }),
           user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
           user_email: email
