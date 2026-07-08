@@ -207,32 +207,57 @@ document.addEventListener('DOMContentLoaded', () => {
             itemRow.className = 'cart-item-row';
             itemRow.style.display = 'flex';
             itemRow.style.alignItems = 'center';
-            itemRow.style.gap = '1rem';
-            itemRow.style.padding = '0.75rem 1rem';
+            itemRow.style.gap = '0.75rem';
+            itemRow.style.padding = '0.85rem 1rem';
             itemRow.style.background = '#FFFFFF';
             itemRow.style.border = '1px solid rgba(15, 23, 42, 0.06)';
             itemRow.style.borderRadius = '12px';
             itemRow.style.position = 'relative';
+            itemRow.style.paddingRight = '2.6rem'; /* space for × badge */
             itemRow.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease, opacity 0.4s ease, height 0.3s ease, padding 0.3s ease, margin 0.3s ease';
 
             itemRow.innerHTML = `
-                <div style="width: 40px; height: 40px; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                <div style="width: 40px; height: 40px; flex-shrink:0; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
                     ${details.img}
                 </div>
                 <div style="flex: 1; min-width: 0;">
                     <div style="font-weight: 700; font-size: 0.88rem; color: var(--primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         ${details.name}
                     </div>
-                    <div style="font-size: 0.75rem; color: var(--secondary); text-transform: capitalize;">
+                    <div style="font-size: 0.75rem; color: var(--secondary); text-transform: capitalize; margin-top:2px;">
                         ${item.mode === 'subscription' ? 'Monthly subscription' : 'Lifetime Access'}
                     </div>
-                </div>
-                <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
-                    <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary);">
+                    <div style="font-weight: 700; font-size: 0.88rem; color: var(--primary); margin-top:4px;">
                         £${price.toFixed(2)}
                     </div>
-                    <button class="cart-remove-item" data-index="${index}" style="background: none; border: none; color: #EF4444; font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 2px 0; transition: var(--transition);">Remove</button>
                 </div>
+                <button
+                    class="cart-remove-item"
+                    data-index="${index}"
+                    title="Remove from basket"
+                    style="
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                        width: 22px;
+                        height: 22px;
+                        border-radius: 50%;
+                        background: #FEE2E2;
+                        border: 1.5px solid #FECACA;
+                        color: #DC2626;
+                        font-size: 13px;
+                        line-height: 1;
+                        font-weight: 700;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0;
+                        transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+                    "
+                    onmouseover="this.style.background='#DC2626';this.style.color='#fff';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.25), 0 0 10px rgba(220,38,38,0.35)';this.style.transform='scale(1.15)';"
+                    onmouseout="this.style.background='#FEE2E2';this.style.color='#DC2626';this.style.boxShadow='none';this.style.transform='scale(1)';"
+                >&times;</button>
             `;
             itemsList.appendChild(itemRow);
         });
