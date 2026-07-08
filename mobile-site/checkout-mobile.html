@@ -161,30 +161,27 @@
     itemsList.innerHTML = '';
     
     cart.forEach(item => {
-      // Parse pricing amount
-      let price = 5.99; // Default
-      let modeName = 'One-time purchase';
-      
-      if (item.slug === 'seasonal-bundle' || item.name.includes('Bundle')) {
-        price = 14.99;
-        modeName = 'Lifetime Access';
-      } else if ((item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) || (item.name && item.name.includes('(Sub)'))) {
-        price = 2.49;
-        modeName = 'Subscription · monthly';
-      }
-      
+      // Determine if subscription or one-time
+      const isSub = (item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) ||
+                    (item.name && item.name.includes('(Sub)')) ||
+                    (item.slug && item.slug.includes('-sub'));
+      const isBundle = (item.slug === 'seasonal-bundle') || (item.name && item.name.includes('Bundle'));
+
+      let price = isBundle ? 14.99 : (isSub ? 2.49 : 5.99);
+      let modeName = isBundle ? 'Lifetime Access · All Seasons' : (isSub ? 'Monthly subscription' : 'Lifetime access');
+
       subtotal += price;
-      
-      // Determine thumbnail name
-      let shortName = item.name.replace(' Planner', '').replace(' Edition', '').replace(' (Sub)', '');
-      
+
+      // Clean display name — strip "(Sub)" bracket label
+      const displayName = (item.name || '').replace(' (Sub)', '').replace(' Planner', ' Planner');
+
       // Append HTML row
       const itemRow = document.createElement('div');
       itemRow.className = 'order-item';
       itemRow.innerHTML = `
-        <div class="order-thumb"><img src="${item.img || '../emojis/sun.svg'}" style="width:24px; height:24px;"></div>
+        <div class="order-thumb"><img src="${item.img || '../emojis/sun.svg'}" style="width:28px; height:28px; object-fit:contain;"></div>
         <div class="order-info">
-          <div class="order-name">${item.name}</div>
+          <div class="order-name">${displayName}</div>
           <div class="order-mode">${modeName}</div>
         </div>
         <div class="order-price">£${price.toFixed(2)}</div>
@@ -210,20 +207,22 @@
         payBtn.style.opacity = '0.7';
         payBtn.style.pointerEvents = 'none';
         
-        // Setup backend endpoint domain fallback for local environment testing
-        const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-          ? 'https://plannit-backend-private.vercel.app' 
-          : '';
-          
+        // Always use the private Vercel backend — plannit.shop does NOT host the API
+        const apiBase = 'https://plannit-backend-private.vercel.app';
+
         const payload = {
-          cart: cart.map(item => ({
-            slug: item.slug || item.name.toLowerCase().replace(/\s+/g, '-').replace('-(sub)', ''),
-            mode: (item.name.includes('(Sub)') || item.price.includes('2.49')) ? 'subscription' : 'payment'
-          })),
+          cart: cart.map(item => {
+            const isSub = (item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) ||
+                          (item.name && item.name.includes('(Sub)')) ||
+                          (item.slug && item.slug.includes('-sub'));
+            const rawSlug = (item.slug || item.name || '').toLowerCase()
+              .replace(' (sub)', '').replace(/\s+/g, '-').replace(/-planner$/, '');
+            return { slug: rawSlug, mode: isSub ? 'subscription' : 'payment' };
+          }),
           user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
           user_email: email
         };
-        
+
         fetch(`${apiBase}/api/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
