@@ -92,21 +92,8 @@
   <div class="section white" style="padding-top:14px;">
     <div class="co-card">
       <h3>Items in Order</h3>
-      <div class="order-item">
-        <div class="order-thumb">Summer<br>Sun</div>
-        <div class="order-info">
-          <div class="order-name">Summer Sun</div>
-          <div class="order-mode">Subscription · monthly</div>
-        </div>
-        <div class="order-price">£2.49</div>
-      </div>
-      <div class="order-item">
-        <div class="order-thumb">Winter<br>Frost</div>
-        <div class="order-info">
-          <div class="order-name">Winter Frost</div>
-          <div class="order-mode">One-time purchase</div>
-        </div>
-        <div class="order-price">£5.99</div>
+      <div id="checkoutItemsList">
+        <!-- Dynamic items will be injected here -->
       </div>
     </div>
 
@@ -115,7 +102,7 @@
       <div class="field" style="margin-bottom:0;">
         <label>Email Address</label>
         <div class="field-row-inline">
-          <input type="email" placeholder="your@email.com">
+          <input type="email" id="checkoutEmail" placeholder="your@email.com">
           <div class="btn-verify">Verify</div>
         </div>
       </div>
@@ -123,11 +110,11 @@
 
     <div class="co-card">
       <h3>Order Summary</h3>
-      <div class="price-line"><span>Subtotal</span><span>£9.98</span></div>
+      <div class="price-line"><span>Subtotal</span><span id="checkoutSubtotal">£0.00</span></div>
       <div class="price-line"><span>Tax</span><span>£0.00</span></div>
-      <div class="price-line total"><span>Total due today</span><span>£9.98</span></div>
+      <div class="price-line total"><span>Total due today</span><span id="checkoutTotal">£0.00</span></div>
 
-      <div class="btn-pay">Pay &amp; Complete Order</div>
+      <div class="btn-pay" id="payBtn" style="cursor:pointer;">Pay &amp; Complete Order</div>
       <div class="secure-note">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Secure checkout · encrypted payment
@@ -136,5 +123,139 @@
   </div>
 
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Load cart items
+    let cart = [];
+    try {
+      cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
+    } catch(e) {
+      console.error('Error loading cart:', e);
+    }
+    
+    const itemsList = document.getElementById('checkoutItemsList');
+    const subtotalSpan = document.getElementById('checkoutSubtotal');
+    const totalSpan = document.getElementById('checkoutTotal');
+    const payBtn = document.getElementById('payBtn');
+    const emailInput = document.getElementById('checkoutEmail');
+    
+    if (cart.length === 0) {
+      itemsList.innerHTML = '<div style="text-align:center; padding:20px; color:var(--muted); font-size:13px;">Your basket is empty.</div>';
+      if(payBtn) {
+        payBtn.style.opacity = '0.5';
+        payBtn.style.pointerEvents = 'none';
+        payBtn.textContent = 'Basket Empty';
+      }
+      return;
+    }
+    
+    // 2. Pre-fill user email if logged in
+    const cachedEmail = localStorage.getItem('plannit_user_email');
+    if (cachedEmail && emailInput) {
+      emailInput.value = cachedEmail;
+    }
+    
+    // 3. Render items and compute pricing
+    let subtotal = 0;
+    itemsList.innerHTML = '';
+    
+    cart.forEach(item => {
+      // Parse pricing amount
+      let price = 5.99; // Default
+      let modeName = 'One-time purchase';
+      
+      if (item.slug === 'seasonal-bundle' || item.name.includes('Bundle')) {
+        price = 14.99;
+        modeName = 'Lifetime Access';
+      } else if (item.price.includes('2.49') || item.name.includes('(Sub)') || item.price.includes('2.99')) {
+        price = 2.49;
+        modeName = 'Subscription · monthly';
+      }
+      
+      subtotal += price;
+      
+      // Determine thumbnail name
+      let shortName = item.name.replace(' Planner', '').replace(' Edition', '').replace(' (Sub)', '');
+      
+      // Append HTML row
+      const itemRow = document.createElement('div');
+      itemRow.className = 'order-item';
+      itemRow.innerHTML = `
+        <div class="order-thumb"><img src="${item.img || '../emojis/sun.svg'}" style="width:24px; height:24px;"></div>
+        <div class="order-info">
+          <div class="order-name">${item.name}</div>
+          <div class="order-mode">${modeName}</div>
+        </div>
+        <div class="order-price">£${price.toFixed(2)}</div>
+      `;
+      itemsList.appendChild(itemRow);
+    });
+    
+    subtotalSpan.textContent = `£${subtotal.toFixed(2)}`;
+    totalSpan.textContent = `£${subtotal.toFixed(2)}`;
+    
+    // 4. Connect Pay Button to Vercel Checkout API
+    if (payBtn) {
+      payBtn.addEventListener('click', () => {
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (!email) {
+          alert('Please enter your email address to continue to payment.');
+          if(emailInput) emailInput.focus();
+          return;
+        }
+        
+        const originalText = payBtn.textContent;
+        payBtn.textContent = 'Connecting to Stripe...';
+        payBtn.style.opacity = '0.7';
+        payBtn.style.pointerEvents = 'none';
+        
+        // Setup backend endpoint domain fallback for local environment testing
+        const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+          ? 'https://plannit-backend-private.vercel.app' 
+          : '';
+          
+        const payload = {
+          cart: cart.map(item => ({
+            slug: item.slug || item.name.toLowerCase().replace(/\s+/g, '-').replace('-(sub)', ''),
+            mode: (item.name.includes('(Sub)') || item.price.includes('2.49')) ? 'subscription' : 'payment'
+          })),
+          user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
+          user_email: email
+        };
+        
+        fetch(`${apiBase}/api/create-checkout-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(res => {
+          if (!res.ok) {
+            return res.json().then(err => { throw new Error(err.error || 'Checkout gateway offline') });
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (data.url) {
+            // Save email for session sync later
+            localStorage.setItem('plannit_user_email', email);
+            localStorage.removeItem('plannit_cart'); // Clear basket
+            window.location.href = data.url; // Redirect to Stripe Page
+          } else {
+            throw new Error('No checkout URL received from gateway');
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert('Checkout failed: ' + err.message);
+          payBtn.textContent = originalText;
+          payBtn.style.opacity = '1';
+          payBtn.style.pointerEvents = 'auto';
+        });
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
