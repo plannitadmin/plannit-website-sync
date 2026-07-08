@@ -4087,21 +4087,21 @@
                     
 
                     if (card) {
-
-                        if (card.classList.contains('summer')) slug = 'summer-sun';
-
-                        else if (card.classList.contains('winter')) slug = 'winter-frost';
-
-                        else if (card.classList.contains('autumn')) slug = 'autumn-ember';
-
-                        else if (card.classList.contains('spring')) slug = 'spring-bloom';
-
+                        // Seasonal
+                        if (card.classList.contains('summer'))           slug = 'summer-sun';
+                        else if (card.classList.contains('winter'))      slug = 'winter-frost';
+                        else if (card.classList.contains('autumn'))      slug = 'autumn-ember';
+                        else if (card.classList.contains('spring'))      slug = 'spring-bloom';
+                        // Botanical
+                        else if (card.classList.contains('eucalyptus'))  slug = 'botanical-eucalyptus';
+                        else if (card.classList.contains('lavender'))    slug = 'botanical-lavender';
+                        else if (card.classList.contains('rose-garden')) slug = 'botanical-rose';
+                        else if (card.classList.contains('wildflower'))  slug = 'botanical-wildflower';
+                        // Bundle
                         else if (card.classList.contains('bundle-banner')) slug = 'seasonal-bundle';
 
                     } else if (this.classList.contains('bundle-btn')) {
-
                         slug = 'seasonal-bundle';
-
                     }
 
                     
@@ -4136,6 +4136,7 @@
     lucide.createIcons();
   }
 </script>
+<script src="cart.js"></script>
 </body>
 
 </html>
