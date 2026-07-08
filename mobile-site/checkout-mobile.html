@@ -168,7 +168,7 @@
       if (item.slug === 'seasonal-bundle' || item.name.includes('Bundle')) {
         price = 14.99;
         modeName = 'Lifetime Access';
-      } else if (item.price.includes('2.49') || item.name.includes('(Sub)') || item.price.includes('2.99')) {
+      } else if ((item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) || (item.name && item.name.includes('(Sub)'))) {
         price = 2.49;
         modeName = 'Subscription · monthly';
       }

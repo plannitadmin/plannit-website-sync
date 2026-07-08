@@ -454,18 +454,79 @@ function toggleCartDrawer() {
     }
 }
 
-function addToCart(title, price, img) {
+// Persistent Cart Drawer Logic
+function syncCartDrawer() {
     const body = document.getElementById('cartBody');
     const empty = document.getElementById('cartEmpty');
+    if (!body) return;
+    
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
+    } catch(e) {
+        console.error('Error loading cart:', e);
+    }
+    
+    body.innerHTML = '';
+    if (cart.length === 0) {
+        if(empty) empty.style.display = 'block';
+        return;
+    }
+    
     if(empty) empty.style.display = 'none';
     
-    const item = document.createElement('div');
-    item.className = 'cart-item';
-    item.innerHTML = `<img src="${img}"><div class="cart-item-details"><div class="cart-item-title">${title}</div><div class="cart-item-price">${price}</div></div>`;
-    body.appendChild(item);
+    cart.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+            <img src="${item.img}">
+            <div class="cart-item-details">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">${item.price}</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:4px;">&times;</button>
+        `;
+        body.appendChild(itemEl);
+    });
+}
+
+function addToCart(title, price, img) {
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
+    } catch(e) {
+        console.error(e);
+    }
     
+    // Generate clean slug from title
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-sub$/, '').replace(/-planner$/, '').replace(/-edition$/, '');
+    
+    // Prevent duplicate items
+    if (!cart.some(item => item.slug === slug && item.name === title)) {
+        cart.push({ name: title, price: price, img: img, slug: slug });
+        localStorage.setItem('plannit_cart', JSON.stringify(cart));
+    }
+    
+    syncCartDrawer();
     toggleCartDrawer();
 }
+
+function removeFromCart(index) {
+    let cart = [];
+    try {
+        cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
+        cart.splice(index, 1);
+        localStorage.setItem('plannit_cart', JSON.stringify(cart));
+    } catch(e) {
+        console.error(e);
+    }
+    syncCartDrawer();
+}
+
+window.addEventListener('load', () => {
+    syncCartDrawer();
+});
+
 
 
 
