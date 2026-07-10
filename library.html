@@ -1163,29 +1163,6 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             const redeemBtn = document.getElementById('redeemBtn');
             const redeemFeedback = document.getElementById('redeemFeedback');
 
-            const VALID_CODES = {
-                // Individual Seasonal Planners
-                'REDACTED': 'summer-sun',
-                'REDACTED': 'winter-frost',
-                'REDACTED': 'autumn-ember',
-                'REDACTED': 'spring-bloom',
-
-                // Botanical Collection
-                'REDACTED':  'botanical-eucalyptus',
-                'REDACTED': 'botanical-rose',
-                'REDACTED':  'botanical-lavender',
-                'REDACTED': 'botanical-wildflower',
-
-                // Full Collections
-                'REDACTED': ['summer-sun', 'winter-frost', 'autumn-ember', 'spring-bloom'],
-                'REDACTED':  ['botanical-eucalyptus', 'botanical-rose', 'botanical-lavender', 'botanical-wildflower'],
-
-                // Master Code
-                'REDACTED': [
-                    'summer-sun', 'winter-frost', 'autumn-ember', 'spring-bloom',
-                    'botanical-eucalyptus', 'botanical-rose', 'botanical-lavender', 'botanical-wildflower'
-                ]
-            };
 
             function showFeedback(msg, isError) {
                 redeemFeedback.textContent = msg;
@@ -1195,123 +1172,47 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
 
             if (redeemBtn) {
                 redeemBtn.addEventListener('click', () => {
-                    // Normalize input: strip extra spaces, convert en/em dashes to regular hyphen
                     const raw = redeemInput.value.trim();
                     const code = raw.replace(/[\u2013\u2014\u2212]/g, '-').replace(/\s+/g, '').toUpperCase();
                     if (!code) return;
 
                     const email = localStorage.getItem('plannit_user_email');
-
-                    if (email) {
-                        // Logged in: try server first, fall back to local VALID_CODES if server rejects
-                        redeemBtn.disabled = true;
-                        const originalText = redeemBtn.textContent;
-                        redeemBtn.textContent = 'Verifying...';
-
-                        fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'redeem', email, code })
-                        })
-                        .then(res => res.json().then(data => ({ ok: res.ok, data })))
-                        .then(({ ok, data }) => {
-                            if (ok && data.success) {
-                                // Server confirmed — merge with local to avoid losing local unlocks
-                                const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
-                                ownedPlanners = merged;
-                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                                // Track local redemptions
-                                const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
-                                data.allowedEditions.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
-                                localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
-                                // Store per-edition access tokens for gateway fallback
-                                if (data.tokens) {
-                                    const allTokens = JSON.parse(localStorage.getItem('plannit_tokens') || '{}');
-                                    Object.assign(allTokens, data.tokens);
-                                    localStorage.setItem('plannit_tokens', JSON.stringify(allTokens));
-                                }
-                                renderLibrary();
-                                redeemInput.value = '';
-                                showFeedback('Code redeemed successfully! 🎉', false);
-                            } else {
-                                // Server rejected — try local VALID_CODES as fallback
-                                const match = VALID_CODES[code];
-                                if (match) {
-                                    let newlyUnlocked = false;
-                                    const itemsToUnlock = Array.isArray(match) ? match : [match];
-                                    itemsToUnlock.forEach(id => {
-                                        if (!ownedPlanners.includes(id)) {
-                                            ownedPlanners.push(id);
-                                            newlyUnlocked = true;
-                                        }
-                                    });
-                                    if (newlyUnlocked) {
-                                        localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                                        // Track local redemptions so accessPlanner doesn't strip them
-                                        const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
-                                        itemsToUnlock.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
-                                        localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
-                                        renderLibrary();
-                                        redeemInput.value = '';
-                                        showFeedback('Unlocked! 🎉', false);
-                                    } else {
-                                        showFeedback('You already own this planner.', false);
-                                        redeemInput.value = '';
-                                    }
-                                } else {
-                                    showFeedback(data.error || 'Invalid or expired code.', true);
-                                }
-                            }
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            // Network failure — still try local
-                            const match = VALID_CODES[code];
-                            if (match) {
-                                const itemsToUnlock = Array.isArray(match) ? match : [match];
-                                itemsToUnlock.forEach(id => { if (!ownedPlanners.includes(id)) ownedPlanners.push(id); });
-                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                                // Track local redemptions
-                                const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
-                                itemsToUnlock.forEach(id => { if (!localRedeemed.includes(id)) localRedeemed.push(id); });
-                                localStorage.setItem('plannit_local_redeemed', JSON.stringify(localRedeemed));
-                                renderLibrary();
-                                redeemInput.value = '';
-                                showFeedback('Unlocked locally! Sync to save permanently.', false);
-                            } else {
-                                showFeedback('Invalid or expired code.', true);
-                            }
-                        })
-                        .finally(() => {
-                            redeemBtn.disabled = false;
-                            redeemBtn.textContent = originalText;
-                        });
-
-                    } else {
-                        // Guest: client-side localStorage fallback
-                        const match = VALID_CODES[code];
-                        if (match) {
-                            let newlyUnlocked = false;
-                            const itemsToUnlock = Array.isArray(match) ? match : [match];
-                            itemsToUnlock.forEach(id => {
-                                if (!ownedPlanners.includes(id)) {
-                                    ownedPlanners.push(id);
-                                    newlyUnlocked = true;
-                                }
-                            });
-                            if (newlyUnlocked) {
-                                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                                renderLibrary();
-                                redeemInput.value = '';
-                                showFeedback('Unlocked! Sign in to sync permanently.', false);
-                            } else {
-                                showFeedback('You already own this planner.', false);
-                                redeemInput.value = '';
-                            }
-                        } else {
-                            showFeedback('Invalid code: "' + code + '"', true);
-                        }
+                    if (!email) {
+                        showFeedback('Please sign in to redeem a code.', true);
+                        return;
                     }
+
+                    // Server-only redemption — no client-side fallback
+                    redeemBtn.disabled = true;
+                    const originalText = redeemBtn.textContent;
+                    redeemBtn.textContent = 'Verifying...';
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'redeem', email, code })
+                    })
+                    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+                    .then(({ ok, data }) => {
+                        if (ok && data.success) {
+                            // Server confirmed — update display-only localStorage
+                            const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
+                            ownedPlanners = merged;
+                            localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                            renderLibrary();
+                            redeemInput.value = '';
+                            showFeedback('Code redeemed successfully! 🎉', false);
+                        } else {
+                            showFeedback(data.error || 'Invalid or expired code.', true);
+                        }
+                    })
+                    .catch(() => {
+                        showFeedback('Could not reach server. Please check your connection.', true);
+                    })
+                    .finally(() => {
+                        redeemBtn.disabled = false;
+                        redeemBtn.textContent = originalText;
+                    });
                 });
             }
 
@@ -1383,71 +1284,58 @@ setTimeout(() => toast.remove(), 400);
 }, 3500);
 }
 
-// Secure Gateway Access
+// Secure Gateway Access — server is the only gate
 async function accessPlanner(id) {
-let email = localStorage.getItem('plannit_user_email');
+    const email = localStorage.getItem('plannit_user_email');
 
-// Helper to bypass iOS Safari popup blocker by navigating in the same tab on mobile
-function openUrl(url) {
-    const isMobile = /iPhone|iPad|iPod|Android|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
-    if (isMobile || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        window.location.href = url;
-    } else {
-        window.open(url, '_blank');
+    function openUrl(url) {
+        const isMobile = /iPhone|iPad|iPod|Android|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
+        if (isMobile || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            window.location.href = url;
+        } else {
+            window.open(url, '_blank');
+        }
     }
-}
 
-showToast("Decrypting secure planner...", "info");
+    // No email = not logged in; prompt to sign in
+    if (!email) {
+        showToast('Please sign in to open your planner.', 'error');
+        openEmailModal(id);
+        return;
+    }
 
-// If running locally without an email (e.g. redeemed via mock code)
-if (!email) {
-setTimeout(() => {
-showToast("Access granted (Offline Mode).", "success");
-openUrl(`loading.html?planner=${encodeURIComponent(id)}`);
-}, 800);
-return;
-}
+    showToast('Decrypting secure planner...', 'info');
 
-try {
-const controller = new AbortController();
-const timeoutId = setTimeout(() => controller.abort(), 3500);
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
-    signal: controller.signal
-});
-clearTimeout(timeoutId);
-const data = await res.json();
+        const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        const data = await res.json();
 
-if (res.ok && data.success && data.signedUrl) {
-openUrl(data.signedUrl);
-} else {
-// Handle guest bypass failure or server error falling back to local offline mode
-if (res.status >= 500) {
-throw new Error(data.error || `Server error: ${res.status}`);
-}
-
-showToast(data.error || "Verification failed.", "error");
-if (res.status === 401 || res.status === 403) {
-const isLoggedIn = !!localStorage.getItem('plannit_user_id');
-const localRedeemed = JSON.parse(localStorage.getItem('plannit_local_redeemed') || '[]');
-if (localRedeemed.includes(id)) {
-    showToast('Access granted (Offline Mode).', 'success');
-    openUrl('loading.html?planner=' + encodeURIComponent(id));
-} else if (isLoggedIn) {
-    ownedPlanners = ownedPlanners.filter(slug => slug !== id);
-    localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-    renderLibrary();
-} else {
-    localStorage.removeItem('plannit_user_email');
-    openEmailModal(id);
-}
-}
-}
-} catch (err) {
-console.warn("Secure Gateway failed, falling back to local mock access.", err);
-showToast("Access granted (Offline Mode).", "success");
-openUrl(`loading.html?planner=${encodeURIComponent(id)}`);
-}
+        if (res.ok && data.success && data.signedUrl) {
+            openUrl(data.signedUrl);
+        } else {
+            // Gateway denied access — strip from display and inform user
+            if (res.status === 401 || res.status === 403) {
+                ownedPlanners = ownedPlanners.filter(slug => slug !== id);
+                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                renderLibrary();
+                showToast('Access denied. Please contact support if you believe this is an error.', 'error');
+            } else if (res.status >= 500) {
+                showToast('Server error. Please try again shortly.', 'error');
+            } else {
+                showToast(data.error || 'Verification failed.', 'error');
+            }
+        }
+    } catch (err) {
+        // Network timeout or failure — never grant access, show a clear message
+        console.warn('Secure Gateway unreachable.', err);
+        showToast('Could not reach server. Please check your connection and try again.', 'error');
+    }
 }
 
 // Event Delegation for Owned Planners Click

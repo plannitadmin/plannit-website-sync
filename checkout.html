@@ -524,22 +524,45 @@
                 renderCheckout();
             };
 
-            // Apply Promo Code
+            // Apply Promo Code — server-validated only
             function applyPromo() {
                 const code = promoInput.value.trim().toUpperCase();
-                if (code === 'REDACTED' || code === 'REDACTED') {
-                    isFree = true;
-                    promoFeedback.textContent = 'Master code applied successfully! Your order is now free.';
-                    promoFeedback.style.color = '#059669';
-                    promoFeedback.style.display = 'block';
-                    calculateTotals();
-                } else if (code) {
-                    isFree = false;
-                    promoFeedback.textContent = 'Invalid promo code.';
+                if (!code) return;
+                promoBtn.disabled = true;
+                promoBtn.textContent = 'Checking...';
+                promoFeedback.style.display = 'none';
+                // All promo validation is server-side — no client fallback
+                fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'validate-promo', code })
+                })
+                .then(res => res.json().then(data => ({ ok: res.ok, data })))
+                .then(({ ok, data }) => {
+                    if (ok && data.valid) {
+                        promoFeedback.textContent = data.message || 'Promo code applied.';
+                        promoFeedback.style.color = '#059669';
+                        promoFeedback.style.display = 'block';
+                        // Backend returns a discount amount or signals free — never trust client amount
+                        if (data.discount) {
+                            window._promoDiscount = data.discount; // pence
+                            calculateTotals();
+                        }
+                    } else {
+                        promoFeedback.textContent = data.error || 'Invalid promo code.';
+                        promoFeedback.style.color = '#DC2626';
+                        promoFeedback.style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    promoFeedback.textContent = 'Could not validate code. Please try again.';
                     promoFeedback.style.color = '#DC2626';
                     promoFeedback.style.display = 'block';
-                    calculateTotals();
-                }
+                })
+                .finally(() => {
+                    promoBtn.disabled = false;
+                    promoBtn.textContent = 'Apply';
+                });
             }
 
             promoBtn.addEventListener('click', applyPromo);
