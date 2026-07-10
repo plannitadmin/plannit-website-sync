@@ -578,6 +578,66 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             border-color: var(--charcoal) !important;
             background: rgba(15, 23, 42, 0.02) !important;
         }
+
+        /* Trial Badges & Ribbons */
+        .trial-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(4px);
+            z-index: 5;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .trial-badge.expired {
+            background: rgba(220, 38, 38, 0.9);
+        }
+
+        .trial-countdown {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .planner-card.trial-expired {
+            cursor: default !important;
+            pointer-events: auto !important; /* Allow clicking the buy button but disable opening */
+        }
+
+        .planner-card.trial-expired .emblem {
+            filter: grayscale(1) opacity(0.3) !important;
+        }
+
+        .planner-card.trial-expired .card-name,
+        .planner-card.trial-expired .card-subtitle {
+            color: #94a3b8 !important;
+        }
+
+        .planner-card.trial-expired .cta-btn {
+            background: rgba(220, 38, 38, 0.1) !important;
+            color: #dc2626 !important;
+            border: 1px solid rgba(220, 38, 38, 0.2) !important;
+        }
+
+        .planner-card.trial-expired .cta-btn:hover {
+            background: #dc2626 !important;
+            color: #ffffff !important;
+        }
 </style>
 <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1104,6 +1164,12 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                             if (data.userId) {
                                 localStorage.setItem('plannit_user_id', data.userId);
                             }
+                            
+                            // Sync trial timelines if they exist
+                            if (data.trials) {
+                                localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                            }
+                            
                             renderLibrary();
                         }
                     })
@@ -1119,20 +1185,97 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             };
 
             function renderLibrary() {
+                // Parse trials
+                let trials = {};
+                try {
+                    const storedTrials = localStorage.getItem('plannit_trials');
+                    if (storedTrials) {
+                        trials = JSON.parse(storedTrials);
+                    }
+                } catch(e) {
+                    console.error("Error reading plannit_trials", e);
+                }
+
+                const now = new Date();
+
+                // Clean up any stale badges/countdowns first
+                document.querySelectorAll('.trial-badge, .trial-countdown').forEach(el => el.remove());
+
                 // Render Cards
                 const cards = document.querySelectorAll('.planner-card');
                 cards.forEach(card => {
                     const id = card.getAttribute('data-id');
                     const col = card.getAttribute('data-col');
                     const btn = card.querySelector('.cta-btn');
+                    
+                    // Reset card styles from trial overrides
+                    card.classList.remove('trial-expired');
+                    
+                    const trialEndStr = trials[id];
+                    let isTrial = false;
+                    let isExpired = false;
+                    let timeLeftStr = '';
 
-                    if (col !== 'cities' && ownedPlanners.includes(id)) {
+                    if (trialEndStr) {
+                        isTrial = true;
+                        const endTime = new Date(trialEndStr);
+                        const msLeft = endTime - now;
+                        if (msLeft <= 0) {
+                            isExpired = true;
+                        } else {
+                            // Calculate remaining time
+                            const mins = Math.floor(msLeft / 60000);
+                            const hours = Math.floor(mins / 60);
+                            const days = Math.floor(hours / 24);
+                            
+                            if (days > 0) {
+                                timeLeftStr = `${days}d left`;
+                            } else if (hours > 0) {
+                                timeLeftStr = `${hours}h left`;
+                            } else {
+                                timeLeftStr = `${mins}m left`;
+                            }
+                        }
+                    }
+
+                    if (isTrial && isExpired) {
+                        // Trial expired state
+                        card.classList.add('trial-expired');
+                        card.classList.remove('owned');
+                        btn.textContent = 'Keep for £4.99';
+                        card.href = 'shop.html#' + col;
+                        card.removeAttribute('onclick'); // Disable opening click handler
+                        
+                        // Add Expired Badge
+                        const badge = document.createElement('div');
+                        badge.className = 'trial-badge expired';
+                        badge.innerHTML = '<i data-lucide="clock" style="width:12px;height:12px;"></i> Expired';
+                        card.appendChild(badge);
+                    } else if (col !== 'cities' && (ownedPlanners.includes(id) || (isTrial && !isExpired))) {
+                        // Owned or active trial
                         card.classList.add('owned');
                         btn.textContent = 'Plan';
                         card.removeAttribute('href'); // prevent any accidental shop navigation
                         card.style.cursor = 'pointer';
                         card.style.pointerEvents = 'auto';
+                        
+                        if (isTrial) {
+                            // Add active trial badge & countdown text inside card info
+                            const badge = document.createElement('div');
+                            badge.className = 'trial-badge';
+                            badge.innerHTML = '<i data-lucide="clock" style="width:12px;height:12px;"></i> Trial';
+                            card.appendChild(badge);
+
+                            const info = card.querySelector('.card-info');
+                            if (info) {
+                                const countdownEl = document.createElement('div');
+                                countdownEl.className = 'trial-countdown';
+                                countdownEl.innerHTML = `<i data-lucide="hourglass" style="width:12px;height:12px;"></i> ${timeLeftStr}`;
+                                info.appendChild(countdownEl);
+                            }
+                        }
                     } else {
+                        // Unowned
                         card.classList.remove('owned');
 
                         if (col === 'nature' || col === 'cities') {
@@ -1145,6 +1288,11 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                     }
                 });
 
+                // Initialize any newly added Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
                 // Render "Buy Collection" Buttons
                 ['seasonal', 'botanical', 'nature'].forEach(col => {
                     const hasAny = collectionMap[col].some(id => ownedPlanners.includes(id));
@@ -1154,6 +1302,11 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                     }
                 });
             }
+
+            // Set up a background interval to tick countdown timers every minute
+            setInterval(() => {
+                renderLibrary();
+            }, 60000);
 
             renderLibrary();
 
@@ -1199,6 +1352,22 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                             const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
                             ownedPlanners = merged;
                             localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+
+                            // If server returned trial endpoints/grants, write to plannit_trials
+                            if (data.trial && data.endsAt) {
+                                let trials = {};
+                                try {
+                                    const storedTrials = localStorage.getItem('plannit_trials');
+                                    if (storedTrials) trials = JSON.parse(storedTrials);
+                                } catch(e) {}
+                                
+                                // Store expiration dates for each unlocked planner
+                                (data.allowedEditions || []).forEach(slug => {
+                                    trials[slug] = data.endsAt;
+                                });
+                                localStorage.setItem('plannit_trials', JSON.stringify(trials));
+                            }
+
                             renderLibrary();
                             redeemInput.value = '';
                             showFeedback('Code redeemed successfully! 🎉', false);
@@ -1386,36 +1555,39 @@ if (e.target === emailModalOverlay) closeEmailModal();
 });
 }
 if (syncLibraryBtn) {
-syncLibraryBtn.addEventListener('click', async (e) => {
-e.preventDefault();
-const loggedInEmail = localStorage.getItem('plannit_user_email');
-const isLoggedIn = !!localStorage.getItem('plannit_user_id');
-if (isLoggedIn && loggedInEmail) {
-showToast("Syncing your library...", "info");
-try {
-const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`);
-const data = await res.json();
-if (res.ok && data.success) {
-// Merge server list with local — never discard local unlocks on manual sync
-const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
-ownedPlanners = merged;
-localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-if (data.userId) {
-localStorage.setItem('plannit_user_id', data.userId);
-}
-renderLibrary();
-showToast("Library synced successfully! ", "success");
-} else {
-showToast(data.error || "Failed to sync library.", "error");
-}
-} catch (err) {
-console.error(err);
-showToast("Connection error while syncing.", "error");
-}
-} else {
-openEmailModal();
-}
-});
+    syncLibraryBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const loggedInEmail = localStorage.getItem('plannit_user_email');
+        const isLoggedIn = !!localStorage.getItem('plannit_user_id');
+        if (isLoggedIn && loggedInEmail) {
+            showToast("Syncing your library...", "info");
+            try {
+                const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`);
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    // Merge server list with local — never discard local unlocks on manual sync
+                    const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
+                    ownedPlanners = merged;
+                    localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+                    if (data.userId) {
+                        localStorage.setItem('plannit_user_id', data.userId);
+                    }
+                    if (data.trials) {
+                        localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                    }
+                    renderLibrary();
+                    showToast("Library synced successfully! ", "success");
+                } else {
+                    showToast(data.error || "Failed to sync library.", "error");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Connection error while syncing.", "error");
+            }
+        } else {
+            openEmailModal();
+        }
+    });
 }
 
 async function handleEmailSync() {
@@ -1457,6 +1629,10 @@ if (!owned.includes(ed)) owned.push(ed);
 
 localStorage.setItem('plannit_owned', JSON.stringify(owned));
 ownedPlanners = owned;
+
+if (data.trials) {
+localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+}
 
 renderLibrary();
 showToast("Library synced successfully! ", "success");
