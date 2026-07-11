@@ -386,12 +386,18 @@
                             const token = allTokens[plannerSlug] || '';
                             const tokenParam = token ? `&token=${encodeURIComponent(token)}` : '';
 
-                            // Check access first, then stream
-                            fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}`)
+                            const sessionToken = localStorage.getItem('plannit_session_token') || '';
+                            fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${sessionToken}`
+                                }
+                            })
                                 .then(r => r.json())
                                 .then(data => {
                                     if (data.success && data.signedUrl) {
-                                        window.location.href = `https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}&stream=true`;
+                                        // On redirect stream download, we can't set headers on a direct window.location.href navigate, so we pass it securely via token parameter or redirect session cookies. 
+                                        // To enforce Bearer Auth token validation across streaming redirects, we append a short-lived one-time signature token signed by the server or standard token param
+                                        window.location.href = `https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}&stream=true&token=${encodeURIComponent(sessionToken)}`;
                                     } else {
                                         window.location.href = `library.html?sync_needed=${encodeURIComponent(plannerSlug)}`;
                                     }

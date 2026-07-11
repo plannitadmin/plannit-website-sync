@@ -574,6 +574,7 @@
                         localStorage.setItem('plannit_user_id', data.user.id);
                         localStorage.setItem('plannit_user_email', data.user.email);
                         localStorage.setItem('plannit_email', data.user.email);
+                        localStorage.setItem('plannit_session_token', data.sessionToken || '');
                         localStorage.setItem('plannit_first_name', data.user.firstName);
                         localStorage.setItem('plannit_last_name', data.user.lastName);
                         localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));
@@ -699,6 +700,7 @@
                         localStorage.setItem('plannit_user_id', data.user.id);
                         localStorage.setItem('plannit_user_email', data.user.email);
                         localStorage.setItem('plannit_email', data.user.email);
+                        localStorage.setItem('plannit_session_token', data.sessionToken || '');
                         localStorage.setItem('plannit_first_name', data.user.firstName);
                         localStorage.setItem('plannit_last_name', data.user.lastName);
                         localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));

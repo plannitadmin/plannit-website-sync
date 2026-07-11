@@ -1148,8 +1148,13 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             }
 
             const loggedInEmail = localStorage.getItem('plannit_user_email');
+            const sessionToken = localStorage.getItem('plannit_session_token') || '';
             if (loggedInEmail) {
-                fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`)
+                fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                })
                     .then(res => {
                         if (!res.ok) throw new Error("Auto-sync failed");
                         return res.json();
@@ -1340,9 +1345,13 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                     const originalText = redeemBtn.textContent;
                     redeemBtn.textContent = 'Verifying...';
 
+                    const sessionToken = localStorage.getItem('plannit_session_token') || '';
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${sessionToken}`
+                        },
                         body: JSON.stringify({ action: 'redeem', email, code })
                     })
                     .then(res => res.json().then(data => ({ ok: res.ok, data })))
@@ -1479,8 +1488,12 @@ async function accessPlanner(id) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3500);
 
+        const sessionToken = localStorage.getItem('plannit_session_token') || '';
         const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
-            signal: controller.signal
+            signal: controller.signal,
+            headers: {
+                'Authorization': `Bearer ${sessionToken}`
+            }
         });
         clearTimeout(timeoutId);
         const data = await res.json();
@@ -1562,7 +1575,12 @@ if (syncLibraryBtn) {
         if (isLoggedIn && loggedInEmail) {
             showToast("Syncing your library...", "info");
             try {
-                const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`);
+                const sessionToken = localStorage.getItem('plannit_session_token') || '';
+                const res = await fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 const data = await res.json();
                 if (res.ok && data.success) {
                     // Merge server list with local — never discard local unlocks on manual sync
