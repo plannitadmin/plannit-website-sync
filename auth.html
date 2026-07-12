@@ -24,7 +24,8 @@
         }
 
         body {
-            background: linear-gradient(180deg, #FDFCFB 0%, #F8FAFC 60%);
+            background: url('checkout_bg_v2.png') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -32,16 +33,31 @@
             margin: 0;
             font-family: 'Inter', sans-serif;
             padding: 2rem 1rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(253, 252, 251, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1;
         }
 
         .auth-container {
             width: 100%;
             max-width: 460px;
             perspective: 1000px;
+            position: relative;
+            z-index: 2;
         }
 
         .auth-card {
-            background: #FFFFFF;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 2.5rem;
@@ -320,6 +336,9 @@
                     <div class="form-group">
                         <label class="form-label" for="login-password">Password</label>
                         <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                        <div style="text-align: right; margin-top: 0.5rem;">
+                            <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; transition: opacity 0.2s;">Forgot password?</a>
+                        </div>
                     </div>
                     <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
                     <button type="submit" class="btn-submit">Log In to Library</button>
@@ -404,6 +423,25 @@
                 </div>
             </div>
 
+            <!-- SECTION 3.5: FORGOT PASSWORD / RECOVERY -->
+            <div id="forgot-section" class="auth-section hidden">
+                <h2 class="auth-title">Reset Password</h2>
+                <p class="auth-subtitle">Enter your registered email address and we will send you a secure link to reset your password.</p>
+                
+                <form id="forgot-form">
+                    <div class="form-group">
+                        <label class="form-label" for="forgot-email">Email Address</label>
+                        <input type="email" id="forgot-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+                    <div id="forgot-feedback-msg" style="font-size: 0.78rem; font-weight: 600; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                    <button type="submit" class="btn-submit" id="btn-forgot-submit">Send Reset Link</button>
+                </form>
+
+                <div class="auth-footer">
+                    Back to <a href="#" id="link-forgot-back">Log In</a>
+                </div>
+            </div>
+
             <!-- SECTION 4: SUCCESS -->
             <div id="success-section" class="auth-section hidden">
                 <div class="success-box">
@@ -427,14 +465,18 @@
             const loginSection = document.getElementById('login-section');
             const signupSection = document.getElementById('signup-section');
             const verifySection = document.getElementById('verify-section');
+            const forgotSection = document.getElementById('forgot-section');
             const successSection = document.getElementById('success-section');
 
             const linkToSignup = document.getElementById('link-to-signup');
             const linkToLogin = document.getElementById('link-to-login');
+            const linkForgotPassword = document.getElementById('link-forgot-password');
+            const linkForgotBack = document.getElementById('link-forgot-back');
 
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
             const verifyForm = document.getElementById('verify-form');
+            const forgotForm = document.getElementById('forgot-form');
 
             const digitInputs = document.querySelectorAll('.digit-input');
             const verifyErrorMsg = document.getElementById('verify-error-msg');
@@ -471,10 +513,10 @@
             }
 
             function showSection(section) {
-                [loginSection, signupSection, verifySection, successSection].forEach(sec => {
-                    sec.classList.add('hidden');
+                [loginSection, signupSection, verifySection, forgotSection, successSection].forEach(sec => {
+                    if (sec) sec.classList.add('hidden');
                 });
-                section.classList.remove('hidden');
+                if (section) section.classList.remove('hidden');
             }
 
             // Navigation Links
@@ -490,6 +532,22 @@
                 showSection(loginSection);
                 window.history.replaceState(null, '', '?mode=login');
             });
+
+            if (linkForgotPassword) {
+                linkForgotPassword.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(forgotSection);
+                    window.history.replaceState(null, '', '?mode=forgot');
+                });
+            }
+
+            if (linkForgotBack) {
+                linkForgotBack.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(loginSection);
+                    window.history.replaceState(null, '', '?mode=login');
+                });
+            }
 
             // Resend code handler
             resendLink.addEventListener('click', (e) => {
@@ -732,6 +790,49 @@
                     });
                 }
             });
+
+            // Handle Forgot Password Form submission
+            if (forgotForm) {
+                forgotForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('forgot-email').value.trim();
+                    const forgotErrorMsg = document.getElementById('forgot-error-msg');
+                    const submitBtn = forgotForm.querySelector('button[type="submit"]');
+
+                    if (email) {
+                        forgotErrorMsg.style.display = 'none';
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Sending link...';
+                        submitBtn.disabled = true;
+
+                        fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'forgot-password', email })
+                        })
+                        .then(res => handleResponse(res, 'Failed to send reset link'))
+                        .then(data => {
+                            // Show success screen and instruct user
+                            successTitle.textContent = "Reset Link Sent!";
+                            successDesc.textContent = `A password reset link has been sent to ${email}. Please check your inbox and spam folder.`;
+                            showSection(successSection);
+
+                            // Redirect back to login section after 5 seconds
+                            setTimeout(() => {
+                                showSection(loginSection);
+                                window.history.replaceState(null, '', '?mode=login');
+                            }, 5000);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            forgotErrorMsg.textContent = err.message;
+                            forgotErrorMsg.style.display = 'block';
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        });
+                    }
+                });
+            }
             // Initialize Lucide Icons
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();

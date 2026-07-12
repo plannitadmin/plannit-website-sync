@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
-  html, body { margin:0; background:var(--cream); font-family:var(--font-sans); }
-  .mobile-page { max-width:480px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
+  html, body { margin:0; background: url('../checkout_bg_v2.png') no-repeat center center fixed; background-size: cover; font-family:var(--font-sans); min-height: 100vh; }
+  .mobile-page { max-width:480px; margin:0 auto; background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
 
   .pnav-min { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid var(--border-soft); position:sticky; top:0; z-index:50; background:var(--white); }
   .plogo { font-family:var(--font-display); font-weight:600; font-size:19px; color:var(--charcoal); text-decoration:none; }
@@ -80,7 +80,7 @@
     <div style="width:19px;"></div>
   </div>
 
-  <div class="section white" style="padding-bottom:10px;">
+  <div class="section" style="padding-bottom:10px; background: transparent;">
     <div class="co-title">Review &amp; Checkout</div>
     <p class="co-sub">Complete your purchase to unlock your premium planner.</p>
     <!-- Auth gate banner — updated by JS -->
@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <div class="section white" style="padding-top:14px;">
+  <div class="section" style="padding-top:14px; background: transparent;">
     <div class="co-card">
       <h3>Items in Order</h3>
       <div id="checkoutItemsList">
