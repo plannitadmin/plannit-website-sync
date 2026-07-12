@@ -105,6 +105,8 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            width: 100%;
+            text-align: left;
         }
 
         .form-row {
@@ -112,6 +114,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             margin-bottom: 1.25rem;
+            width: 100%;
         }
 
         .form-label {
@@ -120,6 +123,7 @@
             color: var(--secondary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            text-align: left;
         }
 
         .form-input {
@@ -132,6 +136,7 @@
             background: white;
             font-family: 'Inter', sans-serif;
             transition: var(--transition);
+            box-sizing: border-box;
         }
 
         .form-input:focus {
@@ -336,7 +341,7 @@
                     <div class="form-group">
                         <label class="form-label" for="login-password">Password</label>
                         <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-                        <div style="text-align: right; margin-top: 0.5rem;">
+                        <div style="text-align: right; margin-top: 0.4rem; padding-right: 0.2rem;">
                             <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; transition: opacity 0.2s;">Forgot password?</a>
                         </div>
                     </div>
@@ -796,11 +801,11 @@
                 forgotForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const email = document.getElementById('forgot-email').value.trim();
-                    const forgotErrorMsg = document.getElementById('forgot-error-msg');
+                    const forgotFeedbackMsg = document.getElementById('forgot-feedback-msg');
                     const submitBtn = forgotForm.querySelector('button[type="submit"]');
 
                     if (email) {
-                        forgotErrorMsg.style.display = 'none';
+                        if (forgotFeedbackMsg) forgotFeedbackMsg.style.display = 'none';
                         const originalText = submitBtn.textContent;
                         submitBtn.textContent = 'Sending link...';
                         submitBtn.disabled = true;
@@ -825,8 +830,11 @@
                         })
                         .catch(err => {
                             console.error(err);
-                            forgotErrorMsg.textContent = err.message;
-                            forgotErrorMsg.style.display = 'block';
+                            if (forgotFeedbackMsg) {
+                                forgotFeedbackMsg.textContent = err.message;
+                                forgotFeedbackMsg.style.color = '#DC2626';
+                                forgotFeedbackMsg.style.display = 'block';
+                            }
                             submitBtn.textContent = originalText;
                             submitBtn.disabled = false;
                         });
