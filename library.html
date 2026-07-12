@@ -584,30 +584,32 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             position: absolute;
             top: 12px;
             left: 12px;
-            background: rgba(15, 23, 42, 0.9);
-            color: #ffffff;
+            background: linear-gradient(135deg, #FFB84D 0%, #E8A020 100%);
+            color: #0F172A;
             font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             gap: 4px;
             backdrop-filter: blur(4px);
             z-index: 5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(232, 160, 32, 0.25);
         }
 
         .trial-badge.expired {
             background: rgba(220, 38, 38, 0.9);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
         }
 
         .trial-countdown {
             font-size: 0.7rem;
             font-weight: 600;
-            color: #ef4444;
+            color: #D97706;
             display: flex;
             align-items: center;
             gap: 4px;
@@ -1228,17 +1230,18 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                         if (msLeft <= 0) {
                             isExpired = true;
                         } else {
-                            // Calculate remaining time
-                            const mins = Math.floor(msLeft / 60000);
-                            const hours = Math.floor(mins / 60);
-                            const days = Math.floor(hours / 24);
+                            // Calculate remaining time precisely (days, hours, minutes)
+                            const totalMins = Math.floor(msLeft / 60000);
+                            const d = Math.floor(totalMins / (24 * 60));
+                            const h = Math.floor((totalMins % (24 * 60)) / 60);
+                            const m = totalMins % 60;
                             
-                            if (days > 0) {
-                                timeLeftStr = `${days}d left`;
-                            } else if (hours > 0) {
-                                timeLeftStr = `${hours}h left`;
+                            if (d > 0) {
+                                timeLeftStr = `${d}d ${h}h ${m}m left`;
+                            } else if (h > 0) {
+                                timeLeftStr = `${h}h ${m}m left`;
                             } else {
-                                timeLeftStr = `${mins}m left`;
+                                timeLeftStr = `${m}m left`;
                             }
                         }
                     }
@@ -1499,7 +1502,8 @@ async function accessPlanner(id) {
         const data = await res.json();
 
         if (res.ok && data.success && data.signedUrl) {
-            openUrl(data.signedUrl);
+            const finalUrl = `${data.signedUrl}&token=${encodeURIComponent(sessionToken)}`;
+            openUrl(finalUrl);
         } else {
             // Gateway denied access — strip from display and inform user
             if (res.status === 401 || res.status === 403) {
@@ -1567,12 +1571,22 @@ emailModalOverlay.addEventListener('click', (e) => {
 if (e.target === emailModalOverlay) closeEmailModal();
 });
 }
+let lastSyncTime = 0;
 if (syncLibraryBtn) {
     syncLibraryBtn.addEventListener('click', async (e) => {
         e.preventDefault();
+        
+        const now = Date.now();
+        if (now - lastSyncTime < 10000) {
+            const secondsLeft = Math.ceil((10000 - (now - lastSyncTime)) / 1000);
+            showToast(`Please wait ${secondsLeft}s before syncing again.`, "error");
+            return;
+        }
+
         const loggedInEmail = localStorage.getItem('plannit_user_email');
         const isLoggedIn = !!localStorage.getItem('plannit_user_id');
         if (isLoggedIn && loggedInEmail) {
+            lastSyncTime = now;
             showToast("Syncing your library...", "info");
             try {
                 const sessionToken = localStorage.getItem('plannit_session_token') || '';

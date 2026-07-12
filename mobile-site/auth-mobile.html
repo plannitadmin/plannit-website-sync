@@ -332,6 +332,7 @@ function handleLogin() {
     localStorage.setItem('plannit_last_name',  data.user.lastName  || '');
     localStorage.setItem('plannit_username',   data.user.username  || data.user.firstName || '');
     localStorage.setItem('plannit_entered',    'true');
+    localStorage.setItem('plannit_session_token', data.sessionToken || '');
     if (data.allowedEditions) localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions));
 
     showSuccess('loginSuccess', '✓ Logged in! Redirecting...');
@@ -383,6 +384,7 @@ function handleSignup() {
     localStorage.setItem('plannit_first_name', data.user.firstName || firstName);
     localStorage.setItem('plannit_last_name',  data.user.lastName  || lastName);
     localStorage.setItem('plannit_username',   data.user.username  || firstName);
+    localStorage.setItem('plannit_session_token', data.sessionToken || '');
     localStorage.setItem('plannit_entered',    'true');
 
     showSuccess('signupSuccess', '✓ Account created! Redirecting...');
@@ -403,7 +405,7 @@ function handleGoogleAuth() {
 // ── SIGN OUT ──
 function signOut() {
   ['plannit_user_id','plannit_user_email','plannit_email','plannit_first_name','plannit_last_name',
-   'plannit_username','plannit_entered','plannit_owned'].forEach(k => localStorage.removeItem(k));
+   'plannit_username','plannit_entered','plannit_owned','plannit_session_token','plannit_trials'].forEach(k => localStorage.removeItem(k));
   window.location.reload();
 }
 

@@ -457,6 +457,17 @@
                 </div>
             </div>
 
+            <!-- SECTION 5: PROFILE / LOGGED IN -->
+            <div id="profile-section" class="auth-section hidden">
+                <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1rem 0;">
+                    <div id="desktop-avatar" style="width: 72px; height: 72px; border-radius: 50%; background: #3E5C76; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase;">?</div>
+                    <h2 class="auth-title" id="profile-name">Welcome Back</h2>
+                    <p class="auth-subtitle" id="profile-email">your@email.com</p>
+                    <a href="library.html" class="btn-submit" style="text-decoration: none; margin-top: 1rem; width: 100%;">Go to My Library</a>
+                    <button class="btn-submit" onclick="signOut()" style="background: transparent; color: var(--secondary); border: 1.5px solid var(--border); box-shadow: none; margin-top: 1rem; width: 100%;">Sign Out</button>
+                </div>
+            </div>
+
         </div>
         
         <!-- Credits Link -->
@@ -472,6 +483,7 @@
             const verifySection = document.getElementById('verify-section');
             const forgotSection = document.getElementById('forgot-section');
             const successSection = document.getElementById('success-section');
+            const profileSection = document.getElementById('profile-section');
 
             const linkToSignup = document.getElementById('link-to-signup');
             const linkToLogin = document.getElementById('link-to-login');
@@ -507,18 +519,39 @@
                 return res.json();
             }
 
+            // Global signOut handler
+            window.signOut = function() {
+                ['plannit_user_id','plannit_user_email','plannit_email','plannit_first_name','plannit_last_name',
+                 'plannit_username','plannit_entered','plannit_owned','plannit_session_token','plannit_trials'].forEach(k => localStorage.removeItem(k));
+                window.location.reload();
+            };
+
             // URL Parsing to choose initial state
             const params = new URLSearchParams(window.location.search);
             const mode = params.get('mode') || 'login';
 
-            if (mode === 'signup') {
+            const userId = localStorage.getItem('plannit_user_id');
+            const email = localStorage.getItem('plannit_user_email');
+            const name = localStorage.getItem('plannit_first_name') || localStorage.getItem('plannit_username') || 'Guest';
+
+            if (userId && email) {
+                const profileName = document.getElementById('profile-name');
+                const profileEmail = document.getElementById('profile-email');
+                const desktopAvatar = document.getElementById('desktop-avatar');
+                
+                if (profileName) profileName.textContent = name;
+                if (profileEmail) profileEmail.textContent = email;
+                if (desktopAvatar) desktopAvatar.textContent = name.charAt(0).toUpperCase();
+                
+                showSection(profileSection);
+            } else if (mode === 'signup') {
                 showSection(signupSection);
             } else {
                 showSection(loginSection);
             }
 
             function showSection(section) {
-                [loginSection, signupSection, verifySection, forgotSection, successSection].forEach(sec => {
+                [loginSection, signupSection, verifySection, forgotSection, successSection, profileSection].forEach(sec => {
                     if (sec) sec.classList.add('hidden');
                 });
                 if (section) section.classList.remove('hidden');
