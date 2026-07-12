@@ -521,8 +521,11 @@
 
             // Global signOut handler
             window.signOut = function() {
-                ['plannit_user_id','plannit_user_email','plannit_email','plannit_first_name','plannit_last_name',
-                 'plannit_username','plannit_entered','plannit_owned','plannit_session_token','plannit_trials'].forEach(k => localStorage.removeItem(k));
+                // Clear ALL plannit_* keys so no owned/trial/redeemed/token state survives logout
+                // (missing plannit_local_redeemed / plannit_tokens previously left cards highlighted).
+                Object.keys(localStorage)
+                    .filter(k => k.startsWith('plannit_'))
+                    .forEach(k => localStorage.removeItem(k));
                 window.location.reload();
             };
 

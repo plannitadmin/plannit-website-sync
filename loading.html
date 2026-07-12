@@ -395,9 +395,11 @@
                                 .then(r => r.json())
                                 .then(data => {
                                     if (data.success && data.signedUrl) {
-                                        // On redirect stream download, we can't set headers on a direct window.location.href navigate, so we pass it securely via token parameter or redirect session cookies. 
-                                        // To enforce Bearer Auth token validation across streaming redirects, we append a short-lived one-time signature token signed by the server or standard token param
-                                        window.location.href = `https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}&stream=true&token=${encodeURIComponent(sessionToken)}`;
+                                        // A top-level navigation can't send an Authorization header, so the JWT
+                                        // is passed as the single `token` query param the gateway falls back to.
+                                        // Do NOT also append the legacy redemption tokenParam here — duplicate
+                                        // `token=` keys parse to an array server-side and fail JWT validation (401).
+                                        window.location.href = `https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}&stream=true&token=${encodeURIComponent(sessionToken)}`;
                                     } else {
                                         window.location.href = `library.html?sync_needed=${encodeURIComponent(plannerSlug)}`;
                                     }

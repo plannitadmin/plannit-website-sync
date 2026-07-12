@@ -1572,10 +1572,14 @@ if (e.target === emailModalOverlay) closeEmailModal();
 });
 }
 let lastSyncTime = 0;
+let syncInFlight = false;
 if (syncLibraryBtn) {
     syncLibraryBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        
+
+        // Block re-entry while a request is already running (stops click-spam flooding)
+        if (syncInFlight) return;
+
         const now = Date.now();
         if (now - lastSyncTime < 10000) {
             const secondsLeft = Math.ceil((10000 - (now - lastSyncTime)) / 1000);
@@ -1587,6 +1591,9 @@ if (syncLibraryBtn) {
         const isLoggedIn = !!localStorage.getItem('plannit_user_id');
         if (isLoggedIn && loggedInEmail) {
             lastSyncTime = now;
+            syncInFlight = true;
+            syncLibraryBtn.style.pointerEvents = 'none';
+            syncLibraryBtn.style.opacity = '0.5';
             showToast("Syncing your library...", "info");
             try {
                 const sessionToken = localStorage.getItem('plannit_session_token') || '';
@@ -1615,6 +1622,10 @@ if (syncLibraryBtn) {
             } catch (err) {
                 console.error(err);
                 showToast("Connection error while syncing.", "error");
+            } finally {
+                syncInFlight = false;
+                syncLibraryBtn.style.pointerEvents = '';
+                syncLibraryBtn.style.opacity = '';
             }
         } else {
             openEmailModal();
