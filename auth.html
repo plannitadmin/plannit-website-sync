@@ -431,19 +431,57 @@
             <!-- SECTION 3.5: FORGOT PASSWORD / RECOVERY -->
             <div id="forgot-section" class="auth-section hidden">
                 <h2 class="auth-title">Reset Password</h2>
-                <p class="auth-subtitle">Enter your registered email address and we will send you a secure link to reset your password.</p>
-                
+                <p class="auth-subtitle">Enter your registered email address and we will send you a 6-digit code to reset your password.</p>
+
                 <form id="forgot-form">
                     <div class="form-group">
                         <label class="form-label" for="forgot-email">Email Address</label>
                         <input type="email" id="forgot-email" class="form-input" placeholder="you@example.com" required>
                     </div>
                     <div id="forgot-feedback-msg" style="font-size: 0.78rem; font-weight: 600; text-align: center; margin-bottom: 1rem; display: none;"></div>
-                    <button type="submit" class="btn-submit" id="btn-forgot-submit">Send Reset Link</button>
+                    <button type="submit" class="btn-submit" id="btn-forgot-submit">Send Reset Code</button>
                 </form>
 
                 <div class="auth-footer">
                     Back to <a href="#" id="link-forgot-back">Log In</a>
+                </div>
+            </div>
+
+            <!-- SECTION: PASSWORD RESET CODE + NEW PASSWORD -->
+            <div id="reset-code-section" class="auth-section hidden">
+                <h2 class="auth-title">Enter Reset Code</h2>
+                <p class="auth-subtitle" id="reset-code-desc">We sent a 6-digit code to your email. Enter it below along with your new password.</p>
+
+                <form id="reset-code-form">
+                    <div class="verification-digits">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="0" required pattern="[0-9]">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="1" required pattern="[0-9]">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="2" required pattern="[0-9]">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="3" required pattern="[0-9]">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="4" required pattern="[0-9]">
+                        <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="5" required pattern="[0-9]">
+                    </div>
+
+                    <div id="reset-demo-code-container" style="font-size: 0.72rem; color: var(--secondary); text-align: center; margin-bottom: 1rem; line-height: 1.4; display: none;">
+                        <i data-lucide="mail" class="lucide" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Demo Code: <strong style="color: var(--accent);" id="reset-demo-code-val">123456</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reset-new-password">New Password</label>
+                        <input type="password" id="reset-new-password" class="form-input" placeholder="Min. 8 characters" minlength="8" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reset-confirm-password">Confirm New Password</label>
+                        <input type="password" id="reset-confirm-password" class="form-input" placeholder="Min. 8 characters" minlength="8" required autocomplete="new-password">
+                    </div>
+
+                    <div id="reset-code-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+
+                    <button type="submit" class="btn-submit">Reset Password</button>
+                </form>
+
+                <div class="auth-footer">
+                    Didn't receive code? <a href="#" id="btn-resend-reset-code">Resend Code</a>
                 </div>
             </div>
 
@@ -482,6 +520,7 @@
             const signupSection = document.getElementById('signup-section');
             const verifySection = document.getElementById('verify-section');
             const forgotSection = document.getElementById('forgot-section');
+            const resetCodeSection = document.getElementById('reset-code-section');
             const successSection = document.getElementById('success-section');
             const profileSection = document.getElementById('profile-section');
 
@@ -494,11 +533,20 @@
             const signupForm = document.getElementById('signup-form');
             const verifyForm = document.getElementById('verify-form');
             const forgotForm = document.getElementById('forgot-form');
+            const resetCodeForm = document.getElementById('reset-code-form');
 
             const digitInputs = document.querySelectorAll('.digit-input');
             const verifyErrorMsg = document.getElementById('verify-error-msg');
             const verifyDescEl = document.getElementById('verify-desc');
             const resendLink = document.getElementById('btn-resend-code');
+
+            // Password-reset code screen (kept scoped to .reset-digit-input so it never
+            // collides with the signup verify flow's global .digit-input selector above)
+            const resetDigitInputs = document.querySelectorAll('.reset-digit-input');
+            const resetCodeErrorMsg = document.getElementById('reset-code-error-msg');
+            const resendResetLink = document.getElementById('btn-resend-reset-code');
+            let resetVerificationToken = '';
+            let resetEmail = '';
 
             const successTitle = document.getElementById('success-title');
             const successDesc = document.getElementById('success-desc');
@@ -554,7 +602,7 @@
             }
 
             function showSection(section) {
-                [loginSection, signupSection, verifySection, forgotSection, successSection, profileSection].forEach(sec => {
+                [loginSection, signupSection, verifySection, forgotSection, resetCodeSection, successSection, profileSection].forEach(sec => {
                     if (sec) sec.classList.add('hidden');
                 });
                 if (section) section.classList.remove('hidden');
@@ -642,6 +690,21 @@
                 input.addEventListener('keydown', (e) => {
                     if (e.key === 'Backspace' && !e.target.value && index > 0) {
                         digitInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            resetDigitInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value && index < resetDigitInputs.length - 1) {
+                        resetDigitInputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        resetDigitInputs[index - 1].focus();
                     }
                 });
             });
@@ -855,7 +918,7 @@
                     if (email) {
                         if (forgotFeedbackMsg) forgotFeedbackMsg.style.display = 'none';
                         const originalText = submitBtn.textContent;
-                        submitBtn.textContent = 'Sending link...';
+                        submitBtn.textContent = 'Sending code...';
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
@@ -863,18 +926,30 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ action: 'forgot-password', email })
                         })
-                        .then(res => handleResponse(res, 'Failed to send reset link'))
+                        .then(res => handleResponse(res, 'Failed to send reset code'))
                         .then(data => {
-                            // Show success screen and instruct user
-                            successTitle.textContent = "Reset Link Sent!";
-                            successDesc.textContent = `A password reset link has been sent to ${email}. Please check your inbox and spam folder.`;
-                            showSection(successSection);
+                            resetVerificationToken = data.token;
+                            resetEmail = email;
 
-                            // Redirect back to login section after 5 seconds
-                            setTimeout(() => {
-                                showSection(loginSection);
-                                window.history.replaceState(null, '', '?mode=login');
-                            }, 5000);
+                            const resetCodeDescEl = document.getElementById('reset-code-desc');
+                            if (resetCodeDescEl) {
+                                resetCodeDescEl.innerHTML = `We sent a 6-digit code to <strong style="color: var(--primary); font-size: 0.8rem;">${email}</strong>. Enter it below along with your new password.`;
+                            }
+
+                            const resetDemoCodeContainer = document.getElementById('reset-demo-code-container');
+                            const resetDemoCodeVal = document.getElementById('reset-demo-code-val');
+                            if (data.devCode && resetDemoCodeContainer && resetDemoCodeVal) {
+                                resetDemoCodeVal.textContent = data.devCode;
+                                resetDemoCodeContainer.style.display = 'block';
+                            } else if (resetDemoCodeContainer) {
+                                resetDemoCodeContainer.style.display = 'none';
+                            }
+
+                            showSection(resetCodeSection);
+                            resetDigitInputs[0].focus();
+
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
                         })
                         .catch(err => {
                             console.error(err);
@@ -889,6 +964,144 @@
                     }
                 });
             }
+
+            // Handle Reset Code + New Password submission
+            if (resetCodeForm) {
+                resetCodeForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    let code = '';
+                    resetDigitInputs.forEach(input => { code += input.value.trim(); });
+
+                    const newPassword = document.getElementById('reset-new-password').value;
+                    const confirmPassword = document.getElementById('reset-confirm-password').value;
+
+                    if (resetCodeErrorMsg) resetCodeErrorMsg.style.display = 'none';
+
+                    if (newPassword !== confirmPassword) {
+                        if (resetCodeErrorMsg) {
+                            resetCodeErrorMsg.textContent = "Passwords do not match.";
+                            resetCodeErrorMsg.style.display = 'block';
+                        }
+                        return;
+                    }
+
+                    if (code.length !== 6) {
+                        if (resetCodeErrorMsg) {
+                            resetCodeErrorMsg.textContent = "Please enter the full 6-digit code.";
+                            resetCodeErrorMsg.style.display = 'block';
+                        }
+                        return;
+                    }
+
+                    const submitBtn = resetCodeForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Resetting...';
+                    submitBtn.disabled = true;
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'reset-password',
+                            token: resetVerificationToken,
+                            code,
+                            newPassword
+                        })
+                    })
+                    .then(res => handleResponse(res, 'Failed to reset password'))
+                    .then(data => {
+                        if (data.sessionToken) {
+                            // Log the user straight in, same as a normal login/verify
+                            localStorage.setItem('plannit_user_id', data.user.id);
+                            localStorage.setItem('plannit_user_email', data.user.email);
+                            localStorage.setItem('plannit_email', data.user.email);
+                            localStorage.setItem('plannit_session_token', data.sessionToken || '');
+                            localStorage.setItem('plannit_first_name', data.user.firstName || '');
+                            localStorage.setItem('plannit_last_name', data.user.lastName || '');
+                            localStorage.setItem('plannit_entered', 'true');
+                            localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions || []));
+
+                            successTitle.textContent = "Password Reset!";
+                            successDesc.textContent = "You're all set — taking you to your library now.";
+                            showSection(successSection);
+
+                            setTimeout(() => {
+                                window.location.href = 'library.html';
+                            }, 1600);
+                        } else {
+                            // Password changed but auto-login didn't happen — send them to log in manually
+                            successTitle.textContent = "Password Reset!";
+                            successDesc.textContent = "Please log in with your new password.";
+                            showSection(successSection);
+
+                            setTimeout(() => {
+                                showSection(loginSection);
+                                window.history.replaceState(null, '', '?mode=login');
+                            }, 2500);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        if (resetCodeErrorMsg) {
+                            resetCodeErrorMsg.textContent = err.message;
+                            resetCodeErrorMsg.style.display = 'block';
+                        }
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
+
+            // Resend reset code
+            if (resendResetLink) {
+                resendResetLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!resetVerificationToken) {
+                        if (resetCodeErrorMsg) {
+                            resetCodeErrorMsg.textContent = "No active reset session. Please request a new code.";
+                            resetCodeErrorMsg.style.display = 'block';
+                        }
+                        return;
+                    }
+                    const originalText = resendResetLink.textContent;
+                    resendResetLink.textContent = 'Sending new code...';
+                    resendResetLink.style.pointerEvents = 'none';
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'resend', token: resetVerificationToken })
+                    })
+                    .then(res => handleResponse(res, 'Failed to resend code'))
+                    .then(data => {
+                        resetVerificationToken = data.token;
+                        if (resetCodeErrorMsg) resetCodeErrorMsg.style.display = 'none';
+
+                        const resetDemoCodeContainer = document.getElementById('reset-demo-code-container');
+                        const resetDemoCodeVal = document.getElementById('reset-demo-code-val');
+                        if (data.devCode && resetDemoCodeContainer && resetDemoCodeVal) {
+                            resetDemoCodeVal.textContent = data.devCode;
+                            resetDemoCodeContainer.style.display = 'block';
+                        }
+
+                        resetDigitInputs.forEach(input => input.value = '');
+                        resetDigitInputs[0].focus();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        if (resetCodeErrorMsg) {
+                            resetCodeErrorMsg.textContent = err.message;
+                            resetCodeErrorMsg.style.display = 'block';
+                        }
+                    })
+                    .finally(() => {
+                        resendResetLink.textContent = originalText;
+                        resendResetLink.style.pointerEvents = 'auto';
+                    });
+                });
+            }
+
             // Initialize Lucide Icons
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
