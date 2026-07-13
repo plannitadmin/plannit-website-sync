@@ -711,6 +711,18 @@
                 const email = document.getElementById('signup-email').value.trim();
                 const password = document.getElementById('signup-password').value;
 
+                // Clear inline validation feedback (shown instantly, before any API round-trip)
+                if (!email || !password || !firstName || !lastName) {
+                    signupErrorMsg.textContent = 'Please fill in your first name, last name, email and password.';
+                    signupErrorMsg.style.display = 'block';
+                    return;
+                }
+                if (password.length < 8) {
+                    signupErrorMsg.textContent = 'Password must be at least 8 characters.';
+                    signupErrorMsg.style.display = 'block';
+                    return;
+                }
+
                 if (email && password && firstName && lastName) {
                     const consentCheckbox = document.getElementById('signup-consent-checkbox');
                     if (!consentCheckbox || !consentCheckbox.checked) {
