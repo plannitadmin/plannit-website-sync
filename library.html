@@ -1145,7 +1145,6 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                     localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
                 }
             } catch (e) {
-                console.error("Error reading plannit_owned", e);
                 ownedPlanners = [];
             }
 
@@ -1180,7 +1179,7 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                             renderLibrary();
                         }
                     })
-                    .catch(err => console.error("Error auto-syncing library:", err));
+                    .catch(() => {});
             }
 
             // Collection mapping
@@ -1200,7 +1199,6 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
                         trials = JSON.parse(storedTrials);
                     }
                 } catch(e) {
-                    console.error("Error reading plannit_trials", e);
                 }
 
                 const now = new Date();
@@ -1534,7 +1532,6 @@ async function accessPlanner(id) {
         }
     } catch (err) {
         // Network timeout or failure — never grant access, show a clear message
-        console.warn('Secure Gateway unreachable.', err);
         showToast('Could not reach server. Please check your connection and try again.', 'error');
     }
 }
@@ -1639,7 +1636,6 @@ if (syncLibraryBtn) {
                     showToast(data.error || "Failed to sync library.", "error");
                 }
             } catch (err) {
-                console.error(err);
                 showToast("Connection error while syncing.", "error");
             } finally {
                 syncInFlight = false;
@@ -1709,7 +1705,6 @@ emailModalFeedback.style.display = 'block';
 emailModalInput.style.borderColor = '#DC2626';
 }
 } catch (err) {
-console.error(err);
 emailModalFeedback.textContent = "Connection error. Please try again.";
 emailModalFeedback.style.display = 'block';
 } finally {

@@ -132,7 +132,6 @@
     try {
       cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch(e) {
-      console.error('Error loading cart:', e);
     }
     
     const itemsList = document.getElementById('checkoutItemsList');
@@ -278,7 +277,6 @@
           }
         })
         .catch(err => {
-          console.error(err);
           alert('Checkout failed: ' + err.message);
           payBtn.textContent = originalText;
           payBtn.style.opacity = '1';

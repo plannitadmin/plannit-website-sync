@@ -669,7 +669,6 @@
                     }
                 })
                 .catch(err => {
-                    console.error(err);
                     alert('Error: ' + err.message);
                 })
                 .finally(() => {
@@ -762,7 +761,6 @@
                         }, 1500);
                     })
                     .catch(err => {
-                        console.error(err);
                         loginErrorMsg.textContent = err.message;
                         loginErrorMsg.style.display = 'block';
                         submitBtn.textContent = originalText;
@@ -839,7 +837,6 @@
                         digitInputs[0].focus();
                     })
                     .catch(err => {
-                        console.error(err);
                         signupErrorMsg.textContent = err.message;
                         signupErrorMsg.style.display = 'block';
                         submitBtn.textContent = originalText;
@@ -900,7 +897,6 @@
                         }, 1600);
                     })
                     .catch(err => {
-                        console.error(err);
                         verifyErrorMsg.textContent = err.message;
                         verifyErrorMsg.style.display = 'block';
                         submitBtn.textContent = originalText;
@@ -958,7 +954,6 @@
                             submitBtn.disabled = false;
                         })
                         .catch(err => {
-                            console.error(err);
                             if (forgotFeedbackMsg) {
                                 forgotFeedbackMsg.textContent = err.message;
                                 forgotFeedbackMsg.style.color = '#DC2626';
@@ -1048,7 +1043,6 @@
                         }
                     })
                     .catch(err => {
-                        console.error(err);
                         if (resetCodeErrorMsg) {
                             resetCodeErrorMsg.textContent = err.message;
                             resetCodeErrorMsg.style.display = 'block';
@@ -1095,7 +1089,6 @@
                         resetDigitInputs[0].focus();
                     })
                     .catch(err => {
-                        console.error(err);
                         if (resetCodeErrorMsg) {
                             resetCodeErrorMsg.textContent = err.message;
                             resetCodeErrorMsg.style.display = 'block';

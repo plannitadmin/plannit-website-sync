@@ -718,7 +718,6 @@
                         }
                     })
                     .catch(err => {
-                        console.error(err);
                         alert('Payment error: ' + err.message);
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;

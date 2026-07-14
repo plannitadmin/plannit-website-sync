@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch (e) {
-        console.error("Failed to parse cart from localStorage", e);
         cart = [];
     }
 

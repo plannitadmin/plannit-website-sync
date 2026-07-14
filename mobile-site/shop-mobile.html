@@ -495,7 +495,6 @@ function syncCartDrawer() {
     try {
         cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch(e) {
-        console.error('Error loading cart:', e);
     }
 
     body.innerHTML = '';
@@ -530,7 +529,6 @@ function addToCart(title, price, img) {
     try {
         cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch(e) {
-        console.error(e);
     }
 
     const slug = resolveSlug(title);
@@ -554,7 +552,6 @@ function removeFromCart(index) {
         cart.splice(index, 1);
         localStorage.setItem('plannit_cart', JSON.stringify(cart));
     } catch(e) {
-        console.error(e);
     }
     syncCartDrawer();
 }
@@ -579,7 +576,7 @@ function updateMobileCounters() {
                 renderMobileCounters(data.count);
             }
         })
-        .catch(err => console.log('Local environment: Using offline local counter cache.'));
+        .catch(() => {});
 }
 
 function renderMobileCounters(count) {
@@ -622,7 +619,7 @@ function updateAllCounters() {
                 renderCounters(data.count);
             }
         })
-        .catch(err => console.log('Local environment: Using offline local counter cache.'));
+        .catch(() => {});
 }
 
 function renderCounters(count) {
@@ -665,8 +662,8 @@ function handleEarlyAccessSignup(e) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => console.log('Successfully submitted early access signup directly to database.'))
-        .catch(error => console.error('Error submitting form to signup endpoint:', error));
+        .then(() => {})
+        .catch(() => {});
 
         form.style.display = 'none';
         if (counter) counter.style.display = 'none';
