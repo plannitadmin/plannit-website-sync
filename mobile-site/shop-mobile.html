@@ -247,6 +247,10 @@
 .feat-dots span { width:6px; height:6px; border-radius:50%; background:var(--border-soft); transition:0.2s; }
 .feat-dots span.active { background:var(--forest); width:16px; border-radius:4px; }
 
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <style>
   html, body { margin:0; background:var(--cream); }

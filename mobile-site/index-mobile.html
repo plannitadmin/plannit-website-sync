@@ -213,6 +213,10 @@
 
   .btn-pop-copper { background:var(--copper); color:#fff; border:1px solid var(--copper); box-shadow:0 6px 16px rgba(200,107,69,.35); }
   .btn-pop-forest { background:var(--forest); color:#fff; border:1px solid var(--forest); box-shadow:0 6px 16px rgba(34,60,43,.3); }
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <style>
   html, body { margin:0; background:var(--cream); }

@@ -54,7 +54,11 @@
             #checkout-grid-container { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
             main.container { padding: 0 1rem !important; }
         }
-    </style>
+    
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
 <script>
   (function() {
     const isMobile = window.innerWidth < 768 || screen.width < 768 || /Mobi|Android|iPhone/i.test(navigator.userAgent);

@@ -48,6 +48,10 @@
 
   .btn-pay { width:100%; margin-top:16px; padding:14px; border-radius:9999px; background:var(--copper); color:var(--white); font-weight:700; font-size:14px; text-align:center; box-shadow:0 8px 20px rgba(200,107,69,.32); }
   .secure-note { display:flex; align-items:center; justify-content:center; gap:6px; font-size:10.5px; color:var(--muted); margin-top:10px; }
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <script>
   (function() {

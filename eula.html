@@ -25,7 +25,11 @@
         .back-btn:hover { transform: translateX(-4px); color: var(--secondary); }
         .alert-box { background: var(--bg-alt); border: 1px solid var(--border); border-left: 4px solid #F87171; padding: 1.25rem; border-radius: var(--radius-md); margin: 1.5rem 0; font-size: 0.9rem; color: var(--primary); }
         .alert-box strong { color: #DC2626; }
-    </style>
+    
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>

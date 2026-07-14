@@ -275,6 +275,10 @@
 .feat-dots span { width:6px; height:6px; border-radius:50%; background:var(--border-soft); transition:0.2s; }
 .feat-dots span.active { background:var(--forest); width:16px; border-radius:4px; }
 
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <style>
   html, body { margin:0; background:var(--cream); }
@@ -317,18 +321,19 @@
       <div class="h2" style="font-size:22px;">Your library.</div>
       <p class="p-muted">All your planners in one place.</p>
       <div class="redeem-row">
-        <div class="signup-input">Enter access code…</div>
-        <div class="btn-pill btn-forest">Redeem</div>
+        <input type="text" id="redeemInput" class="signup-input" placeholder="Enter access code…" maxlength="30" style="color:var(--charcoal);">
+        <button type="button" id="redeemBtn" class="btn-pill btn-forest" style="cursor:pointer;">Redeem</button>
       </div>
+      <div id="redeemFeedback" style="font-size:11px; font-weight:600; margin-top:8px; display:none;"></div>
     </div>
 
     <div class="section cream hair-top">
       <div class="shelf-label">Seasonal collection</div>
-      <div class="shelf-scroll">
-        <div class="lib-card owned"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">☀️</div><div class="lib-cta">Owned</div></div>
-        <div class="lib-card owned"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">❄️</div><div class="lib-cta">Owned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🍂</div><div class="lib-cta">Purchase</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🌸</div><div class="lib-cta">Purchase</div></div>
+      <div class="shelf-scroll" id="seasonalShelf">
+        <div class="lib-card" data-id="summer-sun"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">☀️</div><div class="lib-cta">Purchase</div></div>
+        <div class="lib-card" data-id="winter-frost"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">❄️</div><div class="lib-cta">Purchase</div></div>
+        <div class="lib-card" data-id="autumn-ember"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🍂</div><div class="lib-cta">Purchase</div></div>
+        <div class="lib-card" data-id="spring-bloom"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🌸</div><div class="lib-cta">Purchase</div></div>
       </div>
       <div class="swipe-hint" style="text-align:left;">Swipe for more →</div>
     </div>
@@ -362,16 +367,102 @@
   <span>Planners are supported on desktops, laptops, iPads, and tablets, not phones.</span>
 </div>
 <script>
-document.querySelectorAll('.lib-card.owned').forEach(card => {
-  card.style.cursor = 'pointer';
-  card.addEventListener('click', () => {
+// Event delegation (not per-element listeners) so this keeps working after
+// renderSeasonalLibrary() dynamically adds/removes the "owned" class below.
+const seasonalShelf = document.getElementById('seasonalShelf');
+if (seasonalShelf) {
+  seasonalShelf.addEventListener('click', (e) => {
+    const card = e.target.closest('.lib-card.owned');
+    if (!card) return;
     const toast = document.getElementById('platformToast');
     toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 4000);
+    setTimeout(() => { toast.classList.remove('show'); }, 4000);
   });
-});
+}
+
+function renderSeasonalLibrary() {
+  let owned = [];
+  try { owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]'); } catch (e) { owned = []; }
+  let trials = {};
+  try { trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}'); } catch (e) { trials = {}; }
+
+  document.querySelectorAll('#seasonalShelf .lib-card[data-id]').forEach(card => {
+    const id = card.getAttribute('data-id');
+    const trialEnd = trials[id];
+    const isActiveTrial = trialEnd && new Date(trialEnd) > new Date();
+    const isOwned = owned.includes(id) || isActiveTrial;
+    card.classList.toggle('owned', isOwned);
+    const cta = card.querySelector('.lib-cta');
+    if (cta) cta.textContent = isOwned ? 'Owned' : 'Purchase';
+  });
+}
+renderSeasonalLibrary();
+
+// Redeem access code — server-only, JWT-authenticated (same rules as desktop)
+const redeemBtn = document.getElementById('redeemBtn');
+const redeemInput = document.getElementById('redeemInput');
+const redeemFeedback = document.getElementById('redeemFeedback');
+
+function showRedeemFeedback(msg, isError) {
+  if (!redeemFeedback) return;
+  redeemFeedback.textContent = msg;
+  redeemFeedback.style.color = isError ? '#DC2626' : '#059669';
+  redeemFeedback.style.display = 'block';
+  setTimeout(() => { redeemFeedback.style.display = 'none'; }, 4000);
+}
+
+if (redeemBtn && redeemInput) {
+  redeemBtn.addEventListener('click', () => {
+    const raw = redeemInput.value.trim();
+    if (raw.length > 30) { showRedeemFeedback('Invalid code length.', true); return; }
+    const code = raw.replace(/[–—−]/g, '-').replace(/\s+/g, '').toUpperCase();
+    if (!code) return;
+    if (!/^[A-Z0-9-]+$/.test(code)) { showRedeemFeedback('Invalid code characters.', true); return; }
+
+    const email = localStorage.getItem('plannit_user_email');
+    if (!email) { showRedeemFeedback('Please sign in to redeem a code.', true); return; }
+
+    const sessionToken = localStorage.getItem('plannit_session_token') || '';
+    redeemBtn.disabled = true;
+    const originalText = redeemBtn.textContent;
+    redeemBtn.textContent = 'Verifying…';
+
+    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
+      body: JSON.stringify({ action: 'redeem', email, code })
+    })
+      .then(res => res.json().then(data => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (ok && data.success) {
+          let owned = [];
+          try { owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]'); } catch (e) { owned = []; }
+          const merged = [...new Set([...owned, ...(data.allowedEditions || [])])];
+          localStorage.setItem('plannit_owned', JSON.stringify(merged));
+
+          if (data.trial && data.endsAt) {
+            let trials = {};
+            try { trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}'); } catch (e) { trials = {}; }
+            (data.allowedEditions || []).forEach(slug => { trials[slug] = data.endsAt; });
+            localStorage.setItem('plannit_trials', JSON.stringify(trials));
+          }
+
+          renderSeasonalLibrary();
+          redeemInput.value = '';
+          showRedeemFeedback('Code redeemed successfully! 🎉', false);
+        } else {
+          showRedeemFeedback(data.error || 'Invalid or expired code.', true);
+        }
+      })
+      .catch(() => {
+        showRedeemFeedback('Could not reach server. Please check your connection.', true);
+      })
+      .finally(() => {
+        redeemBtn.disabled = false;
+        redeemBtn.textContent = originalText;
+      });
+  });
+}
 </script>
 <!-- Early Access Modal Popup -->
 <div class="early-access-overlay" id="earlyAccessOverlay" onclick="closeEarlyAccessModal(event)">

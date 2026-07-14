@@ -32,6 +32,10 @@
   .step-row.done .step-dot svg { width:9px; height:9px; }
   .step-row.done { color:var(--charcoal); font-weight:600; }
   .step-row.active .step-dot { border-color:var(--copper); box-shadow:0 0 0 3px rgba(200,107,69,0.15); }
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <script>
   (function() {
@@ -49,6 +53,14 @@
       const currentFile = parts[parts.length - 1] || 'index-mobile.html';
       const target = pageMap[currentFile] || pageMap['index-mobile.html'];
       window.location.replace(target + window.location.search + window.location.hash);
+    } else {
+      // Mobile never actually opens/streams a planner (see the platform
+      // notice on library-mobile.html) — this page previously just showed a
+      // static, hardcoded "64% complete" animation forever and never went
+      // anywhere. Show it briefly, then land the user on their real library.
+      setTimeout(() => {
+        window.location.replace('library-mobile.html');
+      }, 1400);
     }
   })();
 </script>

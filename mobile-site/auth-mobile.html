@@ -67,6 +67,10 @@
   .logged-in-email { font-size:12px; color:var(--muted); margin-bottom:24px; }
   .btn-signout { padding:11px 24px; border-radius:9999px; border:1.5px solid var(--border-soft); background:transparent; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; font-family:var(--font-sans); }
   .btn-library { display:block; width:100%; padding:13px; border-radius:9999px; background:var(--forest); color:white; font-weight:700; font-size:13.5px; text-align:center; text-decoration:none; margin-bottom:12px; }
+
+/* Smooth page-load transition (CSS-only, no JS dependency) */
+body { animation: pageFadeIn 0.35s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 <script>
   (function() {
@@ -202,10 +206,35 @@
           <input type="email" id="forgotEmail" placeholder="your@email.com" autocomplete="email">
         </div>
         <button class="btn-submit-m" id="forgotBtn" onclick="handleForgot()">
-          Send Reset Link
+          Send Reset Code
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
         <p class="auth-footnote">Back to <a onclick="switchTab('login')">Log In</a></p>
+      </div>
+
+      <!-- RESET CODE + NEW PASSWORD panel -->
+      <div class="auth-panel hidden" id="panelResetCode">
+        <h1 class="auth-title">Enter Reset Code</h1>
+        <p class="auth-sub" id="resetCodeSub">We sent a 6-digit code to your email. Enter it below with your new password.</p>
+        <div class="error-msg" id="resetCodeError"></div>
+        <div class="success-msg" id="resetCodeSuccess"></div>
+        <div class="field">
+          <label>6-digit code</label>
+          <input type="text" id="resetCode" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+        </div>
+        <div class="field">
+          <label>New password</label>
+          <input type="password" id="resetNewPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label>Confirm new password</label>
+          <input type="password" id="resetConfirmPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-submit-m" id="resetCodeBtn" onclick="handleResetCode()">
+          Reset Password
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="auth-footnote">Didn't receive it? <a onclick="handleResendResetCode()">Resend Code</a></p>
       </div>
     </div>
   </div>
@@ -239,10 +268,12 @@ function switchTab(tab) {
   const isLogin = tab === 'login';
   const isSignup = tab === 'signup';
   const isForgot = tab === 'forgot';
+  const isResetCode = tab === 'reset-code';
 
   document.getElementById('panelLogin').classList.toggle('hidden', !isLogin);
   document.getElementById('panelSignup').classList.toggle('hidden', !isSignup);
   document.getElementById('panelForgot').classList.toggle('hidden', !isForgot);
+  document.getElementById('panelResetCode').classList.toggle('hidden', !isResetCode);
 
   const tabLogin = document.getElementById('tabLogin');
   const tabSignup = document.getElementById('tabSignup');
@@ -251,6 +282,9 @@ function switchTab(tab) {
     tabSignup.classList.toggle('active', isSignup);
   }
 }
+
+let resetToken = '';
+let resetEmail = '';
 
 function handleForgot() {
   const email = document.getElementById('forgotEmail').value.trim();
@@ -261,7 +295,7 @@ function handleForgot() {
     return;
   }
 
-  setLoading('forgotBtn', true, 'Send Reset Link');
+  setLoading('forgotBtn', true, 'Send Reset Code');
 
   fetch(API, {
     method: 'POST',
@@ -270,13 +304,94 @@ function handleForgot() {
   })
   .then(res => res.json().then(data => ({ ok: res.ok, data })))
   .then(({ ok, data }) => {
-    if (!ok) throw new Error(data.error || 'Failed to send reset link.');
-    showSuccess('forgotSuccess', '✓ Recovery link sent! Check your inbox.');
-    setTimeout(() => { switchTab('login'); }, 4000);
+    if (!ok) throw new Error(data.error || 'Failed to send reset code.');
+    resetToken = data.token;
+    resetEmail = email;
+    const sub = document.getElementById('resetCodeSub');
+    if (sub) sub.textContent = `We sent a 6-digit code to ${email}. Enter it below with your new password.`;
+    switchTab('reset-code');
   })
   .catch(err => {
     showError('forgotError', err.message);
-    setLoading('forgotBtn', false, 'Send Reset Link');
+  })
+  .finally(() => {
+    setLoading('forgotBtn', false, 'Send Reset Code');
+  });
+}
+
+function handleResetCode() {
+  const code = document.getElementById('resetCode').value.trim();
+  const newPassword = document.getElementById('resetNewPassword').value;
+  const confirmPassword = document.getElementById('resetConfirmPassword').value;
+  hideMessages('resetCodeError', 'resetCodeSuccess');
+
+  if (code.length !== 6) {
+    showError('resetCodeError', 'Please enter the full 6-digit code.');
+    return;
+  }
+  if (newPassword.length < 8) {
+    showError('resetCodeError', 'Password must be at least 8 characters.');
+    return;
+  }
+  if (newPassword !== confirmPassword) {
+    showError('resetCodeError', 'Passwords do not match.');
+    return;
+  }
+
+  setLoading('resetCodeBtn', true, 'Reset Password');
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'reset-password', token: resetToken, code, newPassword })
+  })
+  .then(res => res.json().then(data => ({ ok: res.ok, data })))
+  .then(({ ok, data }) => {
+    if (!ok) throw new Error(data.error || 'Failed to reset password.');
+
+    if (data.sessionToken) {
+      localStorage.setItem('plannit_user_id',   data.user.id);
+      localStorage.setItem('plannit_user_email', data.user.email);
+      localStorage.setItem('plannit_email',      data.user.email);
+      localStorage.setItem('plannit_first_name', data.user.firstName || '');
+      localStorage.setItem('plannit_last_name',  data.user.lastName  || '');
+      localStorage.setItem('plannit_entered',    'true');
+      localStorage.setItem('plannit_session_token', data.sessionToken || '');
+      if (data.allowedEditions) localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions));
+
+      showSuccess('resetCodeSuccess', '✓ Password reset! Redirecting...');
+      setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
+    } else {
+      showSuccess('resetCodeSuccess', '✓ Password reset! Please log in.');
+      setTimeout(() => { switchTab('login'); }, 1600);
+    }
+  })
+  .catch(err => {
+    showError('resetCodeError', err.message);
+    setLoading('resetCodeBtn', false, 'Reset Password');
+  });
+}
+
+function handleResendResetCode() {
+  if (!resetToken) {
+    showError('resetCodeError', 'No active reset session. Please request a new code.');
+    return;
+  }
+  hideMessages('resetCodeError', 'resetCodeSuccess');
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'resend', token: resetToken })
+  })
+  .then(res => res.json().then(data => ({ ok: res.ok, data })))
+  .then(({ ok, data }) => {
+    if (!ok) throw new Error(data.error || 'Failed to resend code.');
+    resetToken = data.token;
+    showSuccess('resetCodeSuccess', '✓ A new code has been sent.');
+  })
+  .catch(err => {
+    showError('resetCodeError', err.message);
   });
 }
 
@@ -404,8 +519,11 @@ function handleGoogleAuth() {
 
 // ── SIGN OUT ──
 function signOut() {
-  ['plannit_user_id','plannit_user_email','plannit_email','plannit_first_name','plannit_last_name',
-   'plannit_username','plannit_entered','plannit_owned','plannit_session_token','plannit_trials'].forEach(k => localStorage.removeItem(k));
+  // Clear ALL plannit_* keys so no owned/trial/redeemed/token state survives
+  // logout (matches the desktop fix — a partial list left cards highlighted).
+  Object.keys(localStorage)
+    .filter(k => k.startsWith('plannit_'))
+    .forEach(k => localStorage.removeItem(k));
   window.location.reload();
 }
 
