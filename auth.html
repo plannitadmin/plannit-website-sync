@@ -746,6 +746,12 @@
                         const allowed = data.allowedEditions || [];
                         localStorage.setItem('plannit_owned', JSON.stringify(allowed));
 
+                        if (data.trials) {
+                             localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                        } else {
+                             localStorage.removeItem('plannit_trials');
+                        }
+
                         // Show success screen and redirect to loading.html
                         successTitle.textContent = "Welcome Back!";
                         successDesc.textContent = "You have successfully logged in.";
