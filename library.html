@@ -760,7 +760,7 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
 <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
   <div style="display: flex; gap: 8px; align-items: center;">
     <div class="redeem-box">
-      <input type="text" id="redeemInput" class="redeem-input" placeholder="Enter access code...">
+      <input type="text" id="redeemInput" class="redeem-input" placeholder="Enter access code..." maxlength="30">
       <button id="redeemBtn" class="redeem-btn">Redeem</button>
     </div>
     <a href="#" id="syncLibraryBtn" style="font-size: 0.8rem; color: var(--secondary); text-decoration: none; font-weight: 600; transition: var(--transition); display: flex; align-items: center; gap: 4px; white-space: nowrap;"><i data-lucide="refresh-cw" class="lucide" style="width: 14px; height: 14px; margin-right: 4px;"></i> Sync Purchases</a>
@@ -1334,8 +1334,18 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
             if (redeemBtn) {
                 redeemBtn.addEventListener('click', () => {
                     const raw = redeemInput.value.trim();
+                    if (raw.length > 30) {
+                        showFeedback('Invalid code length.', true);
+                        return;
+                    }
                     const code = raw.replace(/[\u2013\u2014\u2212]/g, '-').replace(/\s+/g, '').toUpperCase();
                     if (!code) return;
+
+                    // Match expected alphanumeric and dashes template format
+                    if (!/^[A-Z0-9-]+$/.test(code)) {
+                        showFeedback('Invalid code characters.', true);
+                        return;
+                    }
 
                     const email = localStorage.getItem('plannit_user_email');
                     if (!email) {
