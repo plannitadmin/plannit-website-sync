@@ -1318,27 +1318,7 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
 
             renderLibrary();
 
-            // Auto-sync library on load
-            const loggedInEmail = localStorage.getItem('plannit_user_email');
-            const isLoggedIn = !!localStorage.getItem('plannit_user_id');
-            if (isLoggedIn && loggedInEmail) {
-                const sessionToken = localStorage.getItem('plannit_session_token') || '';
-                fetch(`https://plannit-backend-private.vercel.app/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
-                    headers: { 'Authorization': `Bearer ${sessionToken}` }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.success) {
-                        const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
-                        ownedPlanners = merged;
-                        localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                        if (data.trials) {
-                            localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
-                        }
-                        renderLibrary();
-                    }
-                }).catch(err => console.log("Auto-sync connection error:", err));
-            }
+
 
             // --- Redeem Code Logic ---
             // ⚠️ Keep in sync with api/auth.js codeMapping and REDEEM-CODES.md
