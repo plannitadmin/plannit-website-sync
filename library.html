@@ -1502,8 +1502,11 @@ async function accessPlanner(id) {
         const data = await res.json();
 
         if (res.ok && data.success && data.signedUrl) {
-            const finalUrl = `${data.signedUrl}&token=${encodeURIComponent(sessionToken)}`;
-            openUrl(finalUrl);
+            // secure-gateway already embeds the JWT in this URL (?...&token=...).
+            // Do NOT append another &token= here — duplicate keys parse to an
+            // array server-side and fail JWT validation (this was the exact
+            // bug fixed in loading.html earlier; same class, different file).
+            openUrl(data.signedUrl);
         } else {
             // Gateway denied access — strip from display and inform user
             if (res.status === 401 || res.status === 403) {
