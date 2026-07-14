@@ -97,6 +97,10 @@ font-size: 1.05rem;
 display: flex;
 gap: 8px;
 position: relative;
+padding: 10px;
+background: rgba(232, 160, 32, 0.08);
+border: 1.5px solid rgba(232, 160, 32, 0.35);
+border-radius: calc(var(--radius-sm) + 6px);
 }
 
 .redeem-input {
@@ -108,27 +112,29 @@ font-family: 'Inter', sans-serif;
 width: 240px;
 outline: none;
 transition: var(--transition);
+background: white;
 }
 
 .redeem-input:focus {
-border-color: var(--primary);
-box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
+border-color: #E8A020;
+box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.12);
 }
 
 .redeem-btn {
 padding: 12px 24px;
-background: var(--primary);
+background: #E8A020;
 color: white;
 border: none;
 border-radius: var(--radius-sm);
 font-size: 0.9rem;
-font-weight: 600;
+font-weight: 700;
 cursor: pointer;
 transition: var(--transition);
+box-shadow: 0 4px 14px rgba(232, 160, 32, 0.3);
 }
 
 .redeem-btn:hover {
-background: #1E293B;
+background: #D98220;
 transform: translateY(-2px);
 }
 
@@ -737,7 +743,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 </div>
 
-                <a href="auth.html" class="nav-profile-btn" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary); text-decoration: none;">
+                <a href="auth.html" class="nav-profile-btn" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: #E8A020; text-decoration: none;">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>

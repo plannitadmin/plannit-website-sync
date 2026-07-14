@@ -114,10 +114,12 @@
   .redeem-row { display:flex; gap:8px; margin-top:10px; }
   .shelf-label { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
   .shelf-scroll { display:flex; gap:10px; overflow:hidden; margin-top:10px; }
-  .lib-card { flex:0 0 108px; background:#ffffff; border:1px solid var(--border-soft); border-radius:12px; padding:10px; text-align:center; }
-  .lib-card.owned { background:rgba(200,107,69,0.08); border-color:rgba(200,107,69,0.35); }
+  .lib-card { flex:0 0 108px; background:#ffffff; border:1px solid var(--border-soft); border-radius:12px; padding:10px; text-align:center; position:relative; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+  .lib-card.owned { background:rgba(232,160,32,0.10); border-color:rgba(232,160,32,0.55); box-shadow:0 0 0 1px rgba(232,160,32,0.25), 0 6px 16px rgba(232,160,32,0.18); }
   .lib-cta { margin-top:8px; font-size:10px; font-weight:700; padding:6px; border-radius:9999px; background:var(--cream); color:var(--muted); }
-  .lib-card.owned .lib-cta { background:var(--forest); color:#fff; }
+  .lib-card.owned .lib-cta { background:#E8A020; color:#fff; }
+  .lib-card.trial .lib-cta { background:#D98220; color:#fff; }
+  .trial-pill { position:absolute; top:-7px; right:-6px; background:#E8A020; color:#fff; font-size:8px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:3px 7px; border-radius:9999px; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
 
   /* Final merged-direction frame */
   .pnav-min { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid var(--border-soft); }
@@ -311,7 +313,7 @@ body { animation: pageFadeIn 0.35s ease both; }
     <div class="pnav-min">
       <a href="index-mobile.html" class="plogo" style="text-decoration:none;">Plannit</a>
       <div class="nav-icons">
-        <a href="auth-mobile.html" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></a>
+        <a href="auth-mobile.html" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="1.75"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></a>
         <svg onclick="toggleCartDrawer()" style="cursor:pointer;" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         <a href="library-mobile.html" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75"><circle cx="7.5" cy="7.5" r="3.4"/><path d="M9.9 9.9 20 20M15.5 15.5l2.2-2.2M18.4 18.4l2.2-2.2"/></svg></a>
       </div>
@@ -320,9 +322,9 @@ body { animation: pageFadeIn 0.35s ease both; }
     <div class="section white">
       <div class="h2" style="font-size:22px;">Your library.</div>
       <p class="p-muted">All your planners in one place.</p>
-      <div class="redeem-row">
-        <input type="text" id="redeemInput" class="signup-input" placeholder="Enter access code…" maxlength="30" style="color:var(--charcoal);">
-        <button type="button" id="redeemBtn" class="btn-pill btn-forest" style="cursor:pointer;">Redeem</button>
+      <div class="redeem-row" style="background:rgba(232,160,32,0.08); border:1.5px solid rgba(232,160,32,0.35); border-radius:9999px; padding:6px 6px 6px 14px;">
+        <input type="text" id="redeemInput" class="signup-input" placeholder="Enter access code…" maxlength="30" style="color:var(--charcoal); background:#ffffff; border:none;">
+        <button type="button" id="redeemBtn" class="btn-pill" style="cursor:pointer; background:#E8A020; border-color:#E8A020; color:#fff; box-shadow:0 4px 14px rgba(232,160,32,0.3);">Redeem</button>
       </div>
       <div id="redeemFeedback" style="font-size:11px; font-weight:600; margin-top:8px; display:none;"></div>
     </div>
@@ -341,9 +343,9 @@ body { animation: pageFadeIn 0.35s ease both; }
     <div class="section white hair-top">
       <div class="shelf-label">Botanical collection</div>
       <div class="shelf-scroll">
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Eucalyptus</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Lavender</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Rose</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;"><img src="../emojis/eucalyptus.svg" alt="Eucalyptus" style="width:34px; height:34px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;"><img src="../emojis/lavender.svg" alt="Lavender" style="width:34px; height:34px;"></div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;"><img src="../emojis/rose.svg" alt="Rose" style="width:34px; height:34px;"></div><div class="lib-cta">Planned</div></div>
       </div>
       <div class="swipe-hint" style="text-align:left;">Swipe for more →</div>
     </div>
@@ -351,9 +353,9 @@ body { animation: pageFadeIn 0.35s ease both; }
     <div class="section cream hair-top">
       <div class="shelf-label">Nature collection</div>
       <div class="shelf-scroll">
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Rain</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Forest</div><div class="lib-cta">Planned</div></div>
-        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">Ocean</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🌧️</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🌲</div><div class="lib-cta">Planned</div></div>
+        <div class="lib-card"><div class="ph" style="aspect-ratio:1/1; border-radius:8px;">🌊</div><div class="lib-cta">Planned</div></div>
       </div>
       <div class="footer-links">
         <span>© 2026 Plannit</span><span>Terms</span><span>Privacy</span><span>EULA</span>
@@ -389,11 +391,28 @@ function renderSeasonalLibrary() {
   document.querySelectorAll('#seasonalShelf .lib-card[data-id]').forEach(card => {
     const id = card.getAttribute('data-id');
     const trialEnd = trials[id];
-    const isActiveTrial = trialEnd && new Date(trialEnd) > new Date();
-    const isOwned = owned.includes(id) || isActiveTrial;
-    card.classList.toggle('owned', isOwned);
+    const isActiveTrial = !!(trialEnd && new Date(trialEnd) > new Date());
+    const isPurchased = owned.includes(id);
+    const isUnlocked = isPurchased || isActiveTrial;
+
+    card.classList.toggle('owned', isUnlocked);
+    card.classList.toggle('trial', isActiveTrial && !isPurchased);
+
     const cta = card.querySelector('.lib-cta');
-    if (cta) cta.textContent = isOwned ? 'Owned' : 'Purchase';
+    if (cta) cta.textContent = isPurchased ? 'Owned' : (isActiveTrial ? 'Trial' : 'Purchase');
+
+    // Small "TRIAL" pill on the card corner while an active trial (not a real purchase) is running
+    const existingPill = card.querySelector('.trial-pill');
+    if (isActiveTrial && !isPurchased) {
+      if (!existingPill) {
+        const pill = document.createElement('div');
+        pill.className = 'trial-pill';
+        pill.textContent = 'Trial';
+        card.appendChild(pill);
+      }
+    } else if (existingPill) {
+      existingPill.remove();
+    }
   });
 }
 renderSeasonalLibrary();
