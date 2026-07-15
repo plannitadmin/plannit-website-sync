@@ -1167,6 +1167,15 @@ body { animation: pageFadeIn 0.35s ease both; }
                     }
                 })
                     .then(res => {
+                        if (res.status === 401) {
+                            Object.keys(localStorage).forEach(key => {
+                                if (key.startsWith('plannit_')) {
+                                    localStorage.removeItem(key);
+                                }
+                            });
+                            window.location.href = 'auth.html?mode=login';
+                            throw new Error("Session expired. Logged out.");
+                        }
                         if (!res.ok) throw new Error("Auto-sync failed");
                         return res.json();
                     })
@@ -1628,6 +1637,18 @@ if (syncLibraryBtn) {
                         'Authorization': `Bearer ${sessionToken}`
                     }
                 });
+                if (res.status === 401) {
+                    showToast("Session expired. Redirecting to login...", "error");
+                    Object.keys(localStorage).forEach(key => {
+                        if (key.startsWith('plannit_')) {
+                            localStorage.removeItem(key);
+                        }
+                    });
+                    setTimeout(() => {
+                        window.location.href = 'auth.html?mode=login';
+                    }, 2000);
+                    return;
+                }
                 const data = await res.json();
                 if (res.ok && data.success) {
                     // Merge server list with local — never discard local unlocks on manual sync
