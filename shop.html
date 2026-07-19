@@ -1320,6 +1320,22 @@ body { animation: pageFadeIn 0.35s ease both; }
 
 
 
+        /* Winter's overview-top/bottom source images need a slightly wider box
+           than the shared 54% default to avoid extra background-size:cover
+           cropping. Both boxes widened equally to keep the "one image split
+           in two" seam aligned. */
+        .special-wrap.winter .overview-top,
+
+        .special-wrap.winter .overview-bottom {
+
+            width: 57%;
+
+            left: 21.5%; /* Centered horizontally (100% - 57%) / 2 */
+
+        }
+
+
+
         .special-wrap.winter .revealed-icon {
 
             background: radial-gradient(circle, #E0F2FE 25%, #38BDF8 70%, #0369A1 100%);
