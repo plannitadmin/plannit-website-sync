@@ -1320,17 +1320,22 @@ body { animation: pageFadeIn 0.35s ease both; }
 
 
 
-        /* Winter's overview-top/bottom source images need a slightly wider box
-           than the shared 54% default to avoid extra background-size:cover
-           cropping. Both boxes widened equally to keep the "one image split
-           in two" seam aligned. */
-        .special-wrap.winter .overview-top,
+        /* Winter's overview-top/bottom source images (1067x713 / 1067x567)
+           don't match the shared 16/11.1 & 16/8.5 aspect-ratios exactly.
+           Widening the box's WIDTH alone doesn't change what background-size:
+           cover crops (cover crops based on ratio mismatch, not absolute
+           size), so the actual fix is overriding aspect-ratio to match the
+           source images themselves, eliminating the crop instead of just
+           rendering the same crop bigger. */
+        .special-wrap.winter .overview-top {
+
+            aspect-ratio: 1067/713;
+
+        }
 
         .special-wrap.winter .overview-bottom {
 
-            width: 65.93%; /* +3px each side at this card's rendered width */
-
-            left: 17.04%; /* Centered horizontally (100% - 65.93%) / 2 */
+            aspect-ratio: 1067/567;
 
         }
 
