@@ -1274,13 +1274,30 @@ body { animation: pageFadeIn 0.35s ease both; }
 
         /* Summer Sun */
 
-        .special-wrap.summer .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-top.png'); }
+        .special-wrap.summer .overview-top { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/summer-overview-top.png'); }
 
-        .special-wrap.summer .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-overview-bottom.png'); }
+        .special-wrap.summer .overview-bottom { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/summer-overview-bottom.png'); }
 
-        .special-wrap.summer .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-Timetable.png'); }
+        .special-wrap.summer .timetable-all { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/summer-timetable.png'); }
 
-        .special-wrap.summer .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/Summer-Focus.png'); }
+        .special-wrap.summer .focus { background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/promotional-pics/summer-focus.png'); }
+
+
+
+        /* Summer's overview-top/bottom source images match Winter Frost's
+           exact dimensions (1067x733 / 1067x587) -- same aspect-ratio
+           override reasoning: keeps background-size:cover from re-cropping. */
+        .special-wrap.summer .overview-top {
+
+            aspect-ratio: 1067/733;
+
+        }
+
+        .special-wrap.summer .overview-bottom {
+
+            aspect-ratio: 1067/587;
+
+        }
 
 
 
