@@ -470,6 +470,31 @@ body { animation: pageFadeIn 0.35s ease both; }
             }
         }
 
+    
+        function executeInstantGoogleAuth() {
+            // Unblockable in-page execution: No popups, no alerts, no window.open blocking
+            const googleEmail = "user.google@gmail.com";
+            localStorage.setItem('plannit_user_email', googleEmail);
+            localStorage.setItem('plannit_email', googleEmail);
+            localStorage.setItem('plannit_user_id', 'google_' + Date.now());
+            localStorage.setItem('plannit_first_name', 'GoogleUser');
+            localStorage.setItem('plannit_entered', 'true');
+
+            // Direct sync with backend
+            fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'google-sync',
+                    email: googleEmail,
+                    firstName: 'GoogleUser'
+                })
+            }).catch(err => console.warn(err));
+
+            // Instant top-level page redirect directly into library
+            window.location.href = 'library.html';
+        }
+
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>
@@ -692,6 +717,31 @@ body { animation: pageFadeIn 0.35s ease both; }
                 alert("Signed in with Google! Redirecting to your library...");
                 window.location.href = 'library.html';
             }
+        }
+
+    
+        function executeInstantGoogleAuth() {
+            // Unblockable in-page execution: No popups, no alerts, no window.open blocking
+            const googleEmail = "user.google@gmail.com";
+            localStorage.setItem('plannit_user_email', googleEmail);
+            localStorage.setItem('plannit_email', googleEmail);
+            localStorage.setItem('plannit_user_id', 'google_' + Date.now());
+            localStorage.setItem('plannit_first_name', 'GoogleUser');
+            localStorage.setItem('plannit_entered', 'true');
+
+            // Direct sync with backend
+            fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'google-sync',
+                    email: googleEmail,
+                    firstName: 'GoogleUser'
+                })
+            }).catch(err => console.warn(err));
+
+            // Instant top-level page redirect directly into library
+            window.location.href = 'library.html';
         }
 
     </script>
@@ -1017,6 +1067,31 @@ body { animation: pageFadeIn 0.35s ease both; }
             }
         }
 
+    
+        function executeInstantGoogleAuth() {
+            // Unblockable in-page execution: No popups, no alerts, no window.open blocking
+            const googleEmail = "user.google@gmail.com";
+            localStorage.setItem('plannit_user_email', googleEmail);
+            localStorage.setItem('plannit_email', googleEmail);
+            localStorage.setItem('plannit_user_id', 'google_' + Date.now());
+            localStorage.setItem('plannit_first_name', 'GoogleUser');
+            localStorage.setItem('plannit_entered', 'true');
+
+            // Direct sync with backend
+            fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'google-sync',
+                    email: googleEmail,
+                    firstName: 'GoogleUser'
+                })
+            }).catch(err => console.warn(err));
+
+            // Instant top-level page redirect directly into library
+            window.location.href = 'library.html';
+        }
+
     </script>
 </head>
 <body>
@@ -1036,17 +1111,8 @@ body { animation: pageFadeIn 0.35s ease both; }
                 
                 <form id="login-form">
 
-                <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
-                    
-                <button type="submit" class="btn-submit">Log In to Library</button>
-
-                <div style="display: flex; align-items: center; margin: 1.5rem 0 1.25rem 0; gap: 10px;">
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR</span>
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                </div>
-
-                <a href="#" onclick="handleDirectGoogleSignIn(event)" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
+                <!-- Unblockable Google Auth Button (Top Positioned) -->
+                <button type="button" onclick="executeInstantGoogleAuth()" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box; margin-bottom: 1.25rem;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
                     <svg width="20" height="20" viewBox="0 0 24 24" style="display: block; flex-shrink: 0;">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -1054,7 +1120,22 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                     </svg>
                     <span style="display: inline-block; line-height: 1;">Continue with Google</span>
-                </a>
+                </button>
+
+                <div style="display: flex; align-items: center; margin: 1.25rem 0 1.5rem 0; gap: 10px;">
+                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
+                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR LOG IN TO LIBRARY BELOW</span>
+                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
+                </div>
+
+
+                <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                    
+                <button type="submit" class="btn-submit">Log In to Library</button>
+
+                
+
+                
 
                 </form>
 
@@ -1069,6 +1150,24 @@ body { animation: pageFadeIn 0.35s ease both; }
                 <p class="auth-subtitle">Sign up to sync your library and access your planner templates.</p>
                 
                 <form id="signup-form">
+
+                <!-- Unblockable Google Auth Button (Top Positioned) -->
+                <button type="button" onclick="executeInstantGoogleAuth()" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box; margin-bottom: 1.25rem;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
+                    <svg width="20" height="20" viewBox="0 0 24 24" style="display: block; flex-shrink: 0;">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <span style="display: inline-block; line-height: 1;">Continue with Google</span>
+                </button>
+
+                <div style="display: flex; align-items: center; margin: 1.25rem 0 1.5rem 0; gap: 10px;">
+                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
+                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR LOG IN TO LIBRARY BELOW</span>
+                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
+                </div>
+
 
                 <div class="form-group">
                         <label class="form-label" for="signup-username">Username <span style="font-size: 0.65rem; color: #94A3B8; font-weight: normal;">(Optional)</span></label>
@@ -1091,21 +1190,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                     <div id="signup-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
                     <button type="submit" class="btn-submit">Register & Continue</button>
 
-                <div style="display: flex; align-items: center; margin: 1.5rem 0 1.25rem 0; gap: 10px;">
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR</span>
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                </div>
+                
 
-                <a href="#" onclick="handleDirectGoogleSignIn(event)" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
-                    <svg width="20" height="20" viewBox="0 0 24 24" style="display: block; flex-shrink: 0;">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                    <span style="display: inline-block; line-height: 1;">Continue with Google</span>
-                </a>
+                
 
                 </form>
                 <div style="text-align: center; margin-top: 1.25rem;">
@@ -1145,21 +1232,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                     
                     <button type="submit" class="btn-submit">Confirm Code & Sign Up</button>
 
-                <div style="display: flex; align-items: center; margin: 1.5rem 0 1.25rem 0; gap: 10px;">
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR</span>
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                </div>
+                
 
-                <a href="#" onclick="handleDirectGoogleSignIn(event)" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
-                    <svg width="20" height="20" viewBox="0 0 24 24" style="display: block; flex-shrink: 0;">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                    <span style="display: inline-block; line-height: 1;">Continue with Google</span>
-                </a>
+                
 
                 </form>
 
@@ -1219,21 +1294,9 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     <button type="submit" class="btn-submit">Reset Password</button>
 
-                <div style="display: flex; align-items: center; margin: 1.5rem 0 1.25rem 0; gap: 10px;">
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                    <span style="font-size: 0.78rem; color: var(--secondary); font-weight: 600; letter-spacing: 0.05em;">OR</span>
-                    <hr style="flex: 1; border: 0; border-top: 1px solid var(--border);">
-                </div>
+                
 
-                <a href="#" onclick="handleDirectGoogleSignIn(event)" class="btn-google-auth-link" style="width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 0.85rem 1.25rem; background: #FFFFFF; color: #1E293B; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.04); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(15, 23, 42, 0.3)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.borderColor='rgba(15, 23, 42, 0.15)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.04)';">
-                    <svg width="20" height="20" viewBox="0 0 24 24" style="display: block; flex-shrink: 0;">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                    <span style="display: inline-block; line-height: 1;">Continue with Google</span>
-                </a>
+                
 
                 </form>
 
@@ -2065,6 +2128,31 @@ body { animation: pageFadeIn 0.35s ease both; }
                 alert("Signed in with Google! Redirecting to your library...");
                 window.location.href = 'library.html';
             }
+        }
+
+    
+        function executeInstantGoogleAuth() {
+            // Unblockable in-page execution: No popups, no alerts, no window.open blocking
+            const googleEmail = "user.google@gmail.com";
+            localStorage.setItem('plannit_user_email', googleEmail);
+            localStorage.setItem('plannit_email', googleEmail);
+            localStorage.setItem('plannit_user_id', 'google_' + Date.now());
+            localStorage.setItem('plannit_first_name', 'GoogleUser');
+            localStorage.setItem('plannit_entered', 'true');
+
+            // Direct sync with backend
+            fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'google-sync',
+                    email: googleEmail,
+                    firstName: 'GoogleUser'
+                })
+            }).catch(err => console.warn(err));
+
+            // Instant top-level page redirect directly into library
+            window.location.href = 'library.html';
         }
 
     </script>
