@@ -7,7 +7,7 @@
 <title>Account | Plannit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="plannit-logo-mark.png" type="image/png">
+    <link rel="icon" href="plannit-logo-mark-transparent.png" type="image/png">
     <style>
         :root {
             --primary: #0F172A;
@@ -350,15 +350,20 @@ body { animation: pageFadeIn 0.35s ease both; }
     
         // Unblockable Google Sign-In Trigger
         // YouTube & School Style Native Google Account Chooser Popup
+        // 100% UNBLOCKABLE GOOGLE AUTH TRIGGER (No popups required)
         function triggerGoogleOAuthPopup() {
-            const width = 500;
-            const height = 620;
-            const left = Math.max(0, (window.screen.width - width) / 2);
-            const top = Math.max(0, (window.screen.height - height) / 2);
-
-            // Native Google OAuth 2.0 Endpoint
+            // Direct Top-Level Navigation to Google OAuth / Backend Gateway (100% impossible for popup blockers to block)
             const redirectUri = encodeURIComponent(window.location.origin + '/library.html');
-            const googleOAuthEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?client_id=716492819402-plannit.apps.googleusercontent.com&response_type=id_token&redirect_uri=${redirectUri}&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
+            const googleOAuthUrl = `https://plannit-backend-private.vercel.app/api/auth?action=google&redirect_to=${redirectUri}`;
+            
+            // Open in-page modal for instant seamless login or redirect top-level
+            const modal = document.getElementById('googleInPageModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                window.location.href = googleOAuthUrl;
+            }
+        }&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
 
             // Open Native Google Account Chooser Popup Window
             const popup = window.open(
@@ -536,15 +541,20 @@ body { animation: pageFadeIn 0.35s ease both; }
     
         // Unblockable Google Sign-In Trigger
         // YouTube & School Style Native Google Account Chooser Popup
+        // 100% UNBLOCKABLE GOOGLE AUTH TRIGGER (No popups required)
         function triggerGoogleOAuthPopup() {
-            const width = 500;
-            const height = 620;
-            const left = Math.max(0, (window.screen.width - width) / 2);
-            const top = Math.max(0, (window.screen.height - height) / 2);
-
-            // Native Google OAuth 2.0 Endpoint
+            // Direct Top-Level Navigation to Google OAuth / Backend Gateway (100% impossible for popup blockers to block)
             const redirectUri = encodeURIComponent(window.location.origin + '/library.html');
-            const googleOAuthEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?client_id=716492819402-plannit.apps.googleusercontent.com&response_type=id_token&redirect_uri=${redirectUri}&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
+            const googleOAuthUrl = `https://plannit-backend-private.vercel.app/api/auth?action=google&redirect_to=${redirectUri}`;
+            
+            // Open in-page modal for instant seamless login or redirect top-level
+            const modal = document.getElementById('googleInPageModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                window.location.href = googleOAuthUrl;
+            }
+        }&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
 
             // Open Native Google Account Chooser Popup Window
             const popup = window.open(
@@ -821,15 +831,20 @@ body { animation: pageFadeIn 0.35s ease both; }
     <script src="https://accounts.google.com/gsi/client" async defer>
         // Unblockable Google Sign-In Trigger
         // YouTube & School Style Native Google Account Chooser Popup
+        // 100% UNBLOCKABLE GOOGLE AUTH TRIGGER (No popups required)
         function triggerGoogleOAuthPopup() {
-            const width = 500;
-            const height = 620;
-            const left = Math.max(0, (window.screen.width - width) / 2);
-            const top = Math.max(0, (window.screen.height - height) / 2);
-
-            // Native Google OAuth 2.0 Endpoint
+            // Direct Top-Level Navigation to Google OAuth / Backend Gateway (100% impossible for popup blockers to block)
             const redirectUri = encodeURIComponent(window.location.origin + '/library.html');
-            const googleOAuthEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?client_id=716492819402-plannit.apps.googleusercontent.com&response_type=id_token&redirect_uri=${redirectUri}&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
+            const googleOAuthUrl = `https://plannit-backend-private.vercel.app/api/auth?action=google&redirect_to=${redirectUri}`;
+            
+            // Open in-page modal for instant seamless login or redirect top-level
+            const modal = document.getElementById('googleInPageModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                window.location.href = googleOAuthUrl;
+            }
+        }&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
 
             // Open Native Google Account Chooser Popup Window
             const popup = window.open(
@@ -1832,15 +1847,20 @@ body { animation: pageFadeIn 0.35s ease both; }
     
         // Unblockable Google Sign-In Trigger
         // YouTube & School Style Native Google Account Chooser Popup
+        // 100% UNBLOCKABLE GOOGLE AUTH TRIGGER (No popups required)
         function triggerGoogleOAuthPopup() {
-            const width = 500;
-            const height = 620;
-            const left = Math.max(0, (window.screen.width - width) / 2);
-            const top = Math.max(0, (window.screen.height - height) / 2);
-
-            // Native Google OAuth 2.0 Endpoint
+            // Direct Top-Level Navigation to Google OAuth / Backend Gateway (100% impossible for popup blockers to block)
             const redirectUri = encodeURIComponent(window.location.origin + '/library.html');
-            const googleOAuthEndpoint = `https://accounts.google.com/o/oauth2/v2/auth?client_id=716492819402-plannit.apps.googleusercontent.com&response_type=id_token&redirect_uri=${redirectUri}&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
+            const googleOAuthUrl = `https://plannit-backend-private.vercel.app/api/auth?action=google&redirect_to=${redirectUri}`;
+            
+            // Open in-page modal for instant seamless login or redirect top-level
+            const modal = document.getElementById('googleInPageModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                window.location.href = googleOAuthUrl;
+            }
+        }&scope=openid%20email%20profile&nonce=${Date.now()}&prompt=select_account`;
 
             // Open Native Google Account Chooser Popup Window
             const popup = window.open(
