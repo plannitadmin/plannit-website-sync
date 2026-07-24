@@ -422,7 +422,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBadgeCount();
 
     // 3. Inject Profile Dropdown HTML next to the Shop button
-    const shopBtn = document.querySelector('.nav-shop');
+    // Clean up any standalone static profile buttons to prevent duplicates
+        const staticProfileBtns = document.querySelectorAll('.nav-profile-btn');
+        staticProfileBtns.forEach(btn => {
+            if (!btn.closest('.nav-profile-wrap')) {
+                btn.remove();
+            }
+        });
+
+        const shopBtn = document.querySelector('.nav-shop');
     if (shopBtn) {
         const profileContainer = document.createElement('div');
         profileContainer.className = 'nav-profile-wrap';

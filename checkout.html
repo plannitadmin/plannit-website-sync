@@ -78,6 +78,96 @@ body { animation: pageFadeIn 0.35s ease both; }
     }
   })();
 </script>
+<style>
+        /* Luminous Gold Header Icons & Logo Alignment */
+        .logo {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            text-decoration: none !important;
+            color: var(--primary) !important;
+            font-weight: 700 !important;
+            font-size: 1.35rem !important;
+        }
+
+        .logo span, .logo-text {
+            display: inline-block !important;
+            transform: translateY(2px) !important;
+        }
+
+        .nav-cart-btn {
+            cursor: pointer !important;
+            position: relative !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 42px !important;
+            height: 42px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.7), rgba(253, 230, 138, 0.5)) !important;
+            border: 1px solid rgba(245, 158, 11, 0.3) !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            color: #D97706 !important;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.12) !important;
+        }
+
+        .nav-cart-btn:hover {
+            transform: translateY(-2px) scale(1.05) !important;
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.8)) !important;
+            border-color: rgba(245, 158, 11, 0.5) !important;
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.28) !important;
+        }
+
+        .nav-profile-btn {
+            cursor: pointer !important;
+            position: relative !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 42px !important;
+            height: 42px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.7), rgba(253, 230, 138, 0.5)) !important;
+            border: 1px solid rgba(245, 158, 11, 0.3) !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            color: #B45309 !important;
+            text-decoration: none !important;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12) !important;
+        }
+
+        .nav-profile-btn:hover {
+            transform: translateY(-2px) scale(1.05) !important;
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.8)) !important;
+            border-color: rgba(245, 158, 11, 0.5) !important;
+            box-shadow: 0 6px 16px rgba(180, 83, 9, 0.28) !important;
+        }
+
+        .nav-shop {
+            background: linear-gradient(135deg, #D97706, #B45309) !important;
+            color: #FFFFFF !important;
+            font-weight: 600 !important;
+            padding: 0.55rem 1.35rem !important;
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28) !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .nav-shop:hover {
+            transform: translateY(-2px) scale(1.03) !important;
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.42) !important;
+        }
+
+        /* Gold Standard Micro-Animations & Alive Hover Effects */
+        .planner-card, .collection-card, .feature-card, .redeem-box {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .planner-card:hover, .collection-card:hover {
+            transform: translateY(-4px) scale(1.01) !important;
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 0 20px rgba(217, 119, 6, 0.12) !important;
+        }
+</style>
 </head>
 <body style="background: url('checkout_bg_v2.png') no-repeat center center fixed; background-size: cover; min-height: 100vh; padding-top: 100px; margin: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; position: relative;">
     <!-- Glassmorphic Overlay -->
@@ -86,9 +176,7 @@ body { animation: pageFadeIn 0.35s ease both; }
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
-                <img src="plannit-logo-mark-transparent.png" alt="Plannit Logo" style="height: 38px; width: 38px; object-fit: contain; vertical-align: middle; margin-right: 4px;">
-                Plannit</a>
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px;"><img src="plannit-logo-mark-transparent.png" alt="Plannit Logo" style="height: 38px; width: 38px; object-fit: contain; vertical-align: middle; margin-right: 4px;"><span style="display: inline-block; transform: translateY(2px);">Plannit</span></a>
             <div class="nav-links">
                 <a href="index.html#collections">Collections</a>
                 <a href="index.html#features">Features</a>
