@@ -228,12 +228,12 @@
 
         .btn-secondary-pill {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.8rem 1rem;
             background: transparent;
             color: var(--primary);
             border: 1.5px solid var(--border);
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -376,63 +376,61 @@ body { animation: pageFadeIn 0.35s ease both; }
                 <button type="button" class="tab-btn" id="tab-btn-signup">Sign Up</button>
             </div>
 
-            <!-- SECTION 1: LOG IN -->
+            <!-- SECTION 1: STREAMLINED LOG IN -->
             <div id="login-section" class="auth-section">
                 <h2 class="auth-title">Welcome Back</h2>
-                <p class="auth-subtitle">Enter your email and password to access your templates.</p>
-                
-                <form id="login-form">
-                    <div class="form-group">
-                        <label class="form-label" for="login-email">Email Address</label>
-                        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required autocomplete="username">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="login-password">Password</label>
-                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-                    </div>
+                <p class="auth-subtitle" id="login-subtitle">Enter your email address to log in.</p>
 
-                    <!-- KEEP ME SIGNED IN & FORGOT PASSWORD ROW -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; margin-bottom: 1.25rem;">
-                        <label for="login-remember-me" style="display: flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; color: var(--secondary); cursor: pointer; user-select: none;">
-                            <input type="checkbox" id="login-remember-me" style="width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;" checked>
-                            Keep me signed in
-                        </label>
-                        <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; transition: opacity 0.2s;">Forgot password?</a>
-                    </div>
-
-                    <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
-                    <button type="submit" class="btn-submit">Log In to Library</button>
-                </form>
-
-                <!-- OR PASSWORDLESS EMAIL CODE LOGIN METHOD -->
-                <div style="display: flex; align-items: center; gap: 1rem; margin: 1.25rem 0 1rem 0;">
-                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
-                    <span style="font-size: 0.7rem; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">or login without password</span>
-                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                <!-- STEP 1: INITIAL EMAIL ENTRY -->
+                <div id="login-step1">
+                    <form id="login-step1-form">
+                        <div class="form-group">
+                            <label class="form-label" for="login-email">Email Address</label>
+                            <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+                        <div id="step1-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                        <button type="submit" class="btn-submit">Continue <i data-lucide="arrow-right" style="width: 16px; height: 16px; vertical-align: middle;"></i></button>
+                    </form>
                 </div>
 
-                <button type="button" id="btn-email-code-mode" class="btn-secondary-pill">
-                    <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--accent);"></i>
-                    Log in with Email Code
-                </button>
-            </div>
-
-            <!-- SECTION 1.5: EMAIL CODE LOGIN REQUEST -->
-            <div id="email-code-login-section" class="auth-section hidden">
-                <h2 class="auth-title">Instant Email Code</h2>
-                <p class="auth-subtitle">Enter your email and we'll send you a 6-digit login code. No password needed!</p>
-                
-                <form id="email-code-request-form">
-                    <div class="form-group">
-                        <label class="form-label" for="email-code-address">Email Address</label>
-                        <input type="email" id="email-code-address" class="form-input" placeholder="you@example.com" required autocomplete="email">
+                <!-- STEP 2: CHOOSE PASSWORD OR EMAIL CODE -->
+                <div id="login-step2" class="hidden">
+                    <div style="background: #F8FAFC; border: 1px solid var(--border); border-radius: 50px; padding: 0.4rem 1rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                        <span id="display-user-email" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">you@example.com</span>
+                        <a href="#" id="link-change-email" style="font-size: 0.75rem; color: var(--accent); font-weight: 700; text-decoration: none;">Change</a>
                     </div>
-                    <div id="email-code-feedback-msg" style="font-size: 0.78rem; font-weight: 600; text-align: center; margin-bottom: 1rem; display: none;"></div>
-                    <button type="submit" class="btn-submit">Send Login Code</button>
-                </form>
 
-                <div class="auth-footer" style="margin-top: 1.5rem;">
-                    Prefer password? <a href="#" id="link-back-to-password">Log in with Password</a>
+                    <!-- OPTION A: LOG IN WITH PASSWORD -->
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="login-password">Password</label>
+                            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; margin-bottom: 1.25rem;">
+                            <label for="login-remember-me" style="display: flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; color: var(--secondary); cursor: pointer; user-select: none;">
+                                <input type="checkbox" id="login-remember-me" style="width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;" checked>
+                                Keep me signed in
+                            </label>
+                            <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; transition: opacity 0.2s;">Forgot password?</a>
+                        </div>
+
+                        <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
+                        <button type="submit" class="btn-submit" style="background: #E8A020; box-shadow: 0 4px 14px rgba(232, 160, 32, 0.3);">Log In with Password</button>
+                    </form>
+
+                    <!-- OR DIVIDER -->
+                    <div style="display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 1.25rem 0;">
+                        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                        <span style="font-size: 0.7rem; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">or login without password</span>
+                        <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                    </div>
+
+                    <!-- OPTION B: SEND 6-DIGIT EMAIL CODE -->
+                    <button type="button" id="btn-send-email-code" class="btn-secondary-pill">
+                        <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--accent);"></i>
+                        Send 6-Digit Code to Email
+                    </button>
                 </div>
             </div>
 
@@ -630,8 +628,13 @@ body { animation: pageFadeIn 0.35s ease both; }
             const tabBtnSignup = document.getElementById('tab-btn-signup');
 
             const loginSection = document.getElementById('login-section');
+            const loginStep1 = document.getElementById('login-step1');
+            const loginStep2 = document.getElementById('login-step2');
+            const loginSubtitle = document.getElementById('login-subtitle');
+            const displayUserEmail = document.getElementById('display-user-email');
+            const linkChangeEmail = document.getElementById('link-change-email');
+
             const signupSection = document.getElementById('signup-section');
-            const emailCodeLoginSection = document.getElementById('email-code-login-section');
             const emailCodeVerifySection = document.getElementById('email-code-verify-section');
             const verifySection = document.getElementById('verify-section');
             const forgotSection = document.getElementById('forgot-section');
@@ -641,12 +644,11 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             const linkForgotPassword = document.getElementById('link-forgot-password');
             const linkForgotBack = document.getElementById('link-forgot-back');
-            const btnEmailCodeMode = document.getElementById('btn-email-code-mode');
-            const linkBackToPassword = document.getElementById('link-back-to-password');
+            const btnSendEmailCode = document.getElementById('btn-send-email-code');
 
+            const loginStep1Form = document.getElementById('login-step1-form');
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
-            const emailCodeRequestForm = document.getElementById('email-code-request-form');
             const emailCodeVerifyForm = document.getElementById('email-code-verify-form');
             const verifyForm = document.getElementById('verify-form');
             const forgotForm = document.getElementById('forgot-form');
@@ -656,6 +658,9 @@ body { animation: pageFadeIn 0.35s ease both; }
             const loginCodeDigits = document.querySelectorAll('.login-code-digit');
             const resetDigitInputs = document.querySelectorAll('.reset-digit-input');
 
+            const step1ErrorMsg = document.getElementById('step1-error-msg');
+            const loginErrorMsg = document.getElementById('login-error-msg');
+            const signupErrorMsg = document.getElementById('signup-error-msg');
             const verifyErrorMsg = document.getElementById('verify-error-msg');
             const verifyDescEl = document.getElementById('verify-desc');
             const resendLink = document.getElementById('btn-resend-code');
@@ -663,7 +668,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             let resetVerificationToken = '';
             let loginCodeToken = '';
-            let loginCodeEmail = '';
+            let userEmailEntered = '';
 
             const successTitle = document.getElementById('success-title');
             const successDesc = document.getElementById('success-desc');
@@ -692,7 +697,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             function showSection(section) {
                 const allSections = [
-                    loginSection, signupSection, emailCodeLoginSection, emailCodeVerifySection,
+                    loginSection, signupSection, emailCodeVerifySection,
                     verifySection, forgotSection, resetCodeSection, successSection, profileSection
                 ];
                 allSections.forEach(sec => {
@@ -700,7 +705,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 });
                 if (section) section.classList.remove('hidden');
 
-                // Show segmented switch ONLY on loginSection and signupSection
                 if (segmentedSwitch) {
                     if (section === loginSection || section === signupSection) {
                         segmentedSwitch.style.display = 'flex';
@@ -722,30 +726,60 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (tabBtnSignup) tabBtnSignup.classList.remove('active');
                     if (tabBtnLogin) tabBtnLogin.classList.add('active');
                     showSection(loginSection);
+                    resetLoginStep1();
                     window.history.replaceState(null, '', '?mode=login');
+                }
+            }
+
+            function resetLoginStep1() {
+                if (loginStep1 && loginStep2) {
+                    loginStep1.classList.remove('hidden');
+                    loginStep2.classList.add('hidden');
+                    if (loginSubtitle) loginSubtitle.textContent = 'Enter your email address to log in.';
                 }
             }
 
             tabBtnLogin.addEventListener('click', () => switchAuthTab('login'));
             tabBtnSignup.addEventListener('click', () => switchAuthTab('signup'));
 
-            if (btnEmailCodeMode) {
-                btnEmailCodeMode.addEventListener('click', () => {
-                    showSection(emailCodeLoginSection);
-                    window.history.replaceState(null, '', '?mode=email-code');
+            // Step 1 Form Submit (Email Entered)
+            if (loginStep1Form) {
+                loginStep1Form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('login-email').value.trim();
+                    if (!emailInput || !emailInput.includes('@')) {
+                        step1ErrorMsg.textContent = 'Please enter a valid email address.';
+                        step1ErrorMsg.style.display = 'block';
+                        return;
+                    }
+                    step1ErrorMsg.style.display = 'none';
+                    userEmailEntered = emailInput;
+                    if (displayUserEmail) displayUserEmail.textContent = userEmailEntered;
+                    
+                    loginStep1.classList.add('hidden');
+                    loginStep2.classList.remove('hidden');
+                    if (loginSubtitle) loginSubtitle.textContent = 'Choose password or send a one-time email code.';
+                    const passInput = document.getElementById('login-password');
+                    if (passInput) passInput.focus();
                 });
             }
 
-            if (linkBackToPassword) {
-                linkBackToPassword.addEventListener('click', (e) => {
+            if (linkChangeEmail) {
+                linkChangeEmail.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchAuthTab('login');
+                    resetLoginStep1();
+                    const emailInput = document.getElementById('login-email');
+                    if (emailInput) emailInput.focus();
                 });
             }
 
             if (linkForgotPassword) {
                 linkForgotPassword.addEventListener('click', (e) => {
                     e.preventDefault();
+                    const forgotEmailInput = document.getElementById('forgot-email');
+                    if (forgotEmailInput && userEmailEntered) {
+                        forgotEmailInput.value = userEmailEntered;
+                    }
                     showSection(forgotSection);
                     window.history.replaceState(null, '', '?mode=forgot');
                 });
@@ -755,6 +789,83 @@ body { animation: pageFadeIn 0.35s ease both; }
                 linkForgotBack.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchAuthTab('login');
+                });
+            }
+
+            // Send 6-Digit Login Code via Email
+            if (btnSendEmailCode) {
+                btnSendEmailCode.addEventListener('click', () => {
+                    if (!userEmailEntered) {
+                        resetLoginStep1();
+                        return;
+                    }
+                    const originalText = btnSendEmailCode.innerHTML;
+                    btnSendEmailCode.innerHTML = '<i data-lucide="loader" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Sending 6-Digit Code...';
+                    btnSendEmailCode.disabled = true;
+
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'forgot-password', email: userEmailEntered })
+                    })
+                    .then(res => handleResponse(res, 'Failed to send login code'))
+                    .then(data => {
+                        loginCodeToken = data.token;
+                        const descEl = document.getElementById('email-code-verify-desc');
+                        if (descEl) {
+                            descEl.innerHTML = `We sent a 6-digit login code to <strong style="color: var(--primary); font-size: 0.8rem;">${userEmailEntered}</strong>. Enter it below to log in.`;
+                        }
+
+                        const demoContainer = document.getElementById('login-code-demo-container');
+                        const demoVal = document.getElementById('login-code-demo-val');
+                        if (data.devCode && demoContainer && demoVal) {
+                            demoVal.textContent = data.devCode;
+                            demoContainer.style.display = 'block';
+                        } else if (demoContainer) {
+                            demoContainer.style.display = 'none';
+                        }
+
+                        showSection(emailCodeVerifySection);
+                        loginCodeDigits[0].focus();
+                    })
+                    .catch(err => {
+                        loginErrorMsg.textContent = err.message;
+                        loginErrorMsg.style.display = 'block';
+                    })
+                    .finally(() => {
+                        btnSendEmailCode.innerHTML = originalText;
+                        btnSendEmailCode.disabled = false;
+                        if (window.lucide) window.lucide.createIcons();
+                    });
+                });
+            }
+
+            // Resend 6-Digit Login Code
+            if (btnResendLoginCode) {
+                btnResendLoginCode.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!userEmailEntered) return;
+                    btnResendLoginCode.textContent = 'Sending new code...';
+                    fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'forgot-password', email: userEmailEntered })
+                    })
+                    .then(res => handleResponse(res, 'Failed to resend code'))
+                    .then(data => {
+                        loginCodeToken = data.token;
+                        alert('A new 6-digit code has been sent to ' + userEmailEntered);
+                        const demoContainer = document.getElementById('login-code-demo-container');
+                        const demoVal = document.getElementById('login-code-demo-val');
+                        if (data.devCode && demoContainer && demoVal) {
+                            demoVal.textContent = data.devCode;
+                            demoContainer.style.display = 'block';
+                        }
+                    })
+                    .catch(err => alert('Error: ' + err.message))
+                    .finally(() => {
+                        btnResendLoginCode.textContent = 'Resend Code';
+                    });
                 });
             }
 
@@ -803,17 +914,13 @@ body { animation: pageFadeIn 0.35s ease both; }
             setupDigitInputs(loginCodeDigits);
             setupDigitInputs(resetDigitInputs);
 
-            const loginErrorMsg = document.getElementById('login-error-msg');
-            const signupErrorMsg = document.getElementById('signup-error-msg');
-
-            // Handle Log In submission
+            // Handle Log In with Password submission
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const emailVal = document.getElementById('login-email').value.trim();
                 const passwordVal = document.getElementById('login-password').value;
                 const rememberMe = document.getElementById('login-remember-me').checked;
 
-                if (emailVal && passwordVal) {
+                if (userEmailEntered && passwordVal) {
                     loginErrorMsg.style.display = 'none';
                     const submitBtn = loginForm.querySelector('.btn-submit');
                     const originalText = submitBtn.textContent;
@@ -823,7 +930,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'login', email: emailVal, password: passwordVal })
+                        body: JSON.stringify({ action: 'login', email: userEmailEntered, password: passwordVal })
                     })
                     .then(res => handleResponse(res, 'Login failed'))
                     .then(data => {
@@ -863,63 +970,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 }
             });
 
-            // Handle Email Code Login Request
-            if (emailCodeRequestForm) {
-                emailCodeRequestForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const emailVal = document.getElementById('email-code-address').value.trim();
-                    const feedbackMsg = document.getElementById('email-code-feedback-msg');
-                    const submitBtn = emailCodeRequestForm.querySelector('button[type="submit"]');
-
-                    if (emailVal) {
-                        if (feedbackMsg) feedbackMsg.style.display = 'none';
-                        const originalText = submitBtn.textContent;
-                        submitBtn.textContent = 'Sending code...';
-                        submitBtn.disabled = true;
-
-                        fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ action: 'forgot-password', email: emailVal })
-                        })
-                        .then(res => handleResponse(res, 'Failed to send login code'))
-                        .then(data => {
-                            loginCodeToken = data.token;
-                            loginCodeEmail = emailVal;
-
-                            const descEl = document.getElementById('email-code-verify-desc');
-                            if (descEl) {
-                                descEl.innerHTML = `We sent a 6-digit login code to <strong style="color: var(--primary); font-size: 0.8rem;">${emailVal}</strong>. Enter it below to log in.`;
-                            }
-
-                            const demoContainer = document.getElementById('login-code-demo-container');
-                            const demoVal = document.getElementById('login-code-demo-val');
-                            if (data.devCode && demoContainer && demoVal) {
-                                demoVal.textContent = data.devCode;
-                                demoContainer.style.display = 'block';
-                            } else if (demoContainer) {
-                                demoContainer.style.display = 'none';
-                            }
-
-                            showSection(emailCodeVerifySection);
-                            loginCodeDigits[0].focus();
-
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        })
-                        .catch(err => {
-                            if (feedbackMsg) {
-                                feedbackMsg.textContent = err.message;
-                                feedbackMsg.style.color = '#DC2626';
-                                feedbackMsg.style.display = 'block';
-                            }
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        });
-                    }
-                });
-            }
-
             // Handle Email Code Verification Submission
             if (emailCodeVerifyForm) {
                 emailCodeVerifyForm.addEventListener('submit', (e) => {
@@ -935,7 +985,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.textContent = 'Authenticating...';
                         submitBtn.disabled = true;
 
-                        // Verify 6-digit code with token
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -950,13 +999,13 @@ body { animation: pageFadeIn 0.35s ease both; }
                         .then(data => {
                             localStorage.setItem('plannit_remember_me', 'true');
                             localStorage.setItem('plannit_user_id', data.user ? data.user.id : 'code_user');
-                            localStorage.setItem('plannit_user_email', loginCodeEmail);
-                            localStorage.setItem('plannit_email', loginCodeEmail);
+                            localStorage.setItem('plannit_user_email', userEmailEntered);
+                            localStorage.setItem('plannit_email', userEmailEntered);
                             localStorage.setItem('plannit_first_name', data.user ? data.user.firstName : 'User');
                             localStorage.setItem('plannit_entered', 'true');
 
                             successTitle.textContent = "Logged In!";
-                            successDesc.textContent = "Authenticated successfully with one-time code.";
+                            successDesc.textContent = "Authenticated successfully with your email code.";
                             showSection(successSection);
 
                             setTimeout(() => {
@@ -1166,7 +1215,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         .then(res => handleResponse(res, 'Failed to send reset code'))
                         .then(data => {
                             resetVerificationToken = data.token;
-                            resetEmail = emailVal;
 
                             const resetCodeDescEl = document.getElementById('reset-code-desc');
                             if (resetCodeDescEl) {
