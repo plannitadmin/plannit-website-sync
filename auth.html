@@ -802,6 +802,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     btnSendEmailCode.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'send-login-code', email: userEmailEntered })
@@ -845,6 +846,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (!userEmailEntered) return;
                     btnResendLoginCode.textContent = 'Sending new code...';
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'send-login-code', email: userEmailEntered })
@@ -926,6 +928,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'login', email: userEmailEntered, password: passwordVal })
@@ -984,6 +987,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -1058,6 +1062,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1111,6 +1116,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1167,6 +1173,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     resendLink.style.pointerEvents = 'none';
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'resend', token: signupVerificationToken })
@@ -1206,6 +1213,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ action: 'forgot-password', email: emailVal })
@@ -1273,6 +1281,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: \'include\',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

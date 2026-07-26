@@ -7945,6 +7945,7 @@ body {
 
                 // Submit to Supabase via Vercel Serverless Function API
                 fetch('https://plannit-backend-private.vercel.app/api/early-access-signup', {
+                    credentials: \'include\',
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(formData).toString()
@@ -7987,6 +7988,7 @@ body {
 
                 // Submit to Supabase via Vercel Serverless Function API
                 fetch('https://plannit-backend-private.vercel.app/api/early-access-signup', {
+                    credentials: \'include\',
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(formData).toString()
