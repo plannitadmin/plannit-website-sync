@@ -7085,28 +7085,36 @@ body {
                         <!-- What's included -->
                         <div class="fp-features">
                             <div class="fp-feature">
-                                <span class="fp-ficon"><i data-lucide="image"></i></span>
+                                <span class="fp-ficon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                                </span>
                                 <div>
                                     <div class="fp-fname">Wallpaper Pack</div>
                                     <div class="fp-fsub">4 designs · Night Mode</div>
                                 </div>
                             </div>
                             <div class="fp-feature">
-                                <span class="fp-ficon"><i data-lucide="music"></i></span>
+                                <span class="fp-ficon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                </span>
                                 <div>
                                     <div class="fp-fname">Music Player</div>
                                     <div class="fp-fsub">Spotify compatible</div>
                                 </div>
                             </div>
                             <div class="fp-feature">
-                                <span class="fp-ficon"><i data-lucide="cloud"></i></span>
+                                <span class="fp-ficon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19.1 19 21s1.5-2 1.5-3.5A2.5 2.5 0 0 0 18 15h-1.55a5 5 0 1 0-9.45-.2 5 5 0 0 0-4 4.7 5 5 0 0 0 5 5h9.5a3.5 3.5 0 0 0 0-7Z"/></svg>
+                                </span>
                                 <div>
                                     <div class="fp-fname">Weather Monitor</div>
                                     <div class="fp-fsub">Real-time conditions</div>
                                 </div>
                             </div>
                             <div class="fp-feature">
-                                <span class="fp-ficon"><i data-lucide="star"></i></span>
+                                <span class="fp-ficon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                </span>
                                 <div>
                                     <div class="fp-fname">Daily Focus Mode</div>
                                     <div class="fp-fsub">Timers &amp; productivity</div>
@@ -7429,8 +7437,13 @@ body {
         <section class="reviews scroll-fade">
             <div class="container">
                 <div class="label" style="text-align: center; margin-bottom: 0.5rem;">05 • Reviews</div>
-                <h2 style="text-align: center; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 2.5rem; font-weight: 600;">
+                <h2 style="text-align: center; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">
                     Quiet words from focused people.</h2>
+                <div style="font-size: 0.78rem; color: var(--muted); text-align: center; margin-bottom: 2.2rem;">
+                    <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(232, 160, 32, 0.08); border: 1px solid rgba(232, 160, 32, 0.25); border-radius: 20px; color: #BA7517; font-weight: 600;">
+                        ✨ Pre-Release Early Tester & Beta Member Feedback
+                    </span>
+                </div>
                 <div class="reviews-grid">
                     <div class="review-card">
                         <div class="review-stars">★★★★★</div>
@@ -7634,9 +7647,14 @@ body {
             <div style="font-size: 0.7rem; color: var(--muted); opacity: 0.75; text-align: center; max-width: 600px; margin-top: 0.5rem; line-height: 1.4;">
                 Plannit is not partnered with Spotify or any third-party brand. The Music Player feature is Spotify compatible, but Plannit is not affiliated with Spotify.
             </div>
-            <p style="font-size: 0.75rem; color: var(--muted); opacity: 0.85; margin: 0;">© 2026 Plannit Studio.
-                All rights reserved. • <a href="terms.html" style="color: var(--muted); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Terms &amp; Conditions</a>
-                • <a href="privacy.html" style="color: var(--muted); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Privacy Policy</a> • <a href="eula.html" style="color: var(--muted); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">EULA</a> • <a href="credits.html" style="color: var(--muted); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Credits</a></p>
+            <p style="font-size: 0.8rem; color: var(--muted); opacity: 0.9; margin: 0.5rem 0 0 0; line-height: 1.6;">© 2026 Plannit Studio. All rights reserved.
+                <br style="display: block; margin-top: 4px;">
+                <a href="#" onclick="showEarlyAccessModal(); return false;" style="color: #BA7517; font-weight: 700; text-decoration: none; margin-right: 8px;">🚀 Early Access Signup</a> • 
+                <a href="terms.html" style="color: var(--muted); text-decoration: underline; margin: 0 6px;">Terms &amp; Conditions</a> • 
+                <a href="privacy.html" style="color: var(--muted); text-decoration: underline; margin: 0 6px;">Privacy Policy</a> • 
+                <a href="eula.html" style="color: var(--muted); text-decoration: underline; margin: 0 6px;">EULA Agreement</a> • 
+                <a href="credits.html" style="color: var(--muted); text-decoration: underline; margin: 0 6px;">Credits</a>
+            </p>
         </div>
     </footer>
 
