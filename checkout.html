@@ -952,5 +952,44 @@ body { animation: pageFadeIn 0.35s ease both; }
         }
 
     </script>
+
+    <!-- Plannit Premium Cookie & Privacy Consent Banner -->
+    <div id="plannit-cookie-banner" style="position: fixed; bottom: 20px; right: 20px; max-width: 400px; width: calc(100% - 40px); background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(232, 160, 32, 0.35); border-radius: 16px; padding: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); z-index: 99999; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #F8FAFC; transform: translateY(120%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: none;">
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(232, 160, 32, 0.15); border: 1px solid rgba(232, 160, 32, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;">🍪</div>
+            <div>
+                <h4 style="margin: 0 0 4px 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 700; color: #E8A020;">Privacy & Cookie Preferences</h4>
+                <p style="margin: 0; font-size: 0.8rem; line-height: 1.45; color: #94A3B8;">We use essential HttpOnly cookies to keep your session secure and save digital planner preferences. Read our <a href="privacy.html" style="color: #E8A020; text-decoration: underline;">Privacy Policy</a>.</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: flex-end;">
+            <button onclick="setPlannitCookieConsent('essential')" style="padding: 8px 14px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; color: #CBD5E1; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Essential Only</button>
+            <button onclick="setPlannitCookieConsent('accepted')" style="padding: 8px 18px; background: linear-gradient(135deg, #E8A020 0%, #C05621 100%); border: none; border-radius: 8px; color: #0F172A; font-size: 0.78rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(232, 160, 32, 0.3); transition: all 0.2s;">Accept All</button>
+        </div>
+    </div>
+    <script>
+        function initPlannitCookieBanner() {
+            var consent = localStorage.getItem('plannit_cookie_consent');
+            var banner = document.getElementById('plannit-cookie-banner');
+            if (!consent && banner) {
+                banner.style.display = 'block';
+                setTimeout(function() { banner.style.transform = 'translateY(0)'; }, 300);
+            }
+        }
+        function setPlannitCookieConsent(type) {
+            localStorage.setItem('plannit_cookie_consent', type);
+            var banner = document.getElementById('plannit-cookie-banner');
+            if (banner) {
+                banner.style.transform = 'translateY(120%)';
+                setTimeout(function() { banner.style.display = 'none'; }, 600);
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlannitCookieBanner);
+        } else {
+            initPlannitCookieBanner();
+        }
+    </script>
+
 </body>
 </html>
