@@ -7443,110 +7443,133 @@ body {
             </div>
         </section>
 
-        <!-- 04 — Release Roadmap -->
-        <section class="roadmap scroll-fade" id="roadmap">
+        <!-- 04 — Reviews -->
+        <section class="reviews scroll-fade" id="reviews" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 90px 0; position: relative;">
             <div class="container">
-                <div class="label">04 • Release Roadmap</div>
-                <h2 style="font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">Journey so far.</h2>
-                <p style="color: var(--muted); margin-bottom: 2rem;">From the first edition to the official launch, here's where Plannit stands today.</p>
-                <div class="rm-wrapper">
-                    <button class="rm-nav-btn prev" onclick="scrollRoadmap(-1)">
-                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"></path></svg>
-                    </button>
-                    <div class="rm-track">
-                        <div class="rm-node">
-                            <div class="rm-dot done">
-                                <span class="rm-icon">🍉</span>
+                <div class="label" style="text-align: center; margin-bottom: 0.5rem;">04 • Reviews</div>
+                <h2 style="text-align: center; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">
+                    Quiet words from focused people.</h2>
+                <div style="font-size: 0.78rem; color: var(--muted); text-align: center; margin-bottom: 2.2rem; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(232, 160, 32, 0.08); border: 1px solid rgba(232, 160, 32, 0.25); border-radius: 20px; color: #BA7517; font-weight: 600;">
+                        ✨ Representative Pre-Release Early Tester & Beta Member Feedback
+                    </span>
+                    <span style="font-size: 0.72rem; color: #94A3B8; max-width: 480px; line-height: 1.4;">
+                        * Compliant with UK CAP & FTC guidelines. Testimonials reflect early access beta tester evaluations prior to commercial launch.
+                    </span>
+                </div>
+
+                <!-- Review Cards Grid -->
+                <div class="reviews-grid" id="reviewsGridContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.75rem; margin-bottom: 2.5rem;">
+                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s;">
+                        <div class="review-stars" style="color: #E8A020; font-size: 1.1rem; margin-bottom: 0.75rem;">★★★★★</div>
+                        <p class="review-text" style="font-size: 0.95rem; line-height: 1.6; color: var(--charcoal); font-style: italic; margin-bottom: 1.25rem;">"The coin system actually made me want to plan. I've never stuck to a planner before."</p>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.95rem;">Aisha T.</div>
+                                <div class="review-role" style="font-size: 0.8rem; color: var(--muted);">Architecture Student</div>
                             </div>
-                            <div class="rm-date">Completed</div>
-                            <div class="rm-name">First Edition Summer Planner</div>
-                        </div>
-                        <div class="rm-line done"></div>
-                        <div class="rm-node">
-                            <div class="rm-dot done">
-                                <span class="rm-icon">💻</span>
-                            </div>
-                            <div class="rm-date">Completed</div>
-                            <div class="rm-name">Website Early Launch (Beta)</div>
-                        </div>
-                        <div class="rm-line done"></div>
-                        <div class="rm-node">
-                            <div class="rm-dot done">
-                                <span class="rm-icon">📱</span>
-                            </div>
-                            <div class="rm-date">Completed</div>
-                            <div class="rm-name">Instagram & Pinterest Launch</div>
-                        </div>
-                        <div class="rm-line done"></div>
-                        <div class="rm-node">
-                            <div class="rm-dot done">
-                                <span class="rm-icon">🍂</span>
-                            </div>
-                            <div class="rm-date">Completed</div>
-                            <div class="rm-name">Autumn Ember Collection</div>
-                        </div>
-                        <div class="rm-line active"></div>
-                        <div class="rm-node">
-                            <div class="rm-dot active">
-                                <span class="rm-icon">❄️</span>
-                            </div>
-                            <div class="rm-date active">Current Focus</div>
-                            <div class="rm-name">Winter Frost Collection</div>
-                        </div>
-                        <div class="rm-line"></div>
-                        <div class="rm-node">
-                            <div class="rm-dot soon">
-                                <span class="rm-icon">🌱</span>
-                            </div>
-                            <div class="rm-date">Coming Soon</div>
-                            <div class="rm-name">Spring Bloom Collection</div>
+                            <span style="font-size: 0.72rem; padding: 3px 8px; background: rgba(55,138,221,0.08); color: #378ADD; border-radius: 10px; font-weight: 600;">Autumn Ember</span>
                         </div>
                     </div>
-                    <button class="rm-nav-btn next" onclick="scrollRoadmap(1)">
-                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"></path></svg>
+
+                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s;">
+                        <div class="review-stars" style="color: #E8A020; font-size: 1.1rem; margin-bottom: 0.75rem;">★★★★★</div>
+                        <p class="review-text" style="font-size: 0.95rem; line-height: 1.6; color: var(--charcoal); font-style: italic; margin-bottom: 1.25rem;">"Botanical edition is stunning. The Focus Lab streak feature is genuinely addictive."</p>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.95rem;">James R.</div>
+                                <div class="review-role" style="font-size: 0.8rem; color: var(--muted);">Digital Creator</div>
+                            </div>
+                            <span style="font-size: 0.72rem; padding: 3px 8px; background: rgba(34,197,94,0.08); color: #16A34A; border-radius: 10px; font-weight: 600;">Botanical Edition</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s;">
+                        <div class="review-stars" style="color: #E8A020; font-size: 1.1rem; margin-bottom: 0.75rem;">★★★★☆</div>
+                        <p class="review-text" style="font-size: 0.95rem; line-height: 1.6; color: var(--charcoal); font-style: italic; margin-bottom: 1.25rem;">"Finally a planner that doesn't feel clinical. The timetable scroll is so smooth."</p>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.95rem;">Mia K.</div>
+                                <div class="review-role" style="font-size: 0.8rem; color: var(--muted);">Med Student</div>
+                            </div>
+                            <span style="font-size: 0.72rem; padding: 3px 8px; background: rgba(232,160,32,0.08); color: #BA7517; border-radius: 10px; font-weight: 600;">Winter Frost</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Review Button -->
+                <div style="text-align: center;">
+                    <button onclick="openLeaveReviewModal()" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--charcoal); color: var(--white); border: none; border-radius: 30px; font-weight: 600; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.1); transition: all 0.2s;">
+                        ✍️ Leave a Review / Share Feedback
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- 05 — Reviews -->
-        <section class="reviews scroll-fade" id="reviews" style="opacity: 1 !important; transform: none !important; display: block !important;">
-            <div class="container">
-                <div class="label" style="text-align: center; margin-bottom: 0.5rem;">05 • Reviews</div>
-                <h2 style="text-align: center; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">
-                    Quiet words from focused people.</h2>
-                <div style="font-size: 0.78rem; color: var(--muted); text-align: center; margin-bottom: 2.2rem;">
-                    <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(232, 160, 32, 0.08); border: 1px solid rgba(232, 160, 32, 0.25); border-radius: 20px; color: #BA7517; font-weight: 600;">
-                        ✨ Pre-Release Early Tester & Beta Member Feedback
-                    </span>
-                </div>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"The coin system actually made me want to plan. I've never stuck to a planner before."</p>
-                        <div class="review-name">Aisha T.</div>
-                        <div class="review-role">Architecture student</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Botanical edition is stunning. The Focus Lab streak feature is genuinely addictive."</p>
-                        <div class="review-name">James R.</div>
-                        <div class="review-role">Digital creator</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★☆</div>
-                        <p class="review-text">"Finally a planner that doesn't feel clinical. The timetable scroll is so smooth."</p>
-                        <div class="review-name">Mia K.</div>
-                        <div class="review-role">Med student</div>
+        <!-- 05 — Journey So Far / Release Roadmap -->
+        <section class="roadmap scroll-fade" id="roadmap" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 90px 0; background: var(--bg-alt); width: 100%;">
+            <div style="max-width: 1300px; margin: 0 auto; padding: 0 1.5rem;">
+                <div class="label" style="margin-bottom: 0.5rem;">05 • Journey So Far & Roadmap</div>
+                <h2 style="font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">Full-Spanning Release Timeline.</h2>
+                <p style="color: var(--muted); margin-bottom: 2.5rem; max-width: 650px;">From the first edition to the official launch, track our full product evolution across all upcoming seasonal releases.</p>
+
+                <!-- Full-Bleed Edge-to-Edge Timeline Track Container -->
+                <div class="rm-full-container" style="position: relative; width: 100%; overflow-x: auto; padding: 25px 10px; scrollbar-width: thin;">
+                    <div class="rm-full-track" style="display: flex; align-items: center; min-width: 950px; justify-content: space-between; position: relative;">
+                        <!-- Continuous Track Connector Line -->
+                        <div style="position: absolute; top: 40px; left: 40px; right: 40px; height: 4px; background: #E2E8F0; z-index: 1;"></div>
+                        <div style="position: absolute; top: 40px; left: 40px; width: 65%; height: 4px; background: linear-gradient(90deg, #E8A020 0%, #378ADD 100%); z-index: 2;"></div>
+
+                        <!-- Milestone 1 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #DCFCE7; border: 2px solid #16A34A; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(22,163,74,0.15);">🍉</div>
+                            <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #16A34A; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Completed</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">First Edition Summer Planner</div>
+                        </div>
+
+                        <!-- Milestone 2 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #DBEAFE; border: 2px solid #2563EB; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(37,99,235,0.15);">💻</div>
+                            <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #2563EB; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Completed</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">Website Early Launch (Beta)</div>
+                        </div>
+
+                        <!-- Milestone 3 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #F3E8FF; border: 2px solid #9333EA; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(147,51,234,0.15);">📱</div>
+                            <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #9333EA; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Completed</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">Social Launch & Community</div>
+                        </div>
+
+                        <!-- Milestone 4 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #FFEDD5; border: 2px solid #EA580C; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(234,88,12,0.15);">🍂</div>
+                            <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #EA580C; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Completed</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">Autumn Ember Collection</div>
+                        </div>
+
+                        <!-- Milestone 5 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #FEF3C7; border: 2.5px solid #E8A020; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem; box-shadow: 0 0 0 6px rgba(232,160,32,0.2);">❄️</div>
+                            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #BA7517; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Current Focus</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">Winter Frost Collection</div>
+                        </div>
+
+                        <!-- Milestone 6 -->
+                        <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1; opacity: 0.65;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #F1F5F9; border: 2px dashed #94A3B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.3rem;">🌱</div>
+                            <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #64748B; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Coming Soon</span>
+                            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">Spring Bloom Collection</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 06 — Community -->
-        <section class="community scroll-fade" id="community" style="opacity: 1 !important; transform: none !important; display: block !important;">
+        <section class="community scroll-fade" id="community" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 90px 0;">
             <div class="container">
-                <div class="comm-cta" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <div class="comm-cta" style="text-align: center; max-width: 580px; margin: 0 auto;">
                     <div class="label" style="margin-bottom: 0.5rem;">06 • Join the community</div>
                     <h2 style="font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">Stay in the loop.</h2>
                     <p style="color: var(--muted); margin-bottom: 2rem;">We take on suggestions all the time — come tell us what you want next.</p>
@@ -7563,18 +7586,25 @@ body {
                         </a>
                     </div>
                     
-                    <form class="signup-form" id="communitySignupForm" name="early-access-signups" data-netlify="true" onsubmit="handleCommunitySignup(event)" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 420px; margin: 0 auto;">
+                    <!-- Frictionless Early Access Signup Form with First Name, Last Name, and Email -->
+                    <form class="signup-form" id="communitySignupForm" name="early-access-signups" data-netlify="true" onsubmit="handleCommunitySignup(event)" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 440px; margin: 0 auto;">
                         <input type="hidden" name="form-name" value="early-access-signups">
                         <input type="hidden" name="membernumber" id="communityMemberNumber" value="">
-                        <input type="email" class="email-input" id="communityEmailInput" name="email" placeholder="your@email.com" required style="width: 100%; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; outline: none;">
-                        <button type="submit" class="email-btn" style="width: 100%; padding: 14px 24px; background: var(--charcoal); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;">Join Community</button>
+                        
+                        <div style="display: flex; gap: 0.6rem; width: 100%;">
+                            <input type="text" class="email-input" name="firstname" placeholder="First Name" required style="width: 50%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; outline: none; background: var(--white);">
+                            <input type="text" class="email-input" name="lastname" placeholder="Last Name" required style="width: 50%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; outline: none; background: var(--white);">
+                        </div>
+                        <input type="email" class="email-input" id="communityEmailInput" name="email" placeholder="your@email.com" required style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; outline: none; background: var(--white);">
+                        
+                        <button type="submit" class="email-btn" style="width: 100%; padding: 14px 24px; background: var(--charcoal); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Join Early Access</button>
                     </form>
                     
-                    <div class="early-access-counter" id="communityCounter" style="margin-top: 1.5rem; max-width: 340px; margin-left: auto; margin-right: auto;">
+                    <div class="early-access-counter" id="communityCounter" style="margin-top: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto;">
                         <div class="counter-header" style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px;">
                             <span class="live-dot-wrapper" style="display: flex; align-items: center; gap: 6px;">
                                 <span class="live-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
-                                <span class="counter-label">Early Access</span>
+                                <span class="counter-label">Early Access Spots</span>
                             </span>
                             <span class="counter-numbers"><span id="communityCount">16</span> / 250 joined</span>
                         </div>
@@ -8156,4 +8186,131 @@ body {
         }
     </script>
 
+
+    <!-- Interactive Leave a Review Bubble Clicker Modal -->
+    <div id="leaveReviewOverlay" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); z-index: 999999; display: none; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #FFFFFF; border-radius: 24px; max-width: 520px; width: 100%; padding: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.25); position: relative; font-family: 'Inter', system-ui, sans-serif;">
+            <button onclick="closeLeaveReviewModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; color: #94A3B8; cursor: pointer;">×</button>
+            
+            <div id="reviewModalHeader" style="text-align: center; margin-bottom: 24px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(232,160,32,0.1); border-radius: 20px; color: #BA7517; font-weight: 700; font-size: 0.8rem; margin-bottom: 8px;">✨ Member Feedback</div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #0F172A; margin: 0 0 6px 0;">Share Your Experience</h3>
+                <p style="margin: 0; color: #64748B; font-size: 0.88rem;">Select your planner and rate your focus atmosphere.</p>
+            </div>
+
+            <form id="leaveReviewForm" onsubmit="handleReviewSubmission(event)" style="display: flex; flex-direction: column; gap: 18px;">
+                <!-- Step 1: Bubble Clicker Planner Selector -->
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #334155; margin-bottom: 10px;">1. Which Planner edition do you own?</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="plannerBubblePicker">
+                        <button type="button" class="rev-bubble-btn active" onclick="selectPlannerBubble(this, 'Autumn Ember')" style="padding: 8px 14px; border: 1.5px solid #E8A020; background: rgba(232,160,32,0.1); color: #BA7517; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">🍂 Autumn Ember</button>
+                        <button type="button" class="rev-bubble-btn" onclick="selectPlannerBubble(this, 'Summer Sun')" style="padding: 8px 14px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #475569; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">🍉 Summer Sun</button>
+                        <button type="button" class="rev-bubble-btn" onclick="selectPlannerBubble(this, 'Winter Frost')" style="padding: 8px 14px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #475569; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">❄️ Winter Frost</button>
+                        <button type="button" class="rev-bubble-btn" onclick="selectPlannerBubble(this, 'Botanical Edition')" style="padding: 8px 14px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #475569; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">🌿 Botanical Edition</button>
+                        <button type="button" class="rev-bubble-btn" onclick="selectPlannerBubble(this, 'Seasonal Collection')" style="padding: 8px 14px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #475569; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">✨ Seasonal Bundle</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Interactive Emoji Star Picker -->
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #334155; margin-bottom: 8px;">2. Your Rating</label>
+                    <div style="display: flex; gap: 12px; font-size: 1.6rem; cursor: pointer;" id="starPickerContainer">
+                        <span onclick="setStarRating(1)" class="star-item">⭐</span>
+                        <span onclick="setStarRating(2)" class="star-item">⭐</span>
+                        <span onclick="setStarRating(3)" class="star-item">⭐</span>
+                        <span onclick="setStarRating(4)" class="star-item">⭐</span>
+                        <span onclick="setStarRating(5)" class="star-item">⭐</span>
+                    </div>
+                </div>
+
+                <!-- Step 3: Fast Quick-Select Feedback Chips -->
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #334155; margin-bottom: 8px;">3. Quick-preset feedback (Tap to fill):</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+                        <span onclick="applyPresetReview(this)" style="font-size: 0.76rem; padding: 4px 10px; background: #F1F5F9; border-radius: 12px; color: #475569; cursor: pointer;">"Love the wallpapers and focus lab streaks!"</span>
+                        <span onclick="applyPresetReview(this)" style="font-size: 0.76rem; padding: 4px 10px; background: #F1F5F9; border-radius: 12px; color: #475569; cursor: pointer;">"This has helped me become so much more productive."</span>
+                        <span onclick="applyPresetReview(this)" style="font-size: 0.76rem; padding: 4px 10px; background: #F1F5F9; border-radius: 12px; color: #475569; cursor: pointer;">"Finally a planner that feels calm and minimalist."</span>
+                    </div>
+                    <textarea id="reviewTextInput" rows="3" placeholder="Write your review here..." required style="width: 100%; padding: 12px; border: 1.5px solid #CBD5E1; border-radius: 12px; font-size: 0.9rem; outline: none; font-family: inherit;"></textarea>
+                </div>
+
+                <!-- Step 4: Name and Role -->
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="reviewAuthorName" placeholder="Your Name (e.g. Alex M.)" required style="width: 50%; padding: 12px; border: 1.5px solid #CBD5E1; border-radius: 12px; font-size: 0.88rem;">
+                    <input type="text" id="reviewAuthorRole" placeholder="Role (e.g. Student / Creator)" required style="width: 50%; padding: 12px; border: 1.5px solid #CBD5E1; border-radius: 12px; font-size: 0.88rem;">
+                </div>
+
+                <button type="submit" style="padding: 14px; background: #0F172A; color: white; border: none; border-radius: 14px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Review Modal Logic Script -->
+    <script>
+        let selectedPlanner = 'Autumn Ember';
+        let selectedStars = 5;
+
+        function openLeaveReviewModal() {
+            document.getElementById('leaveReviewOverlay').style.display = 'flex';
+        }
+        function closeLeaveReviewModal() {
+            document.getElementById('leaveReviewOverlay').style.display = 'none';
+        }
+
+        function selectPlannerBubble(btn, plannerName) {
+            selectedPlanner = plannerName;
+            document.querySelectorAll('.rev-bubble-btn').forEach(b => {
+                b.style.borderColor = '#E2E8F0';
+                b.style.background = '#F8FAFC';
+                b.style.color = '#475569';
+            });
+            btn.style.borderColor = '#E8A020';
+            btn.style.background = 'rgba(232,160,32,0.1)';
+            btn.style.color = '#BA7517';
+        }
+
+        function setStarRating(rating) {
+            selectedStars = rating;
+            const stars = document.querySelectorAll('#starPickerContainer .star-item');
+            stars.forEach((star, idx) => {
+                star.style.opacity = idx < rating ? '1' : '0.25';
+            });
+        }
+
+        function applyPresetReview(chip) {
+            document.getElementById('reviewTextInput').value = chip.innerText.replace(/^"|"$/g, '');
+        }
+
+        function handleReviewSubmission(e) {
+            e.preventDefault();
+            const text = document.getElementById('reviewTextInput').value;
+            const name = document.getElementById('reviewAuthorName').value;
+            const role = document.getElementById('reviewAuthorRole').value;
+
+            // Generate new review card dynamically
+            const starsStr = '★'.repeat(selectedStars) + '☆'.repeat(5 - selectedStars);
+            const grid = document.getElementById('reviewsGridContainer');
+            if (grid) {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.style.cssText = 'background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); opacity: 0; transform: translateY(20px); transition: all 0.4s ease;';
+                card.innerHTML = `
+                    <div class="review-stars" style="color: #E8A020; font-size: 1.1rem; margin-bottom: 0.75rem;">${starsStr}</div>
+                    <p class="review-text" style="font-size: 0.95rem; line-height: 1.6; color: var(--charcoal); font-style: italic; margin-bottom: 1.25rem;">"${text}"</p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.95rem;">${name}</div>
+                            <div class="review-role" style="font-size: 0.8rem; color: var(--muted);">${role}</div>
+                        </div>
+                        <span style="font-size: 0.72rem; padding: 3px 8px; background: rgba(232,160,32,0.08); color: #BA7517; border-radius: 10px; font-weight: 600;">${selectedPlanner}</span>
+                    </div>
+                `;
+                grid.prepend(card);
+                setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+            }
+
+            closeLeaveReviewModal();
+            alert("Thank you for sharing your feedback! Your review has been added.");
+        }
+    </script>
 </body></html>
