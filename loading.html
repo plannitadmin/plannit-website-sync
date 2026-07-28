@@ -272,6 +272,30 @@ body { animation: pageFadeIn 0.35s ease both; }
     }
   })();
 </script>
+<script>
+  /* Plannit Analytics: Convex-powered, GDPR-compliant. Only fires after cookie consent. */
+  (function () {
+    var CONSENT_KEY = 'plannit_cookie_consent';
+    function loadAnalytics() {
+      if (document.querySelector('script[data-plannit-analytics]')) return;
+      var s = document.createElement('script');
+      s.setAttribute('async', '');
+      s.setAttribute('src', 'https://aromatic-caribou-889.convex.site/api/a/am_3Rfz8Qd_BiPidVVo');
+      s.setAttribute('data-plannit-analytics', '1');
+      document.head.appendChild(s);
+    }
+    /* Activate immediately if user already consented */
+    if (localStorage.getItem(CONSENT_KEY) === 'accepted') {
+      loadAnalytics();
+    }
+    /* Also listen for the cookie consent event fired by the cookie banner */
+    window.addEventListener('plannit:cookieConsent', function (e) {
+      if (e.detail && e.detail.accepted) {
+        loadAnalytics();
+      }
+    });
+  })();
+</script>
 </head>
 <body>
 

@@ -6887,6 +6887,30 @@ body {
 .collections[data-hover-tint="nature"] { background-color: #F2FAE8 !important; background: #F2FAE8 !important; }
 .collections[data-hover-tint="cities"] { background-color: #F3F8FC !important; background: #F3F8FC !important; }
 </style>
+<script>
+  /* Plannit Analytics: Convex-powered, GDPR-compliant. Only fires after cookie consent. */
+  (function () {
+    var CONSENT_KEY = 'plannit_cookie_consent';
+    function loadAnalytics() {
+      if (document.querySelector('script[data-plannit-analytics]')) return;
+      var s = document.createElement('script');
+      s.setAttribute('async', '');
+      s.setAttribute('src', 'https://aromatic-caribou-889.convex.site/api/a/am_3Rfz8Qd_BiPidVVo');
+      s.setAttribute('data-plannit-analytics', '1');
+      document.head.appendChild(s);
+    }
+    /* Activate immediately if user already consented */
+    if (localStorage.getItem(CONSENT_KEY) === 'accepted') {
+      loadAnalytics();
+    }
+    /* Also listen for the cookie consent event fired by the cookie banner */
+    window.addEventListener('plannit:cookieConsent', function (e) {
+      if (e.detail && e.detail.accepted) {
+        loadAnalytics();
+      }
+    });
+  })();
+</script>
 </head>
 
 <body>
@@ -8161,6 +8185,10 @@ body {
         }
         function setPlannitCookieConsent(type) {
             localStorage.setItem('plannit_cookie_consent', type);
+            /* Fire analytics immediately on accept — no reload needed */
+            if (type === 'accepted') {
+                window.dispatchEvent(new CustomEvent('plannit:cookieConsent', { detail: { accepted: true } }));
+            }
             var banner = document.getElementById('plannit-cookie-banner');
             if (banner) {
                 banner.style.transform = 'translateY(120%)';
