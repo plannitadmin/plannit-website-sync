@@ -2884,6 +2884,8 @@ footer {
 /* --- High-Performance Scroll Transitions --- */
 
 .scroll-fade {
+    opacity: 1;
+    transform: translateY(0);
 
     opacity: 0;
 
@@ -6867,6 +6869,14 @@ body {
             background: linear-gradient(135deg, #10B981, #059669) !important;
         }
 </style>
+<style>
+/* --- Bulletproof Section Visibility Overrides --- */
+.scroll-fade, .roadmap, .reviews, .community, footer {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+</style>
 </head>
 
 <body>
@@ -7433,8 +7443,74 @@ body {
             </div>
         </section>
 
-        <!-- 05 • Reviews -->
-        <section class="reviews scroll-fade">
+        <!-- 04 — Release Roadmap -->
+        <section class="roadmap scroll-fade" id="roadmap">
+            <div class="container">
+                <div class="label">04 • Release Roadmap</div>
+                <h2 style="font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">Journey so far.</h2>
+                <p style="color: var(--muted); margin-bottom: 2rem;">From the first edition to the official launch, here's where Plannit stands today.</p>
+                <div class="rm-wrapper">
+                    <button class="rm-nav-btn prev" onclick="scrollRoadmap(-1)">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"></path></svg>
+                    </button>
+                    <div class="rm-track">
+                        <div class="rm-node">
+                            <div class="rm-dot done">
+                                <span class="rm-icon">🍉</span>
+                            </div>
+                            <div class="rm-date">Completed</div>
+                            <div class="rm-name">First Edition Summer Planner</div>
+                        </div>
+                        <div class="rm-line done"></div>
+                        <div class="rm-node">
+                            <div class="rm-dot done">
+                                <span class="rm-icon">💻</span>
+                            </div>
+                            <div class="rm-date">Completed</div>
+                            <div class="rm-name">Website Early Launch (Beta)</div>
+                        </div>
+                        <div class="rm-line done"></div>
+                        <div class="rm-node">
+                            <div class="rm-dot done">
+                                <span class="rm-icon">📱</span>
+                            </div>
+                            <div class="rm-date">Completed</div>
+                            <div class="rm-name">Instagram & Pinterest Launch</div>
+                        </div>
+                        <div class="rm-line done"></div>
+                        <div class="rm-node">
+                            <div class="rm-dot done">
+                                <span class="rm-icon">🍂</span>
+                            </div>
+                            <div class="rm-date">Completed</div>
+                            <div class="rm-name">Autumn Ember Collection</div>
+                        </div>
+                        <div class="rm-line active"></div>
+                        <div class="rm-node">
+                            <div class="rm-dot active">
+                                <span class="rm-icon">❄️</span>
+                            </div>
+                            <div class="rm-date active">Current Focus</div>
+                            <div class="rm-name">Winter Frost Collection</div>
+                        </div>
+                        <div class="rm-line"></div>
+                        <div class="rm-node">
+                            <div class="rm-dot soon">
+                                <span class="rm-icon">🌱</span>
+                            </div>
+                            <div class="rm-date">Coming Soon</div>
+                            <div class="rm-name">Spring Bloom Collection</div>
+                        </div>
+                    </div>
+                    <button class="rm-nav-btn next" onclick="scrollRoadmap(1)">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 — Reviews -->
+        <section class="reviews scroll-fade" id="reviews" style="opacity: 1 !important; transform: none !important; display: block !important;">
             <div class="container">
                 <div class="label" style="text-align: center; margin-bottom: 0.5rem;">05 • Reviews</div>
                 <h2 style="text-align: center; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">
@@ -7447,22 +7523,19 @@ body {
                 <div class="reviews-grid">
                     <div class="review-card">
                         <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"The coin system actually made me want to plan. I've never stuck to a
-                            planner before."</p>
+                        <p class="review-text">"The coin system actually made me want to plan. I've never stuck to a planner before."</p>
                         <div class="review-name">Aisha T.</div>
                         <div class="review-role">Architecture student</div>
                     </div>
                     <div class="review-card">
                         <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Botanical edition is stunning. The Focus Lab streak feature is genuinely
-                            addictive."</p>
+                        <p class="review-text">"Botanical edition is stunning. The Focus Lab streak feature is genuinely addictive."</p>
                         <div class="review-name">James R.</div>
                         <div class="review-role">Digital creator</div>
                     </div>
                     <div class="review-card">
                         <div class="review-stars">★★★★☆</div>
-                        <p class="review-text">"Finally a planner that doesn't feel clinical. The timetable scroll is so
-                            smooth."</p>
+                        <p class="review-text">"Finally a planner that doesn't feel clinical. The timetable scroll is so smooth."</p>
                         <div class="review-name">Mia K.</div>
                         <div class="review-role">Med student</div>
                     </div>
@@ -7470,128 +7543,50 @@ body {
             </div>
         </section>
 
-        <!-- 06 — Journey So Far -->
-        <section class="journey" id="journey">
+        <!-- 06 — Community -->
+        <section class="community scroll-fade" id="community" style="opacity: 1 !important; transform: none !important; display: block !important;">
             <div class="container">
-                <div class="label">06 • Where we are</div>
-                <div style="margin-bottom: 2.5rem;">
-                    <h2 class="section-title" style="margin-bottom: 0.5rem;">Journey so far.</h2>
-                    <p style="max-width: 600px;">
-                        From the first edition to the official launch, here's where Plannit stands today.
-                        <!-- Placeholder milestones: swap in confirmed dates/copy whenever you're ready -->
-                    </p>
-                </div>
-                                <div class="rm-wrapper">
-                    <button class="rm-nav-btn prev" onclick="scrollRoadmap(-1)">
-                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"></path></svg>
-                    </button>
-                    <div class="rm-track">
-                        <div class="rm-node done">
-                            <div class="rm-marker">🍉</div>
-                            <div class="rm-status">Completed</div>
-                            <div class="rm-title">First Edition Summer Planner</div>
-                        </div>
-                        <div class="rm-node done">
-                            <div class="rm-marker">💻</div>
-                            <div class="rm-status">Completed</div>
-                            <div class="rm-title">Website Early Launch (Beta)</div>
-                        </div>
-                        <div class="rm-node done">
-                            <div class="rm-marker">📱</div>
-                            <div class="rm-status">Completed</div>
-                            <div class="rm-title">Instagram &amp; Pinterest Launch</div>
-                        </div>
-                        <div class="rm-node is-now">
-                            <div class="rm-marker">🔑</div>
-                            <div class="rm-status">Now</div>
-                            <div class="rm-title">Account Creation Available</div>
-                        </div>
-                        <div class="rm-node">
-                            <div class="rm-marker">☀️</div>
-                            <div class="rm-status">Soon</div>
-                            <div class="rm-title">Summer Sun Official Release</div>
-                        </div>
-                        <div class="rm-node">
-                            <div class="rm-marker">🍂</div>
-                            <div class="rm-status">Soon</div>
-                            <div class="rm-title">Seasonal Collection Release</div>
-                        </div>
-                        <div class="rm-node">
-                            <div class="rm-marker">🚀</div>
-                            <div class="rm-status">Soon</div>
-                            <div class="rm-title">Official Website Launch</div>
-                        </div>
-                    </div>
-                    <button class="rm-nav-btn next" onclick="scrollRoadmap(1)">
-                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 07 — Stay in the Loop -->
-        <section class="community scroll-fade" id="community">
-            <div class="container">
-                <div class="comm-cta">
-                    <div class="label">07 • Join the community</div>
-                    <h2>Stay in the loop.</h2>
-                    <p>We take on suggestions all the time. Come tell us what you want next.</p>
+                <div class="comm-cta" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                    <div class="label" style="margin-bottom: 0.5rem;">06 • Join the community</div>
+                    <h2 style="font-size: 2.2rem; color: var(--charcoal); margin-bottom: 0.5rem; font-weight: 600;">Stay in the loop.</h2>
+                    <p style="color: var(--muted); margin-bottom: 2rem;">We take on suggestions all the time — come tell us what you want next.</p>
                     
-                    <!-- Early Access Progress Bar (Relocated & Minimalist) -->
-                    <div class="early-access-counter" id="communityCounter" style="margin-top: 1.5rem; margin-bottom: 2rem; max-width: 320px; margin-left: auto; margin-right: auto;">
-                        <div class="counter-header">
-                            <span class="live-dot-wrapper">
-                                <span class="live-dot"></span>
+                    <div class="comm-icons" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                        <a href="https://uk.pinterest.com/plannitadmin/?actingBusinessId=1089308366029156664" target="_blank" rel="noopener noreferrer" class="comm-icon-box" title="Pinterest" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(0,0,0,0.04); color: var(--charcoal); transition: all 0.2s;">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.621 0 12-5.378 12-12S18.638 0 12.017 0z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/plannit.co/" target="_blank" rel="noopener noreferrer" class="comm-icon-box" title="Instagram" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(0,0,0,0.04); color: var(--charcoal); transition: all 0.2s;">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@plannit.co" target="_blank" rel="noopener noreferrer" class="comm-icon-box" title="TikTok" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(0,0,0,0.04); color: var(--charcoal); transition: all 0.2s;">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.95 1.2 2.27 2.03 3.75 2.37v3.82c-1.88-.08-3.71-.85-5.06-2.18-.1-.1-.18-.21-.26-.32v7.7c0 4.14-3.36 7.5-7.5 7.5S1.46 19.8 1.46 15.66s3.36-7.5 7.5-7.5c.9 0 1.76.16 2.57.45V12.5c-.77-.38-1.63-.58-2.57-.58-3.04 0-5.5 2.46-5.5 5.5s2.46 5.5 5.5 5.5 5.5-2.46 5.5-5.5V0h.59z"/></svg>
+                        </a>
+                    </div>
+                    
+                    <form class="signup-form" id="communitySignupForm" name="early-access-signups" data-netlify="true" onsubmit="handleCommunitySignup(event)" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 420px; margin: 0 auto;">
+                        <input type="hidden" name="form-name" value="early-access-signups">
+                        <input type="hidden" name="membernumber" id="communityMemberNumber" value="">
+                        <input type="email" class="email-input" id="communityEmailInput" name="email" placeholder="your@email.com" required style="width: 100%; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; outline: none;">
+                        <button type="submit" class="email-btn" style="width: 100%; padding: 14px 24px; background: var(--charcoal); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;">Join Community</button>
+                    </form>
+                    
+                    <div class="early-access-counter" id="communityCounter" style="margin-top: 1.5rem; max-width: 340px; margin-left: auto; margin-right: auto;">
+                        <div class="counter-header" style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px;">
+                            <span class="live-dot-wrapper" style="display: flex; align-items: center; gap: 6px;">
+                                <span class="live-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
                                 <span class="counter-label">Early Access</span>
                             </span>
                             <span class="counter-numbers"><span id="communityCount">16</span> / 250 joined</span>
                         </div>
-                        <div class="counter-progress-bar">
-                            <div class="counter-progress-fill" id="communityProgress"></div>
+                        <div class="counter-progress-bar" style="width: 100%; height: 6px; background: rgba(0,0,0,0.08); border-radius: 10px; overflow: hidden;">
+                            <div class="counter-progress-fill" id="communityProgress" style="width: 6.4%; height: 100%; background: linear-gradient(90deg, #E8A020 0%, #C05621 100%); transition: width 0.5s ease;"></div>
                         </div>
                     </div>
-
-                    <div class="comm-icons">
-                        <!-- Pinterest -->
-                        <a href="https://uk.pinterest.com/plannitadmin/?actingBusinessId=1089308366029156664" target="_blank" rel="noopener noreferrer" class="comm-icon-box pinterest" title="Pinterest">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 2.495-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.621 0 12-5.378 12-12S18.638 0 12.017 0z"></path>
-                            </svg>
-                        </a>
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/plannit.co/" target="_blank" rel="noopener noreferrer" class="comm-icon-box instagram" title="Instagram">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
-                            </svg>
-                        </a>
-                        <!-- TikTok -->
-                        <a href="https://www.tiktok.com/@plannit.co" target="_blank" rel="noopener noreferrer" class="comm-icon-box tiktok" title="TikTok">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.95 1.2 2.27 2.03 3.75 2.37v3.82c-1.88-.08-3.71-.85-5.06-2.18-.1-.1-.18-.21-.26-.32v7.7c0 4.14-3.36 7.5-7.5 7.5S1.46 19.8 1.46 15.66s3.36-7.5 7.5-7.5c.9 0 1.76.16 2.57.45V12.5c-.77-.38-1.63-.58-2.57-.58-3.04 0-5.5 2.46-5.5 5.5s2.46 5.5 5.5 5.5 5.5-2.46 5.5-5.5V0h.59z"></path>
-                            </svg>
-                        </a>
-                    </div>
-
-                    <!-- Email signup (original index layout: name fields + email) -->
-                    <form class="comm-signup-form" id="communitySignupForm" name="early-access-signups" data-netlify="true" onsubmit="handleCommunitySignup(event)" style="flex-direction: column; max-width: 420px; margin-left: auto; margin-right: auto;">
-                        <input type="hidden" name="form-name" value="early-access-signups">
-                        <input type="hidden" name="membernumber" id="communityMemberNumber" value="">
-                        <div style="display: flex; gap: 0.75rem; width: 100%;">
-                            <input type="text" class="comm-signup-input" name="firstname" placeholder="First name" required="" style="flex: 1; min-width: 0;">
-                            <input type="text" class="comm-signup-input" name="lastname" placeholder="Last name" required="" style="flex: 1; min-width: 0;">
-                        </div>
-                        <input type="email" class="comm-signup-input" id="communityEmailInput" name="email" placeholder="your@email.com" required="" style="width: 100%;">
-                        <button type="submit" class="comm-signup-btn" style="width: 100%;">Join the list</button>
-                    </form>
-
-
                 </div>
             </div>
         </section>
 
-    </main>
-
-    <footer class="scroll-fade" style="padding: 1rem 0 1rem; background: var(--white); border-top: 1px solid var(--border-soft); margin-top: 0;">
+        <footer class="scroll-fade" style="padding: 1rem 0 1rem; background: var(--white); border-top: 1px solid var(--border-soft); margin-top: 0;">
         <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 0.85rem;">
             <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--forest); font-size: 1.1rem;">
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: 28px; fill: none; vertical-align: middle;">
@@ -7848,8 +7843,10 @@ body {
         function resetTimer() {
             clearInterval(timerInterval);
             timerRunning = false;
-            document.getElementById('timer-toggle').textContent = 'Start';
-            timerSeconds = parseInt(document.getElementById('timer-slider').value) * 60;
+            const toggleBtn = document.getElementById('timer-toggle');
+            const slider = document.getElementById('timer-slider');
+            if (toggleBtn) toggleBtn.textContent = 'Start';
+            if (slider) timerSeconds = parseInt(slider.value) * 60;
             updateTimerDisplay();
         }
 
@@ -7878,6 +7875,9 @@ body {
             const overlay = document.getElementById('earlyAccessOverlay');
             const modal = document.getElementById('earlyAccessModal');
             if (overlay && modal) {
+                overlay.style.display = 'flex';
+                overlay.style.opacity = '1';
+                overlay.style.visibility = 'visible';
                 overlay.classList.add('active');
                 modal.classList.add('active');
 
@@ -8036,9 +8036,8 @@ body {
             // Sync all counters immediately on page load
             updateAllCounters();
 
-            if (!sessionStorage.getItem('plannit_early_access_dismissed')) {
-                setTimeout(showEarlyAccessModal, 1200); // 1.2s premium delayed entrance
-            }
+            // Always trigger Early Access modal popup on page load for beta testing
+            setTimeout(showEarlyAccessModal, 1000);
         });
     </script>
 
