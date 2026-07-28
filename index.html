@@ -4725,7 +4725,7 @@ footer {
 
 .spin-slow {
 
-    animation: spin-loop 12s linear infinite;
+    animation: spin-loop 25s linear infinite;
 
     transform-origin: center;
 
@@ -6877,6 +6877,16 @@ body {
     visibility: visible !important;
 }
 </style>
+<style>
+/* Collections Hover Background Tint Override Rules */
+.collections {
+    transition: background-color 0.4s ease-in-out, background 0.4s ease-in-out, box-shadow 0.4s ease-in-out !important;
+}
+.collections[data-hover-tint="seasonal"] { background-color: #FFF8ED !important; background: #FFF8ED !important; }
+.collections[data-hover-tint="botanical"] { background-color: #F0FAF5 !important; background: #F0FAF5 !important; }
+.collections[data-hover-tint="nature"] { background-color: #F2FAE8 !important; background: #F2FAE8 !important; }
+.collections[data-hover-tint="cities"] { background-color: #F3F8FC !important; background: #F3F8FC !important; }
+</style>
 </head>
 
 <body>
@@ -7511,11 +7521,11 @@ body {
                 <p style="color: var(--muted); margin-bottom: 2rem; max-width: 600px; font-size: 0.9rem;">Track our exact progress from initial beta release to official commercial launch and free trials handout.</p>
 
                 <!-- Full Width Horizontal Scroll Track -->
-                <div class="rm-full-container" style="position: relative; width: 100%; overflow-x: auto; padding: 20px 10px 30px 10px; scrollbar-width: thin;">
-                    <div class="rm-full-track" style="display: flex; align-items: flex-start; min-width: 1250px; justify-content: space-between; position: relative; padding-top: 0;">
-                        <!-- Perfectly Centered Continuous Track Line Running Behind 60px Circles -->
-                        <div style="position: absolute; top: 30px; left: 60px; right: 60px; height: 3.5px; background: #CBD5E1; z-index: 1; transform: translateY(-50%);"></div>
-                        <div style="position: absolute; top: 30px; left: 60px; width: calc(85.7% - 50px); height: 3.5px; background: linear-gradient(90deg, #10B981 0%, #2563EB 30%, #9333EA 50%, #EA580C 70%, #10B981 85%, #E8A020 100%); z-index: 2; transform: translateY(-50%);"></div>
+                <div class="rm-full-container" style="position: relative; width: 100%; overflow-x: auto; padding: 25px 10px 35px 10px; scrollbar-width: thin;">
+                    <div class="rm-full-track" style="display: flex; align-items: flex-start; min-width: 1280px; justify-content: space-between; position: relative; padding-top: 0;">
+                        <!-- Perfectly Level Continuous Track Line Slicing Through 60px Circle Centers -->
+                        <div style="position: absolute; top: 30px; left: 60px; right: 60px; height: 3px; background: #CBD5E1; z-index: 1; transform: translateY(-50%); margin: 0;"></div>
+                        <div style="position: absolute; top: 30px; left: 60px; width: calc(85.7% - 50px); height: 3px; background: linear-gradient(90deg, #10B981 0%, #2563EB 30%, #9333EA 50%, #EA580C 70%, #10B981 85%, #E8A020 100%); z-index: 2; transform: translateY(-50%); margin: 0;"></div>
 
                         <!-- 1. First Edition Summer Planner -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
@@ -7593,7 +7603,7 @@ body {
 
                     <!-- Early Access Spots Counter Bar (Balanced Perfectly in Middle) -->
                     <div class="early-access-counter" id="communityCounter" style="margin-top: 0.15rem; margin-bottom: 1.85rem; max-width: 360px; margin-left: auto; margin-right: auto;">
-                        <div class="counter-header" style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px;">
+                        <div class="counter-header" style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 3px;">
                             <span class="live-dot-wrapper" style="display: flex; align-items: center; gap: 6px;">
                                 <span class="live-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
                                 <span class="counter-label">Early Access Spots</span>
@@ -7712,8 +7722,9 @@ body {
                 const tintKey = card.getAttribute('data-tint');
                 const config = tints[tintKey];
                 if (config) {
-                    // Update main container styles
+                    collSection.setAttribute('data-hover-tint', tintKey);
                     collSection.style.backgroundColor = config.color;
+                    collSection.style.background = config.color;
                     collSection.style.boxShadow = `inset 0 0 100px rgba(0,0,0,0.01), ${config.shadow}`;
 
                     // Activate each corner with its watercolor/neon shade
@@ -7731,6 +7742,7 @@ body {
                 }
             });
             card.addEventListener('mouseleave', () => {
+                collSection.removeAttribute('data-hover-tint');
                 collSection.style.backgroundColor = 'var(--bg)';
                 collSection.style.boxShadow = 'none';
 
@@ -8253,8 +8265,13 @@ body {
             document.getElementById('leaveReviewOverlay').style.display = 'flex';
             goToWizardSlide(0);
             
-            // Auto-fill author name if user is logged in
-            const savedName = localStorage.getItem('plannit_user_name') || localStorage.getItem('plannit_user');
+            // Auto-fill author name if user is logged in across all storage keys
+            const savedName = localStorage.getItem('plannit_user_name') || 
+                              localStorage.getItem('plannit_user') || 
+                              sessionStorage.getItem('plannit_user_name') || 
+                              sessionStorage.getItem('plannit_user') || 
+                              localStorage.getItem('user_name') || 
+                              localStorage.getItem('user');
             if (savedName) {
                 const nameInput = document.getElementById('reviewAuthorName');
                 if (nameInput) nameInput.value = savedName;
