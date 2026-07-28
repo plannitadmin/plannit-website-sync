@@ -1999,8 +1999,11 @@ window.history.replaceState({}, document.title, window.location.pathname);
             var consent = localStorage.getItem('plannit_cookie_consent');
             var banner = document.getElementById('plannit-cookie-banner');
             if (!consent && banner) {
+                /* Lock scroll until user makes a choice */
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
                 banner.style.display = 'block';
-                setTimeout(function() { banner.style.transform = 'translateY(0)'; }, 300);
+                setTimeout(function() { banner.style.transform = 'translateY(0)'; }, 80);
             }
         }
         function setPlannitCookieConsent(type) {
@@ -2009,10 +2012,13 @@ window.history.replaceState({}, document.title, window.location.pathname);
             if (type === 'accepted') {
                 window.dispatchEvent(new CustomEvent('plannit:cookieConsent', { detail: { accepted: true } }));
             }
+            /* Unlock scroll as soon as user makes a choice */
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
             var banner = document.getElementById('plannit-cookie-banner');
             if (banner) {
-                banner.style.transform = 'translateY(120%)';
-                setTimeout(function() { banner.style.display = 'none'; }, 600);
+                banner.style.transform = 'translateY(100%)';
+                setTimeout(function() { banner.style.display = 'none'; }, 500);
             }
         }
         if (document.readyState === 'loading') {
