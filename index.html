@@ -8201,11 +8201,21 @@ body {
                     <div style="width: 25%; flex-shrink: 0; padding: 0 4px;">
                         <label style="display: block; font-weight: 700; font-size: 0.9rem; color: #334155; margin-bottom: 12px; text-align: center;">Step 1: Which Planner do you own?</label>
                         <div style="display: flex; flex-direction: column; gap: 8px;" id="plannerBubblePicker">
-                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Summer Sun Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s;">🍉 Summer Sun Edition</button>
-                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Winter Frost Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s;">❄️ Winter Frost Edition</button>
-                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Autumn Ember Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s;">🍂 Autumn Ember Edition</button>
-                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Spring Bloom Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s;">🌱 Spring Bloom Edition</button>
-                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Seasonal Collection Bundle')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s;">✨ Seasonal Collection Bundle</button>
+                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Summer Sun Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                                <img src="emojis/sun.svg" alt="Summer Sun" style="width: 20px; height: 20px; object-fit: contain;"> Summer Sun Edition
+                            </button>
+                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Winter Frost Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                                <img src="emojis/winter.svg" alt="Winter Frost" style="width: 20px; height: 20px; object-fit: contain;"> Winter Frost Edition
+                            </button>
+                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Autumn Ember Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                                <img src="emojis/autumn.svg" alt="Autumn Ember" style="width: 20px; height: 20px; object-fit: contain;"> Autumn Ember Edition
+                            </button>
+                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Spring Bloom Edition')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                                <img src="emojis/spring.svg" alt="Spring Bloom" style="width: 20px; height: 20px; object-fit: contain;"> Spring Bloom Edition
+                            </button>
+                            <button type="button" class="rev-bubble-btn" onclick="wizardSelectPlanner(this, 'Seasonal Collection Bundle')" style="padding: 11px 16px; border: 1.5px solid #E2E8F0; background: #F8FAFC; color: #334155; border-radius: 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1.1rem; display: inline-block; line-height: 1;">✨</span> Seasonal Collection Bundle
+                            </button>
                         </div>
                     </div>
 
