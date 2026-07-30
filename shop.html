@@ -1887,7 +1887,7 @@ body { animation: pageFadeIn 0.35s ease both; }
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <!-- Vercel Web Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
 
@@ -2203,7 +2203,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 <a href="index.html#community">Community</a>
 
-                <a href="library.html" style="color: var(--accent); font-weight: 700;">Library <i data-lucide="key" class="lucide" style="width: 16px; height: 16px;"></i></a>
+                <a href="library.html" style="color: #4F46E5; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">Library <i data-lucide="key" class="lucide" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;"></i></a>
 
                 
 
@@ -2267,7 +2267,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             <div id="shop-banner" class="shop-banner" style="background:#FFF8ED; border: 1px solid rgba(245, 166, 35, 0.25);">
 
-                <div id="banner-badge" class="shop-banner-badge" style="background:#FAEEDA; color:#633806;">Seasonal Collection</div>
+                <div id="banner-badge" class="shop-banner-badge" style="background: rgba(232, 160, 32, 0.12); color: #B45309; border: 1px solid rgba(232, 160, 32, 0.25); display: inline-flex; align-items: center; gap: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; padding: 6px 14px; border-radius: 50px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #D97706; display: inline-block;"></span> Seasonal Collection</div>
 
                 <h1 id="banner-title" style="font-family: 'Playfair Display', Georgia, serif !important; font-size: clamp(2.2rem, 5vw, 3.8rem) !important; line-height: 1.15 !important; color: var(--charcoal) !important; font-weight: 500 !important; margin-bottom: 1.5rem !important;">Plan through<br><span style="color: var(--copper); font-style: italic;">every season.</span></h1>
 
@@ -4129,7 +4129,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                 const shopBanner = document.getElementById('shop-banner');
                 shopBanner.style.background = config.bg;
                 shopBanner.style.borderColor = config.border;
-                document.getElementById('banner-badge').textContent = config.badge;
+                document.getElementById('banner-badge').innerHTML = '<span style="width: 6px; height: 6px; border-radius: 50%; background: ' + config.badgeText + '; display: inline-block;"></span> ' + config.badge;
                 document.getElementById('banner-badge').style.background = config.badgeBg;
                 document.getElementById('banner-badge').style.color = config.badgeText;
                 document.getElementById('banner-title').textContent = config.title;
