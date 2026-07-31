@@ -7489,41 +7489,56 @@ body {
                     </span>
                 </div>
 
-                <!-- Review Cards Grid -->
-                <div class="reviews-grid" id="reviewsGridContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
-                        <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
-                        <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The setup is so easy to get started, I can start studying immediately."</p>
-                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                            <div>
-                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">Aisha T.</div>
-                                <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Architecture Student</div>
-                            </div>
-                            <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(55,138,221,0.08); color: #378ADD; border-radius: 10px; font-weight: 600;">Autumn Ember Edition</span>
-                        </div>
-                    </div>
+                <!-- Smooth Horizontal Wheel Carousel Track -->
+                <div style="position: relative; margin-bottom: 2rem; overflow: hidden; padding: 10px 0;">
+                    <!-- Carousel Left/Right Nav Buttons -->
+                    <button onclick="scrollReviewWheel(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--charcoal); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">‹</button>
+                    <button onclick="scrollReviewWheel(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--charcoal); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">›</button>
 
-                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
-                        <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
-                        <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"I love the wallpapers on this, they really help keep me zoned in."</p>
-                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                            <div>
-                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">James R.</div>
-                                <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Digital Creator</div>
-                            </div>
-                            <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(34,197,94,0.08); color: #16A34A; border-radius: 10px; font-weight: 600;">Summer Sun Edition</span>
-                        </div>
-                    </div>
+                    <div id="reviewsGridContainer" style="display: flex; gap: 1.5rem; overflow-x: auto; scroll-behavior: smooth; padding: 10px 20px; scrollbar-width: none; -ms-overflow-style: none;">
+                        <style>#reviewsGridContainer::-webkit-scrollbar { display: none; }</style>
 
-                    <div class="review-card" style="background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
-                        <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★☆</div>
-                        <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The layout and UI is super simple and appealing. The Pomodoro timer is so intuitive."</p>
-                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                            <div>
-                                <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">Mia K.</div>
-                                <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Med Student</div>
+                        <!-- Special Action Card: Add Your Review Direct in Track -->
+                        <div onclick="openLeaveReviewModal()" class="review-card" style="flex: 0 0 300px; width: 300px; background: linear-gradient(135deg, rgba(232,160,32,0.08), rgba(245,158,11,0.04)); border: 2px dashed rgba(232, 160, 32, 0.4); border-radius: 16px; padding: 1.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#E8A020';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(232, 160, 32, 0.4)';">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: #0F172A; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">✍️</div>
+                            <strong style="font-size: 1.05rem; color: var(--charcoal); margin-bottom: 4px; font-weight: 700;">Share Your Experience</strong>
+                            <p style="font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.4;">Tap to post your feedback directly into this row.</p>
+                        </div>
+
+                        <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
+                            <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
+                            <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The setup is so easy to get started, I can start studying immediately."</p>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <div>
+                                    <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">Aisha T.</div>
+                                    <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Architecture Student</div>
+                                </div>
+                                <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(55,138,221,0.08); color: #378ADD; border-radius: 10px; font-weight: 600;">Autumn Ember Edition</span>
                             </div>
-                            <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(232,160,32,0.08); color: #BA7517; border-radius: 10px; font-weight: 600;">Winter Frost Edition</span>
+                        </div>
+
+                        <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
+                            <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
+                            <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"I love the wallpapers on this, they really help keep me zoned in."</p>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <div>
+                                    <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">James R.</div>
+                                    <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Digital Creator</div>
+                                </div>
+                                <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(34,197,94,0.08); color: #16A34A; border-radius: 10px; font-weight: 600;">Summer Sun Edition</span>
+                            </div>
+                        </div>
+
+                        <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
+                            <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★☆</div>
+                            <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The layout and UI is super simple and appealing. The Pomodoro timer is so intuitive."</p>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <div>
+                                    <div class="review-name" style="font-weight: 700; color: var(--charcoal); font-size: 0.92rem;">Mia K.</div>
+                                    <div class="review-role" style="font-size: 0.78rem; color: var(--muted);">Med Student</div>
+                                </div>
+                                <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(232,160,32,0.08); color: #BA7517; border-radius: 10px; font-weight: 600;">Winter Frost Edition</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -8367,6 +8382,13 @@ body {
             document.getElementById('reviewTextInput').value = chip.innerText.replace(/^"|"$/g, '');
         }
 
+        function scrollReviewWheel(direction) {
+            const container = document.getElementById('reviewsGridContainer');
+            if (container) {
+                container.scrollBy({ left: direction * 340, behavior: 'smooth' });
+            }
+        }
+
         function submitWizardReview() {
             const text = document.getElementById('reviewTextInput').value;
             const name = document.getElementById('reviewAuthorName').value;
@@ -8384,7 +8406,7 @@ body {
             if (grid) {
                 const card = document.createElement('div');
                 card.className = 'review-card';
-                card.style.cssText = 'background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); opacity: 0; transform: translateY(20px); transition: all 0.4s ease;';
+                card.style.cssText = 'flex: 0 0 320px; width: 320px; background: var(--white); border: 2px solid #E8A020; border-radius: 16px; padding: 1.75rem; box-shadow: 0 8px 24px rgba(232,160,32,0.18); opacity: 0; transform: scale(0.9); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);';
                 card.innerHTML = `
                     <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">${starsStr}</div>
                     <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"${text}"</p>
@@ -8396,12 +8418,22 @@ body {
                         <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(232,160,32,0.08); color: #BA7517; border-radius: 10px; font-weight: 600;">${wizardSelectedPlanner}</span>
                     </div>
                 `;
-                grid.prepend(card);
-                setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                // Insert right after the "+ Share Your Experience" action card (position index 1)
+                const actionCard = grid.children[0];
+                if (actionCard && actionCard.nextSibling) {
+                    grid.insertBefore(card, actionCard.nextSibling);
+                } else {
+                    grid.appendChild(card);
+                }
+
+                setTimeout(() => { 
+                    card.style.opacity = '1'; 
+                    card.style.transform = 'scale(1)';
+                    grid.scrollTo({ left: 320, behavior: 'smooth' });
+                }, 100);
             }
 
             closeLeaveReviewModal();
-            alert("Thank you! Your feedback has been added.");
         }
     </script>
 </body></html>
