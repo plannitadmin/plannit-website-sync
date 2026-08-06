@@ -1921,42 +1921,52 @@ if (urlParams.has('code')) {
     }
 }
 
-if (urlParams.has('checkout_success')) {
-// Show a beautiful notification toast
-const alertBox = document.createElement('div');
-alertBox.style.position = 'fixed';
-alertBox.style.bottom = '24px';
-alertBox.style.right = '24px';
-alertBox.style.background = '#059669';
-alertBox.style.color = 'white';
-alertBox.style.padding = '1rem 2rem';
-alertBox.style.borderRadius = '50px';
-alertBox.style.fontWeight = '700';
-alertBox.style.fontSize = '0.95rem';
-alertBox.style.boxShadow = '0 10px 30px rgba(5, 150, 105, 0.3)';
-alertBox.style.zIndex = '99999';
-alertBox.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-alertBox.style.transform = 'translateY(100px)';
-alertBox.style.opacity = '0';
+if (urlParams.has('checkout_success') || urlParams.has('purchase')) {
+    const rawSlugs = urlParams.get('slug');
+    if (rawSlugs) {
+        const purchasedSlugs = rawSlugs.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+        if (purchasedSlugs.length > 0) {
+            ownedPlanners = [...new Set([...ownedPlanners, ...purchasedSlugs])];
+            localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+            renderLibrary();
+        }
+    }
 
-alertBox.innerHTML = ' Checkout completed successfully! Planners unlocked.';
-document.body.appendChild(alertBox);
+    // Show a beautiful notification toast
+    const alertBox = document.createElement('div');
+    alertBox.style.position = 'fixed';
+    alertBox.style.bottom = '24px';
+    alertBox.style.right = '24px';
+    alertBox.style.background = '#059669';
+    alertBox.style.color = 'white';
+    alertBox.style.padding = '1rem 2rem';
+    alertBox.style.borderRadius = '50px';
+    alertBox.style.fontWeight = '700';
+    alertBox.style.fontSize = '0.95rem';
+    alertBox.style.boxShadow = '0 10px 30px rgba(5, 150, 105, 0.3)';
+    alertBox.style.zIndex = '99999';
+    alertBox.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    alertBox.style.transform = 'translateY(100px)';
+    alertBox.style.opacity = '0';
 
-// Animate in
-setTimeout(() => {
-alertBox.style.transform = 'translateY(0)';
-alertBox.style.opacity = '1';
-}, 100);
+    alertBox.innerHTML = '✨ Purchase successful! Your planner is unlocked.';
+    document.body.appendChild(alertBox);
 
-// Animate out
-setTimeout(() => {
-alertBox.style.transform = 'translateY(100px)';
-alertBox.style.opacity = '0';
-setTimeout(() => alertBox.remove(), 500);
-}, 4000);
+    // Animate in
+    setTimeout(() => {
+        alertBox.style.transform = 'translateY(0)';
+        alertBox.style.opacity = '1';
+    }, 100);
 
-// Clean URL params
-window.history.replaceState({}, document.title, window.location.pathname);
+    // Animate out
+    setTimeout(() => {
+        alertBox.style.transform = 'translateY(100px)';
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500);
+    }, 4000);
+
+    // Clean URL params
+    window.history.replaceState({}, document.title, window.location.pathname);
 }
 });
 </script>
