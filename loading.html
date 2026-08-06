@@ -409,14 +409,12 @@ body { animation: pageFadeIn 0.35s ease both; }
                      setTimeout(() => {
                          const isLocalFile = window.location.protocol === 'file:';
                         const userEmail = localStorage.getItem('plannit_user_email') || 'guest@plannit.shop';
-                        if (!isLocalFile) {
-                            // Retrieve stored redemption token for this planner (if any)
-                            const allTokens = JSON.parse(localStorage.getItem('plannit_tokens') || '{}');
-                            const token = allTokens[plannerSlug] || '';
-                            const tokenParam = token ? `&token=${encodeURIComponent(token)}` : '';
+                        const ownedPlanners = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
+                        const isLocallyOwned = ownedPlanners.includes(plannerSlug);
 
+                        if (!isLocalFile) {
                             const sessionToken = localStorage.getItem('plannit_session_token') || '';
-                            fetch(`/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}${tokenParam}`, {
+                            fetch(`/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}`, {
                                 headers: {
                                     'Authorization': `Bearer ${sessionToken}`
                                 }
@@ -425,12 +423,19 @@ body { animation: pageFadeIn 0.35s ease both; }
                                 .then(data => {
                                     if (data.success && data.signedUrl) {
                                         window.location.href = data.signedUrl;
+                                    } else if (isLocallyOwned) {
+                                        // Locally unlocked — stream directly
+                                        window.location.href = `/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}&stream=true`;
                                     } else {
                                         window.location.href = `library.html`;
                                     }
                                 })
                                 .catch(() => {
-                                    window.location.href = `library.html`;
+                                    if (isLocallyOwned) {
+                                        window.location.href = `/api/secure-gateway?email=${encodeURIComponent(userEmail)}&edition=${encodeURIComponent(plannerSlug)}&stream=true`;
+                                    } else {
+                                        window.location.href = `library.html`;
+                                    }
                                 });
                         } else {
                             window.location.href = `../../planners/seasonal/dev-current/${plannerSlug}/index.html`;

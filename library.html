@@ -1672,51 +1672,14 @@ setTimeout(() => toast.remove(), 400);
 }
 
 // Secure Gateway Access — server is the only gate
-async function accessPlanner(id) {
-    const email = localStorage.getItem('plannit_user_email') || 'guest@plannit.shop';
-
-    const prettyNames = {
-        'summer-sun': 'Summer Sun Edition',
-        'winter-frost': 'Winter Frost Edition',
-        'autumn-ember': 'Autumn Ember Edition',
-        'spring-bloom': 'Spring Bloom Edition',
-        'botanical-eucalyptus': 'Botanical Eucalyptus',
-        'botanical-rose': 'Botanical Rose',
-        'botanical-lavender': 'Botanical Lavender',
-        'botanical-wildflower': 'Botanical Wildflower',
-        'nature-rain': 'Nature Rain',
-        'nature-forest': 'Nature Forest',
-        'nature-ocean': 'Nature Ocean',
-        'nature-mountain': 'Nature Mountain',
-        'nature-desert': 'Nature Desert'
-    };
-    const title = prettyNames[id] || id;
-
-    showToast(`Opening ${title}...`, 'info');
-
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-        const sessionToken = localStorage.getItem('plannit_session_token') || '';
-        const res = await fetch(`/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
-            signal: controller.signal,
-            headers: {
-                'Authorization': `Bearer ${sessionToken}`
-            }
-        });
-        clearTimeout(timeoutId);
-        const data = await res.json();
-
-        if (res.ok && data.success && data.signedUrl) {
-            window.location.href = data.signedUrl;
-        } else {
-            // Secure gateway fallback — navigate to loading page
-            window.location.href = `loading.html?edition=${encodeURIComponent(id)}`;
-        }
-    } catch (err) {
-        // Fallback — navigate to loading page
-        window.location.href = `loading.html?edition=${encodeURIComponent(id)}`;
+function accessPlanner(id) {
+    const targetUrl = `loading.html?edition=${encodeURIComponent(id)}`;
+    
+    // Open instantly in a new tab for seamless user experience
+    const newTab = window.open(targetUrl, '_blank');
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+        // Fallback if popups blocked — navigate current window
+        window.location.href = targetUrl;
     }
 }
 
