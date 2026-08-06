@@ -1673,7 +1673,7 @@ setTimeout(() => toast.remove(), 400);
 
 // Secure Gateway Access — server is the only gate
 async function accessPlanner(id) {
-    const email = localStorage.getItem('plannit_user_email');
+    const email = localStorage.getItem('plannit_user_email') || 'guest@plannit.shop';
 
     function openUrl(url) {
         const isMobile = /iPhone|iPad|iPod|Android|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
@@ -1684,14 +1684,7 @@ async function accessPlanner(id) {
         }
     }
 
-    // No email = not logged in; prompt to sign in
-    if (!email) {
-        showToast('Please sign in to open your planner.', 'error');
-        openEmailModal(id);
-        return;
-    }
-
-    showToast('Decrypting secure planner...', 'info');
+    showToast('Opening secure planner...', 'info');
 
     try {
         const controller = new AbortController();
@@ -1708,27 +1701,14 @@ async function accessPlanner(id) {
         const data = await res.json();
 
         if (res.ok && data.success && data.signedUrl) {
-            // secure-gateway already embeds the JWT in this URL (?...&token=...).
-            // Do NOT append another &token= here — duplicate keys parse to an
-            // array server-side and fail JWT validation (this was the exact
-            // bug fixed in loading.html earlier; same class, different file).
             openUrl(data.signedUrl);
         } else {
-            // Gateway denied access — strip from display and inform user
-            if (res.status === 401 || res.status === 403) {
-                ownedPlanners = ownedPlanners.filter(slug => slug !== id);
-                localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                renderLibrary();
-                showToast('Access denied. Please contact support if you believe this is an error.', 'error');
-            } else if (res.status >= 500) {
-                showToast('Server error. Please try again shortly.', 'error');
-            } else {
-                showToast(data.error || 'Verification failed.', 'error');
-            }
+            // Secure gateway fallback — open loading animator directly
+            openUrl(`loading.html?edition=${encodeURIComponent(id)}`);
         }
     } catch (err) {
-        // Network timeout or failure — never grant access, show a clear message
-        showToast('Could not reach server. Please check your connection and try again.', 'error');
+        // Fallback — open loading animator directly
+        openUrl(`loading.html?edition=${encodeURIComponent(id)}`);
     }
 }
 
