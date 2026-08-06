@@ -1546,15 +1546,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         return;
                     }
 
-                    let email = localStorage.getItem('plannit_user_email');
-                    if (!email) {
-                        email = prompt('Enter your email address to claim this code:');
-                        if (!email || !email.includes('@')) {
-                            showFeedback('A valid email address is required to claim your code.', true);
-                            return;
-                        }
-                        localStorage.setItem('plannit_user_email', email.trim().toLowerCase());
-                    }
+                    let email = localStorage.getItem('plannit_user_email') || 'guest@plannit.shop';
 
                     // Server-only redemption — no client-side fallback
                     redeemBtn.disabled = true;
