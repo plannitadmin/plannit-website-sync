@@ -714,7 +714,8 @@ body { animation: pageFadeIn 0.35s ease both; }
                 Object.keys(localStorage)
                     .filter(k => k.startsWith('plannit_'))
                     .forEach(k => localStorage.removeItem(k));
-                window.location.reload();
+                sessionStorage.clear();
+                window.location.href = 'library.html';
             };
 
             function showSection(section) {

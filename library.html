@@ -652,7 +652,21 @@ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bez
 body { animation: pageFadeIn 0.35s ease both; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest">
+window.signOutLibrary = function() {
+    Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('plannit_')) {
+            localStorage.removeItem(k);
+        }
+    });
+    sessionStorage.clear();
+    if (typeof ownedPlanners !== 'undefined') {
+        ownedPlanners = [];
+    }
+    window.location.reload();
+};
+
+</script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>
   (function() {
@@ -1333,7 +1347,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             // Retrieve ownership from localStorage
             let ownedPlanners = [];
-            const stored = localStorage.getItem('plannit_owned');
+            const userEmail = localStorage.getItem('plannit_user_email');
+const userId = localStorage.getItem('plannit_user_id');
+if (!userEmail && !userId) {
+    localStorage.removeItem('plannit_owned');
+    localStorage.removeItem('plannit_trials');
+}
+const stored = localStorage.getItem('plannit_owned');
             try {
                 if (stored) {
                     ownedPlanners = JSON.parse(stored);
