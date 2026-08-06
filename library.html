@@ -1675,20 +1675,28 @@ setTimeout(() => toast.remove(), 400);
 async function accessPlanner(id) {
     const email = localStorage.getItem('plannit_user_email') || 'guest@plannit.shop';
 
-    function openUrl(url) {
-        const isMobile = /iPhone|iPad|iPod|Android|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
-        if (isMobile || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            window.location.href = url;
-        } else {
-            window.open(url, '_blank');
-        }
-    }
+    const prettyNames = {
+        'summer-sun': 'Summer Sun Edition',
+        'winter-frost': 'Winter Frost Edition',
+        'autumn-ember': 'Autumn Ember Edition',
+        'spring-bloom': 'Spring Bloom Edition',
+        'botanical-eucalyptus': 'Botanical Eucalyptus',
+        'botanical-rose': 'Botanical Rose',
+        'botanical-lavender': 'Botanical Lavender',
+        'botanical-wildflower': 'Botanical Wildflower',
+        'nature-rain': 'Nature Rain',
+        'nature-forest': 'Nature Forest',
+        'nature-ocean': 'Nature Ocean',
+        'nature-mountain': 'Nature Mountain',
+        'nature-desert': 'Nature Desert'
+    };
+    const title = prettyNames[id] || id;
 
-    showToast('Opening secure planner...', 'info');
+    showToast(`Opening ${title}...`, 'info');
 
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
 
         const sessionToken = localStorage.getItem('plannit_session_token') || '';
         const res = await fetch(`/api/secure-gateway?email=${encodeURIComponent(email)}&edition=${encodeURIComponent(id)}`, {
@@ -1701,14 +1709,14 @@ async function accessPlanner(id) {
         const data = await res.json();
 
         if (res.ok && data.success && data.signedUrl) {
-            openUrl(data.signedUrl);
+            window.location.href = data.signedUrl;
         } else {
-            // Secure gateway fallback — open loading animator directly
-            openUrl(`loading.html?edition=${encodeURIComponent(id)}`);
+            // Secure gateway fallback — navigate to loading page
+            window.location.href = `loading.html?edition=${encodeURIComponent(id)}`;
         }
     } catch (err) {
-        // Fallback — open loading animator directly
-        openUrl(`loading.html?edition=${encodeURIComponent(id)}`);
+        // Fallback — navigate to loading page
+        window.location.href = `loading.html?edition=${encodeURIComponent(id)}`;
     }
 }
 
