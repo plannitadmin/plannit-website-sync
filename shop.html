@@ -576,6 +576,18 @@ body { animation: pageFadeIn 0.35s ease both; }
 
         .cosm-item:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
 
+        
+        .cosm-icon svg, .cosm-icon i, .cosm-icon .lucide {
+            width: 20px !important;
+            height: 20px !important;
+            min-width: 20px !important;
+            min-height: 20px !important;
+            max-width: 20px !important;
+            max-height: 20px !important;
+            display: block !important;
+            flex-shrink: 0 !important;
+        }
+
         .cosm-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
 
         .cosm-name { font-size: 0.9rem; font-weight: 700; color: var(--primary); }
@@ -2182,6 +2194,24 @@ body { animation: pageFadeIn 0.35s ease both; }
     });
   })();
 </script>
+
+    <script>
+        function handleBuyClick(e, slug, mode) {
+            if (e) {
+                if (e.preventDefault) e.preventDefault();
+                if (e.stopPropagation) e.stopPropagation();
+            }
+            if (typeof window.addItemToCart === 'function') {
+                window.addItemToCart(slug, mode);
+            } else if (typeof addItemToCart === 'function') {
+                addItemToCart(slug, mode);
+            } else {
+                window.location.href = 'checkout.html?edition=' + encodeURIComponent(slug) + '&mode=' + encodeURIComponent(mode);
+            }
+            return false;
+        }
+    </script>
+
 </head>
 
 <body>
@@ -2356,9 +2386,9 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
 
-                                <button class="ed-buy-inline" data-mode="subscription" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--accent); color: #FFFFFF; font-weight: 700; border: 1px solid var(--accent);">Subscribe</button>
+                                <button class="ed-buy-inline" data-edition="summer-sun" data-mode="subscription" onclick="handleBuyClick(event, 'summer-sun', 'subscription')" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--accent); color: #FFFFFF; font-weight: 700; border: 1px solid var(--accent);">Subscribe</button>
 
-                                <button class="ed-buy-inline" data-mode="payment" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; color: var(--accent); border: 1px solid var(--border);">Buy one-time</button>
+                                <button class="ed-buy-inline" data-edition="summer-sun" data-mode="payment" onclick="handleBuyClick(event, 'summer-sun', 'payment')" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: transparent; color: var(--accent); border: 1px solid var(--border);">Buy one-time</button>
 
                             </div>
 
@@ -2398,13 +2428,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">3 Unique Wallpapers</div><div class="cosm-type">Wallpaper pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" class="lucide" width="20" height="20" style="color:#E8A020;"></i></div><div><div class="cosm-name">3 Unique Wallpapers</div><div class="cosm-type">Wallpaper pack</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Sunflower Ring</div><div class="cosm-type">Card decoration</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" width="20" height="20" style="color:#E8A020;"></i></div><div><div class="cosm-name">Sunflower Ring</div><div class="cosm-type">Card decoration</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="clock" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Accumulated Timer</div><div class="cosm-type">Focus enhancement</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="clock" class="lucide" width="20" height="20" style="color:#E8A020;"></i></div><div><div class="cosm-name">Accumulated Timer</div><div class="cosm-type">Focus enhancement</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="music" class="lucide" style="color:#E8A020;"></i></div><div><div class="cosm-name">Music Player (Spotify Compatible)</div><div class="cosm-type">Widget upgrade</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAEEDA; display:flex; align-items:center; justify-content:center;"><i data-lucide="music" class="lucide" width="20" height="20" style="color:#E8A020;"></i></div><div><div class="cosm-name">Music Player (Spotify Compatible)</div><div class="cosm-type">Widget upgrade</div></div></div>
 
                             </div>
 
@@ -2509,13 +2539,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="snowflake" class="lucide" style="color:#85B7EB;"></i></div><div><div class="cosm-name">Frost glass UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="snowflake" class="lucide" width="20" height="20" style="color:#85B7EB;"></i></div><div><div class="cosm-name">Frost glass UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="gem" class="lucide" style="color:#38BDF8;"></i></div><div><div class="cosm-name">Ice crystal</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="gem" class="lucide" width="20" height="20" style="color:#38BDF8;"></i></div><div><div class="cosm-name">Ice crystal</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Snow drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" width="20" height="20" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Snow drift bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-snow" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Frost icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#E6F1FB; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-snow" class="lucide" width="20" height="20" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Frost icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -2621,13 +2651,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="flame" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember glow UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="flame" class="lucide" width="20" height="20" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember glow UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Amber highlight</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#D85A30;"></i></div><div><div class="cosm-name">Amber highlight</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Leaf fall bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" width="20" height="20" style="color:#D85A30;"></i></div><div><div class="cosm-name">Leaf fall bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="tent" class="lucide" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FAECE7; display:flex; align-items:center; justify-content:center;"><i data-lucide="tent" class="lucide" width="20" height="20" style="color:#D85A30;"></i></div><div><div class="cosm-name">Ember icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -2721,10 +2751,10 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <div>
                             <div class="ed-block-title">Exclusive cosmetics</div>
                             <div class="cosm-grid">
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#D4537E;"></i></div><div><div class="cosm-name">Blossom UI</div><div class="cosm-type">Interface theme</div></div></div>
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#D4537E;"></i></div><div><div class="cosm-name">Petal highlight</div><div class="cosm-type">Task highlight</div></div></div>
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal drift bg</div><div class="cosm-type">Animated bg</div></div></div>
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="sprout" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" width="20" height="20" style="color:#D4537E;"></i></div><div><div class="cosm-name">Blossom UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" width="20" height="20" style="color:#D4537E;"></i></div><div><div class="cosm-name">Petal highlight</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" width="20" height="20" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FBEAF0; display:flex; align-items:center; justify-content:center;"><i data-lucide="sprout" class="lucide" width="20" height="20" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal icons</div><div class="cosm-type">Icon pack</div></div></div>
                             </div>
                             <div style="font-size: 0.72rem; color: #BE185D; margin-top: 0.8rem; font-style: italic; opacity: 0.8;">Cosmetics and designs subject to changes</div>
                         </div>
@@ -2803,13 +2833,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Eucalyptus UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Eucalyptus UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="coins" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Silver dollar</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="coins" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Silver dollar</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Forest breeze bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wind" class="lucide" width="20" height="20" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Forest breeze bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="pencil" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Botanical sketch</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="pencil" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Botanical sketch</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -2889,13 +2919,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Lavender UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" width="20" height="20" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Lavender UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Amethyst glow</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Amethyst glow</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal sway bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="leaf" class="lucide" width="20" height="20" style="color:#5DCAA5;"></i></div><div><div class="cosm-name">Petal sway bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="box" class="lucide" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Herbarium icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F5F3FF; display:flex; align-items:center; justify-content:center;"><i data-lucide="box" class="lucide" width="20" height="20" style="color:#6D28D9;"></i></div><div><div class="cosm-name">Herbarium icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -2975,13 +3005,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Rose Quartz UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" width="20" height="20" style="color:#E11D48;"></i></div><div><div class="cosm-name">Rose Quartz UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Petal pink glow</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#E11D48;"></i></div><div><div class="cosm-name">Petal pink glow</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Falling petals bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower" class="lucide" width="20" height="20" style="color:#E11D48;"></i></div><div><div class="cosm-name">Falling petals bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="award" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Floral sketch</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFF1F2; display:flex; align-items:center; justify-content:center;"><i data-lucide="award" class="lucide" width="20" height="20" style="color:#E11D48;"></i></div><div><div class="cosm-name">Floral sketch</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3061,13 +3091,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Daisy UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="flower-2" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Daisy UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Buttercup glow</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Buttercup glow</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wheat" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Pollen drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="wheat" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Pollen drift bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="book-open" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Fieldguide icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="book-open" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Fieldguide icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3089,7 +3119,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <div>
 
-                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" style="color: #475569;"></i> Rainfall Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(71, 85, 105, 0.1); color: #475569; border: 1px solid rgba(71, 85, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" width="20" height="20" style="color: #475569;"></i> Rainfall Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(71, 85, 105, 0.1); color: #475569; border: 1px solid rgba(71, 85, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
 
                             <p class="ed-desc">Misty slate greys and quiet blues. Cozy rain-day vibe designed for deep-focus study and writing tracks. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#475569; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
 
@@ -3141,13 +3171,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-rain" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Storm Cloud UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-rain" class="lucide" width="20" height="20" style="color:#475569;"></i></div><div><div class="cosm-name">Storm Cloud UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="droplet" class="lucide" style="color:#3B82F6;"></i></div><div><div class="cosm-name">Raindrop glow</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="droplet" class="lucide" width="20" height="20" style="color:#3B82F6;"></i></div><div><div class="cosm-name">Raindrop glow</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-lightning" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Falling rain bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-lightning" class="lucide" width="20" height="20" style="color:#475569;"></i></div><div><div class="cosm-name">Falling rain bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" style="color:#475569;"></i></div><div><div class="cosm-name">Nimbus icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F1F5F9; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" width="20" height="20" style="color:#475569;"></i></div><div><div class="cosm-name">Nimbus icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3167,7 +3197,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <div>
 
-                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" style="color: #334155;"></i> Mountain Peak Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(51, 65, 85, 0.1); color: #334155; border: 1px solid rgba(51, 65, 85, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" width="20" height="20" style="color: #334155;"></i> Mountain Peak Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(51, 65, 85, 0.1); color: #334155; border: 1px solid rgba(51, 65, 85, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
 
                             <p class="ed-desc">High-altitude whites and granite greys. Majestic and clear, built for ambitious goals and reaching new summits. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#334155; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
 
@@ -3219,13 +3249,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="mountain" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Altitude UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="mountain" class="lucide" width="20" height="20" style="color:#334155;"></i></div><div><div class="cosm-name">Altitude UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Peak shimmer</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#334155;"></i></div><div><div class="cosm-name">Peak shimmer</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" style="color:#334155;"></i></div><div><div class="cosm-name">Cloud drift bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud" class="lucide" width="20" height="20" style="color:#334155;"></i></div><div><div class="cosm-name">Cloud drift bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="flag" class="lucide" style="color:#EF4444;"></i></div><div><div class="cosm-name">Summit icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#F8FAFC; display:flex; align-items:center; justify-content:center;"><i data-lucide="flag" class="lucide" width="20" height="20" style="color:#EF4444;"></i></div><div><div class="cosm-name">Summit icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3245,7 +3275,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <div>
 
-                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" style="color: #D97706;"></i> Desert Sand Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(217, 119, 6, 0.1); color: #D97706; border: 1px solid rgba(217, 119, 6, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" width="20" height="20" style="color: #D97706;"></i> Desert Sand Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(217, 119, 6, 0.1); color: #D97706; border: 1px solid rgba(217, 119, 6, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
 
                             <p class="ed-desc">Warm ochres and sand dunes. Minimalist, serene, and inspired by the wide quiet expanse of desert sands. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#D97706; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
 
@@ -3297,13 +3327,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sun" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Oasis UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sun" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Oasis UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Amber shine</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Amber shine</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Mirage warp bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" width="20" height="20" style="color:#0891B2;"></i></div><div><div class="cosm-name">Mirage warp bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="compass" class="lucide" style="color:#D97706;"></i></div><div><div class="cosm-name">Nomad icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#FFFBEB; display:flex; align-items:center; justify-content:center;"><i data-lucide="compass" class="lucide" width="20" height="20" style="color:#D97706;"></i></div><div><div class="cosm-name">Nomad icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3323,7 +3353,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <div>
 
-                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" style="color: #059669;"></i> Forest Mist Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(5, 150, 105, 0.1); color: #059669; border: 1px solid rgba(5, 150, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" width="20" height="20" style="color: #059669;"></i> Forest Mist Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(5, 150, 105, 0.1); color: #059669; border: 1px solid rgba(5, 150, 105, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
 
                             <p class="ed-desc">Woodland greens and silver fog. Peaceful, deep, inspired by walking through a dense early-morning pine forest. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#059669; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
 
@@ -3375,13 +3405,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="tree-pine" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Timber UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="tree-pine" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Timber UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="circle" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Moss highlight</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="circle" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Moss highlight</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-fog" class="lucide" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Mist rising bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="cloud-fog" class="lucide" width="20" height="20" style="color:#94A3B8;"></i></div><div><div class="cosm-name">Mist rising bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="trees" class="lucide" style="color:#059669;"></i></div><div><div class="cosm-name">Woodland icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFDF5; display:flex; align-items:center; justify-content:center;"><i data-lucide="trees" class="lucide" width="20" height="20" style="color:#059669;"></i></div><div><div class="cosm-name">Woodland icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3401,7 +3431,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <div>
 
-                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" style="color: #0891B2;"></i> Ocean Tide Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(8, 145, 178, 0.1); color: #0891B2; border: 1px solid rgba(8, 145, 178, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
+                            <div class="ed-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" width="20" height="20" style="color: #0891B2;"></i> Ocean Tide Edition <span class="preview-badge" style="font-size: 0.7rem; background: rgba(8, 145, 178, 0.1); color: #0891B2; border: 1px solid rgba(8, 145, 178, 0.2); padding: 0.15rem 0.5rem; border-radius: 50px; margin-left: 0.5rem; vertical-align: middle; font-weight: 600;">Preview</span></div>
 
                             <p class="ed-desc">Deep teals and cool seafoams. Restorative, ocean-inspired tones designed to keep you drifting smoothly forward. <span style="display:block; margin-top:0.35rem; font-size:0.75rem; color:#0891B2; opacity:0.85;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Designs & cosmetics are subject to change based on community feedback.</span></p>
 
@@ -3453,13 +3483,13 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                             <div class="cosm-grid">
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Seafoam UI</div><div class="cosm-type">Interface theme</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" width="20" height="20" style="color:#0891B2;"></i></div><div><div class="cosm-name">Seafoam UI</div><div class="cosm-type">Interface theme</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="shrub" class="lucide" style="color:#E11D48;"></i></div><div><div class="cosm-name">Coral highlight</div><div class="cosm-type">Task highlight</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="shrub" class="lucide" width="20" height="20" style="color:#E11D48;"></i></div><div><div class="cosm-name">Coral highlight</div><div class="cosm-type">Task highlight</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Wave swell bg</div><div class="cosm-type">Animated bg</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="waves" class="lucide" width="20" height="20" style="color:#0891B2;"></i></div><div><div class="cosm-name">Wave swell bg</div><div class="cosm-type">Animated bg</div></div></div>
 
-                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" style="color:#0891B2;"></i></div><div><div class="cosm-name">Reef icons</div><div class="cosm-type">Icon pack</div></div></div>
+                                <div class="cosm-item"><div class="cosm-icon" style="background:#ECFEFF; display:flex; align-items:center; justify-content:center;"><i data-lucide="sparkles" class="lucide" width="20" height="20" style="color:#0891B2;"></i></div><div><div class="cosm-name">Reef icons</div><div class="cosm-type">Icon pack</div></div></div>
 
                             </div>
 
@@ -3553,23 +3583,23 @@ body { animation: pageFadeIn 0.35s ease both; }
 
             <div class="shared-grid scroll-fade">
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="calendar" class="lucide"></i></div><div class="shared-name">Dynamic timetable</div><div class="shared-desc">Full 7-day weekly view with recurring events and colour tags.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="calendar" class="lucide" width="20" height="20"></i></div><div class="shared-name">Dynamic timetable</div><div class="shared-desc">Full 7-day weekly view with recurring events and colour tags.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="timer" class="lucide"></i></div><div class="shared-name">Focus Lab</div><div class="shared-desc">Pomodoro timer with streak tracking and session history.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="timer" class="lucide" width="20" height="20"></i></div><div class="shared-name">Focus Lab</div><div class="shared-desc">Pomodoro timer with streak tracking and session history.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="coins" class="lucide" style="color: var(--accent);"></i></div><div class="shared-name">Coin economy</div><div class="shared-desc">Earn coins by completing tasks and sessions. Spend in The Market.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="coins" class="lucide" width="20" height="20" style="color: var(--accent);"></i></div><div class="shared-name">Coin economy</div><div class="shared-desc">Earn coins by completing tasks and sessions. Spend in The Market.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="shopping-bag" class="lucide"></i></div><div class="shared-name">The Market</div><div class="shared-desc">Buy cosmetics with earned coins </div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="shopping-bag" class="lucide" width="20" height="20"></i></div><div class="shared-name">The Market</div><div class="shared-desc">Buy cosmetics with earned coins </div></div>
 
                 <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="music" style="color: var(--accent); width: 20px; height: 20px;"></i></div><div class="shared-name">Music Player (Spotify Compatible)</div><div class="shared-desc">See your current track live inside the planner dashboard. (Not affiliated with Spotify)</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="target" class="lucide" style="color: #EF4444;"></i></div><div class="shared-name">Weekly goals</div><div class="shared-desc">Set, check off, and track your goals every week.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="target" class="lucide" width="20" height="20" style="color: #EF4444;"></i></div><div class="shared-name">Weekly goals</div><div class="shared-desc">Set, check off, and track your goals every week.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="moon" class="lucide" style="color: #3B82F6;"></i></div><div class="shared-name">Night mode</div><div class="shared-desc">Dark UI available across all editions via The Market.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="moon" class="lucide" width="20" height="20" style="color: #3B82F6;"></i></div><div class="shared-name">Night mode</div><div class="shared-desc">Dark UI available across all editions via The Market.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="repeat" class="lucide" style="color: #10B981;"></i></div><div class="shared-name">Recurring events</div><div class="shared-desc">Set events once and they propagate automatically across all future weeks.</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="repeat" class="lucide" width="20" height="20" style="color: #10B981;"></i></div><div class="shared-name">Recurring events</div><div class="shared-desc">Set events once and they propagate automatically across all future weeks.</div></div>
 
-                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="cloud" class="lucide" style="color: #38BDF8;"></i></div><div class="shared-name">Cloud sync</div><div class="shared-desc">Your data follows you across devices via Supabase (coming soon).</div></div>
+                <div class="shared-item"><div class="shared-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="cloud" class="lucide" width="20" height="20" style="color: #38BDF8;"></i></div><div class="shared-name">Cloud sync</div><div class="shared-desc">Your data follows you across devices via Supabase (coming soon).</div></div>
 
             </div>
 
@@ -3631,7 +3661,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                         <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: var(--primary); color: #FFFFFF; font-weight: 700; border: 1px solid var(--primary); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
 
-                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+                        <button class="price-btn" data-mode="payment" onclick="handleBuyClick(event, 'winter-frost', 'payment')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
 
                     </div>
 
@@ -3665,9 +3695,9 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
 
-                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+                        <button class="price-btn" data-edition="winter-frost" data-mode="subscription" onclick="handleBuyClick(event, 'winter-frost', 'subscription')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
 
-                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+                        <button class="price-btn" data-mode="payment" onclick="handleBuyClick(event, 'winter-frost', 'payment')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
 
                     </div>
 
@@ -3701,9 +3731,9 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
 
-                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+                        <button class="price-btn" data-edition="winter-frost" data-mode="subscription" onclick="handleBuyClick(event, 'winter-frost', 'subscription')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
 
-                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+                        <button class="price-btn" data-mode="payment" onclick="handleBuyClick(event, 'winter-frost', 'payment')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
 
                     </div>
 
@@ -3737,9 +3767,9 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
 
-                        <button class="price-btn" data-mode="subscription" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
+                        <button class="price-btn" data-edition="winter-frost" data-mode="subscription" onclick="handleBuyClick(event, 'winter-frost', 'subscription')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Subscribe</button>
 
-                        <button class="price-btn" data-mode="payment" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
+                        <button class="price-btn" data-mode="payment" onclick="handleBuyClick(event, 'winter-frost', 'payment')" style="font-size: 0.8rem; padding: 0.6rem 0.4rem; background: transparent; color: var(--primary); border: 1px solid var(--border); font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600; font-family: \'Inter\', sans-serif; font-weight: 600;">Buy one-time</button>
 
                     </div>
 
@@ -3767,7 +3797,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     </div>
 
-                    <button class="bundle-btn">Buy bundle</button>
+                    <button class="bundle-btn" data-edition="seasonal-bundle" data-mode="payment" onclick="handleBuyClick(event, 'seasonal-bundle', 'payment')">Buy bundle</button>
 
                 </div>
 
@@ -3879,7 +3909,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                     <div class="featured-badge" style="background:#EAF3DE;color:#27500A;">Preview</div>
 
-                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" style="color: #475569;"></i> Rainfall</div>
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" class="lucide" width="20" height="20" style="color: #475569;"></i> Rainfall</div>
 
                     <div class="price-desc">Slate greys, falling rain bg, nimbus icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
 
@@ -3893,7 +3923,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
 
-                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" style="color: #334155;"></i> Mountain Peak</div>
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="mountain" class="lucide" width="20" height="20" style="color: #334155;"></i> Mountain Peak</div>
 
                     <div class="price-desc">Granite greys, cloud drift bg, summit icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
 
@@ -3907,7 +3937,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
 
-                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" style="color: #D97706;"></i> Desert Sand</div>
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="sun" class="lucide" width="20" height="20" style="color: #D97706;"></i> Desert Sand</div>
 
                     <div class="price-desc">Warm ochres, mirage warp bg, nomad icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
 
@@ -3921,7 +3951,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
 
-                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" style="color: #059669;"></i> Forest Mist</div>
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="tree-pine" class="lucide" width="20" height="20" style="color: #059669;"></i> Forest Mist</div>
 
                     <div class="price-desc">Woodland greens, mist rising bg, woodland icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
 
@@ -3935,7 +3965,7 @@ body { animation: pageFadeIn 0.35s ease both; }
 
                 <div class="price-card" data-collection="nature" style="border-style: dashed; border-color: rgba(151, 196, 89, 0.3);">
 
-                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" style="color: #0891B2;"></i> Ocean Tide</div>
+                    <div class="price-edition-name" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="waves" class="lucide" width="20" height="20" style="color: #0891B2;"></i> Ocean Tide</div>
 
                     <div class="price-desc">Deep teals, wave swell bg, reef icons. <br><span style="font-size: 0.72rem; color: #27500A; display: inline-block; margin-top: 0.25rem;"><i data-lucide="alert-triangle" class="lucide" style="width: 14px; height: 14px; color: #D97706; vertical-align: text-top; margin-right: 4px;"></i> Subject to change</span></div>
 
