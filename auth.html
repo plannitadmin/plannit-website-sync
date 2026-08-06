@@ -394,8 +394,8 @@ body { animation: pageFadeIn 0.35s ease both; }
             <!-- TOP SEGMENTED SLIDER SWITCH (LOG IN / SIGN UP) -->
             <div class="auth-segmented-switch" id="auth-segmented-switch">
                 <div class="tab-slider" id="tab-slider"></div>
-                <button type="button" class="tab-btn active" id="tab-btn-login">Log In</button>
-                <button type="button" class="tab-btn" id="tab-btn-signup">Sign Up</button>
+                <button type="button" class="tab-btn active" id="tab-btn-login" onclick="window.switchAuthTab ? window.switchAuthTab('login') : null">Log In</button>
+                <button type="button" class="tab-btn" id="tab-btn-signup" onclick="window.switchAuthTab ? window.switchAuthTab('signup') : null">Sign Up</button>
             </div>
 
             <!-- SECTION 1: STREAMLINED LOG IN -->
@@ -752,6 +752,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     window.history.replaceState(null, '', '?mode=login');
                 }
             }
+            window.switchAuthTab = switchAuthTab;
 
             function resetLoginStep1() {
                 if (loginStep1 && loginStep2) {
@@ -826,7 +827,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     btnSendEmailCode.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'send-login-code', email: userEmailEntered })
@@ -870,7 +871,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (!userEmailEntered) return;
                     btnResendLoginCode.textContent = 'Sending new code...';
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'send-login-code', email: userEmailEntered })
@@ -952,7 +953,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'login', email: userEmailEntered, password: passwordVal })
@@ -1011,7 +1012,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -1086,7 +1087,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1140,7 +1141,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     submitBtn.disabled = true;
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1197,7 +1198,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     resendLink.style.pointerEvents = 'none';
 
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ action: 'resend', token: signupVerificationToken })
@@ -1237,7 +1238,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ action: 'forgot-password', email: emailVal })
@@ -1305,7 +1306,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                         submitBtn.disabled = true;
 
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
-                    credentials: \'include\',
+                    credentials: 'include',
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
