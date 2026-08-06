@@ -1937,6 +1937,18 @@ if (urlParams.has('sync_needed')) {
     window.history.replaceState({}, document.title, window.location.pathname);
 }
 
+if (urlParams.has('code')) {
+    const autoCode = urlParams.get('code');
+    const redeemInput = document.getElementById('redeem-code-input');
+    const redeemBtn = document.getElementById('redeem-code-btn');
+    if (redeemInput && autoCode) {
+        redeemInput.value = autoCode;
+        setTimeout(() => {
+            if (redeemBtn) redeemBtn.click();
+        }, 500);
+    }
+}
+
 if (urlParams.has('checkout_success')) {
 // Show a beautiful notification toast
 const alertBox = document.createElement('div');
