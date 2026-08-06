@@ -33,5 +33,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://plannit-backend-private.vercel.app/api/:path*"
+    }
   ]
 }
