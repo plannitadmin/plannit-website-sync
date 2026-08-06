@@ -1,0 +1,46 @@
+<svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">
+    .stem { stroke: #059669; stroke-width: 4; stroke-linecap: round; }
+    .bud { fill: #D8B4FE; stroke: #7C3AED; stroke-width: 3.2; }
+    .leaf { fill: #A7F3D0; stroke: #059669; stroke-width: 3.2; }
+  </style>
+  <!-- Base Leaves -->
+  <path d="M58,105 C25,110 20,85 58,85" class="leaf" />
+  <path d="M70,105 C103,110 108,85 70,85" class="leaf" />
+
+  <!-- Center Stalk (Tall, straight) -->
+  <path d="M64,120 L64,15" class="stem" />
+  <circle cx="64" cy="15" r="7.5" class="bud" />
+  <path d="M64,27 C48,25 52,11 64,19" class="bud" />
+  <path d="M64,27 C80,25 76,11 64,19" class="bud" />
+  <path d="M64,39 C48,37 52,23 64,31" class="bud" />
+  <path d="M64,39 C80,37 76,23 64,31" class="bud" />
+  <path d="M64,51 C48,49 52,35 64,43" class="bud" />
+  <path d="M64,51 C80,49 76,35 64,43" class="bud" />
+  <path d="M64,63 C48,61 52,47 64,55" class="bud" />
+  <path d="M64,63 C80,61 76,47 64,55" class="bud" />
+  <path d="M64,75 C48,73 52,59 64,67" class="bud" />
+  <path d="M64,75 C80,73 76,59 64,67" class="bud" />
+
+  <!-- Left Stalk (Tall, slightly angled) -->
+  <path d="M58,120 L38,22" class="stem" />
+  <circle cx="38" cy="22" r="7.5" class="bud" />
+  <path d="M41,36 C25,32 29,18 39,26" class="bud" />
+  <path d="M41,36 C57,34 53,20 40,28" class="bud" />
+  <path d="M44,50 C28,46 32,32 42,40" class="bud" />
+  <path d="M44,50 C60,48 56,34 43,42" class="bud" />
+  <path d="M46,62 C30,58 34,44 44,52" class="bud" />
+  <path d="M46,62 C62,60 58,46 45,54" class="bud" />
+  <path d="M48,74 C32,70 36,56 46,64" class="bud" />
+  <path d="M48,74 C64,72 60,58 47,66" class="bud" />
+
+  <!-- Right Stalk (Shorter, angled) -->
+  <path d="M70,120 L92,55" class="stem" />
+  <circle cx="92" cy="55" r="7.5" class="bud" />
+  <path d="M87,69 C71,64 72,50 85,57" class="bud" />
+  <path d="M87,69 C103,67 102,53 89,60" class="bud" />
+  <path d="M82,81 C66,76 67,62 80,69" class="bud" />
+  <path d="M82,81 C98,79 97,65 84,72" class="bud" />
+  <path d="M77,93 C61,88 62,74 75,81" class="bud" />
+  <path d="M77,93 C93,91 92,77 79,84" class="bud" />
+</svg>

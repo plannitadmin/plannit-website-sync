@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autumn Ember Planner 🍂 — Seasonal Collection</title>
+  <meta name="description" content="Your cozy, warm Autumn Ember weekly planner. Stay organised and comfortable all season." />
+  <link rel="stylesheet" href="styles.css?v=1778977238" />
+  <link rel="stylesheet" href="background-assets.css" />
+  <link rel="icon" href="autumn-logo.svg" type="image/svg+xml" />
+  <style>
+    .notebook-container {
+      position: relative;
+      background-color: #fefcf3 !important;
+      background-image: linear-gradient(rgba(232, 160, 32, 0.08) 1.5px, transparent 1.5px) !important;
+      background-size: 100% 48px !important;
+      border: 2px solid var(--border-mid) !important;
+      border-radius: var(--radius-md) !important;
+      box-shadow: inset 0 0 40px rgba(234, 88, 12, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+      padding: 10px 0 !important;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .notebook-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 54px;
+      width: 2px;
+      height: 100%;
+      background: #fca5a5;
+      opacity: 0.6;
+      z-index: 5;
+    }
+
+    .book-selector-container {
+      perspective: 1600px;
+      transform-style: preserve-3d;
+    }
+    .book-page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0px;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+      opacity: 0;
+      pointer-events: none;
+      padding: 10px 20px 10px 70px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+    .book-page.prev-page {
+      transform: rotateY(-180deg);
+      transform-origin: left center;
+      opacity: 0;
+    }
+    .book-page.active-page {
+      transform: rotateY(0deg);
+      transform-origin: left center;
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .book-page.next-page {
+      transform: rotateY(180deg);
+      transform-origin: right center;
+      opacity: 0;
+    }
+    .notebook-goal-item {
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 1.5px dashed rgba(234, 88, 12, 0.22) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      color: #1e293b !important;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: left;
+      padding: 0.65rem 0.5rem !important;
+      width: 100%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      height: 48px;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .notebook-goal-item:hover {
+      background: rgba(234, 88, 12, 0.06) !important;
+      transform: translateX(3px);
+    }
+    .notebook-goal-item.active {
+      color: #EA580C !important;
+      border-bottom-color: #EA580C !important;
+      font-weight: 800;
+    }
+    .notebook-goal-item.active::after {
+      content: ' ✍️';
+    }
+    .book-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-mid);
+      transition: all 0.3s ease;
+    }
+    .book-dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+    #tab-timetable img {
+      filter: brightness(0) !important;
+      transition: filter 0.3s ease;
+    }
+    body.effect-night-mode #tab-timetable img {
+      filter: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="nav-inner">
+      <!-- Far Left Logo -->
+      <a href="#" class="logo" aria-label="Summer Sun Planner Home">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height: 36px; width: 36px; fill: none; vertical-align: middle; margin-right: 4px;">
+          <defs>
+            <linearGradient id="headerWatercolorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFB7B2" />
+              <stop offset="33%" stop-color="#E2F0CB" />
+              <stop offset="66%" stop-color="#B5EAD7" />
+              <stop offset="100%" stop-color="#C7CEEA" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 33,19 L 58,19 M 81,44 L 81,67 A 14,14 0 0,1 67,81 L 33,81 A 14,14 0 0,1 19,67 L 19,33 A 14,14 0 0,1 33,19" stroke="url(#headerWatercolorGrad)" stroke-width="3" />
+            <path d="M 58,19 Q 72,11 81,25 Q 70,30 58,19 Z" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5" />
+            <path d="M 64,15 Q 70,8 74,13 Q 70,17 64,15 Z" fill="#10B981" stroke="none" />
+            <circle cx="36" cy="36" r="5.5" fill="#FEF08A" stroke="#EAB308" stroke-width="1.5" />
+            <path d="M 43.5,36 L 47.5,36 M 28.5,36 L 24.5,36 M 36,43.5 L 36,47.5 M 36,28.5 L 36,24.5 M 42.1,40.4 L 45.3,42.8 M 38.3,43.1 L 39.6,46.9 M 33.7,43.1 L 32.4,46.9 M 29.9,40.4 L 26.7,42.8 M 29.9,31.6 L 26.7,29.2 M 33.7,28.9 L 32.4,25.1 M 38.3,28.9 L 39.6,25.1 M 42.1,31.6 L 45.3,29.2" stroke="#EAB308" stroke-width="1.5" />
+            <rect x="56" y="30" width="8" height="16" rx="1" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" />
+            <rect x="63" y="24" width="9" height="22" rx="1.5" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" />
+            <line x1="67.5" y1="24" x2="67.5" y2="14" stroke="#D97706" stroke-width="1" />
+            <circle cx="67.5" cy="14" r="1.2" fill="#EF4444" stroke="none" />
+            <circle cx="66" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="29" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="66" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="69" cy="43" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="34" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="39" r="0.7" fill="#D97706" stroke="none" /><circle cx="60" cy="44" r="0.7" fill="#D97706" stroke="none" />
+            <polygon points="28,72 40,52 48,72" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" />
+            <polygon points="22,72 32,58 40,72" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5" />
+            <polygon points="40,52 37/58 43,58" fill="#FFFFFF" stroke="#10B981" stroke-width="1.2" />
+            <polygon points="32,58 29.5,63.5 34.5,63.5" fill="#FFFFFF" stroke="#64748B" stroke-width="1.2" />
+            <line x1="20" y1="72" x2="49" y2="72" stroke="currentColor" stroke-width="1.5" />
+            <path d="M 57.5,63 C 55,68 55,72 64,72 C 73,72 73,68 70.5,63 M 57.5,63 L 56,56 L 61,60 M 70.5,63 L 72,56 L 67,60" fill="#FFEDD5" stroke="#F97316" stroke-width="1.5" />
+            <polygon points="57.5,61 57,58 59.5,60" fill="#FDA4AF" stroke="none" />
+            <polygon points="69.5,61 71,58 68.5,60" fill="#FDA4AF" stroke="none" />
+            <circle cx="59.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+            <circle cx="68.5" cy="66" r="1.2" fill="#FDA4AF" opacity="0.6" stroke="none" />
+            <path d="M 56,65 L 51,64 M 56,67 L 51,67 M 72,65 L 77,64 M 72,67 L 77,67" stroke="#F97316" stroke-width="1" />
+            <circle cx="61.5" cy="64" r="0.8" fill="#F97316" stroke="none" /><circle cx="66.5" cy="64" r="0.8" fill="#F97316" stroke="none" />
+            <path d="M 63.5,66.5 L 64.5,66.5" stroke="#F97316" stroke-width="1" />
+          </g>
+        </svg>
+        <span class="logo-text">Autumn Ember Planner</span>
+      </a>
+ 
+      <!-- 2. Middle-Left Tabs Group (Date badge -> Divider -> Tab buttons) -->
+      <div class="header-tabs-group">
+        <span class="date-badge" id="date-display"></span>
+        <div class="header-vertical-bar"></div>
+        <nav class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" id="tab-overview" aria-controls="page-overview"
+            onclick="switchTab('overview')"><img src="emojis/autumn.svg" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; margin-top: -2px;"> Overview</button>
+          <button class="tab-btn" role="tab" aria-selected="false" id="tab-timetable" aria-controls="page-timetable"
+            onclick="switchTab('timetable')"><img src="emojis/timetable.svg" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; margin-top: -2px;"> Timetable</button>
+          <button class="tab-btn" role="tab" aria-selected="false" id="tab-focus" aria-controls="page-focus"
+            onclick="switchTab('focus')"><img src="emojis/focustimer.svg" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; margin-top: -2px;"> Focus</button>
+        </nav>
+      </div>
+ 
+      <!-- 3. Middle-Right Plugins/Coins Group (Progress bar -> Coins badge -> Divider -> Plugins) -->
+      <div class="header-plugins-group">
+        <!-- Goals Progress Bar (Horizontal) -->
+        <div class="market-progress-bar-container" id="market-progress-bar-container" title="Goals progress to next reward">
+          <div class="market-progress-bar-fill" id="market-progress-fill" style="width: 0%;"></div>
+          <span class="market-progress-bar-text" id="market-progress-text">0/3 goals</span>
+        </div>
+        
+        <!-- Coin counter badge -->
+        <button class="coin-badge" id="coin-badge" onclick="openMarket()" title="Open Market" aria-label="Open coin market">
+          <span class="coin-count" id="coin-count"><img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-right:2px;"> 0</span>
+        </button>
+        
+        <div class="header-vertical-bar"></div>
+        
+        <!-- Plugins quick links -->
+        <div class="quick-links" role="group" aria-label="Quick links" id="quick-links-bar">
+          <!-- ChatGPT -->
+          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="quick-link" title="ChatGPT"
+            aria-label="Open ChatGPT" data-plugin-index="0">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l1.8 5.4L19.4 9l-5.6 1.6L12 16l-1.8-5.4L4.6 9l5.6-1.6L12 2zm6.5 6.5l.9 2.7 2.6 1.3-2.6.9-.9 2.7-.9-2.7L15 12.5l2.6-.9.9-2.6zm-13 0l.9 2.6L9 12.5l-2.6.9-.9 2.7-.9-2.7L2 12.5l2.6-1.3.9-2.7z" />
+            </svg>
+          </a>
+
+          <!-- Spotify -->
+          <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="quick-link"
+            title="Spotify" aria-label="Open Spotify" data-plugin-index="1">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.305-1.76-8.786-.963-.335.077-.67-.133-.746-.469-.077-.336.132-.67.469-.746 3.809-.87 7.077-.496 9.713 1.115.294.18.386.563.207.856zm1.223-2.723c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.127-.848-.106-.973-.517-.125-.413.108-.848.518-.973 3.632-1.102 8.147-.568 11.235 1.328.366.226.48.707.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.493.15-1.016-.129-1.166-.623-.149-.495.13-1.016.623-1.166 3.532-1.073 9.404-.866 13.115 1.337.445.264.59.837.327 1.282-.263.443-.836.59-1.282.327z" />
+            </svg>
+          </a>
+
+          <!-- YouTube -->
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="quick-link" title="YouTube"
+            aria-label="Open YouTube" data-plugin-index="2">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z" />
+            </svg>
+          </a>
+
+          <!-- Add Shortcut -->
+          <a href="#" class="quick-link" title="Add Shortcut"
+            aria-label="Add Shortcut" data-plugin-index="3">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: middle; display: inline-block;">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </a>
+
+          <!-- Settings gear -->
+          <button class="quick-link plugin-settings-btn" id="plugin-settings-btn" onclick="openPluginSettings()"
+            title="Plugin settings" aria-label="Edit plugin shortcuts">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 018.5 12 3.5 3.5 0 0112 8.5a3.5 3.5 0 013.5 3.5 3.5 3.5 0 01-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.32-1.82c.21-.16.27-.46.13-.71l-2.2-3.82c-.13-.25-.42-.34-.67-.25l-2.73 1.1c-.57-.44-1.17-.81-1.84-1.08L14.06 2.4C14 2.13 13.76 2 13.5 2h-3c-.26 0-.5.13-.56.4 l-.41 2.93c-.67.27-1.27.64-1.84 1.08l-2.73-1.1c-.25-.09-.54 0-.67.25L2.09 9.38c-.14.25-.08.55.13.71l2.32 1.82c-.04.34-.07.69-.07 1.09s.03.74.07 1.08L2.22 15.9c-.21.16-.27.46-.13.71l2.2 3.82c.13.25.42.34.67.25l2.73-1.1c.57.44 1.17.81 1.84 1.08l.41 2.93c.06.27.3.41.56.41h3c.26 0 .5-.14.56-.41l.41-2.93c.67-.27 1.27-.64 1.84-1.08l2.73 1.1c.25.09.54 0 .67-.25l2.2-3.82c.14-.25.08-.55-.13-.71l-2.32-1.82z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Far Right Bug & Suggestion Group -->
+      <div class="header-bug-suggestion-group">
+        <!-- Bug Report Button -->
+        <button class="sys-icon-btn bug-btn" id="bug-report-btn" onclick="openBugModal()" title="Report a Bug" aria-label="Report a bug">
+          <img src="emojis/bug_icon.svg" style="width:18px;height:18px;vertical-align:middle;">
+        </button>
+
+        <!-- Suggestion Box Button -->
+        <button class="sys-icon-btn suggestion-btn" id="suggestion-box-btn" onclick="openSuggestionModal()" title="Request New Things" aria-label="Request new features">
+          <img src="emojis/suggestion_box.svg" style="width:18px;height:18px;vertical-align:middle;">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- OVERVIEW PAGE -->
+    <div class="page active" id="page-overview" role="tabpanel" aria-labelledby="tab-overview">
+      <div class="container">
+        <div class="page-hero">
+          <h1>Crisp air, <span>cosy plans.</span> <img src="emojis/autumn.svg" style="width: 38px; height: 38px; vertical-align: middle; margin-left: 4px; margin-top: -4px;"></h1>
+          <p>Your weekly overview starts here - simple, warm, and focused.</p>
+        </div>
+        <div class="overview-grid">
+
+          <!-- Goals + Widget Row -->
+          <div class="goals-widget-row">
+
+            <div class="goals-wrapper">
+              <div class="card goals-card" id="goals-section">
+                <div class="goals-header">
+                  <h2 class="section-title"><span class="icon"><img src="emojis/weekly-goals.svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 6px;"></span> Weekly Goals</h2>
+                  <button class="add-goal-btn" style="width:auto;padding:0.3rem 0.9rem;margin:0;" onclick="addGoal()">+
+                    Add</button>
+                </div>
+                <ul class="goals-list" id="goals-list">
+                  <li class="goal-item" onclick="toggleDone(this)"><span class="goal-check">✓</span><span
+                      class="goal-text">Complete Chapter 5 revision</span><span class="goal-tag">📚 Study</span><button
+                      class="remove-btn" onclick="removeItem(event,this)" title="Remove">×</button></li>
+                  <li class="goal-item" onclick="toggleDone(this)"><span class="goal-check">✓</span><span
+                      class="goal-text">Submit coursework draft</span><span class="goal-tag">📝 Work</span><button
+                      class="remove-btn" onclick="removeItem(event,this)" title="Remove">×</button></li>
+                  <li class="goal-item" onclick="toggleDone(this)"><span class="goal-check">✓</span><span
+                      class="goal-text">Exercise 3× this week</span><span class="goal-tag">💪 Health</span><button
+                      class="remove-btn" onclick="removeItem(event,this)" title="Remove">×</button></li>
+                  <li class="goal-item" onclick="toggleDone(this)"><span class="goal-check">✓</span><span
+                      class="goal-text">Read 30 mins daily</span><span class="goal-tag">📖 Personal</span><button
+                      class="remove-btn" onclick="removeItem(event,this)" title="Remove">×</button></li>
+                  <li class="goal-item" onclick="toggleDone(this)"><span class="goal-check">✓</span><span
+                      class="goal-text">Prepare for Friday presentation</span><span class="goal-tag">🎤 Work</span><button
+                      class="remove-btn" onclick="removeItem(event,this)" title="Remove">×</button></li>
+                </ul>
+                <button class="add-goal-btn" onclick="addGoal()">+ Add Goal</button>
+              </div>
+            </div>
+
+            <!-- Widget Panel (unlocked via market for 45 coins) -->
+            <div class="card widget-panel" id="widget-panel">
+              <div class="widget-panel-header">
+                <span class="widget-panel-title"><img src="emojis/widgets.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px; margin-top: -2px;"> Widgets</span>
+                <button class="widget-panel-manage-btn" onclick="openWidgetManager()" title="Manage widgets"
+                  aria-label="Manage widgets">⚙️</button>
+              </div>
+              <div class="widget-panel-locked" id="widget-panel-locked">
+                <div class="widget-lock-icon"><img src="emojis/widgets_lock.svg" style="width: 48px; height: 48px; vertical-align: middle;"></div>
+                <p class="widget-lock-msg" id="widget-lock-msg">Unlock the Widget Panel directly for <strong>5 coins</strong></p>
+                <button class="widget-unlock-btn" onclick="unlockWidgetPanel()">Unlock for 5 coins</button>
+              </div>
+              <div class="widget-panel-slots" id="widget-panel-slots" style="display:none;">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+                    </div><!-- /goals-widget-row -->
+
+
+          <div class="card catchup-card">
+            <div class="section-header">
+              <h2 class="section-title"><span class="icon"><img src="emojis/catchup_tasks.svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 6px;"></span> Catch-Up Tasks</h2>
+              <button class="add-inline-btn" onclick="addCatchup()">+ Add</button>
+            </div>
+            <ul class="catchup-list" id="catchup-list">
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot high"></span><span
+                  class="item-text">Re-watch lecture 8 recording</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot high"></span><span
+                  class="item-text">Finish problem set 3</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot medium"></span><span
+                  class="item-text">Review last week's notes</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot medium"></span><span
+                  class="item-text">Email tutor about project</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot low"></span><span
+                  class="item-text">Organise study folder</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="catchup-item" onclick="toggleDone(this)"><span class="priority-dot low"></span><span
+                  class="item-text">Update revision timetable</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+            </ul>
+          </div>
+          <div class="card priorities-card">
+            <div class="section-header">
+              <h2 class="section-title"><span class="icon"><img src="emojis/top_priorities.svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 6px;"></span> Top Priorities</h2>
+              <button class="add-inline-btn" onclick="addPriority()">+ Add</button>
+            </div>
+            <ul class="priority-list" id="priority-list">
+              <li class="priority-item" onclick="toggleDone(this)"><span class="priority-rank">1</span><span class="priority-label">Final essay
+                  deadline</span><span class="priority-badge badge-high">Urgent</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="priority-item" onclick="toggleDone(this)"><span class="priority-rank">2</span><span class="priority-label">Maths exam
+                  preparation</span><span class="priority-badge badge-high">High</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="priority-item" onclick="toggleDone(this)"><span class="priority-rank">3</span><span class="priority-label">Lab report
+                  write-up</span><span class="priority-badge badge-medium">Medium</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="priority-item" onclick="toggleDone(this)"><span class="priority-rank">4</span><span class="priority-label">Group project
+                  slides</span><span class="priority-badge badge-medium">Medium</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+              <li class="priority-item" onclick="toggleDone(this)"><span class="priority-rank">5</span><span class="priority-label">Extracurricular
+                  reading</span><span class="priority-badge badge-low">Low</span><button class="remove-btn"
+                  onclick="removeItem(event,this)" title="Remove">×</button></li>
+            </ul>
+          </div>
+          <div class="card notes-card">
+            <h2 class="section-title"><span class="icon"><img src="emojis/extras_notes.svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 6px;"></span> Extras &amp; Notes</h2>
+            <textarea class="notes-textarea"
+              placeholder="Jot down anything extra — ideas, reminders, thoughts for the week... 🌻"
+              id="overview-notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMETABLE PAGE -->
+    <div class="page" id="page-timetable" role="tabpanel" aria-labelledby="tab-timetable">
+      <div class="container">
+        <div class="page-hero">
+          <h1>Harvest your <span>potential.</span> <img src="emojis/autumn.svg" style="width: 38px; height: 38px; vertical-align: middle; margin-left: 4px; margin-top: -4px;"></h1>
+          <p>Click any day to add classes, sessions, tasks, or breaks.</p>
+        </div>
+        <div class="quote-banner">
+          <span class="quote-icon"><img src="emojis/light_bulb.svg" style="width: 24px; height: 24px; vertical-align: middle;"></span>
+          <div class="quote-text">
+            <span id="quote-text">"The secret of getting ahead is getting started."</span>
+            <em id="quote-author">- Mark Twain</em>
+          </div>
+          <button class="quote-refresh" onclick="refreshQuote()" title="New quote"
+            aria-label="Get new quote"><img src="emojis/quote_refresh.svg" style="width: 16px; height: 16px; vertical-align: middle;"></button>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-dot class"></span> Class</span>
+          <span class="legend-item"><span class="legend-dot revision"></span> Revision</span>
+          <span class="legend-item"><span class="legend-dot task"></span> Task</span>
+          <span class="legend-item"><span class="legend-dot break"></span> Break</span>
+          <span class="legend-item"><span class="legend-dot free"></span> Free</span>
+        </div>
+        <div class="week-nav-container">
+          <button class="week-nav-btn" onclick="changeWeek(-1)" title="Previous Week">◀</button>
+          <span class="week-label" id="week-label">This Week</span>
+          <button class="week-nav-btn" onclick="changeWeek(1)" title="Next Week">▶</button>
+        </div>
+        <div class="week-grid" id="week-grid"></div>
+        <div class="timetable-notes">
+          <div class="tn-card card">
+            <h3 class="section-title"><span class="icon"><img src="emojis/reminders.svg" style="width: 20px; height: 20px; vertical-align: middle;"></span> Reminders</h3>
+            <textarea placeholder="Upcoming deadlines, exam dates, reminders..." id="tt-reminders"></textarea>
+          </div>
+          <div class="tn-card card">
+            <h3 class="section-title"><span class="icon"><img src="emojis/weekly_thought.svg" style="width: 20px; height: 20px; vertical-align: middle;"></span> Weekly Thoughts</h3>
+            <textarea placeholder="General notes for the week..." id="tt-notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FOCUS PAGE -->
+    <div class="page" id="page-focus" role="tabpanel" aria-labelledby="tab-focus">
+      <div class="container">
+        <div class="page-hero">
+          <h1>Deep work, <span>clear mind.</span> <img src="emojis/autumn.svg" style="width: 38px; height: 38px; vertical-align: middle; margin-left: 4px; margin-top: -4px;"></h1>
+          <p class="focus-hero-sub">Short sessions, small breaks - stay consistent.</p>
+        </div>
+        <!-- Accumulated Planner Time -->
+        <div id="accumulated-focus-row" style="display: none; background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem 1.6rem; box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; flex-direction: column; gap: 0.5rem; align-items: center; justify-content: center; text-align: center; border-color: rgba(234, 179, 8, 0.45); background: linear-gradient(135deg, rgba(254, 240, 138, 0.1), rgba(253, 224, 71, 0.05));">
+          <span class="focus-task-label" style="display: flex; align-items: center; gap: 0.4rem; justify-content: center; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--subtext);">
+            <img src="emojis/trophy.svg" style="width: 18px; height: 18px; filter: sepia(0.6) saturate(3) hue-rotate(5deg) brightness(0.95) contrast(1.1);"> Accumulated Planner Time
+          </span>
+          <div id="accumulated-focus-display" style="font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 700; color: #d97706; letter-spacing: -0.5px; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-weight: 800; color: #d97706; margin: 0 0.6rem;">0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.5px;">days</span></span>
+            <span style="font-weight: 800; color: #d97706; margin: 0 0.6rem;">0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.5px;">hours</span></span>
+            <span style="font-weight: 800; color: #d97706; margin: 0 0.6rem;">0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.5px;">minutes</span></span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--muted); font-weight: 600;">Total time spent actively using this planner</span>
+        </div>
+
+        <!-- Timers -->
+        <div class="focus-timer-grid">
+
+          <!-- Work Timer -->
+          <div class="timer-widget work-widget" id="work-widget">
+            <span class="timer-label"><img src="emojis/autumn.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"> Pomodoro</span>
+            <div class="timer-display" id="focus-time">25:00</div>
+            <div class="timer-done-badge" id="focus-done-badge">✅ Session complete! <img src="emojis/autumn.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 4px;"></div>
+            <div class="timer-controls">
+              <button class="timer-btn btn-start" id="focus-start" onclick="focusStart()">▶ Start</button>
+              <button class="timer-btn btn-pause" id="focus-pause" onclick="focusPause()">⏸ Pause</button>
+              <button class="timer-btn btn-reset" onclick="focusReset()">↺</button>
+            </div>
+            <div class="timer-slider-row">
+              <span class="timer-slider-label" id="focus-slider-label">Duration: 25 min</span>
+              <input type="range" class="timer-slider" id="focus-slider" min="1" max="90" value="25"
+                oninput="onFocusSliderInput(this.value)" onchange="onFocusSliderChange(this.value)"
+                aria-label="Set Pomodoro duration" />
+            </div>
+            <div class="timer-presets">
+              <button class="preset-bubble" onclick="setFocusPreset(25)">25 min</button>
+              <button class="preset-bubble" onclick="setFocusPreset(30)">30 min</button>
+              <button class="preset-bubble" onclick="setFocusPreset(45)">45 min</button>
+              <button class="preset-bubble" onclick="setFocusPreset(60)">60 min</button>
+            </div>
+          </div>
+
+          <!-- Rest Timer -->
+          <div class="timer-widget rest-widget" id="rest-widget">
+            <span class="timer-label"><img src="emojis/autumn.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"> Rest</span>
+            <div class="timer-display" id="rest-time">05:00</div>
+            <div class="timer-done-badge" id="rest-done-badge">✅ Break done! <img src="emojis/autumn.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 4px;"></div>
+            <div class="timer-controls">
+              <button class="timer-btn btn-start" id="rest-start" onclick="restStart()">▶ Start</button>
+              <button class="timer-btn btn-pause" id="rest-pause" onclick="restPause()">⏸ Pause</button>
+              <button class="timer-btn btn-reset" onclick="restReset()">↺</button>
+            </div>
+            <div class="timer-slider-row">
+              <span class="timer-slider-label" id="rest-slider-label">Duration: 5 min</span>
+              <input type="range" class="timer-slider" id="rest-slider" min="1" max="30" value="5"
+                oninput="onRestSliderInput(this.value)" onchange="onRestSliderChange(this.value)"
+                aria-label="Set rest duration" />
+            </div>
+            <div class="timer-presets">
+              <button class="preset-bubble" onclick="setRestPreset(5)">5 min</button>
+              <button class="preset-bubble" onclick="setRestPreset(10)">10 min</button>
+              <button class="preset-bubble" onclick="setRestPreset(15)">15 min</button>
+              <button class="preset-bubble" onclick="setRestPreset(20)">20 min</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Task -->
+        <div class="focus-task-row">
+          <span class="focus-task-label"><img src="emojis/current_task.svg" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 4px; margin-top: -2px;"> Current Task</span>
+          <button id="focus-task-trigger" class="focus-task-trigger-btn" onclick="openFocusTaskPopup()">— select a task to focus on —</button>
+        </div>
+
+        <!-- Rotating Facts -->
+        <div class="focus-fact-banner">
+          <span class="fact-icon"><img src="emojis/light_bulb.svg" style="width: 32px; height: 32px; vertical-align: middle;"></span>
+          <p id="focus-fact">Loading fact...</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div style="display: flex; align-items: center; gap: 0.5rem; justify-content: center; width: 100%; flex-wrap: wrap;">
+      <img src="emojis/autumn.svg" style="width: 18px; height: 18px; vertical-align: middle;">
+      <span>Seasonal Collection - <strong>Autumn Ember Edition (v3)</strong></span>
+      <span style="margin: 0 0.5rem; color: var(--border-mid, var(--border));">|</span>
+      <a href="/terms.html" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--muted, var(--text)); transition: all 0.2s ease;" onmouseover="this.style.color='var(--primary)'; this.style.borderBottomColor='var(--primary)';" onmouseout="this.style.color='inherit'; this.style.borderBottomColor='var(--muted, var(--text))';">Terms & Conditions</a>
+      <span style="margin: 0 0.5rem; color: var(--border-mid, var(--border));">|</span>
+      <a href="/eula.html" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--muted, var(--text)); transition: all 0.2s ease;" onmouseover="this.style.color='var(--primary)'; this.style.borderBottomColor='var(--primary)';" onmouseout="this.style.color='inherit'; this.style.borderBottomColor='var(--muted, var(--text))';">EULA</a>
+      <span style="margin: 0 0.5rem; color: var(--border-mid, var(--border));">|</span>
+      <a href="/privacy.html" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--muted, var(--text)); transition: all 0.2s ease;" onmouseover="this.style.color='var(--primary)'; this.style.borderBottomColor='var(--primary)';" onmouseout="this.style.color='inherit'; this.style.borderBottomColor='var(--muted, var(--text))';">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <!-- ADD EVENT MODAL -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" style="max-height: 90vh; overflow-y: auto;">
+      <h3 id="modal-title">➕ Add Event</h3>
+      <input type="hidden" id="modal-day" />
+      <label for="event-title">Event Title</label>
+      <input type="text" id="event-title" placeholder="e.g. Maths Lecture" />
+      <label for="event-time">Time</label>
+      <input type="text" id="event-time" placeholder="e.g. 9:00 – 11:00 am" />
+      
+      <label style="margin-bottom: 0.5rem; display: block;">Select Type</label>
+      <!-- Horizontal group of bubbles representing types -->
+      <div id="event-type-bubbles" style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
+        <!-- Filled dynamically by JS, plus custom selection -->
+      </div>
+
+      <!-- Add New Custom Type Section -->
+      <div id="custom-type-creation" style="margin-bottom: 1rem;">
+        <!-- Toggle button/pill to slide open the custom creator -->
+        <button type="button" onclick="toggleCustomTypeDrawer()" class="preset-bubble" style="width: 100%; border-style: dashed; font-weight: 800; padding: 0.45rem; font-size: 0.8rem; background: transparent; display: flex; align-items: center; justify-content: center; gap: 0.3rem;">
+          <span>+ Create Custom Type</span>
+        </button>
+        
+        <!-- Sliding drawer container -->
+        <div id="custom-type-drawer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease; padding: 0 0.25rem; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0;">
+          <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
+            <input type="text" id="new-type-label" placeholder="Type Label (e.g. Gym)" style="margin-bottom: 0; flex: 1; padding: 0.4rem 0.6rem; font-size: 0.8rem;" />
+            <!-- Circular color picker wrapper blending with theme -->
+            <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--border-mid); flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: transparent;">
+              <input type="color" id="new-type-color" value="#E8A020" style="width: 50px; height: 50px; border: none; padding: 0; margin: 0; cursor: pointer; background: transparent; transform: scale(1.4);" />
+            </div>
+          </div>
+          <button type="button" onclick="createNewEventType()" class="preset-bubble" style="width: 100%; border-style: solid; font-weight: 800; background: var(--primary); color: white; border-color: var(--primary); padding: 0.35rem; font-size: 0.75rem; border-radius: 50px;">Confirm & Add Bubble</button>
+        </div>
+      </div>
+
+      <div style="margin-top:1.2rem; display:flex; align-items:center; gap:0.6rem; background:rgba(232,160,32,0.06); padding:0.8rem; border-radius:10px; margin-bottom: 1rem; line-height: 1;">
+        <input type="checkbox" id="event-recurring" checked style="width:1.2rem; height:1.2rem; cursor:pointer; margin: 0;" />
+        <label for="event-recurring" style="margin:0; font-weight:700; color:var(--text); cursor:pointer; display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem;">
+          Recurring Week-to-Week 
+          <img src="emojis/quote_refresh.svg" style="width: 14px; height: 14px; vertical-align: middle;" alt="Refresh">
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" onclick="saveEvent()">Save ☀️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD GOAL MODAL -->
+  <div class="modal-overlay" id="goal-modal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3>🎯 Add Weekly Goal</h3>
+      <label for="goal-title">Goal</label>
+      <input type="text" id="goal-title" placeholder="e.g. Complete Python assignment" />
+      <label for="goal-tag-input">Tag</label>
+      <input type="text" id="goal-tag-input" placeholder="e.g. 📚 Study" />
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeGoalModal()">Cancel</button>
+        <button class="btn-save" onclick="saveGoal()">Add Goal ☀️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD CATCH-UP MODAL -->
+  <div class="modal-overlay" id="catchup-modal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3>🔄 Add Catch-Up Task</h3>
+      <label for="catchup-title">Task</label>
+      <input type="text" id="catchup-title" placeholder="e.g. Re-read Chapter 4" />
+      <label for="catchup-priority">Priority</label>
+      <select id="catchup-priority">
+        <option value="high">🔴 High</option>
+        <option value="medium" selected>🟡 Medium</option>
+        <option value="low">🟢 Low</option>
+      </select>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeCatchupModal()">Cancel</button>
+        <button class="btn-save" onclick="saveCatchup()">Add Task 🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PRIORITY MODAL -->
+  <div class="modal-overlay" id="priority-modal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3>🔥 Add Priority</h3>
+      <label for="priority-title">Priority Item</label>
+      <input type="text" id="priority-title" placeholder="e.g. Finish research paper" />
+      <label for="priority-level">Level</label>
+      <select id="priority-level">
+        <option value="badge-high" data-label="Urgent">🚨 Urgent</option>
+        <option value="badge-high" data-label="High">🔴 High</option>
+        <option value="badge-medium" data-label="Medium" selected>🟡 Medium</option>
+        <option value="badge-low" data-label="Low">🟢 Low</option>
+      </select>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closePriorityModal()">Cancel</button>
+        <button class="btn-save" onclick="savePriority()">Add Priority 🔥</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.EDITION_FACTS = [
+      'Sunlight exposure during the day helps regulate your circadian rhythm, improving sleep quality and daytime focus.',
+      'The golden hours of morning (6–9am) are when many high performers complete their most cognitively demanding work.',
+      'Natural light increases serotonin production, which sharpens attention and elevates mood during study sessions.',
+      'Taking short outdoor breaks in sunlight between Pomodoros has been shown to restore directed-attention capacity.',
+      'Warm ambient lighting mimicking afternoon sun can reduce eye strain and increase sustained reading performance.',
+      'The Pomodoro Technique was developed by Francesco Cirillo in the late 1980s using a tomato-shaped kitchen timer.',
+      'Working in focused 25-minute sprints has been shown to reduce the impact of internal and external interruptions.',
+      'Studies suggest that summer vitamin D levels correlate positively with working memory and information processing speed.',
+      'Taking a proper break away from screens restores attention far better than passive scrolling.',
+      'Consistent work-rest cycles help regulate cortisol levels, reducing study and work-related stress.',
+    ];
+  </script>
+  <!-- WIDGET MANAGER MODAL -->
+  <div class="modal-overlay" id="widget-manager-modal" role="dialog" aria-modal="true"
+    aria-labelledby="widget-manager-title">
+    <div class="modal widget-manager-modal-inner">
+      <h3 id="widget-manager-title"><img src="emojis/widgets.svg" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 6px; margin-top: -2px;">Widget Slots</h3>
+      <p class="plugin-settings-desc">Choose which widget appears in each of your 5 panel slots.</p>
+      <div id="widget-slot-rows"><!-- rendered by JS --></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeWidgetManager()">Cancel</button>
+        <button class="btn-save" onclick="saveWidgetSlots()">Save Layout <img src="emojis/widgets.svg" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 4px; margin-top: -2px;"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLUGIN SETTINGS MODAL -->
+  <div class="modal-overlay" id="plugin-settings-modal" role="dialog" aria-modal="true"
+    aria-labelledby="plugin-settings-title">
+    <div class="modal plugin-settings-modal-inner">
+      <h3 id="plugin-settings-title">⚙️ Plugin Settings</h3>
+      <p class="plugin-settings-desc">Customise your quick-launch shortcuts below. Enter a name and URL for each slot.
+      </p>
+      <div class="plugin-slots" id="plugin-slots">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closePluginSettings()">Cancel</button>
+        <button class="btn-save" onclick="savePluginSettings()">Save Changes ⚙️</button>
+        <button class="dev-mode-btn" id="dev-mode-btn" onclick="onDevBtnClick()" title="Dev" aria-label="Developer mode">Dev</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKET MODAL -->
+  <div class="modal-overlay" id="market-modal" role="dialog" aria-modal="true" aria-labelledby="market-title">
+    <div class="modal market-modal-inner">
+      <div class="market-header">
+        <h3 id="market-title">🛒 Coin Market</h3>
+        <div class="market-balance">
+          <span id="market-coin-count">0</span>
+          <span class="market-balance-label">coins</span>
+        </div>
+      </div>
+      <p class="market-desc">Earn coins by completing Pomodoro sessions: <strong>5 <img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-bottom:2px;"></strong> under 30 min · <strong>10 <img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-bottom:2px;"></strong> for 30–60 min · <strong>15 <img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-bottom:2px;"></strong> for 60–120 min · <strong>25 <img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-bottom:2px;"></strong> for 2 hr+. Also
+        earn coins for completing goals. Spend them on upgrades below! <strong>Unlock all widgets for a secret prize!</strong></p>
+      <div class="market-progress-info" id="market-progress-info"><!-- filled by JS --></div>
+      <div class="market-grid" id="market-grid">
+        <!-- Items rendered by JS -->
+      </div>
+      <button class="btn-cancel" style="margin-top:1rem;width:100%;text-align:center;"
+        onclick="closeMarket()">Close</button>
+    </div>
+  </div>
+
+  <!-- DEV PANEL MODAL -->
+  <div class="modal-overlay" id="dev-panel-modal" role="dialog" aria-modal="true" aria-labelledby="dev-panel-title">
+    <div class="modal dev-panel-modal-inner">
+      <h3 id="dev-panel-title">🔧 Developer Panel</h3>
+      <p class="plugin-settings-desc">Internal testing tools.</p>
+      <div style="display:flex;flex-direction:column;gap:0.9rem;">
+        <div>
+          <label for="dev-coins-input" style="display:block;font-size:0.82rem;font-weight:700;color:var(--subtext);margin-bottom:0.3rem;">Set Coin Balance</label>
+          <div style="display:flex;gap:0.6rem;">
+            <input type="number" id="dev-coins-input" min="0" value="0" style="flex:1;padding:0.6rem 0.9rem;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text);background:var(--bg2);outline:none;" />
+            <button class="btn-save" onclick="devSetCoins()" style="white-space:nowrap;"><img src="emojis/coins.svg" style="width:16px;height:16px;vertical-align:middle;margin-right:3px;"> Set Coins</button>
+          </div>
+        </div>
+        <div class="dev-danger-zone">
+          <p class="dev-danger-title">⚠️ Danger Zone</p>
+          <div class="dev-reset-grid">
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-coins"> 🪙 Coins</label>
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-widgets"> 🧩 Widgets</label>
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-wallpapers"> 🖼️ Wallpapers</label>
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-cosmetics"> 🎀 Cosmetics</label>
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-goals"> 🎯 Goals</label>
+            <label class="dev-reset-opt"><input type="checkbox" id="dev-reset-calendar"> 📅 Calendar</label>
+          </div>
+          <button class="dev-run-btn" onclick="devRunResets()">Run Selected Resets</button>
+          <button class="dev-clear-all-btn" onclick="devResetTimetable()">⚠️ Clear EVERYTHING</button>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:1rem;">
+        <button class="btn-cancel" onclick="closeDevPanel()">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Bug Report Modal -->
+  <div class="modal-overlay" id="bug-report-modal" role="dialog" aria-modal="true" aria-labelledby="bug-modal-title">
+    <div class="modal font-balanced" style="max-width: 480px; position: relative; overflow: visible;">
+      <div class="modal-bubbles-container" id="bug-bubbles-container"></div>
+      <div class="modal-header-icon" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">
+        <img src="emojis/bug_icon.svg" style="width: 28px; height: 28px; vertical-align: middle;">
+      </div>
+      <h3 id="bug-modal-title" style="color: #065F46; font-size: 1.3rem; margin-bottom: 0.5rem; text-align: center; font-weight: 800;">Report a Bug</h3>
+      <p style="font-size: 0.85rem; color: #047857; margin-bottom: 1.2rem; text-align: center; font-weight: 500;">
+        Found a glitch? Help us squish it! Describe what went wrong.
+      </p>
+      <input type="hidden" id="bug-category" value="">
+      <input type="hidden" id="bug-frequency" value="">
+      <input type="hidden" id="bug-impact" value="">
+      <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.2rem;">Bug Type</label>
+          <div class="option-bubbles-group" id="bug-type-group">
+            <button type="button" class="preset-bubble" data-value="stuttering" onclick="selectBubbleOption(this, 'bug-category')">Stuttering</button>
+            <button type="button" class="preset-bubble" data-value="buttons-not-working" onclick="selectBubbleOption(this, 'bug-category')">Buttons not working</button>
+            <button type="button" class="preset-bubble" data-value="layout-broken" onclick="selectBubbleOption(this, 'bug-category')">Layout broken</button>
+            <button type="button" class="preset-bubble" data-value="missing-icons" onclick="selectBubbleOption(this, 'bug-category')">Missing icons</button>
+            <button type="button" class="preset-bubble" data-value="wrong-colours" onclick="selectBubbleOption(this, 'bug-category')">Wrong colours</button>
+            <button type="button" class="preset-bubble" data-value="loading-issues" onclick="selectBubbleOption(this, 'bug-category')">Loading issues</button>
+            <button type="button" class="preset-bubble" data-value="crashes" onclick="selectBubbleOption(this, 'bug-category')">Crashes</button>
+          </div>
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.2rem;">How often does this occur?</label>
+          <div class="option-bubbles-group" id="bug-frequency-group">
+            <button type="button" class="preset-bubble" data-value="rarely" onclick="selectBubbleOption(this, 'bug-frequency')">Rarely</button>
+            <button type="button" class="preset-bubble" data-value="sometimes" onclick="selectBubbleOption(this, 'bug-frequency')">Sometimes</button>
+            <button type="button" class="preset-bubble" data-value="often" onclick="selectBubbleOption(this, 'bug-frequency')">Often</button>
+            <button type="button" class="preset-bubble" data-value="every-time" onclick="selectBubbleOption(this, 'bug-frequency')">Every time</button>
+          </div>
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.2rem;">How much does this bug impact performance?</label>
+          <div class="option-bubbles-group" id="bug-impact-group">
+            <button type="button" class="preset-bubble" data-value="low" onclick="selectBubbleOption(this, 'bug-impact')">0–2 (Low impact)</button>
+            <button type="button" class="preset-bubble" data-value="medium" onclick="selectBubbleOption(this, 'bug-impact')">3–5 (Medium impact)</button>
+            <button type="button" class="preset-bubble" data-value="high" onclick="selectBubbleOption(this, 'bug-impact')">6–8 (High impact)</button>
+            <button type="button" class="preset-bubble" data-value="critical" onclick="selectBubbleOption(this, 'bug-impact')">9–10 (Critical impact)</button>
+          </div>
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.3rem;">Describe the issue</label>
+          <textarea id="bug-description" rows="3" placeholder="What happened? What did you click?" style="width: 100%; padding: 0.6rem; border: 1.5px solid var(--border-mid); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.88rem; outline: none; background: var(--bg2); resize: none;"></textarea>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top: 1.2rem;">
+        <button class="btn-cancel" onclick="closeBugModal()" style="border-radius: var(--radius-sm);">Cancel</button>
+        <button class="dev-run-btn" onclick="submitBugReport()" style="background: #10B981; color: white; border-radius: var(--radius-sm); font-weight: 700;">Submit Bug</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suggestion Box (Request New Things) Modal -->
+  <div class="modal-overlay" id="suggestion-box-modal" role="dialog" aria-modal="true" aria-labelledby="suggestion-modal-title">
+    <div class="modal font-balanced" style="max-width: 480px; position: relative; overflow: visible;">
+      <div class="modal-bubbles-container" id="suggestion-bubbles-container"></div>
+      <div class="modal-header-icon" style="background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.2);">
+        <img src="emojis/suggestion_box.svg" style="width: 28px; height: 28px; vertical-align: middle;">
+      </div>
+      <h3 id="suggestion-modal-title" style="color: #92400E; font-size: 1.3rem; margin-bottom: 0.5rem; text-align: center; font-weight: 800;">Request New Things</h3>
+      <p style="font-size: 0.85rem; color: #B45309; margin-bottom: 1.2rem; text-align: center; font-weight: 500;">
+        Have an idea to make Plannit better? Tell us what you want to add!
+      </p>
+      <input type="hidden" id="suggestion-type" value="">
+      <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.2rem;">What are you looking to add?</label>
+          <div class="option-bubbles-group" id="suggestion-type-group">
+            <button type="button" class="preset-bubble" data-value="wallpaper" onclick="selectBubbleOption(this, 'suggestion-type')">🖼️ Wallpaper</button>
+            <button type="button" class="preset-bubble" data-value="widget" onclick="selectBubbleOption(this, 'suggestion-type')">🧩 Standard Widget</button>
+            <button type="button" class="preset-bubble" data-value="premium-widget" onclick="selectBubbleOption(this, 'suggestion-type')">💎 Premium Widget</button>
+            <button type="button" class="preset-bubble" data-value="section" onclick="selectBubbleOption(this, 'suggestion-type')">📁 Planner Section</button>
+            <button type="button" class="preset-bubble" data-value="page-changes" onclick="selectBubbleOption(this, 'suggestion-type')">📄 Page Layout Changes</button>
+            <button type="button" class="preset-bubble" data-value="design" onclick="selectBubbleOption(this, 'suggestion-type')">🎨 Theme Design</button>
+            <button type="button" class="preset-bubble" data-value="integration" onclick="selectBubbleOption(this, 'suggestion-type')">🔌 App Integration</button>
+            <button type="button" class="preset-bubble" data-value="sounds" onclick="selectBubbleOption(this, 'suggestion-type')">🎵 Sound Effect</button>
+            <button type="button" class="preset-bubble" data-value="other" onclick="selectBubbleOption(this, 'suggestion-type')">✨ Something else!</button>
+          </div>
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.3rem;">Describe your suggestion</label>
+          <textarea id="suggestion-description" rows="3" placeholder="Tell us more about your ideas..." style="width: 100%; padding: 0.6rem; border: 1.5px solid var(--border-mid); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.88rem; outline: none; background: var(--bg2); resize: none;"></textarea>
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top: 1.2rem;">
+        <button class="btn-cancel" onclick="closeSuggestionModal()" style="border-radius: var(--radius-sm);">Cancel</button>
+        <button class="dev-run-btn" onclick="submitSuggestion()" style="background: #EAB308; color: #3B2A05; border-radius: var(--radius-sm); font-weight: 700;">Send Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Focus Task Selector Modal -->
+  <div class="modal-overlay" id="focus-task-modal" role="dialog" aria-modal="true" aria-labelledby="focus-task-modal-title">
+    <div class="modal font-balanced" style="max-width: 440px; position: relative; padding: 1.5rem 1.8rem;">
+      <h3 id="focus-task-modal-title" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; color: var(--text);">Select Focus Task</h3>
+      <p style="font-size: 0.82rem; color: var(--subtext); text-align: center; margin-bottom: 1.2rem;">Choose a task from your list to focus on:</p>
+      
+      <button class="preset-bubble" onclick="selectFocusTask(null)" style="width: 100%; text-align: left; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem;">❌ Clear Current Task</button>
+      <div id="book-selector-container" class="book-selector-container notebook-container" style="position: relative; width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; overflow: visible;">
+        <button id="book-prev-btn" class="preset-bubble" onclick="bookPrevPage()" style="position: absolute; left: 10px; z-index: 10; margin: 0; padding: 0.5rem 0.8rem; border-radius: 50%; cursor: pointer; transition: all var(--transition); border-color: var(--border-mid); background: var(--bg2);">←</button>
+        <div id="book-pages-wrapper" style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"></div>
+        <button id="book-next-btn" class="preset-bubble" onclick="bookNextPage()" style="position: absolute; right: 10px; z-index: 10; margin: 0; padding: 0.5rem 0.8rem; border-radius: 50%; cursor: pointer; transition: all var(--transition); border-color: var(--border-mid); background: var(--bg2);">→</button>
+      </div>
+      <div id="book-dots" style="display: flex; justify-content: center; gap: 0.4rem; margin-top: 0.8rem; margin-bottom: 0.5rem;"></div>
+      
+      <div class="modal-actions" style="margin-top: 1.2rem; display: flex; gap: 0.5rem;">
+        <button class="btn-cancel" onclick="closeFocusTaskPopup()" style="width: 100%; border-radius: 50px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script src="../../shared/app.js" data-storage-key="seasonal-autumn"></script>
+</body>
+
+</html>
