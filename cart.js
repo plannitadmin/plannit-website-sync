@@ -63,51 +63,31 @@ document.addEventListener('DOMContentLoaded', () => {
         promoInput.value = savedPromo;
     }
 
-    // Item details mapper
-    const itemDetails = {
-        'summer-sun': { 
-            name: 'Summer Sun Edition', 
-            img: '<img src="emojis/sun.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Summer Sun">' 
-        },
-        'winter-frost': { 
-            name: 'Winter Frost Edition', 
-            img: '<img src="emojis/winter.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Winter Frost">' 
-        },
-        'autumn-ember': { 
-            name: 'Autumn Ember Edition', 
-            img: '<img src="emojis/autumn.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Autumn Ember">' 
-        },
-        'spring-bloom': { 
-            name: 'Spring Bloom Edition', 
-            img: '<img src="emojis/spring.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Spring Bloom">' 
-        },
-        'seasonal-bundle': { 
-            name: 'Full Seasonal Bundle', 
-            img: '<i data-lucide="sparkles" class="lucide" style="color: #BA7517; width: 20px; height: 20px;"></i>' 
-        },
-        'lavender': { 
-            name: 'Lavender Edition', 
-            img: '<img src="emojis/lavender.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Lavender">' 
-        },
-        'eucalyptus': { 
-            name: 'Eucalyptus Edition', 
-            img: '<img src="emojis/eucalyptus.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Eucalyptus">' 
-        },
-        'rose-garden': { 
-            name: 'Rose Garden Edition', 
-            img: '<img src="emojis/rose.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Rose">' 
-        },
-        'wildflower': { 
-            name: 'Wildflower Edition', 
-            img: '<img src="emojis/wildflower.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Wildflower">' 
-        }
+    // Central Catalog definition (Ponytail: Single Source of Truth)
+    window.PLANNIT_CATALOG = {
+        'summer-sun': { name: 'Summer Sun Edition', img: '<img src="emojis/sun.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Summer Sun">' },
+        'winter-frost': { name: 'Winter Frost Edition', img: '<img src="emojis/winter.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Winter Frost">' },
+        'autumn-ember': { name: 'Autumn Ember Edition', img: '<img src="emojis/autumn.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Autumn Ember">' },
+        'spring-bloom': { name: 'Spring Bloom Edition', img: '<img src="emojis/spring.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Spring Bloom">' },
+        'seasonal-bundle': { name: 'Full Seasonal Bundle', img: '<i data-lucide="sparkles" class="lucide" style="color: #BA7517; width: 20px; height: 20px;"></i>' },
+        'lavender': { name: 'Lavender Edition', img: '<img src="emojis/lavender.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Lavender">' },
+        'botanical-lavender': { name: 'Lavender Edition', img: '<img src="emojis/lavender.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Lavender">' },
+        'eucalyptus': { name: 'Eucalyptus Edition', img: '<img src="emojis/eucalyptus.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Eucalyptus">' },
+        'botanical-eucalyptus': { name: 'Eucalyptus Edition', img: '<img src="emojis/eucalyptus.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Eucalyptus">' },
+        'rose-garden': { name: 'Rose Garden Edition', img: '<img src="emojis/rose.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Rose">' },
+        'botanical-rose': { name: 'Rose Garden Edition', img: '<img src="emojis/rose.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Rose">' },
+        'wildflower': { name: 'Wildflower Edition', img: '<img src="emojis/wildflower.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Wildflower">' },
+        'botanical-wildflower': { name: 'Wildflower Edition', img: '<img src="emojis/wildflower.svg" style="width: 20px; height: 20px; object-fit: contain;" alt="Wildflower">' }
     };
+
+    const itemDetails = window.PLANNIT_CATALOG;
 
     // Calculate item pricing
     function getItemPrice(slug, mode) {
         if (slug === 'seasonal-bundle') return 14.99;
         return mode === 'subscription' ? 2.49 : 5.99;
     }
+    window.getItemPrice = getItemPrice;
 
     // Toggle drawer visibility
     window.toggleCartDrawer = function(e) {
