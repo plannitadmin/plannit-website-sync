@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Purchases & Memberships | Plannit</title>
+    <link rel="icon" href="plannit-logo-mark.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #64748B;
+            --accent: #E8A020;
+            --bg: #FDFCFB;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border: rgba(15, 23, 42, 0.08);
+            --radius: 20px;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--primary);
+            margin: 0;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .purchase-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .purchase-item:last-child { border-bottom: none; }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-purchased { background: #E0F2FE; color: #0369A1; }
+        .badge-redeemed { background: #FEF3C7; color: #92400E; }
+        .badge-monthly { background: #FCE7F3; color: #9D174D; }
+        .btn-portal {
+            background: var(--primary);
+            color: #FFF;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="library.html" class="back-link"><i data-lucide="arrow-left"></i> Back to My Library</a>
+            <h2 style="margin: 0; font-size: 1.4rem;">Purchases & Memberships</h2>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--secondary);">Active Planners & Access</h3>
+            <div id="purchases-list">Loading your active access...</div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top: 0; font-size: 1.1rem;">Manage Subscription & Cancellation</h3>
+            <p style="color: var(--secondary); font-size: 0.9rem; margin-bottom: 1.25rem;">
+                View receipts, change payment cards, or cancel monthly memberships anytime directly via Stripe.
+            </p>
+            <button id="btn-stripe-portal" class="btn-portal">
+                <i data-lucide="external-link"></i> Launch Stripe Billing Portal
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const email = localStorage.getItem('plannit_user_email') || localStorage.getItem('plannit_email');
+            const owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
+            const trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}');
+            const listEl = document.getElementById('purchases-list');
+
+            if (!owned || owned.length === 0) {
+                listEl.innerHTML = '<p style="color: var(--secondary);">No active purchases found under your account.</p>';
+            } else {
+                listEl.innerHTML = owned.map(slug => {
+                    const isTrial = trials[slug];
+                    const typeBadge = isTrial 
+                        ? '<span class="badge badge-monthly">Monthly Membership</span>'
+                        : '<span class="badge badge-purchased">Lifetime Access</span>';
+                    const detailText = isTrial ? `Renews / Expires: ${new Date(isTrial).toLocaleDateString()}` : 'Purchased / Redeemed';
+
+                    return `
+                        <div class="purchase-item">
+                            <div>
+                                <strong style="text-transform: capitalize;">${slug.replace('-', ' ')} Edition</strong>
+                                <div style="font-size: 0.8rem; color: var(--secondary); margin-top: 4px;">${detailText}</div>
+                            </div>
+                            ${typeBadge}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Stripe Portal Redirect
+            document.getElementById('btn-stripe-portal').addEventListener('click', () => {
+                if (!email) return alert('Please log in to access billing.');
+                fetch('https://plannit-backend-private.vercel.app/api/create-customer-portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.url) window.location.href = data.url;
+                    else alert(data.error || 'No active Stripe billing profile found for this email.');
+                })
+                .catch(err => alert('Error: ' + err.message));
+            });
+        });
+    </script>
+</body>
+</html>
