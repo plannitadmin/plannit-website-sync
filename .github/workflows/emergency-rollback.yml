@@ -4,17 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       target_tag:
-        description: 'Git tag to rollback frontend to'
+        description: 'Git tag to rollback to'
         required: true
         default: 'golden-build-v1'
       reason:
-        description: 'Reason for rollback (for the commit message)'
+        description: 'Reason'
         required: false
         default: 'emergency rollback'
 
+permissions:
+  contents: write
+
 jobs:
   rollback:
-    name: Restore to production
+    name: Restore frontend to production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout full history
@@ -29,7 +32,8 @@ jobs:
       - name: Verify tag exists
         run: |
           if ! git tag | grep -q "^${{ github.event.inputs.target_tag }}$"; then
-            echo "ERROR: Tag not found."
+            echo "ERROR: Tag '${{ github.event.inputs.target_tag }}' not found."
+            echo "Available tags:"
             git tag
             exit 1
           fi
@@ -43,7 +47,10 @@ jobs:
           git config user.email "plannitadmin@gmail.com"
           git config user.name "plannitadmin [rollback]"
           git add -A
-          git diff --cached --quiet && echo "Already at this version." && exit 0
+          if git diff --cached --quiet; then
+            echo "Already at this version. Nothing to commit."
+            exit 0
+          fi
           git commit -m "rollback: restore ${{ github.event.inputs.target_tag }} — ${{ github.event.inputs.reason }}"
           git push origin main
-          echo "Rollback pushed. Vercel deploys in ~60 seconds."
+          echo "Frontend rollback pushed. Vercel deploys in ~60 seconds."
