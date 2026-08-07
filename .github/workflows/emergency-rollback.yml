@@ -15,16 +15,32 @@ on:
 permissions:
   contents: write
 
+env:
+  PAT: ${{ secrets.PAT_TOKEN }}
+
 jobs:
   rollback:
     name: Restore frontend to production
     runs-on: ubuntu-latest
     steps:
+      - name: Verify PAT_TOKEN is set
+        run: |
+          if [ -z "$PAT" ]; then
+            echo "ERROR: PAT_TOKEN secret is empty or not set in this repo."
+            echo "Go to: Settings > Secrets and variables > Actions > New secret"
+            echo "Name: PAT_TOKEN"
+            exit 1
+          fi
+          echo "PAT_TOKEN is present."
+
+      - name: Inject PAT into all GitHub HTTPS URLs
+        run: |
+          git config --global url."https://x-access-token:${PAT}@github.com/".insteadOf "https://github.com/"
+
       - name: Checkout full history
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Fetch all tags
         run: git fetch --tags
@@ -45,7 +61,6 @@ jobs:
         run: |
           git config user.email "plannitadmin@gmail.com"
           git config user.name "plannitadmin [rollback]"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
           git add -A
           if git diff --cached --quiet; then
             echo "Already at this version. Nothing to commit."
