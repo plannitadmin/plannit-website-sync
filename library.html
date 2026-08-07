@@ -1427,6 +1427,8 @@ const stored = localStorage.getItem('plannit_owned');
                         }
                     })
                     .catch(() => {
+                        showFeedback('Could not reach server. Please check your connection.', true);
+                    })
                     .finally(() => {
                         if (redeemBtn) {
                             redeemBtn.disabled = false;
