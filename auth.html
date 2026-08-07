@@ -897,10 +897,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
-                                action: 'reset-password',
+                                action: 'verify-login-code',
                                 token: loginCodeToken,
-                                code: code,
-                                newPassword: 'LoginPass' + Math.random().toString(36).slice(-8)
+                                code: code
                             })
                         })
                         .then(res => handleResponse(res, 'Invalid or expired login code'))
