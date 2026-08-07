@@ -1,5244 +1,2266 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta charset="UTF-8">
 <title>Plannit - One app. Many collections. | Digital Planner Studio</title>
     <meta name="description" content="A modular productivity system designed for focus, aesthetic, and balance. Switch between Seasonal, Nature, and Botanical collections.">
     <style>:root {
-
     /* Core Colors */
-
     --primary: #0F172A;
-
     --secondary: #64748B;
-
     --accent: #E8A020;
-
     --bg: #FDFCFB;
-
     --bg-alt: #F8FAFC;
-
     --card-bg: #FFFFFF;
-
     --border: rgba(15, 23, 42, 0.08);
-
     --border-hover: rgba(15, 23, 42, 0.2);
-
-
-
     /* Collection Tint Colors */
-
     --tint-seasonal: #FFF8ED;
-
     --tint-nature: #F2FAE8;
-
     --tint-botanical: #F0FAF5;
-
     --tint-cities: #F3F3F3;
-
-
-
     /* Preview Specific Themes */
-
     --p-summer: #E8A020;
-
     --p-winter: #378ADD;
-
     --p-lavender: #AFA9EC;
-
     --p-eucalyptus: #5DCAA5;
-
     --p-autumn: #D85A30;
-
-
-
     /* Fonts & Typography Sizing */
-
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-
     --font-head: 'Inter', sans-serif;
-
     --font-serif: 'Playfair Display', 'Georgia', serif;
-
     /* Typography Sizing Scale */
-
     --text-xs: 0.75rem;
-
     --text-sm: 0.875rem;
-
     --text-base: 1rem;
-
     --text-lg: 1.125rem;
-
     --text-xl: 1.25rem;
-
     --text-2xl: 1.5rem;
-
     --text-3xl: 1.875rem;
-
     --text-4xl: 2.25rem;
-
-
-
     /* Spacing Scale & Radii */
-
     --space-xxs: 4px;
-
     --space-xs: 8px;
-
     --space-sm: 12px;
-
     --space-md: 16px;
-
     --space-lg: 24px;
-
     --space-xl: 32px;
-
     --space-xxl: 48px;
-
     --space-3xl: 64px;
-
     --space-4xl: 80px;
-
-
-
     --radius-lg: 24px;
-
     --radius-md: 16px;
-
     --radius-sm: 8px;
-
     --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
 }
-
-
-
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
-
-
-
 input,
-
 button,
-
 select,
-
 textarea,
-
 optgroup {
-
     font-family: inherit;
-
     font-size: inherit;
-
     color: inherit;
-
 }
-
-
-
 html {
-
     scroll-behavior: smooth;
-
 }
-
-
-
 body {
-
     font-family: var(--font-sans);
-
     background-color: var(--bg);
-
     color: var(--primary);
-
     line-height: 1.6;
-
 }
-
-
-
 h1,
-
 h2,
-
 h3,
-
 .head {
-
     font-family: var(--font-head);
-
     font-weight: 700;
-
     letter-spacing: -0.02em;
-
 }
-
-
-
 em {
-
     font-style: normal;
-
     /* Disabling fancy italics for a sleek modern look */
-
     color: var(--secondary);
-
 }
-
-
-
 .container {
-
     max-width: 1200px;
-
     margin: 0 auto;
-
     padding: 0 1.5rem;
-
 }
-
-
-
 /* --- Layout Utility --- */
-
 .section-tag {
-
     display: inline-block;
-
     font-size: 0.75rem;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     letter-spacing: 0.1em;
-
     color: var(--secondary);
-
     margin-bottom: 1rem;
-
 }
-
-
-
 .label {
-
     font-size: 0.7rem;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     letter-spacing: 0.1em;
-
     color: var(--secondary);
-
     opacity: 0.6;
-
     margin-bottom: 0.5rem;
-
 }
-
-
-
 /* --- Navigation --- */
-
 nav {
-
     height: 80px;
-
     display: flex;
-
     align-items: center;
-
     background: linear-gradient(rgba(253, 252, 251, 0.88), rgba(253, 252, 251, 0.88)), url("769e892e-fee5-4340-b8d2-70b23cfef786") no-repeat center;
-
     background-size: cover;
-
     position: fixed;
-
     top: 0;
-
     width: 100%;
-
     z-index: 1000;
-
     border-bottom: 1px solid var(--border);
-
 }
-
-
-
 nav .container {
-
     display: flex;
-
     align-items: center;
-
     width: 100%;
-
     position: relative;
-
 }
-
-
-
 .logo {
-
     position: absolute;
-
     left: 2.5rem;
-
     top: 50%;
-
     transform: translateY(-50%);
-
     font-family: var(--font-serif);
-
     font-size: 1.7rem;
-
     font-weight: 600;
-
     color: var(--primary);
-
     text-decoration: none;
-
     letter-spacing: -0.01em;
-
 }
-
-
-
 .nav-links {
-
     display: flex;
-
     gap: 2.5rem;
-
     align-items: center;
-
     margin-left: auto;
-
 }
-
-
-
 .nav-profile-wrap {
-
     display: flex !important;
-
     align-items: center !important;
-
 }
-
-
-
 .nav-links a {
-
     text-decoration: none;
-
     color: var(--primary);
-
     font-size: 0.95rem;
-
     font-weight: 600;
-
     transition: var(--transition);
-
 }
-
-
-
 .nav-links a:hover {
-
     color: #BA7517;
-
 }
-
-
-
 .nav-shop {
-
     background: var(--primary);
-
     color: white !important;
-
     padding: 0.6rem 1.5rem;
-
     border-radius: 50px;
-
     font-weight: 600 !important;
-
 }
-
-
-
 /* --- Hero --- */
-
 .hero {
-
     position: relative;
-
     padding: 100px 0;
-
     text-align: center;
-
     background: linear-gradient(135deg, #FFF7ED 0%, #FEF2F2 20%, #FDF2F8 40%, #F0F9FF 60%, #FFFFFF 80%, #FEFCE8 100%);
-
     display: flex;
-
     align-items: center;
-
     overflow: hidden;
-
 }
-
-
-
 /* Atmospheric Lifestyle Background Container */
-
 .lifestyle-bg-wrap {
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     overflow: hidden;
-
     pointer-events: none;
-
     z-index: 1;
-
 }
-
-
-
 .lifestyle-bg-img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     opacity: 0.6;
-
     /* Removed real-time CSS filters for smooth performance */
-
-    
-
     /* GPU Hardware Acceleration */
-
     will-change: transform;
-
     transform: translateZ(0);
-
     -webkit-transform: translateZ(0);
-
     transition: var(--transition);
-
 }
-
-
-
 .lifestyle-overlay {
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     background: radial-gradient(circle, rgba(253, 252, 251, 0.2) 0%, var(--bg) 95%);
-
     z-index: 2;
-
 }
-
-
-
 /* Split-Panel Lifestyle Showcases */
-
 .split-lifestyle-panel {
-
     display: grid;
-
     grid-template-columns: 1fr;
-
     gap: 2.5rem;
-
     align-items: center;
-
 }
-
-
-
 @media (min-width: 768px) {
-
     .split-lifestyle-panel {
-
         grid-template-columns: 1.2fr 1fr;
-
     }
-
 }
-
-
-
 .lifestyle-photo-card {
-
     position: relative;
-
     border-radius: var(--radius-lg);
-
     overflow: hidden;
-
     aspect-ratio: 4/3;
-
     border: 1px solid var(--border);
-
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-
 }
-
-
-
 .lifestyle-photo-card img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     display: block;
-
 }
-
-
-
 .lifestyle-photo-card::after {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     background: linear-gradient(to top, rgba(15, 23, 42, 0.15), transparent);
-
 }
-
-
-
 .hero-badge {
-
     display: inline-block;
-
     padding: 0.4rem 1.2rem;
-
     background: var(--bg-alt);
-
     border: 1px solid var(--border);
-
     border-radius: 50px;
-
     font-size: 0.8rem;
-
     font-weight: 600;
-
     color: var(--secondary);
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .hero h1 {
-
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-
     margin-bottom: 1.5rem;
-
     line-height: 1.1;
-
 }
-
-
-
 .hero h1 em {
-
     font-style: italic;
-
     color: var(--secondary);
-
 }
-
-
-
 .hero p {
-
     font-size: 1.25rem;
-
     color: var(--secondary);
-
     max-width: 600px;
-
     margin: 0 auto 3rem;
-
 }
-
-
-
 .hero-logo-box {
-
     width: 48px;
-
     height: 48px;
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-family: var(--font-serif);
-
     font-size: 1.5rem;
-
     font-weight: 700;
-
     margin-bottom: 1rem;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-
 }
-
-
-
 .hero-tagline {
-
     display: block;
-
     font-size: 0.9rem;
-
     color: var(--secondary);
-
     font-style: italic;
-
 }
-
-
-
 /* --- Collections Grid --- */
-
 .collections {
-
     padding: 100px 0;
-
     background-color: var(--bg);
-
     transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-
     position: relative;
-
     overflow: hidden;
-
 }
-
-
-
 .collections-glow-spot {
-
     position: absolute;
-
     width: 60%;
-
     height: 60%;
-
     border-radius: 50%;
-
     filter: blur(140px);
-
     opacity: 0;
-
     transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-
     pointer-events: none;
-
     z-index: 0;
-
 }
-
-
-
 .collections-glow-spot.tl {
-
     top: -20%;
-
     left: -20%;
-
 }
-
-
-
 .collections-glow-spot.tr {
-
     top: -20%;
-
     right: -20%;
-
 }
-
-
-
 .collections-glow-spot.bl {
-
     bottom: -20%;
-
     left: -20%;
-
 }
-
-
-
 .collections-glow-spot.br {
-
     bottom: -20%;
-
     right: -20%;
-
 }
-
-
-
 .collections .container {
-
     position: relative;
-
     z-index: 2;
-
 }
-
-
-
 .coll-grid {
-
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
     gap: 1.5rem;
-
 }
-
-
-
 .coll-card {
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
-
     padding: 2rem 1.5rem;
-
     text-align: center;
-
     text-decoration: none;
-
     color: inherit;
-
     transition: var(--transition);
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     cursor: pointer;
-
 }
-
-
-
 .coll-card:hover {
-
     border-color: var(--border-hover);
-
     transform: translateY(-8px);
-
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-
 }
-
-
-
 /* Tint Hovers */
-
 .coll-card[data-tint="seasonal"]:hover {
-
     background: var(--tint-seasonal);
-
 }
-
-
-
 .coll-card[data-tint="nature"]:hover {
-
     background: var(--tint-nature);
-
 }
-
-
-
 .coll-card[data-tint="botanical"]:hover {
-
     background: var(--tint-botanical);
-
 }
-
-
-
 .coll-card[data-tint="cities"]:hover {
-
     background: var(--tint-cities);
-
 }
-
-
-
 .coll-icon {
-
     font-size: 3rem;
-
     margin-bottom: 1rem;
-
     display: block;
-
 }
-
-
-
 .coll-emoji-row {
-
     display: flex;
-
     gap: 0.5rem;
-
     margin-bottom: 1.5rem;
-
     font-size: 1.25rem;
-
 }
-
-
-
 .coll-name {
-
     font-family: var(--font-serif);
-
     font-size: 1.5rem;
-
     margin-bottom: 1rem;
-
 }
-
-
-
 .coll-swatches {
-
     display: flex;
-
     gap: 6px;
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .swatch {
-
     width: 14px;
-
     height: 14px;
-
     border-radius: 50%;
-
 }
-
-
-
 .coll-btn {
-
     width: 100%;
-
     padding: 0.75rem;
-
     border: 1px solid var(--border);
-
     border-radius: 50px;
-
     background: var(--bg-alt);
-
     color: var(--secondary);
-
     font-size: 0.85rem;
-
     font-weight: 700;
-
     transition: var(--transition);
-
 }
-
-
-
 .coll-card:hover .coll-btn {
-
     background: var(--primary);
-
     color: white;
-
     border-color: var(--primary);
-
 }
-
-
-
 .coll-card.disabled {
-
     opacity: 0.5;
-
     border-style: dashed;
-
     cursor: not-allowed;
-
 }
-
-
-
 /* --- Feature Grid --- */
-
 .features {
-
     position: relative;
-
     padding: 100px 0;
-
     z-index: 1;
-
 }
-
-
-
 .features::before {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/website-backgrounds/functional_bg.webp');
-
     background-size: cover;
-
     background-position: center;
-
     background-repeat: no-repeat;
-
     opacity: 0.35;
-
     z-index: -1;
-
-    
-
     /* GPU Hardware Acceleration to solve scrolling lag */
-
     will-change: transform;
-
     transform: translateZ(0);
-
     -webkit-transform: translateZ(0);
-
 }
-
-
-
 .feat-grid {
-
     display: grid;
-
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
     grid-auto-rows: minmax(250px, auto);
-
     gap: 1.5rem;
-
     align-items: stretch;
-
 }
-
-
-
 .feat-cell {
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
-
     overflow: hidden;
-
     /* For header color */
-
     display: flex;
-
     flex-direction: column;
-
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-
     min-height: 250px;
-
     /* Consistent cell height */
-
 }
-
-
-
 .feat-header {
-
     padding: 0.8rem 1.2rem;
-
     background: #F8FAFC;
-
     border-bottom: 1px solid var(--border);
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     /* distribute dots and label */
-
     gap: 0.5rem;
-
 }
-
-
-
 .feat-dots {
-
     display: flex;
-
     gap: 5px;
-
 }
-
-
-
 .feat-dots span {
-
     width: 8px;
-
     height: 8px;
-
     border-radius: 50%;
-
     background: #CBD5E1;
-
 }
-
-
-
 .feat-label-text {
-
     font-size: 0.65rem;
-
     font-weight: 800;
-
     text-transform: uppercase;
-
     letter-spacing: 0.1em;
-
     color: #94A3B8;
-
     margin-left: auto;
-
 }
-
-
-
 .feat-body {
-
     padding: 1.5rem;
-
     flex: 1;
-
     display: flex;
-
     flex-direction: column;
-
 }
-
-
-
 .feat-cell.goals {
-
     grid-column: 1;
-
     grid-row: 1;
-
 }
-
-
-
 .feat-cell.timer {
-
     grid-column: 2;
-
     grid-row: 1;
-
 }
-
-
-
 .feat-cell.widget {
-
     grid-column: 3;
-
     grid-row: 1/3;
-
 }
-
-
-
 .feat-cell.timetable {
-
     grid-column: 1/3;
-
     grid-row: 2;
-
 }
-
-
-
 .feat-cell h3 {
-
     font-family: var(--font-sans);
-
     font-size: 0.9rem;
-
     font-weight: 700;
-
     color: var(--secondary);
-
     margin-bottom: 1.5rem;
-
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
-
 }
-
-
-
 /* Goals Internal - High Fidelity */
-
 .goal-item {
-
     display: flex;
-
     align-items: center;
-
     gap: 0.75rem;
-
     padding: 0.7rem 1rem;
-
     border-radius: 12px;
-
     background: #F8FAFC;
-
     border: 1px solid rgba(15, 23, 42, 0.05);
-
     margin-bottom: 0.5rem;
-
     cursor: pointer;
-
     transition: var(--transition);
-
 }
-
-
-
 .goal-item:hover {
-
     background: #F1F5F9;
-
     border-color: rgba(15, 23, 42, 0.1);
-
 }
-
-
-
 .goal-check {
-
     width: 22px;
-
     height: 22px;
-
     border: 2px solid #CBD5E1;
-
     border-radius: 50%;
-
     /* Circle checkboxes */
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 0.7rem;
-
     color: transparent;
-
     flex-shrink: 0;
-
     transition: var(--transition);
-
 }
-
-
-
 .goal-item.done .goal-check {
-
     background: var(--p-eucalyptus);
-
     border-color: var(--p-eucalyptus);
-
     color: white;
-
 }
-
-
-
 .goal-text {
-
     flex: 1;
-
     font-size: 0.85rem;
-
     font-weight: 600;
-
 }
-
-
-
 .goal-item.done .goal-text {
-
     text-decoration: line-through;
-
     opacity: 0.5;
-
 }
-
-
-
 .goal-tag {
-
     font-size: 0.65rem;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     color: var(--secondary);
-
     opacity: 0.6;
-
 }
-
-
-
 /* Timer Internal */
-
 .timer-face {
-
     text-align: center;
-
     padding: 1rem 0;
-
 }
-
-
-
 .timer-num {
-
     font-size: 3.5rem;
-
     font-weight: 600;
-
     font-variant-numeric: tabular-nums;
-
 }
-
-
-
 .timer-btns {
-
     display: flex;
-
     gap: 1rem;
-
     justify-content: center;
-
 }
-
-
-
 .tbtn {
-
     padding: 0.5rem 1.5rem;
-
     border-radius: 50px;
-
     border: 1px solid var(--border);
-
     background: var(--bg-alt);
-
     font-weight: 700;
-
     font-size: 0.85rem;
-
     cursor: pointer;
-
 }
-
-
-
 .tbtn.primary {
-
     background: var(--primary);
-
     color: white;
-
     border-color: var(--primary);
-
 }
-
-
-
 /* Timetable Internal - High Fidelity */
-
 .tt-nav {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     background: #F1F0FE;
-
     padding: 0.6rem 1.25rem;
-
     border-radius: 50px;
-
     margin-bottom: 1.5rem;
-
     font-size: 0.8rem;
-
     font-weight: 800;
-
     color: #3C3489;
-
     border: 1.5px solid rgba(60, 52, 137, 0.08);
-
 }
-
-
-
 .tt-scroll {
-
     display: grid;
-
     grid-template-columns: repeat(7, 1fr);
-
     gap: 0.4rem;
-
     padding-bottom: 1rem;
-
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
-
 }
-
-
-
 .tt-day {
-
     background: white;
-
     border: 1.5px solid rgba(175, 169, 236, 0.12);
-
     border-radius: 12px;
-
     padding: 1rem 0.4rem;
-
     text-align: center;
-
     box-shadow: 0 2px 4px rgba(60, 52, 137, 0.02);
-
 }
-
-
-
 .tt-day.today {
-
     border: 2px solid var(--p-lavender);
-
     background: #F8F7FF;
-
     box-shadow: 0 4px 15px rgba(175, 169, 236, 0.15);
-
 }
-
-
-
 .tt-day-num {
-
     font-size: 1.3rem;
-
     font-weight: 800;
-
     color: #3C3489;
-
     line-height: 1;
-
     margin-bottom: 4px;
-
 }
-
-
-
 .tt-day-name {
-
     font-size: 0.5rem;
-
     font-weight: 900;
-
     opacity: 0.4;
-
     text-transform: uppercase;
-
     letter-spacing: 0.08em;
-
 }
-
-
-
 .tt-chip {
-
     padding: 5px;
-
     border-radius: 6px;
-
     font-size: 0.55rem;
-
     font-weight: 800;
-
     margin-top: 6px;
-
 }
-
-
-
 .tt-day-name {
-
     font-size: 0.7rem;
-
     font-weight: 800;
-
     color: var(--secondary);
-
     margin-bottom: 0.25rem;
-
 }
-
-
-
 .tt-day-num {
-
     font-size: 1.5rem;
-
     font-weight: 700;
-
     margin-bottom: 0.75rem;
-
 }
-
-
-
 .tt-chip {
-
     font-size: 0.75rem;
-
     font-weight: 600;
-
     padding: 0.25rem 0.6rem;
-
     border-radius: 6px;
-
     margin-bottom: 0.4rem;
-
 }
-
-
-
 /* Collections */
-
 .collections {
-
     padding: 120px 0;
-
     background: white;
-
     position: relative;
-
     overflow: hidden;
-
     transition: background 0.8s ease;
-
 }
-
-
-
 .collections::before {
-
     content: '';
-
     position: absolute;
-
     top: 50%;
-
     left: 50%;
-
     width: 140vw;
-
     height: 140vh;
-
     background: radial-gradient(circle, var(--glow-bg, transparent) 0%, transparent 70%);
-
     transform: translate(-50%, -50%);
-
     pointer-events: none;
-
     z-index: 0;
-
     transition: background 0.8s ease;
-
     opacity: 0.35;
-
     /* Stronger tint */
-
 }
-
-
-
 /* Floating Aesthetic Icon */
-
 .collections::after {
-
     content: var(--hover-icon, '');
-
     position: absolute;
-
     top: 50%;
-
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     font-size: 40rem;
-
     opacity: 0.04;
-
     pointer-events: none;
-
     z-index: 0;
-
     filter: blur(10px);
-
     transition: all 1s ease;
-
 }
-
-
-
 .collections .container {
-
     position: relative;
-
     z-index: 1;
-
 }
-
-
-
 /* --- Roadmap --- */
-
 .roadmap {
-
     padding: 100px 0;
-
     background: var(--bg-alt);
-
 }
-
-
-
 .rm-wrapper {
-
     position: relative;
-
     width: 100%;
-
     display: flex;
-
     align-items: center;
-
 }
-
-
-
 .rm-track {
-
     display: flex;
-
     align-items: flex-start;
-
     padding: 40px 10px;
-
     overflow-x: auto;
-
     scroll-behavior: smooth;
-
     scrollbar-width: none;
-
     /* Firefox */
-
     width: 100%;
-
 }
-
-
-
 .rm-track::-webkit-scrollbar {
-
     display: none;
-
     /* Chrome, Safari, Opera */
-
 }
-
-
-
 .rm-node {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     min-width: 200px;
-
     text-align: center;
-
     position: relative;
-
 }
-
-
-
 .rm-dot {
-
     width: 44px;
-
     height: 44px;
-
     border-radius: 50%;
-
     border: 3px solid var(--border);
-
     background: white;
-
     margin-bottom: 1.5rem;
-
     position: relative;
-
     z-index: 2;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 1.25rem;
-
     transition: all 0.3s ease;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
 }
-
-
-
 .rm-dot.done {
-
     border-color: #BA7517;
-
     background: #FFF8ED;
-
 }
-
-
-
 .rm-dot.active {
-
     border-color: #E8A020;
-
     background: white;
-
     box-shadow: 0 0 15px rgba(232, 160, 32, 0.4);
-
 }
-
-
-
 .rm-dot.soon {
-
     border-style: dashed;
-
     border-color: var(--secondary);
-
     background: var(--bg-alt);
-
     opacity: 0.7;
-
 }
-
-
-
 .rm-line {
-
     flex-grow: 1;
-
     height: 2px;
-
     background: var(--border);
-
     margin-top: 22px;
-
     min-width: 60px;
-
     transition: all 0.3s ease;
-
 }
-
-
-
 .rm-line.done {
-
     background: #BA7517;
-
 }
-
-
-
 .rm-date {
-
     font-size: 0.8rem;
-
     font-weight: 700;
-
     color: var(--secondary);
-
     margin-bottom: 0.5rem;
-
     text-transform: uppercase;
-
     letter-spacing: 0.05em;
-
 }
-
-
-
 .rm-date.active {
-
     color: #E8A020;
-
 }
-
-
-
 .rm-name {
-
     font-weight: 600;
-
     font-size: 0.95rem;
-
     color: var(--primary);
-
     padding: 0 10px;
-
 }
-
-
-
 .rm-nav-btn {
-
     position: absolute;
-
     top: 62px;
-
     /* Center with the 44px dot + 40px vertical container padding */
-
     transform: translateY(-50%);
-
     width: 40px;
-
     height: 40px;
-
     border-radius: 50%;
-
     background: white;
-
     border: 1px solid var(--border);
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     cursor: pointer;
-
     z-index: 10;
-
     transition: all 0.2s ease;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-
     color: var(--primary);
-
 }
-
-
-
 .rm-nav-btn:hover {
-
     background: var(--bg-alt);
-
     transform: translateY(-50%) scale(1.05);
-
 }
-
-
-
 .rm-nav-btn.prev {
-
     left: -20px;
-
 }
-
-
-
 .rm-nav-btn.next {
-
     right: -20px;
-
 }
-
-
-
 @media (max-width: 768px) {
-
     .rm-nav-btn {
-
         display: none;
-
     }
-
 }
-
-
-
 /* --- Reviews --- */
-
 .reviews {
-
     position: relative;
-
     padding: 100px 0;
-
     z-index: 1;
-
 }
-
-
-
 .reviews::before {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/website-backgrounds/reviews_bg.webp');
-
     background-size: cover;
-
     background-position: center;
-
     background-repeat: no-repeat;
-
     opacity: 0.6;
-
     z-index: -1;
-
-    
-
     /* GPU Hardware Acceleration to solve scrolling lag */
-
     will-change: transform;
-
     transform: translateZ(0);
-
     -webkit-transform: translateZ(0);
-
 }
-
-
-
 .reviews-grid {
-
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 2rem;
-
 }
-
-
-
 .review-card {
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
-
     padding: 2.5rem;
-
 }
-
-
-
 .review-stars {
-
     color: var(--accent);
-
     margin-bottom: 1rem;
-
 }
-
-
-
 .review-text {
-
     font-family: var(--font-sans);
-
     font-size: 1.1rem;
-
     font-style: italic;
-
     margin-bottom: 1.5rem;
-
     line-height: 1.6;
-
 }
-
-
-
 .review-name {
-
     font-family: var(--font-serif);
-
     font-weight: 700;
-
 }
-
-
-
 .review-role {
-
     font-family: var(--font-serif);
-
     font-size: 0.85rem;
-
     color: var(--secondary);
-
 }
-
-
-
 /* --- Preview Component Refinements --- */
-
 .streak-widget {
-
     background: #EEF4FC;
-
     border-radius: var(--radius-sm);
-
     padding: 1rem;
-
     text-align: center;
-
     border: 1px solid rgba(55, 138, 221, 0.2);
-
 }
-
-
-
 .streak-count {
-
     font-size: 1.5rem;
-
     font-weight: 800;
-
     color: var(--p-winter);
-
     display: block;
-
 }
-
-
-
 .spotify-preview {
-
     background: #181818;
-
     color: white;
-
     border-radius: var(--radius-sm);
-
     padding: 0.75rem;
-
     display: flex;
-
     align-items: center;
-
     gap: 0.75rem;
-
     margin: 0.5rem 0;
-
 }
-
-
-
 .spotify-art {
-
     width: 40px;
-
     height: 40px;
-
     background: #282828;
-
     border-radius: 4px;
-
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 1.25rem;
-
 }
-
-
-
 .spotify-info {
-
     overflow: hidden;
-
 }
-
-
-
 .spotify-info span {
-
     display: block;
-
     font-size: 0.75rem;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
-
 }
-
-
-
 .coin-preview {
-
     background: #FFF8ED;
-
     border: 1px solid rgba(232, 160, 32, 0.2);
-
     border-radius: var(--radius-sm);
-
     padding: 0.75rem;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
 }
-
-
-
 .coin-label {
-
     font-size: 0.75rem;
-
     font-weight: 700;
-
     color: #633806;
-
 }
-
-
-
 .coin-val {
-
     font-size: 0.9rem;
-
     font-weight: 800;
-
     color: var(--p-summer);
-
 }
-
-
-
 /* --- Authentic App Widgets (Summer Sun Theme) --- */
-
 .app-widget-panel {
-
     background: white;
-
     border-radius: 18px;
-
     padding: 1.5rem;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 1rem;
-
     border: 1.5px solid rgba(0, 0, 0, 0.05);
-
     height: 100%;
-
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-
 }
-
-
-
 .mini-widget {
-
     background: white;
-
     border: 1.5px solid rgba(234, 179, 8, 0.12);
-
     border-radius: 14px;
-
     padding: 1.25rem;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.3rem;
-
     flex: 1;
-
     justify-content: center;
-
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
     box-shadow: 0 2px 5px rgba(232, 160, 32, 0.04);
-
 }
-
-
-
 .mini-widget:hover {
-
     transform: translateY(-4px);
-
     box-shadow: 0 12px 25px -5px rgba(232, 160, 32, 0.15);
-
 }
-
-
-
 /* Spotify High-Fidelity App Layout */
-
 .widget-spotify {
-
     flex-direction: row !important;
-
     align-items: center;
-
     gap: 1rem;
-
     padding: 1rem 1.25rem;
-
     border-color: rgba(29, 185, 84, 0.1);
-
 }
-
-
-
 .spotify-art {
-
     width: 48px;
-
     height: 48px;
-
     background: #121212;
-
     border-radius: 8px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 1.5rem;
-
     flex-shrink: 0;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
 }
-
-
-
 .spotify-info {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 2px;
-
     overflow: hidden;
-
     flex: 1;
-
 }
-
-
-
 .spotify-progress-bg {
-
     width: 100%;
-
     height: 3px;
-
     background: rgba(0, 0, 0, 0.05);
-
     border-radius: 10px;
-
     margin-top: 6px;
-
     overflow: hidden;
-
 }
-
-
-
 .spotify-progress-fill {
-
     width: 65%;
-
     height: 100%;
-
     background: #1DB954;
-
     border-radius: 10px;
-
 }
-
-
-
 .mini-widget:hover {
-
     transform: translateY(-2px);
-
     box-shadow: 0 6px 24px rgba(232, 160, 32, 0.12);
-
 }
-
-
-
 .mini-widget-label {
-
     font-size: 0.65rem;
-
     font-weight: 800;
-
     color: #92700A;
-
     text-transform: uppercase;
-
     letter-spacing: 0.05em;
-
 }
-
-
-
 .mini-widget-val {
-
     font-size: 1.1rem;
-
     font-weight: 800;
-
     color: #3B2A05;
-
 }
-
-
-
 .mini-widget-icon {
-
     font-size: 1.2rem;
-
     margin-bottom: 2px;
-
 }
-
-
-
 /* Animations */
-
 @keyframes widget-float {
-
-
-
     0%,
-
     100% {
-
         transform: translateY(0);
-
     }
-
-
-
     50% {
-
         transform: translateY(-4px);
-
     }
-
 }
-
-
-
 @keyframes widget-spin {
-
     0% {
-
         transform: rotate(-12deg) scale(1);
-
     }
-
-
-
     50% {
-
         transform: rotate(14deg) scale(1.1);
-
     }
-
-
-
     100% {
-
         transform: rotate(-12deg) scale(1);
-
     }
-
 }
-
-
-
 .float-anim {
-
     animation: widget-float 4s ease-in-out infinite;
-
 }
-
-
-
 .spin-anim {
-
     display: inline-block;
-
     animation: widget-spin 2.5s ease-in-out infinite;
-
 }
-
-
-
 /* Timer Slider - Focus Page Style */
-
 .timer-slider-row {
-
     width: 100%;
-
     margin-top: 1rem;
-
 }
-
-
-
 .timer-slider {
-
     width: 100%;
-
     -webkit-appearance: none;
-
     height: 6px;
-
     background: rgba(216, 90, 48, 0.1);
-
     border-radius: 10px;
-
     outline: none;
-
 }
-
-
-
 .timer-slider::-webkit-slider-thumb {
-
     -webkit-appearance: none;
-
     width: 18px;
-
     height: 18px;
-
     background: var(--p-autumn);
-
     border-radius: 50%;
-
     cursor: pointer;
-
     box-shadow: 0 4px 10px rgba(216, 90, 48, 0.3);
-
     transition: transform 0.2s;
-
 }
-
-
-
 .timer-slider::-webkit-slider-thumb:hover {
-
     transform: scale(1.2);
-
 }
-
-
-
 .timer-presets {
-
     display: flex;
-
     gap: 0.4rem;
-
     margin-top: 1rem;
-
     justify-content: center;
-
 }
-
-
-
 .preset-bubble {
-
     font-size: 0.65rem;
-
     font-weight: 700;
-
     padding: 0.3rem 0.7rem;
-
     border-radius: 50px;
-
     border: 1px solid var(--border);
-
     background: white;
-
     color: var(--secondary);
-
     cursor: pointer;
-
 }
-
-
-
 /* Scoped Overrides for Feature Cells */
-
 .feat-cell.goals .goal-item.done .goal-check {
-
     background: var(--p-eucalyptus);
-
     border-color: var(--p-eucalyptus);
-
 }
-
-
-
 .feat-cell.timer .timer-num {
-
     color: var(--p-autumn);
-
     font-family: var(--font-head);
-
     font-size: 4rem;
-
     margin-bottom: 0.5rem;
-
 }
-
-
-
 .feat-cell.timer .tbtn {
-
     border-radius: 50px;
-
     padding: 0.6rem 1.8rem;
-
     font-size: 0.8rem;
-
 }
-
-
-
 .feat-cell.timer .tbtn.primary {
-
     background: var(--p-autumn);
-
     border-color: var(--p-autumn);
-
     box-shadow: 0 8px 20px rgba(216, 90, 48, 0.2);
-
 }
-
-
-
 .feat-cell.timetable .tt-day.today {
-
     border-color: var(--p-lavender);
-
 }
-
-
-
 .feat-cell.timetable .tt-day.today .tt-day-num {
-
     color: var(--p-lavender);
-
     font-family: var(--font-head);
-
     font-weight: 800;
-
 }
-
-
-
 .feat-cell.timetable .tt-day-num {
-
     font-size: 1.5rem;
-
     font-family: var(--font-head);
-
     font-weight: 700;
-
 }
-
-
-
 .feat-cell.timetable .tt-day-name {
-
     font-size: 0.65rem;
-
     letter-spacing: 0.05em;
-
 }
-
-
-
 footer {
-
     padding: 100px 0 60px;
-
     background: white;
-
     border-top: 1px solid var(--border);
-
 }
-
-
-
 .comm-cta {
-
     text-align: center;
-
     max-width: 600px;
-
     margin: 0 auto 80px;
-
 }
-
-
-
 .comm-icons {
-
     display: flex;
-
     justify-content: center;
-
     gap: 1.5rem;
-
     margin: 2rem 0;
-
 }
-
-
-
 .comm-icon-box {
-
     width: 50px;
-
     height: 50px;
-
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 1.5rem;
-
     color: var(--secondary);
-
     transition: var(--transition);
-
 }
-
-
-
 .comm-icon-box:hover {
-
     border-color: var(--primary);
-
     color: var(--primary);
-
     transform: translateY(-4px);
-
 }
-
-
-
 .signup-form {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.65rem;
-
     max-width: 420px;
-
     margin: 2rem auto 0;
-
 }
-
-
-
 .email-input {
-
     flex: 1;
-
     padding: 0.8rem 1.5rem;
-
     border: 1px solid var(--border);
-
     border-radius: 50px;
-
     background: var(--bg-alt);
-
     font-family: inherit;
-
 }
-
-
-
 .email-btn {
-
     padding: 0.8rem 2rem;
-
     border: none;
-
     border-radius: 50px;
-
     background: var(--primary);
-
     color: white;
-
     font-weight: 700;
-
     cursor: pointer;
-
 }
-
-
-
 @media (max-width: 1024px) {
-
-
-
     .coll-grid,
-
     .feat-grid,
-
     .reviews-grid {
-
         grid-template-columns: 1fr;
-
     }
-
-
-
     .feat-cell {
-
         grid-column: auto !important;
-
         grid-row: auto !important;
-
     }
-
-
-
     .nav-links {
-
         display: none;
-
     }
-
 }
-
-
-
 /* --- Respectively Coloured Social Icons --- */
-
 .comm-icon-box.pinterest {
-
     background: #E60023;
-
     color: white;
-
     border-color: #E60023;
-
 }
-
-
-
 .comm-icon-box.pinterest:hover {
-
     background: #BD081C;
-
     border-color: #BD081C;
-
     color: white !important;
-
 }
-
-
-
 .comm-icon-box.instagram {
-
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-
     color: white;
-
     border-color: transparent;
-
 }
-
-
-
 .comm-icon-box.instagram:hover {
-
     opacity: 0.9;
-
     color: white !important;
-
 }
-
-
-
 .comm-icon-box.tiktok {
-
     background: #000000;
-
     color: white;
-
     border-color: #000000;
-
 }
-
-
-
 .comm-icon-box.tiktok:hover {
-
     background: #111111;
-
     border-color: #111111;
-
     color: white !important;
-
 }
-
-
-
 /* --- High-Performance Scroll Transitions --- */
-
 .scroll-fade {
     opacity: 1;
     transform: translateY(0);
-
     opacity: 0;
-
     transform: translateY(40px);
-
     transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-
     will-change: opacity, transform;
-
 }
-
-
-
 .scroll-fade.visible {
-
     opacity: 1;
-
     transform: translateY(0);
-
 }
-
-
-
 /* --- Premium Highlights for flagships --- */
-
 .bundle-banner[data-collection="seasonal"] {
-
     background: linear-gradient(135deg, rgba(245, 166, 35, 0.02) 0%, rgba(133, 183, 235, 0.02) 33%, rgba(232, 89, 60, 0.02) 66%, rgba(212, 83, 126, 0.02) 100%) !important;
-
     border: 1.5px solid rgba(245, 166, 35, 0.15) !important;
-
     box-shadow: 0 20px 40px -15px rgba(245, 166, 35, 0.06) !important;
-
     position: relative;
-
     overflow: hidden;
-
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-
 }
-
-
-
 .bundle-banner[data-collection="seasonal"]::before {
-
     content: '';
-
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     right: 0;
-
     height: 3px;
-
     background: linear-gradient(90deg, #F5A623, #85B7EB, #E8593C, #D4537E);
-
     opacity: 0.8;
-
 }
-
-
-
 .bundle-banner[data-collection="seasonal"]:hover {
-
     transform: translateY(-4px);
-
     border-color: rgba(245, 166, 35, 0.3) !important;
-
     box-shadow: 0 25px 50px -12px rgba(245, 166, 35, 0.12) !important;
-
 }
-
-
-
 .bundle-badge {
-
     background: #FFFBEB;
-
     color: #D97706;
-
     border: 1px solid rgba(217, 119, 6, 0.15);
-
     font-size: 0.68rem;
-
     font-weight: 700;
-
     padding: 0.2rem 0.65rem;
-
     border-radius: 50px;
-
     text-transform: uppercase;
-
     letter-spacing: 0.05em;
-
     margin-left: 0.75rem;
-
     vertical-align: middle;
-
     display: inline-block;
-
 }
-
-
-
 .bundle-banner[data-collection="seasonal"] .bundle-btn {
-
     background: #1E293B !important;
-
     color: white !important;
-
     border: none !important;
-
     box-shadow: 0 4px 12px rgba(30, 41, 59, 0.12) !important;
-
     transition: all 0.3s ease;
-
 }
-
-
-
 .bundle-banner[data-collection="seasonal"] .bundle-btn:hover {
-
     background: #0F172A !important;
-
     box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2) !important;
-
     transform: scale(1.03);
-
 }
-
-
-
 /* --- EARLY ACCESS POPUP & INFRASTRUCTURE --- */
-
 .early-access-overlay {
-
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100vw;
-
     height: 100vh;
-
     background: rgba(15, 23, 42, 0.45);
-
     backdrop-filter: blur(8px);
-
     -webkit-backdrop-filter: blur(8px);
-
     z-index: 10000;
-
     opacity: 0;
-
     pointer-events: none;
-
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-
 }
-
-
-
 .early-access-overlay.active {
-
     opacity: 1;
-
     pointer-events: auto;
-
 }
-
-
-
 .early-access-modal {
-
     position: fixed;
-
     top: 10%;
-
     left: 50%;
-
     transform: translate(-50%, -40px);
-
     width: 90%;
-
     max-width: 500px;
-
     background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF9 100%);
-
     border: 1.5px solid rgba(186, 117, 23, 0.15);
-
     border-radius: var(--radius-md);
-
     padding: 2.25rem;
-
     box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.18), 0 0 50px rgba(186, 117, 23, 0.03);
-
     z-index: 10001;
-
     opacity: 0;
-
     pointer-events: none;
-
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-
 }
-
-
-
 .early-access-modal.active {
-
     transform: translate(-50%, 0);
-
     opacity: 1;
-
     pointer-events: auto;
-
 }
-
-
-
 .early-access-close {
-
     position: absolute;
-
     top: 1.25rem;
-
     right: 1.25rem;
-
     background: transparent;
-
     border: none;
-
     font-size: 1.5rem;
-
     line-height: 1;
-
     color: var(--secondary);
-
     cursor: pointer;
-
     transition: var(--transition);
-
     opacity: 0.6;
-
     padding: 4px;
-
 }
-
-
-
 .early-access-close:hover {
-
     color: var(--primary);
-
     opacity: 1;
-
     transform: scale(1.1);
-
 }
-
-
-
 .early-access-badge {
-
     display: inline-block;
-
     padding: 0.35rem 0.9rem;
-
     background: #FFFDF5;
-
     border: 1px solid rgba(217, 119, 6, 0.2);
-
     border-radius: 50px;
-
     font-size: 0.72rem;
-
     font-weight: 700;
-
     color: #B45309;
-
     text-transform: uppercase;
-
     letter-spacing: 0.05em;
-
     margin-bottom: 1.25rem;
-
 }
-
-
-
 .early-access-modal h2 {
-
     font-size: 1.75rem;
-
     color: var(--primary);
-
     margin-bottom: 0.75rem;
-
     font-family: var(--font-head);
-
     letter-spacing: -0.02em;
-
 }
-
-
-
 .early-access-desc {
-
     font-size: 0.92rem;
-
     color: var(--secondary);
-
     line-height: 1.6;
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .early-access-form {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.65rem;
-
     margin-bottom: 1.5rem;
-
     position: relative;
-
     width: 100%;
-
 }
-
-
-
 .early-access-input {
-
     flex: 1;
-
     padding: 0.85rem 1.25rem;
-
     border: 1.5px solid var(--border);
-
     border-radius: 50px;
-
     font-family: var(--font-sans);
-
     font-size: 0.9rem;
-
     background: white;
-
     outline: none;
-
     transition: var(--transition);
-
 }
-
-
-
 .early-access-input:focus {
-
     border-color: #E8A020;
-
     box-shadow: 0 0 0 3px rgba(232, 160, 32, 0.08);
-
 }
-
-
-
 .early-access-btn {
-
     padding: 0.85rem 1.75rem;
-
     border: none;
-
     border-radius: 50px;
-
     background: var(--primary);
-
     color: white;
-
     font-weight: 700;
-
     font-size: 0.9rem;
-
     cursor: pointer;
-
     transition: var(--transition);
-
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
-
 }
-
-
-
 .early-access-btn:hover {
-
     background: #1E293B;
-
     transform: translateY(-2px);
-
     box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
-
 }
-
-
-
 .early-access-btn:active {
-
     transform: translateY(0);
-
 }
-
-
-
 .early-access-success {
-
     display: none;
-
     text-align: center;
-
     padding: 1.5rem 0;
-
     animation: fadeIn 0.4s ease forwards;
-
 }
-
-
-
 .early-access-success-icon {
-
     font-size: 2rem;
-
     color: #10B981;
-
     margin-bottom: 0.5rem;
-
 }
-
-
-
 .early-access-success h3 {
-
     font-size: 1.25rem;
-
     color: var(--primary);
-
     margin-bottom: 0.25rem;
-
 }
-
-
-
 .early-access-success p {
-
     font-size: 0.9rem;
-
     color: var(--secondary);
-
 }
-
-
-
 .early-access-social-title {
-
     font-size: 0.72rem;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     letter-spacing: 0.08em;
-
     color: var(--secondary);
-
     opacity: 0.7;
-
     margin-bottom: 0.75rem;
-
     text-align: center;
-
 }
-
-
-
 .early-access-socials {
-
     display: flex;
-
     justify-content: center;
-
     gap: 1rem;
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .early-access-explore {
-
     display: block;
-
     width: 100%;
-
     padding: 0.85rem;
-
     background: transparent;
-
     border: 1.5px solid var(--border);
-
     border-radius: 50px;
-
     color: var(--secondary);
-
     font-weight: 600;
-
     font-size: 0.9rem;
-
     cursor: pointer;
-
     transition: var(--transition);
-
     text-align: center;
-
 }
-
-
-
 .early-access-explore:hover {
-
     border-color: var(--border-hover);
-
     color: var(--primary);
-
     background: var(--bg-alt);
-
 }
-
-
-
 .early-access-counter {
-
     width: 100%;
-
     max-width: 320px;
-
     margin: 1.25rem auto 0.5rem;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.45rem;
-
     padding: 0 0.5rem;
-
 }
-
-
-
 .counter-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     font-size: 0.76rem;
-
     font-weight: 700;
-
     color: #BA7517;
-
 }
-
-
-
 .live-dot-wrapper {
-
     display: inline-flex;
-
     align-items: center;
-
     gap: 0.35rem;
-
 }
-
-
-
 .counter-label {
-
     text-transform: uppercase;
-
     letter-spacing: 0.06em;
-
     opacity: 0.85;
-
 }
-
-
-
 .counter-numbers {
-
     font-variant-numeric: tabular-nums;
-
     opacity: 0.95;
-
 }
-
-
-
 .counter-progress-bar {
-
     width: 100%;
-
     height: 4px;
-
     background: rgba(186, 117, 23, 0.12);
-
     border-radius: 10px;
-
     overflow: hidden;
-
     position: relative;
-
 }
-
-
-
 .counter-progress-fill {
-
     height: 100%;
-
     background: linear-gradient(90deg, #BA7517 0%, #E8A020 100%);
-
     border-radius: 10px;
-
     width: 0%;
-
     transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-
     box-shadow: 0 0 8px rgba(232, 160, 32, 0.5);
-
 }
-
-
-
-
-
 .live-dot {
-
     width: 6px;
-
     height: 6px;
-
     background-color: #10B981;
-
     border-radius: 50%;
-
     display: inline-block;
-
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-
     animation: pulse-dot 1.8s infinite;
-
 }
-
-
-
 @keyframes pulse-dot {
-
     0% {
-
         transform: scale(0.95);
-
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-
     }
-
-
-
     70% {
-
         transform: scale(1);
-
         box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-
     }
-
-
-
     100% {
-
         transform: scale(0.95);
-
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-
     }
-
 }
-
-
-
 /* ============================================
-
    LIBRARY PAGE • VAULT / MY LIBRARY
-
    ============================================ */
-
-
-
 .library-hero {
-
     padding: 140px 0 60px;
-
     text-align: center;
-
     position: relative;
-
 }
-
-
-
 .library-hero h1 {
-
     font-family: 'Playfair Display', serif;
-
     font-size: clamp(2.2rem, 6vw, 3.5rem);
-
     font-weight: 700;
-
     margin-bottom: 0.5rem;
-
     letter-spacing: -0.02em;
-
 }
-
-
-
 .library-hero h1 em {
-
     font-style: italic;
-
     color: var(--secondary);
-
 }
-
-
-
 .library-hero .library-subtitle {
-
     font-size: 1.1rem;
-
     color: var(--secondary);
-
     font-weight: 500;
-
     margin-bottom: 0.5rem;
-
 }
-
-
-
 .library-hero .library-count {
-
     font-size: 0.8rem;
-
     font-weight: 700;
-
     color: var(--accent);
-
     text-transform: uppercase;
-
     letter-spacing: 0.08em;
-
 }
-
-
-
 /* --- Code Entry Field --- */
-
 .code-entry-wrapper {
-
     position: absolute;
-
     top: 110px;
-
     right: 1.5rem;
-
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
-
     z-index: 10;
-
 }
-
-
-
 .code-entry-input {
-
     padding: 0.55rem 1.1rem;
-
     border: 1.5px solid var(--border);
-
     border-radius: 50px;
-
     font-family: var(--font-sans);
-
     font-size: 0.82rem;
-
     font-weight: 600;
-
     background: white;
-
     color: var(--primary);
-
     outline: none;
-
     width: 200px;
-
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
     letter-spacing: 0.03em;
-
 }
-
-
-
 .code-entry-input::placeholder {
-
     color: var(--secondary);
-
     opacity: 0.5;
-
     font-weight: 500;
-
 }
-
-
-
 .code-entry-input:focus {
-
     border-color: var(--accent);
-
     box-shadow: 0 0 0 3px rgba(232, 160, 32, 0.08);
-
     width: 240px;
-
 }
-
-
-
 .code-entry-input.success {
-
     border-color: #10B981;
-
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
-
     background: #F0FDF4;
-
 }
-
-
-
 .code-entry-input.error {
-
     border-color: #EF4444;
-
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
-
     animation: shake 0.4s ease;
-
 }
-
-
-
 .code-entry-btn {
-
     padding: 0.55rem 1.1rem;
-
     border: none;
-
     border-radius: 50px;
-
     background: var(--primary);
-
     color: white;
-
     font-weight: 700;
-
     font-size: 0.8rem;
-
     cursor: pointer;
-
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
     white-space: nowrap;
-
 }
-
-
-
 .code-entry-btn:hover {
-
     background: #1E293B;
-
     transform: translateY(-1px);
-
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-
 }
-
-
-
 .code-feedback {
-
     position: absolute;
-
     top: calc(100% + 6px);
-
     right: 0;
-
     font-size: 0.72rem;
-
     font-weight: 700;
-
     padding: 0.3rem 0.8rem;
-
     border-radius: 50px;
-
     opacity: 0;
-
     transform: translateY(-4px);
-
     transition: all 0.3s ease;
-
     white-space: nowrap;
-
 }
-
-
-
 .code-feedback.show {
-
     opacity: 1;
-
     transform: translateY(0);
-
 }
-
-
-
 .code-feedback.success {
-
     color: #059669;
-
     background: #ECFDF5;
-
     border: 1px solid rgba(5, 150, 105, 0.15);
-
 }
-
-
-
 .code-feedback.error {
-
     color: #DC2626;
-
     background: #FEF2F2;
-
     border: 1px solid rgba(220, 38, 38, 0.15);
-
 }
-
-
-
 @keyframes shake {
-
-
-
     0%,
-
     100% {
-
         transform: translateX(0);
-
     }
-
-
-
     20% {
-
         transform: translateX(-6px);
-
     }
-
-
-
     40% {
-
         transform: translateX(6px);
-
     }
-
-
-
     60% {
-
         transform: translateX(-4px);
-
     }
-
-
-
     80% {
-
         transform: translateX(4px);
-
     }
-
 }
-
-
-
 /* --- Library Collection Grid --- */
-
 .lib-grid {
-
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
     gap: 1.5rem;
-
     max-width: 1000px;
-
     margin: 0 auto;
-
     padding: 0 1.5rem 100px;
-
 }
-
-
-
 .lib-card {
-
     background: white;
-
     border: 1.5px solid var(--border);
-
     border-radius: var(--radius-lg);
-
     padding: 2.5rem 2rem;
-
     position: relative;
-
     overflow: hidden;
-
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-
 }
-
-
-
 /* Locked State */
-
 .lib-card.locked {
-
     filter: grayscale(0.85) opacity(0.7);
-
     border-style: dashed;
-
     cursor: default;
-
 }
-
-
-
 .lib-card.locked:hover {
-
     filter: grayscale(0.7) opacity(0.8);
-
     transform: translateY(-2px);
-
 }
-
-
-
 .lib-card.locked .lib-lock-overlay {
-
     display: flex;
-
 }
-
-
-
 .lib-card.locked .lib-editions {
-
     display: none;
-
 }
-
-
-
 /* Owned State */
-
 .lib-card.owned {
-
     filter: none;
-
     border-style: solid;
-
     cursor: default;
-
 }
-
-
-
 .lib-card.owned .lib-lock-overlay {
-
     display: none;
-
 }
-
-
-
 /* Unlock Animation */
-
 @keyframes cardUnlock {
-
     0% {
-
         filter: grayscale(0.85) opacity(0.7);
-
         transform: scale(1);
-
     }
-
-
-
     40% {
-
         filter: grayscale(0) opacity(1);
-
         transform: scale(1.02);
-
     }
-
-
-
     60% {
-
         transform: scale(0.99);
-
     }
-
-
-
     100% {
-
         filter: none;
-
         transform: scale(1);
-
     }
-
 }
-
-
-
 .lib-card.just-unlocked {
-
     animation: cardUnlock 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
     border-style: solid !important;
-
 }
-
-
-
 /* Card Header */
-
 .lib-card-header {
-
     display: flex;
-
     align-items: center;
-
     gap: 1rem;
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .lib-card-icon {
-
     font-size: 2.5rem;
-
     line-height: 1;
-
 }
-
-
-
 .lib-card-info {
-
     flex: 1;
-
 }
-
-
-
 .lib-card-name {
-
     font-family: 'Playfair Display', serif;
-
     font-size: 1.4rem;
-
     font-weight: 700;
-
     color: var(--primary);
-
     margin-bottom: 0.2rem;
-
 }
-
-
-
 .lib-card-sub {
-
     font-size: 0.78rem;
-
     font-weight: 600;
-
     color: var(--secondary);
-
     opacity: 0.7;
-
 }
-
-
-
 /* Status Badge */
-
 .lib-badge {
-
     position: absolute;
-
     top: 1.25rem;
-
     right: 1.25rem;
-
     padding: 0.3rem 0.75rem;
-
     border-radius: 50px;
-
     font-size: 0.68rem;
-
     font-weight: 800;
-
     text-transform: uppercase;
-
     letter-spacing: 0.05em;
-
 }
-
-
-
 .lib-badge.owned {
-
     background: #ECFDF5;
-
     color: #059669;
-
     border: 1px solid rgba(5, 150, 105, 0.15);
-
 }
-
-
-
 .lib-badge.locked {
-
     background: #F8FAFC;
-
     color: var(--secondary);
-
     border: 1px solid var(--border);
-
 }
-
-
-
 /* Color Swatches */
-
 .lib-swatches {
-
     display: flex;
-
     gap: 6px;
-
     margin-bottom: 1.5rem;
-
 }
-
-
-
 .lib-swatches .swatch {
-
     width: 16px;
-
     height: 16px;
-
     border-radius: 50%;
-
 }
-
-
-
 /* Lock Overlay */
-
 .lib-lock-overlay {
-
     display: none;
-
     flex-direction: column;
-
     align-items: center;
-
     gap: 1rem;
-
     padding: 1.5rem 0 0;
-
 }
-
-
-
 .lib-lock-icon {
-
     font-size: 2rem;
-
     opacity: 0.4;
-
 }
-
-
-
 .lib-lock-btn {
-
     display: inline-block;
-
     padding: 0.65rem 1.5rem;
-
     border: 1.5px solid var(--border);
-
     border-radius: 50px;
-
     background: var(--bg-alt);
-
     color: var(--secondary);
-
     font-weight: 700;
-
     font-size: 0.85rem;
-
     text-decoration: none;
-
     transition: all 0.3s ease;
-
 }
-
-
-
 .lib-lock-btn:hover {
-
     background: var(--primary);
-
     color: white;
-
     border-color: var(--primary);
-
     transform: translateY(-2px);
-
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
-
 }
-
-
-
 /* Edition Sub-Cards */
-
 .lib-editions {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.6rem;
-
 }
-
-
-
 .lib-edition {
-
     display: flex;
-
     align-items: center;
-
     gap: 0.75rem;
-
     padding: 0.75rem 1rem;
-
     border-radius: 12px;
-
     background: var(--bg-alt);
-
     border: 1px solid var(--border);
-
     transition: all 0.3s ease;
-
 }
-
-
-
 .lib-edition:hover {
-
     background: white;
-
     border-color: var(--border-hover);
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-
 }
-
-
-
 .lib-edition-dot {
-
     width: 10px;
-
     height: 10px;
-
     border-radius: 50%;
-
     flex-shrink: 0;
-
 }
-
-
-
 .lib-edition-name {
-
     flex: 1;
-
     font-size: 0.85rem;
-
     font-weight: 600;
-
     color: var(--primary);
-
 }
-
-
-
 .lib-edition-btn {
-
     padding: 0.35rem 0.85rem;
-
     border: 1px solid var(--border);
-
     border-radius: 50px;
-
     background: white;
-
     color: var(--secondary);
-
     font-size: 0.72rem;
-
     font-weight: 700;
-
     cursor: pointer;
-
     transition: all 0.3s ease;
-
     text-decoration: none;
-
 }
-
-
-
 .lib-edition-btn:hover {
-
     background: var(--primary);
-
     color: white;
-
     border-color: var(--primary);
-
 }
-
-
-
 /* Empty State */
-
 .lib-empty {
-
     grid-column: 1 / -1;
-
     text-align: center;
-
     padding: 4rem 2rem;
-
     background: white;
-
     border: 2px dashed var(--border);
-
     border-radius: var(--radius-lg);
-
 }
-
-
-
 .lib-empty-icon {
-
     font-size: 3rem;
-
     margin-bottom: 1rem;
-
     opacity: 0.5;
-
 }
-
-
-
 .lib-empty h3 {
-
     font-family: 'Playfair Display', serif;
-
     font-size: 1.5rem;
-
     margin-bottom: 0.5rem;
-
 }
-
-
-
 .lib-empty p {
-
     color: var(--secondary);
-
     margin-bottom: 1.5rem;
-
     max-width: 400px;
-
     margin-left: auto;
-
     margin-right: auto;
-
 }
-
-
-
 .lib-empty-btn {
-
     display: inline-block;
-
     padding: 0.75rem 2rem;
-
     background: var(--primary);
-
     color: white;
-
     border-radius: 50px;
-
     font-weight: 700;
-
     text-decoration: none;
-
     transition: all 0.3s ease;
-
 }
-
-
-
 .lib-empty-btn:hover {
-
     background: #1E293B;
-
     transform: translateY(-2px);
-
     box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
-
 }
-
-
-
 /* --- Collection Tint Borders for Owned Cards --- */
-
 .lib-card[data-collection="seasonal"].owned {
-
     background: linear-gradient(180deg, #FFFBF0 0%, #FFFFFF 40%);
-
     border-color: rgba(245, 166, 35, 0.2);
-
 }
-
-
-
 .lib-card[data-collection="nature"].owned {
-
     background: linear-gradient(180deg, #F7FBF2 0%, #FFFFFF 40%);
-
     border-color: rgba(99, 153, 34, 0.2);
-
 }
-
-
-
 .lib-card[data-collection="botanical"].owned {
-
     background: linear-gradient(180deg, #F2FBF7 0%, #FFFFFF 40%);
-
     border-color: rgba(93, 202, 165, 0.2);
-
 }
-
-
-
 .lib-card[data-collection="cities"].owned {
-
     background: linear-gradient(180deg, #F3F3F8 0%, #FFFFFF 40%);
-
     border-color: rgba(127, 0, 255, 0.15);
-
 }
-
-
-
 /* --- Library Page Footer --- */
-
 .library-footer {
-
     padding: 40px 0;
-
     text-align: center;
-
     border-top: 1px solid var(--border);
-
 }
-
-
-
 .library-footer p {
-
     font-size: 0.85rem;
-
     color: var(--secondary);
-
 }
-
-
-
 /* --- Library Responsive --- */
-
 @media (max-width: 768px) {
-
     .lib-grid {
-
         grid-template-columns: 1fr;
-
     }
-
-
-
     .code-entry-wrapper {
-
         position: relative;
-
         top: 0;
-
         right: 0;
-
         justify-content: center;
-
         margin-bottom: 1.5rem;
-
         padding: 0 1.5rem;
-
     }
-
-
-
     .code-entry-input {
-
         width: 160px;
-
     }
-
-
-
     .code-entry-input:focus {
-
         width: 180px;
-
     }
-
-
-
     .code-feedback {
-
         right: auto;
-
         left: 50%;
-
         transform: translateX(-50%) translateY(-4px);
-
     }
-
-
-
     .code-feedback.show {
-
         transform: translateX(-50%) translateY(0);
-
     }
-
-
-
 }
-
-
-
 /* --- EMOJI TO SVG MIGRATION STYLES --- */
-
 .lucide {
-
     stroke-width: 1.75px;
-
     width: 20px;
-
     height: 20px;
-
     display: inline-block;
-
     vertical-align: middle;
-
 }
-
-
-
 /* Inline Custom SVGs for Collection Emblems & Icons */
-
 .svg-icon {
-
     display: inline-block;
-
     vertical-align: middle;
-
     fill: none;
-
     stroke: currentColor;
-
     stroke-width: 1.75px;
-
     stroke-linecap: round;
-
     stroke-linejoin: round;
-
     transition: transform 0.3s ease, stroke 0.3s ease;
-
 }
-
-
-
 /* Premium Emoji SVGs */
-
 .emoji-svg {
-
     display: inline-block;
-
     vertical-align: middle;
-
     transition: transform 0.3s ease;
-
 }
-
-
-
 /* Specific Sizes */
-
 .svg-lg {
-
     width: 44px;
-
     height: 44px;
-
 }
-
-
-
 .svg-md {
-
     width: 24px;
-
     height: 24px;
-
 }
-
-
-
 .svg-sm {
-
     width: 18px;
-
     height: 18px;
-
 }
-
-
-
 /* Micro-Animations & Hover Effects */
-
 .spin-slow {
-
     animation: spin-loop 25s linear infinite;
-
     transform-origin: center;
-
 }
-
-
-
 @keyframes spin-loop {
-
     from {
-
         transform: rotate(0deg);
-
     }
-
-
-
     to {
-
         transform: rotate(360deg);
-
     }
-
 }
-
-
-
 .pulse-subtle {
-
     animation: pulse-loop 3s ease-in-out infinite;
-
     transform-origin: center;
-
 }
-
-
-
 @keyframes pulse-loop {
-
-
-
     0%,
-
     100% {
-
         transform: scale(1);
-
         opacity: 1;
-
     }
-
-
-
     50% {
-
         transform: scale(1.08);
-
         opacity: 0.9;
-
     }
-
 }
-
-
-
 .float-subtle {
-
     animation: float-loop 4s ease-in-out infinite;
-
 }
-
-
-
 @keyframes float-loop {
-
-
-
     0%,
-
     100% {
-
         transform: translateY(0);
-
     }
-
-
-
     50% {
-
         transform: translateY(-4px);
-
     }
-
 }
-
-
-
 .sway-subtle {
-
     animation: sway-loop 4s ease-in-out infinite;
-
     transform-origin: bottom center;
-
 }
-
-
-
 @keyframes sway-loop {
-
-
-
     0%,
-
     100% {
-
         transform: rotate(0deg);
-
     }
-
-
-
     50% {
-
         transform: rotate(8deg);
-
     }
-
 }
-
-
-
 /* Hover-triggered animations */
-
 .coll-card:hover .coll-icon .spin-slow {
-
     animation-duration: 4s;
-
     /* Speed up sun on card hover */
-
 }
-
-
-
 .coll-card:hover .coll-icon .pulse-subtle {
-
     animation-duration: 1.5s;
-
     /* Intensify flower breathe */
-
 }
-
-
-
 .coll-card:hover .coll-icon .sway-subtle {
-
     transform: rotate(12deg) scale(1.05);
-
 }
-
-
-
 .coll-card:hover .coll-icon .float-subtle {
-
     transform: translateY(-6px);
-
 }
-
-
-
-
-
 /* Locked state for library emojis */
-
 .planner-card:not(.owned) .emoji-svg {
-
     filter: grayscale(1) opacity(0.5);
-
 }
-
-
-
-
-
 /* Hollowed-out Checkout Remove Button (Batch 3) */
-
 .remove-item-btn {
-
     background: none;
-
     border: none;
-
     padding: 6px;
-
     color: var(--secondary);
-
     cursor: pointer;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     border-radius: 50%;
-
     transition: all 0.3s ease;
-
     opacity: 0.6;
-
 }
-
-
-
 .remove-item-btn:hover {
-
     color: #DC2626;
-
     background: rgba(220, 38, 38, 0.08);
-
     opacity: 1;
-
     filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.5));
-
 }
-
-
-
 .remove-item-btn svg,
-
 .remove-item-btn i {
-
     width: 16px;
-
     height: 16px;
-
 }
-
-
-
 /* Page Transition Fades (Batch 4) */
-
 body {
-
     opacity: 0;
-
     animation: pageFadeIn 0.4s ease-out forwards;
-
 }
-
-
-
 @keyframes pageFadeIn {
-
     from {
-
         opacity: 0;
-
     }
-
-
-
     to {
-
         opacity: 1;
-
     }
-
 }
-
-
-
 /* Shop Category Transitions (Batch 4) */
-
 .ed-detail,
-
 .price-card,
-
 .bundle-banner,
-
 .compare-wrap {
-
     animation: shopFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
 }
-
-
-
 @keyframes shopFadeIn {
-
     from {
-
         opacity: 0;
-
         transform: translateY(8px);
-
     }
-
-
-
     to {
-
         opacity: 1;
-
         transform: translateY(0);
-
     }
-
 }
-
-
-
 /* Supabase Elements and Widget Hover Scales/Glows (Batch 4) */
-
 .nav-profile-wrap,
-
 #syncLibraryBtn,
-
 .mini-widget,
-
 .nav-cart-btn {
-
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-
 }
-
-
-
 .nav-profile-wrap:hover,
-
 #syncLibraryBtn:hover,
-
 .mini-widget:hover,
-
 .nav-cart-btn:hover {
-
     transform: scale(1.03);
-
     filter: drop-shadow(0 4px 12px rgba(186, 117, 23, 0.15));
-
 }
-
-
-
 /* Checkout Page Grid Responsiveness */
-
 @media (max-width: 768px) {
-
     #checkout-grid-container {
-
         grid-template-columns: 1fr !important;
-
         gap: 1.5rem !important;
-
     }
-
 }
-
-
-
-
-
 /* Sun Glow / Eucalyptus Glow on Collection Card Hover */
-
 .coll-card .coll-icon img {
-
     transition: filter 0.3s ease, transform 0.3s ease;
-
 }
-
-
-
 .coll-card[data-tint="seasonal"]:hover .coll-icon img {
-
     filter: drop-shadow(0 0 15px rgba(245, 166, 35, 0.85));
-
     transform: scale(1.1);
-
 }
-
-
-
 .coll-card[data-tint="botanical"]:hover .coll-icon img {
-
     filter: drop-shadow(0 0 15px rgba(5, 150, 105, 0.85));
-
     transform: scale(1.1) rotate(5deg);
-
 }
-
-
-
 /* --- Shop Page Lifestyle Collage Background --- */
-
 .shop-page {
-
     position: relative;
-
     z-index: 1;
-
     overflow: hidden;
-
     /* Prevents overflow from background imagery */
-
 }
-
-
-
 .shop-lifestyle-bg {
-
     position: absolute;
-
     top: 120px; /* Offset below the header */
-
     bottom: 80px; /* End right at the bottom of the last planner section */
-
     left: 0;
-
     width: 100%;
-
     z-index: -1;
-
     pointer-events: none; /* Allows clicks to pass through to buttons/cards */
-
     opacity: 0.6; /* Configured as requested */
-
     transition: opacity 0.4s ease;
-
-    
-
     /* GPU Hardware Acceleration to solve scroll lag */
-
     will-change: transform;
-
     transform: translateZ(0);
-
     -webkit-transform: translateZ(0);
-
-    
-
     /* iOS WebKit Safari rendering optimizations for iPads & iPhones */
-
     -webkit-backface-visibility: hidden;
-
     backface-visibility: hidden;
-
     -webkit-perspective: 1000;
-
     perspective: 1000;
-
-    
-
     /* Background Image settings */
-
     background-image: url('https://xjycpbvtyzqmmoatqsxq.supabase.co/storage/v1/object/public/website-backgrounds/shop_lifestyle_bg.webp');
-
     background-size: 1600px auto; 
-
     background-position: center top;
-
     background-repeat: no-repeat;
-
     background-attachment: scroll;
-
-    
-
     /* Smooth feather fade at the top and bottom of the scrolling canvas */
-
     mask-image: linear-gradient(
-
         to bottom, 
-
         transparent 0%, 
-
         black 10%, 
-
         black 90%, 
-
         transparent 100%
-
     );
-
     -webkit-mask-image: linear-gradient(
-
         to bottom, 
-
         transparent 0%, 
-
         black 10%, 
-
         black 90%, 
-
         transparent 100%
-
     );
-
 }
-
-
-
 /* Mobile & Tablet Optimizations for iPads/iPhones */
-
 @media (max-width: 1024px) {
-
     .shop-lifestyle-bg {
-
         background-size: 100% auto; /* Scales down automatically on smaller viewports */
-
         opacity: 0.5; /* Slightly lighter on mobile for better text contrast */
-
     }
-
 }</style>
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -5614,7 +2636,6 @@ body {
 </style>
         <link rel="icon" href="plannit-logo-mark.png" type="image/png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
     <style>
         /* Plannit Makeover Sandbox Styling */
         :root {
@@ -5626,7 +2647,6 @@ body {
             --copper: #C86B45;
             --forest: #223C2B;
             --border-soft: #D4CFC3;
-
             /* Legacy variable names kept so existing component CSS re-skins automatically */
             --primary: var(--copper);
             --accent: var(--copper);
@@ -5645,14 +2665,12 @@ body {
             --shadow-sm: 0 4px 20px rgba(43, 43, 43, 0.06);
             --shadow-md: 0 10px 30px rgba(43, 43, 43, 0.08);
         }
-
         body {
             background-color: var(--white) !important;
             font-family: 'Inter', sans-serif !important;
             color: var(--charcoal) !important;
             position: relative;
         }
-
         /* Typography */
         h1,
         h2,
@@ -5668,14 +2686,12 @@ body {
             font-family: 'Cormorant Garamond', Georgia, serif !important;
             font-weight: 600 !important;
         }
-
         /* Navbar */
         nav {
             background: rgba(255, 255, 255, 0.9) !important;
             backdrop-filter: blur(12px) !important;
             border-bottom: 1px solid var(--border-soft) !important;
         }
-
         /* Hero CTA Button (capsule) */
         .hero-cta-btn {
             display: inline-block !important;
@@ -5690,14 +2706,12 @@ body {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
             border: 1px solid var(--forest) !important;
         }
-
         .hero-cta-btn:hover {
             background: #1a3022 !important;
             transform: translateY(-4px) !important;
             box-shadow: 0 12px 30px rgba(34, 60, 43, 0.26) !important;
             border-color: #1a3022 !important;
         }
-
         /* Hero secondary CTA (text link) */
         .hero-cta-link {
             display: inline-flex !important;
@@ -5710,11 +2724,9 @@ body {
             border-bottom: 1px solid transparent;
             transition: border-color 0.2s ease;
         }
-
         .hero-cta-link:hover {
             border-bottom-color: var(--copper);
         }
-
         /* Hero Tagline Copper Accent */
         .hero-tagline {
             display: inline-block !important;
@@ -5727,22 +2739,18 @@ body {
             font-weight: 500 !important;
             border: none !important;
         }
-
         /* Floating Dashboard Widgets */
         .hero-image-column {
             position: relative;
             height: 520px;
         }
-
         .hero-main-mockup {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .hero-main-mockup:hover {
             transform: scale(1.02) translateY(-4px);
             box-shadow: 0 25px 60px rgba(139, 126, 106, 0.2) !important;
         }
-
         .hero-floating-widget {
             position: absolute;
             background: rgba(255, 255, 255, 0.88);
@@ -5758,53 +2766,44 @@ body {
             z-index: 10;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .hero-floating-widget:hover {
             transform: translateY(-5px) !important;
             box-shadow: 0 15px 30px rgba(139, 126, 106, 0.16) !important;
             border-color: var(--copper);
         }
-
         .streak-widget {
             top: 15%;
             left: -20px;
             animation: float-slow 4s ease-in-out infinite alternate;
         }
-
         .music-widget {
             bottom: 22%;
             left: 10px;
             border-left: 4.5px solid #10b981;
             animation: float-slow 5s ease-in-out infinite alternate 0.5s;
         }
-
         .coins-widget {
             top: 42%;
             right: -25px;
             animation: float-slow 4.5s ease-in-out infinite alternate 1s;
         }
-
         @keyframes float-slow {
             0% {
                 transform: translateY(0);
             }
-
             100% {
                 transform: translateY(-8px);
             }
         }
-
         .widget-icon {
             font-size: 1.35rem;
             line-height: 1;
         }
-
         .widget-details {
             display: flex;
             flex-direction: column;
             text-align: left;
         }
-
         .widget-title {
             font-size: 0.65rem;
             text-transform: uppercase;
@@ -5813,19 +2812,16 @@ body {
             font-weight: 700;
             margin-bottom: 0.1rem;
         }
-
         .widget-value {
             font-size: 0.88rem;
             font-weight: 800;
             color: var(--charcoal);
         }
-
         /* Overlapping Workspace Photos (File-Cabinet effect) */
         .overlapping-images-container:hover .overlap-card {
             opacity: 0.5;
             transform: scale(0.96) translate(0, 0) !important;
         }
-
         .overlapping-images-container .overlap-card:hover {
             opacity: 1 !important;
             transform: scale(1.04) translateY(-15px) rotate(0deg) !important;
@@ -5833,14 +2829,12 @@ body {
             box-shadow: 0 20px 45px rgba(217, 119, 6, 0.22) !important;
             border-color: var(--copper) !important;
         }
-
         /* Hero Staggered Gallery Hover effect */
         .stagger-box:hover {
             transform: translateY(-10px) !important;
             box-shadow: 0 15px 35px rgba(217, 119, 6, 0.15) !important;
             border-color: var(--copper) !important;
         }
-
         /* Cards & Grid Styling */
         .coll-card,
         .shared-item,
@@ -5853,7 +2847,6 @@ body {
             background: var(--white) !important;
             transition: all 0.3s ease !important;
         }
-
         .coll-card:hover,
         .shared-item:hover,
         .price-card:hover {
@@ -5861,32 +2854,26 @@ body {
             box-shadow: 0 10px 24px rgba(200, 107, 69, 0.12) !important;
             transform: translateY(-4px) !important;
         }
-
         /* Buttons & Badges Override */
         .pricing-badge-card {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-
         .pricing-badge-card:hover {
             transform: translateY(-4px) !important;
             box-shadow: 0 10px 25px rgba(217, 119, 6, 0.1) !important;
             border-color: var(--copper) !important;
         }
-
         .feat-btn {
             box-shadow: 0 4px 12px rgba(139, 126, 106, 0.05) !important;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-
         .feat-btn:hover {
             box-shadow: 0 12px 24px rgba(217, 119, 6, 0.2) !important;
             transform: translateY(-3px) !important;
         }
-
         .feat-btn:active {
             transform: translateY(1px) scale(0.97) !important;
         }
-
                 /* Journey So Far • circular card horizontal scroll timeline */
         .journey {
             background: var(--cream) !important;
@@ -5894,23 +2881,19 @@ body {
             border-top: 1px solid var(--border-soft);
             border-bottom: 1px solid var(--border-soft);
         }
-
         .journey h2,
         .journey .label {
             color: var(--charcoal) !important;
         }
-
         .journey p {
             color: var(--muted) !important;
         }
-
         .rm-wrapper {
             position: relative;
             width: 100%;
             display: flex;
             align-items: center;
         }
-
         .rm-track {
             display: flex;
             gap: 2rem;
@@ -5921,9 +2904,7 @@ body {
             width: 100%;
             scroll-snap-type: x proximity;
         }
-
         .rm-track::-webkit-scrollbar { display: none; }
-
         .rm-node {
             position: relative;
             flex: 0 0 240px;
@@ -5940,12 +2921,10 @@ body {
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             transition: all 0.3s ease;
         }
-
         .rm-node.is-now {
             border-color: var(--copper) !important;
             box-shadow: 0 8px 24px rgba(200, 107, 69, 0.1) !important;
         }
-
         /* Subtle horizontal connecting line between Journey card nodes */
         .rm-node:not(:first-child)::before {
             content: "";
@@ -5957,11 +2936,9 @@ body {
             background: var(--border-soft);
             z-index: 1;
         }
-        
         .rm-node.is-now::before, .rm-node.done::before {
             background: var(--copper);
         }
-
         .rm-marker {
             width: 38px;
             height: 38px;
@@ -5974,12 +2951,10 @@ body {
             font-size: 1.1rem;
             flex-shrink: 0;
         }
-        
         .rm-node:not(.done):not(.is-now) .rm-marker {
             background: rgba(100, 116, 139, 0.08);
             border-color: var(--border-soft);
         }
-
         .rm-status {
             font-size: 0.72rem;
             font-weight: 700;
@@ -5987,11 +2962,9 @@ body {
             text-transform: uppercase;
             color: var(--copper);
         }
-        
         .rm-node:not(.done):not(.is-now) .rm-status {
             color: var(--muted);
         }
-
         .rm-title {
             font-family: 'Cormorant Garamond', Georgia, serif !important;
             font-weight: 600 !important;
@@ -5999,7 +2972,6 @@ body {
             color: var(--charcoal);
             line-height: 1.25;
         }
-
         .rm-nav-btn {
             position: absolute;
             top: 50%;
@@ -6018,17 +2990,13 @@ body {
             z-index: 10;
             transition: all 0.2s ease;
         }
-
         .rm-nav-btn:hover {
             background: var(--cream);
             color: var(--copper);
         }
-
         .rm-nav-btn.prev { left: -20px; }
         .rm-nav-btn.next { right: -20px; }
-
         @media (max-width: 768px) { .rm-nav-btn { display: none; } }
-
         /* Stay in the Loop (white) */
         .community {
             margin-top: 0 !important;
@@ -6038,33 +3006,27 @@ body {
             border-top: none !important;
             border-bottom: none !important;
         }
-
         .community h2 {
             color: var(--charcoal) !important;
         }
-
         .community p {
             color: var(--muted) !important;
         }
-
         .comm-icon-box {
             background: var(--cream) !important;
             border: 1px solid var(--border-soft) !important;
             color: var(--forest) !important;
         }
-
         .comm-icon-box:hover {
             border-color: var(--forest) !important;
             color: var(--forest) !important;
         }
-
         .comm-signup-form {
             display: flex;
             gap: 0.75rem;
             max-width: 440px;
             margin: 0 auto;
         }
-
         .comm-signup-input {
             flex: 1;
             padding: 0.85rem 1.25rem;
@@ -6075,12 +3037,10 @@ body {
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
         }
-
         .comm-signup-input:focus {
             outline: none;
             border-color: var(--forest);
         }
-
         .comm-signup-btn {
             padding: 0.85rem 1.75rem;
             border-radius: 9999px;
@@ -6093,11 +3053,9 @@ body {
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .comm-signup-btn:hover {
             background: #1a3022;
         }
-
         /* Early Access Progress Bar (now lives inside Stay in the Loop) */
         .progress-badge {
             display: inline-block;
@@ -6111,7 +3069,6 @@ body {
             padding: 0.4rem 1rem;
             margin-bottom: 1.25rem;
         }
-
         /* Buttons */
         .coll-btn,
         .price-btn,
@@ -6120,7 +3077,6 @@ body {
             border-radius: 50px !important;
             font-family: 'Inter', sans-serif !important;
         }
-
         /* Featured Product Section styles */
         .featured-product {
             background:
@@ -6132,7 +3088,6 @@ body {
             z-index: 10;
             overflow: hidden;
         }
-
         .featured-product-layout {
             display: flex;
             flex-direction: row-reverse;
@@ -6140,14 +3095,12 @@ body {
             justify-content: space-between;
             gap: 4rem;
         }
-
         .featured-product-info {
             flex: 1;
             max-width: 500px;
             text-align: left;
             padding-left: 1.5rem !important;
         }
-
         .featured-product-info h2 {
             font-size: 2.8rem;
             color: var(--ink) !important;
@@ -6155,21 +3108,18 @@ body {
             margin-bottom: 1.5rem;
             font-weight: 500;
         }
-
         .featured-description {
             color: var(--ink-soft) !important;
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 2rem;
         }
-
         .featured-details {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             margin-bottom: 2rem;
         }
-
         .feat-detail-pill {
             background: var(--cream);
             color: var(--muted);
@@ -6178,30 +3128,25 @@ body {
             font-size: 0.8rem;
             font-weight: 600;
         }
-
         .featured-pricing {
             display: flex;
             align-items: baseline;
             gap: 0.75rem;
         }
-
         .featured-price {
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--charcoal);
         }
-
         .featured-price-period {
             color: var(--muted);
             font-size: 0.9rem;
         }
-
         .featured-product-visual {
             flex: 1.2;
             display: flex;
             justify-content: center;
         }
-
         .featured-img-card {
             background: var(--white);
             border: 1px solid var(--border-soft);
@@ -6210,19 +3155,16 @@ body {
             box-shadow: none;
             max-width: 100%;
         }
-
         .featured-img-card img {
             width: 100%;
             height: auto;
             display: block;
             border-radius: 8px;
         }
-
         /* Collections */
         .collections {
             background: var(--white);
         }
-
         /* Functional Cutouts */
         .features {
             background: var(--cream) !important;
@@ -6230,22 +3172,18 @@ body {
             border-top: 1px solid var(--border-soft) !important;
             padding: 6rem 0 !important;
         }
-
         .features h2,
         .features .section-title,
         .features .feat-title,
         .features .feat-desc {
             color: var(--charcoal) !important;
         }
-
         .features p {
             color: var(--muted) !important;
         }
-
         .features p span {
             color: var(--charcoal) !important;
         }
-
         .feat-cell {
             background: var(--white) !important;
             border: 1px solid var(--border-soft) !important;
@@ -6256,15 +3194,12 @@ body {
             color: var(--charcoal);
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease !important;
         }
-
         /* Gentle paper-cutout tilt that straightens on hover */
         .feat-grid .feat-cell:nth-child(odd) { transform: rotate(-0.6deg); }
         .feat-grid .feat-cell:nth-child(even) { transform: rotate(0.6deg); }
-
         .feat-cell:hover {
             transform: rotate(0deg) translateY(-5px) !important;
         }
-
         /* Themed colour pop per cutout, keyed to its planner edition */
         .feat-cell.widget {
             background: linear-gradient(180deg, #FFF8ED 0%, #FFFFFF 62%) !important;
@@ -6273,7 +3208,6 @@ body {
         }
         .feat-cell.widget:hover { box-shadow: 0 18px 40px rgba(232, 160, 32, 0.26) !important; }
         .feat-cell.widget .feat-label-text { color: #C0871A !important; }
-
         .feat-cell.timetable {
             background: linear-gradient(180deg, #F6F5FF 0%, #FFFFFF 62%) !important;
             border-color: rgba(175, 169, 236, 0.5) !important;
@@ -6281,7 +3215,6 @@ body {
         }
         .feat-cell.timetable:hover { box-shadow: 0 18px 40px rgba(124, 111, 224, 0.28) !important; }
         .feat-cell.timetable .feat-label-text { color: #7C6FE0 !important; }
-
         .feat-cell.timer {
             background: linear-gradient(180deg, #FFF4EC 0%, #FFFFFF 62%) !important;
             border-color: rgba(216, 90, 48, 0.42) !important;
@@ -6289,7 +3222,6 @@ body {
         }
         .feat-cell.timer:hover { box-shadow: 0 18px 40px rgba(216, 90, 48, 0.26) !important; }
         .feat-cell.timer .feat-label-text { color: #D85A30 !important; }
-
         .feat-cell.goals {
             background: linear-gradient(180deg, #F2FBF7 0%, #FFFFFF 62%) !important;
             border-color: rgba(93, 202, 165, 0.5) !important;
@@ -6297,7 +3229,6 @@ body {
         }
         .feat-cell.goals:hover { box-shadow: 0 18px 40px rgba(45, 168, 128, 0.26) !important; }
         .feat-cell.goals .feat-label-text { color: #2DA880 !important; }
-
         /* --- Collections: subtle gold diagonal stripe overlay --- */
         .collections { position: relative; }
         .collections::before {
@@ -6315,7 +3246,6 @@ body {
             );
         }
         .collections .container { position: relative; z-index: 1; }
-
         /* --- Collections: larger rectangular preview panel (was a square emoji) --- */
         .coll-icon {
             display: flex !important;
@@ -6338,7 +3268,6 @@ body {
         .coll-card[data-tint="botanical"] .coll-icon { background: var(--tint-botanical); }
         .coll-card[data-tint="nature"] .coll-icon { background: var(--tint-nature); }
         .coll-card[data-tint="cities"] .coll-icon { background: var(--tint-cities); }
-
         /* --- Featured Planner: purchase options + feature badges --- */
         .fp-buy-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
         .fp-buy {
@@ -6388,25 +3317,20 @@ body {
         .fp-ficon i, .fp-ficon svg { width: 18px; height: 18px; }
         .fp-fname { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--charcoal); line-height: 1.15; }
         .fp-fsub { font-family: 'Inter', sans-serif; font-size: 0.76rem; color: var(--muted); }
-
         /* Journey arrow CSS removed • using rm-nav-btn */
-
         .feat-label-text {
             color: var(--copper) !important;
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
             letter-spacing: 0.04em;
         }
-
         .featured-product .mini-feature-list li {
             color: var(--muted) !important;
         }
-
         .feat-btn-sub {
             border-color: var(--border-soft) !important;
             color: var(--charcoal) !important;
         }
-
         /* Featured planner photos • borderless fan, 16:9 monitor ratio */
         .overlap-card {
             background: var(--white) !important;
@@ -6426,7 +3350,6 @@ body {
         .overlap-card.card-1 { top: 0% !important;  left: 0% !important;  transform: rotate(-4deg) !important; z-index: 3 !important; }
         .overlap-card.card-2 { top: 20% !important; left: 17% !important; transform: rotate(1deg) !important;  z-index: 2 !important; }
         .overlap-card.card-3 { top: 40% !important; left: 34% !important; transform: rotate(5deg) !important;  z-index: 1 !important; }
-
         /* Reviews • light-mode tone, forest-bordered box, horizontal scroll */
         .reviews {
             background: var(--white) !important;
@@ -6434,11 +3357,9 @@ body {
             border-top: 1px solid var(--border-soft) !important;
             padding: 6rem 0 !important;
         }
-
         .reviews h2 {
             color: var(--charcoal) !important;
         }
-
         .reviews h2::after {
             content: "";
             display: block;
@@ -6448,14 +3369,12 @@ body {
             opacity: 0.6;
             margin: 1rem auto 0;
         }
-
         .reviews-grid {
             display: grid !important;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             align-items: stretch;
         }
-
         .review-card {
             background: var(--white) !important;
             border: 1px solid var(--forest) !important;
@@ -6466,38 +3385,31 @@ body {
             display: flex;
             flex-direction: column;
         }
-
         /* Pin reviewer name/role to the bottom so every card shares one baseline */
         .review-card .review-name {
             margin-top: auto;
         }
-
         .review-text {
             color: var(--muted) !important;
         }
-
         .review-name {
             color: var(--copper) !important;
         }
-
         .review-role {
             color: var(--ink-soft) !important;
             opacity: 0.75;
         }
-
         /* Shared Features styles */
         .shared-features {
             padding: 6rem 0;
             background: #faf8f5;
             border-top: 1px solid #e5e0d8;
         }
-
         /* Pricing Section */
         .pricing {
             padding: 6rem 0;
             background: #faf8f5;
         }
-
         /* Responsive adjustments */
         @media (max-width: 991px) {
             .featured-product-layout {
@@ -6505,35 +3417,28 @@ body {
                 gap: 2.5rem;
                 text-align: center;
             }
-
             .featured-product-info {
                 max-width: 100%;
                 padding-left: 0 !important;
             }
-
             .featured-details {
                 justify-content: center;
             }
-
             .featured-pricing {
                 justify-content: center;
             }
-
             .coll-grid {
                 grid-template-columns: 1fr !important;
             }
-
             .comm-signup-form {
                 flex-direction: column;
             }
         }
-
         /* Navbar Font overrides */
         .nav-links a {
             color: var(--charcoal) !important;
             font-weight: 500;
         }
-
         .nav-links a.nav-shop {
             background: var(--forest) !important;
             color: var(--white) !important;
@@ -6544,62 +3449,51 @@ body {
             transition: all 0.3s ease;
             border: none !important;
         }
-
         .nav-links a.nav-shop:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(34, 60, 43, 0.26);
         }
-
         /* Stay in the loop size adjustments */
         .community h2 {
             font-size: 2.8rem !important;
             margin-bottom: 1rem !important;
         }
-
         .community p {
             font-size: 1.1rem !important;
             margin-bottom: 2rem !important;
         }
-
         .comm-icons {
             gap: 1.5rem !important;
             margin-bottom: 2.5rem !important;
         }
-
         .comm-icon-box {
             width: 56px !important;
             height: 56px !important;
             border-radius: 50% !important;
         }
-
         .comm-icon-box svg {
             width: 24px !important;
             height: 24px !important;
         }
-
         .early-access-counter {
             max-width: 480px !important;
             margin: 0 auto !important;
         }
-
         .counter-header {
             font-size: 1rem !important;
             margin-bottom: 0.75rem !important;
             color: var(--charcoal) !important;
         }
-
         .counter-progress-bar {
             height: 14px !important;
             border-radius: 9999px !important;
             background: var(--white) !important;
             border: 1px solid var(--border-soft) !important;
         }
-
         .counter-progress-fill {
             border-radius: 9999px !important;
             background: var(--copper) !important;
         }
-
         .live-dot {
             background: var(--copper) !important;
         }
@@ -6634,12 +3528,10 @@ body {
             font-weight: 700 !important;
             font-size: 1.35rem !important;
         }
-
         .logo span, .logo-text {
             display: inline-block !important;
             transform: translateY(2px) !important;
         }
-
         .nav-cart-btn {
             cursor: pointer !important;
             position: relative !important;
@@ -6655,14 +3547,12 @@ body {
             color: #D97706 !important;
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.12) !important;
         }
-
         .nav-cart-btn:hover {
             transform: translateY(-2px) scale(1.05) !important;
             background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.8)) !important;
             border-color: rgba(245, 158, 11, 0.5) !important;
             box-shadow: 0 6px 16px rgba(245, 158, 11, 0.28) !important;
         }
-
         .nav-profile-btn {
             cursor: pointer !important;
             position: relative !important;
@@ -6679,14 +3569,12 @@ body {
             text-decoration: none !important;
             box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12) !important;
         }
-
         .nav-profile-btn:hover {
             transform: translateY(-2px) scale(1.05) !important;
             background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.8)) !important;
             border-color: rgba(245, 158, 11, 0.5) !important;
             box-shadow: 0 6px 16px rgba(180, 83, 9, 0.28) !important;
         }
-
         .nav-shop {
             background: linear-gradient(135deg, #D97706, #B45309) !important;
             color: #FFFFFF !important;
@@ -6697,17 +3585,14 @@ body {
             box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28) !important;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-
         .nav-shop:hover {
             transform: translateY(-2px) scale(1.03) !important;
             box-shadow: 0 6px 20px rgba(217, 119, 6, 0.42) !important;
         }
-
         /* Gold Standard Micro-Animations & Alive Hover Effects */
         .planner-card, .collection-card, .feature-card, .redeem-box {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-
         .planner-card:hover, .collection-card:hover {
             transform: translateY(-4px) scale(1.01) !important;
             box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 0 20px rgba(217, 119, 6, 0.12) !important;
@@ -6724,12 +3609,10 @@ body {
             font-weight: 700 !important;
             font-size: 1.35rem !important;
         }
-
         .logo span, .logo-text {
             display: inline-block !important;
             transform: translateY(2px) !important;
         }
-
         /* 1. Shop Button - Vibrant Emerald Green Commerce Pill */
         .nav-shop {
             background: linear-gradient(135deg, #059669, #047857) !important;
@@ -6744,13 +3627,11 @@ body {
             align-items: center !important;
             gap: 6px !important;
         }
-
         .nav-shop:hover {
             transform: translateY(-2px) scale(1.03) !important;
             box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4) !important;
             background: linear-gradient(135deg, #10B981, #059669) !important;
         }
-
         /* 2. Library Button - Deep Indigo Royal Vault Pill */
         .nav-links a[href*="library.html"] {
             color: #4F46E5 !important;
@@ -6764,14 +3645,12 @@ body {
             align-items: center !important;
             gap: 6px !important;
         }
-
         .nav-links a[href*="library.html"]:hover {
             background: rgba(79, 70, 229, 0.15) !important;
             border-color: rgba(79, 70, 229, 0.35) !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.18) !important;
         }
-
         /* 3. Basket / Cart Button - Warm Sunset Coral Icon Circle */
         .nav-cart-btn {
             cursor: pointer !important;
@@ -6788,14 +3667,12 @@ body {
             color: #EA580C !important;
             box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12) !important;
         }
-
         .nav-cart-btn:hover {
             transform: translateY(-2px) scale(1.05) !important;
             background: linear-gradient(135deg, rgba(255, 237, 213, 1), rgba(254, 215, 170, 0.9)) !important;
             border-color: rgba(234, 88, 12, 0.5) !important;
             box-shadow: 0 6px 16px rgba(234, 88, 12, 0.28) !important;
         }
-
         /* 4. Profile / Account Button - Slate & Charcoal Premium Circle */
         .nav-profile-btn {
             cursor: pointer !important;
@@ -6813,7 +3690,6 @@ body {
             text-decoration: none !important;
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
         }
-
         .nav-profile-btn:hover {
             transform: translateY(-2px) scale(1.05) !important;
             background: linear-gradient(135deg, #0F172A, #1E293B) !important;
@@ -6840,14 +3716,12 @@ body {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
             box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
         }
-
         .btn-view-planner:hover, .btn-outline-cta:hover {
             background: #0F172A !important;
             color: #FFFFFF !important;
             transform: translateY(-2px) scale(1.02) !important;
             box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2) !important;
         }
-
         /* 1-Click Frictionless Checkout CTAs */
         .btn-direct-checkout {
             background: linear-gradient(135deg, #059669, #047857) !important;
@@ -6862,7 +3736,6 @@ body {
             box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3) !important;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-
         .btn-direct-checkout:hover {
             transform: translateY(-2px) scale(1.03) !important;
             box-shadow: 0 8px 22px rgba(5, 150, 105, 0.45) !important;
@@ -6913,9 +3786,7 @@ body {
   })();
 </script>
 </head>
-
 <body>
-
     <!-- Sticky Navigation -->
     <nav>
         <div class="container">
@@ -6926,7 +3797,6 @@ body {
                 <a href="#roadmap">Roadmap</a>
                 <a href="#community">Community</a>
                 <a href="library.html" style="color: #BA7517; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">Library <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key" style="display: inline-block; vertical-align: middle;"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4.1a1 1 0 0 0-1.4 0l-2.1 2.1a1 1 0 0 0 0 1.4z"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="16.5" r="4.5"/></svg></a>
-
                 <!-- Basket Icon -->
                 <div class="nav-cart-btn" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -6936,12 +3806,10 @@ body {
                     </svg>
                     <span class="cart-badge" style="position: absolute; top: -5px; right: -5px; background: #BA7517; color: white; font-size: 0.7rem; font-weight: 700; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: none;">0</span>
                 </div>
-
                 <a href="shop.html" class="nav-shop">Shop</a>
             </div>
         </div>
     </nav>
-
     <main>
         <!-- 01 • Hero -->
         <header class="hero" style="background: var(--white);">
@@ -6958,7 +3826,6 @@ body {
                         <a href="#collections" class="hero-cta-link">See the collections →</a>
                     </div>
                 </div>
-
                 <div class="hero-image-column" style="flex: 1.5; display: flex; justify-content: flex-end; align-items: center; position: relative; padding-bottom: 50px;">
                     <!-- Exact Layout Grid from Attached Image (30% larger, shifted right and down) -->
                     <div class="hero-image-grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; row-gap: 2rem; width: 740px; max-width: 880px; align-items: stretch; position: relative; margin-left: auto; margin-right: -50px; margin-top: 50px;">
@@ -6966,13 +3833,11 @@ body {
                         <div class="hero-box-card main-today-box" style="position: relative; border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.85); background: #ffffff; box-shadow: 0 15px 35px rgba(139,126,106,0.1); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; height: 460px; transition: all 0.3s ease;">
                             <!-- Image background -->
                             <img src="at_desk_lamp_daily.jpg" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; z-index:1;" alt="Today Mockup">
-
                             <!-- Header labels -->
                             <div style="position: relative; z-index: 2; display: flex; justify-content: space-between; padding: 1rem; width: 100%; box-sizing: border-box;">
                                 <span style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--charcoal); display: inline-flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; background: #27500a; border-radius: 50%;"></span>Today</span>
                                 <span style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--charcoal);">14:53</span>
                             </div>
-
                             <!-- Bottom Focus Streak Widget -->
                             <div style="position: relative; z-index: 2; margin: 0 1rem 1rem 1rem; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(6px); border-radius: 14px; padding: 0.8rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; color: #8b7e6a;">
@@ -7005,7 +3870,6 @@ body {
                                 </div>
                             </div>
                         </div>
-
                         <!-- Absolute Overlapping Widgets -->
                         <!-- Streak Tracker Widget -->
                         <div style="position: absolute; top: 35px; left: -75px; z-index: 15; background: #faf8f5; border: 1px solid #e5e0d8; border-radius: 16px; padding: 0.75rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 8px 25px rgba(139,126,106,0.08); width: 200px; box-sizing: border-box;">
@@ -7068,9 +3932,7 @@ body {
                     </div>
                 </div>
             </div>
-            
         </header>
-
         <!-- 01.5 • Featured Product -->
         <section class="featured-product" id="featured-product">
             <!-- Gold ribbon hanging on the edge of the featured-product container -->
@@ -7109,7 +3971,6 @@ body {
                             Warm golds, bright icons, and sunrise tones. Designed to keep you energised, focused, and
                             organized through long productive days.
                         </p>
-
                         <!-- Purchase options -->
                         <div class="fp-buy-row">
                             <a href="shop.html?product=summer-sun&amp;plan=onetime" class="fp-buy fp-buy-once">
@@ -7122,10 +3983,8 @@ body {
                                 <span class="fp-buy-price">£2.49<span class="fp-buy-per">/mo</span></span>
                             </a>
                         </div>
-
                         <!-- Secondary: view details -->
                         <a href="shop.html?product=summer-sun" class="fp-view">View the planner →</a>
-
                         <!-- What's included -->
                         <div class="fp-features">
                             <div class="fp-feature">
@@ -7169,7 +4028,6 @@ body {
                 </div>
             </div>
         </section>
-
         <!-- 02 • Collections Grid -->
         <section class="collections" id="collections" style="transition: background-color 0.4s ease, box-shadow 0.4s ease;">
             <!-- Watercolor & Neon Ambient Glow Corners -->
@@ -7177,7 +4035,6 @@ body {
             <div class="collections-glow-spot tr"></div>
             <div class="collections-glow-spot bl"></div>
             <div class="collections-glow-spot br"></div>
-
             <div class="container">
                 <div class="label">02 • Choose your collection</div>
                 <div style="margin-bottom: 3rem;">
@@ -7206,7 +4063,6 @@ body {
                         </div>
                         <button class="coll-btn" style="margin-top: 1.5rem;">Shop collection</button>
                     </a>
-
                     <!-- Botanical -->
                     <a href="shop.html?collection=botanical" class="coll-card" data-tint="botanical">
                         <span class="coll-icon"><img src="emojis/eucalyptus.svg" class="emoji-svg svg-lg sway-subtle" alt="Eucalyptus" style="width: 48px; height: 48px; color: #059669;"></span>
@@ -7227,7 +4083,6 @@ body {
                         </p>
                         <button class="coll-btn">Concept Preview</button>
                     </a>
-
                     <!-- Nature -->
                     <a href="shop.html?collection=nature" class="coll-card" data-tint="nature">
                         <span class="coll-icon"><svg class="svg-icon svg-lg float-subtle" viewBox="0 0 24 24">
@@ -7260,7 +4115,6 @@ body {
                         <p style="font-size: 0.9rem; font-weight: 700; margin-top: 1rem; color: #639922;">Planned</p>
                         <button class="coll-btn">Concept Preview</button>
                     </a>
-
                     <!-- Capital Cities -->
                     <a href="shop.html?collection=cities" class="coll-card disabled" data-tint="cities" style="border-style: dashed; opacity: 0.9; border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 0 15px rgba(0, 242, 254, 0.05);">
                         <span class="coll-icon" style="filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6));"><svg class="svg-icon svg-lg float-subtle" viewBox="0 0 24 24">
@@ -7297,7 +4151,6 @@ body {
                 </div>
             </div>
         </section>
-
         <!-- 03 • Interactive Feature Showcase -->
         <section class="features" id="features">
             <div class="container">
@@ -7344,7 +4197,6 @@ body {
                             </div>
                         </div>
                     </div>
-
                     <!-- Focus Timer -->
                     <div class="feat-cell timer">
                         <div class="feat-header">
@@ -7370,7 +4222,6 @@ body {
                             </div>
                         </div>
                     </div>
-
                     <!-- Widgets -->
                     <div class="feat-cell widget">
                         <div class="feat-header">
@@ -7384,7 +4235,6 @@ body {
                                         WIDGETS</span>
                                     <span style="display: flex; align-items: center; opacity: 0.5;"><i data-lucide="settings" class="lucide" style="width: 14px; height: 14px;"></i></span>
                                 </div>
-
                                 <!-- Clock -->
                                 <div class="mini-widget">
                                     <span class="mini-widget-icon float-anim"><svg class="svg-icon svg-md spin-slow" viewBox="0 0 24 24">
@@ -7394,7 +4244,6 @@ body {
                                     <span class="mini-widget-label">Current Time</span>
                                     <span class="mini-widget-val" id="app-clock" style="font-size: 1.2rem;">12:00</span>
                                 </div>
-
                                 <!-- Spotify (Production Layout) -->
                                 <div class="mini-widget widget-spotify">
                                     <div class="spotify-art" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="headphones" class="lucide" style="width: 20px; height: 20px; color: #1DB954;"></i></div>
@@ -7408,7 +4257,6 @@ body {
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Streak -->
                                 <div class="mini-widget">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -7421,7 +4269,6 @@ body {
                             </div>
                         </div>
                     </div>
-
                     <!-- Timetable -->
                     <div class="feat-cell timetable">
                         <div class="feat-header">
@@ -7476,7 +4323,6 @@ body {
                 </div>
             </div>
         </section>
-
         <!-- 04 • Reviews -->
         <section class="reviews scroll-fade" id="reviews" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 45px 0; position: relative;">
             <div class="container">
@@ -7488,23 +4334,19 @@ body {
                         * Note: Reviews below are pre-release placeholder samples for beta demonstration.
                     </span>
                 </div>
-
                 <!-- Smooth Horizontal Wheel Carousel Track -->
                 <div style="position: relative; margin-bottom: 2rem; overflow: hidden; padding: 10px 0;">
                     <!-- Carousel Left/Right Nav Buttons -->
                     <button onclick="scrollReviewWheel(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--charcoal); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">‹</button>
                     <button onclick="scrollReviewWheel(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--charcoal); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">›</button>
-
                     <div id="reviewsGridContainer" style="display: flex; gap: 1.5rem; overflow-x: auto; scroll-behavior: smooth; padding: 10px 20px; scrollbar-width: none; -ms-overflow-style: none;">
                         <style>#reviewsGridContainer::-webkit-scrollbar { display: none; }</style>
-
                         <!-- Special Action Card: Add Your Review Direct in Track -->
                         <div onclick="openLeaveReviewModal()" class="review-card" style="flex: 0 0 300px; width: 300px; background: linear-gradient(135deg, rgba(232,160,32,0.08), rgba(245,158,11,0.04)); border: 2px dashed rgba(232, 160, 32, 0.4); border-radius: 16px; padding: 1.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#E8A020';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(232, 160, 32, 0.4)';">
                             <div style="width: 48px; height: 48px; border-radius: 50%; background: #0F172A; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">✍️</div>
                             <strong style="font-size: 1.05rem; color: var(--charcoal); margin-bottom: 4px; font-weight: 700;">Share Your Experience</strong>
                             <p style="font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.4;">Tap to post your feedback directly into this row.</p>
                         </div>
-
                         <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
                             <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
                             <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The setup is so easy to get started, I can start studying immediately."</p>
@@ -7516,7 +4358,6 @@ body {
                                 <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(55,138,221,0.08); color: #378ADD; border-radius: 10px; font-weight: 600;">Autumn Ember Edition</span>
                             </div>
                         </div>
-
                         <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
                             <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★★</div>
                             <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"I love the wallpapers on this, they really help keep me zoned in."</p>
@@ -7528,7 +4369,6 @@ body {
                                 <span style="font-size: 0.7rem; padding: 3px 8px; background: rgba(34,197,94,0.08); color: #16A34A; border-radius: 10px; font-weight: 600;">Summer Sun Edition</span>
                             </div>
                         </div>
-
                         <div class="review-card" style="flex: 0 0 320px; width: 320px; background: var(--white); border: 1px solid var(--border-soft); border-radius: 16px; padding: 1.75rem; box-shadow: 0 4px 18px rgba(0,0,0,0.025); transition: transform 0.2s, box-shadow 0.2s;">
                             <div class="review-stars" style="color: #E8A020; font-size: 1.05rem; margin-bottom: 0.6rem;">★★★★☆</div>
                             <p class="review-text" style="font-size: 0.92rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1.1rem;">"The layout and UI is super simple and appealing. The Pomodoro timer is so intuitive."</p>
@@ -7542,7 +4382,6 @@ body {
                         </div>
                     </div>
                 </div>
-
                 <!-- Add Review Button -->
                 <div style="text-align: center;">
                     <button onclick="openLeaveReviewModal()" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px; background: var(--charcoal); color: var(--white); border: none; border-radius: 30px; font-weight: 600; font-size: 0.88rem; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.08); transition: all 0.2s;">
@@ -7551,63 +4390,54 @@ body {
                 </div>
             </div>
         </section>
-
         <!-- 05 • Journey So Far / Release Roadmap -->
         <section class="roadmap scroll-fade" id="roadmap" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 50px 0; background: var(--bg-alt); width: 100%;">
             <div style="max-width: 1400px; margin: 0 auto; padding: 0 1.5rem;">
                 <div class="label" style="margin-bottom: 0.25rem;">05 • Journey So Far & Roadmap</div>
                 <h2 style="font-size: 1.95rem; color: var(--charcoal); margin-bottom: 0.35rem; font-weight: 600;">Release Timeline.</h2>
                 <p style="color: var(--muted); margin-bottom: 2rem; max-width: 600px; font-size: 0.9rem;">Track our exact progress from initial beta release to official commercial launch and free trials handout.</p>
-
                 <!-- Full Width Horizontal Scroll Track -->
                 <div class="rm-full-container" style="position: relative; width: 100%; overflow-x: auto; padding: 25px 10px 35px 10px; scrollbar-width: thin;">
                     <div class="rm-full-track" style="display: flex; align-items: flex-start; min-width: 1280px; justify-content: space-between; position: relative; padding-top: 0;">
                         <!-- Perfectly Level Continuous Track Line Slicing Through 60px Circle Centers -->
                         <div style="position: absolute; top: 30px; left: 60px; right: 60px; height: 3px; background: #CBD5E1; z-index: 1; transform: translateY(-50%); margin: 0;"></div>
                         <div style="position: absolute; top: 30px; left: 60px; width: calc(85.7% - 50px); height: 3px; background: linear-gradient(90deg, #10B981 0%, #2563EB 30%, #9333EA 50%, #EA580C 70%, #10B981 85%, #E8A020 100%); z-index: 2; transform: translateY(-50%); margin: 0;"></div>
-
                         <!-- 1. First Edition Summer Planner -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #DCFCE7; border: 2.5px solid #10B981; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(16,185,129,0.18);">🍉</div>
                             <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #10B981; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">Completed</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">First Edition Summer Planner</div>
                         </div>
-
                         <!-- 2. Website Early Launch (Beta) -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #DBEAFE; border: 2.5px solid #2563EB; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(37,99,235,0.18);">💻</div>
                             <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #2563EB; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">Completed</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">Website Early Launch (Beta)</div>
                         </div>
-
                         <!-- 3. Instagram & Pinterest Launch -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #F3E8FF; border: 2.5px solid #9333EA; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(147,51,234,0.18);">📱</div>
                             <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #9333EA; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">Completed</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">Instagram & Pinterest Launch</div>
                         </div>
-
                         <!-- 4. Seasonal Collection Beta Release -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #FFEDD5; border: 2.5px solid #EA580C; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(234,88,12,0.18);">🍂</div>
                             <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #EA580C; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">Completed</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">Seasonal Collection Beta Release</div>
                         </div>
-
                         <!-- 5. Account Creation Available -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #DCFCE7; border: 2.5px solid #10B981; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(16,185,129,0.18);">🔑</div>
                             <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #10B981; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">Completed</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">Account Creation Available</div>
                         </div>
-
                         <!-- 6. Seasonal Collection Full Release (NOW) -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #FEF3C7; border: 3px solid #E8A020; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem; box-shadow: 0 0 0 6px rgba(232,160,32,0.22);">🚀</div>
                             <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #BA7517; letter-spacing: 0.05em; display: block; margin-bottom: 3px;">NOW</span>
                             <div style="font-weight: 700; color: var(--charcoal); font-size: 0.86rem; line-height: 1.35;">Seasonal Collection Full Release</div>
                         </div>
-
                         <!-- 7. Free Trials Handout (Soon) -->
                         <div class="rm-full-node" style="position: relative; z-index: 3; text-align: center; flex: 1; opacity: 0.75;">
                             <div style="width: 60px; height: 60px; border-radius: 50%; background: #F1F5F9; border: 2.5px dashed #94A3B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.5rem;">🎁</div>
@@ -7618,7 +4448,6 @@ body {
                 </div>
             </div>
         </section>
-
         <!-- 06 • Community -->
         <section class="community scroll-fade" id="community" style="opacity: 1 !important; transform: none !important; display: block !important; padding: 50px 0;">
             <div class="container">
@@ -7626,7 +4455,6 @@ body {
                     <div class="label" style="margin-bottom: 0.25rem;">06 • Join the community</div>
                     <h2 style="font-size: 2rem; color: var(--charcoal); margin-bottom: 0.35rem; font-weight: 600;">Stay in the loop.</h2>
                     <p style="color: var(--muted); margin-bottom: 1.5rem; font-size: 0.9rem;">We take on suggestions all the time • come tell us what you want next.</p>
-                    
                     <!-- Social Media Links -->
                     <div class="comm-icons" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
                         <a href="https://uk.pinterest.com/plannitadmin/?actingBusinessId=1089308366029156664" target="_blank" rel="noopener noreferrer" class="comm-icon-box" title="Pinterest" style="display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(0,0,0,0.04); color: var(--charcoal); transition: all 0.2s;">
@@ -7639,7 +4467,6 @@ body {
                             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.95 1.2 2.27 2.03 3.75 2.37v3.82c-1.88-.08-3.71-.85-5.06-2.18-.1-.1-.18-.21-.26-.32v7.7c0 4.14-3.36 7.5-7.5 7.5S1.46 19.8 1.46 15.66s3.36-7.5 7.5-7.5c.9 0 1.76.16 2.57.45V12.5c-.77-.38-1.63-.58-2.57-.58-3.04 0-5.5 2.46-5.5 5.5s2.46 5.5 5.5 5.5 5.5-2.46 5.5-5.5V0h.59z"/></svg>
                         </a>
                     </div>
-
                     <!-- Early Access Spots Counter Bar (Balanced Perfectly in Middle) -->
                     <div class="early-access-counter" id="communityCounter" style="margin-top: 0.1rem; margin-bottom: 2.25rem; max-width: 360px; margin-left: auto; margin-right: auto;">
                         <div class="counter-header" style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 3px;">
@@ -7653,24 +4480,20 @@ body {
                             <div class="counter-progress-fill" id="communityProgress" style="width: 9.2%; height: 100%; background: linear-gradient(90deg, #E8A020 0%, #C05621 100%); transition: width 0.5s ease;"></div>
                         </div>
                     </div>
-
                     <!-- Input Fields (First Name, Last Name, Email) -->
                     <form class="signup-form" id="communitySignupForm" name="early-access-signups" data-netlify="true" onsubmit="handleCommunitySignup(event)" style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 440px; margin: 0 auto; margin-top: 0.75rem;">
                         <input type="hidden" name="form-name" value="early-access-signups">
                         <input type="hidden" name="membernumber" id="communityMemberNumber" value="">
-                        
                         <div style="display: flex; gap: 0.6rem; width: 100%;">
                             <input type="text" class="email-input" name="firstname" placeholder="First Name" required style="width: 50%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.9rem; outline: none; background: var(--white);">
                             <input type="text" class="email-input" name="lastname" placeholder="Last Name" required style="width: 50%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.9rem; outline: none; background: var(--white);">
                         </div>
                         <input type="email" class="email-input" id="communityEmailInput" name="email" placeholder="your@email.com" required style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.9rem; outline: none; background: var(--white);">
-                        
                         <button type="submit" class="email-btn" style="width: 100%; padding: 13px 24px; background: var(--charcoal); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Join Early Access</button>
                     </form>
                 </div>
             </div>
         </section>
-
         <footer class="scroll-fade" style="padding: 1.25rem 0 1rem; background: var(--white); border-top: 1px solid var(--border-soft); margin-top: 0; opacity: 1 !important; visibility: visible !important;">
         <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; text-align: center;">
             <div style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--forest); font-size: 1rem;">
@@ -7706,8 +4529,6 @@ body {
             </div>
         </div>
     </footer>
-
-
     <script>
         // Roadmap Scroll Controls
         function scrollRoadmap(direction) {
@@ -7718,7 +4539,6 @@ body {
                 behavior: 'smooth'
             });
         }
-
         // Dynamic Collection Tints & Environmental Fades
         const cards = document.querySelectorAll('.coll-card');
         const collSection = document.querySelector('.collections');
@@ -7728,7 +4548,6 @@ body {
             bl: collSection.querySelector('.collections-glow-spot.bl'),
             br: collSection.querySelector('.collections-glow-spot.br')
         };
-
         const tints = {
             seasonal: {
                 color: '#FFF8ED',
@@ -7755,7 +4574,6 @@ body {
                 opacity: 0.85
             }
         };
-
         cards.forEach(card => {
             card.addEventListener('mouseenter', () => {
                 const tintKey = card.getAttribute('data-tint');
@@ -7765,7 +4583,6 @@ body {
                     collSection.style.backgroundColor = config.color;
                     collSection.style.background = config.color;
                     collSection.style.boxShadow = `inset 0 0 100px rgba(0,0,0,0.01), ${config.shadow}`;
-
                     // Activate each corner with its watercolor/neon shade
                     Object.keys(glowSpots).forEach(pos => {
                         const spot = glowSpots[pos];
@@ -7774,7 +4591,6 @@ body {
                             spot.style.opacity = config.opacity;
                         }
                     });
-
                     // Ambient bleed: expand color slightly to body background
                     document.body.style.transition = 'background-color 0.8s ease';
                     document.body.style.backgroundColor = config.color;
@@ -7784,22 +4600,18 @@ body {
                 collSection.removeAttribute('data-hover-tint');
                 collSection.style.backgroundColor = 'var(--bg)';
                 collSection.style.boxShadow = 'none';
-
                 // Hide all glow spots
                 Object.values(glowSpots).forEach(spot => {
                     if (spot) spot.style.opacity = 0;
                 });
-
                 // Restore body background
                 document.body.style.backgroundColor = 'var(--bg)';
             });
         });
-
         // Interactive Goal Logic
         function toggleGoal(el) {
             el.classList.toggle('done');
         }
-
         // Preview Clock Logic
         function updatePreviewClock() {
             const el = document.getElementById('app-clock');
@@ -7809,35 +4621,27 @@ body {
         }
         setInterval(updatePreviewClock, 1000);
         updatePreviewClock();
-
         // Timetable Week Switching
         let currentPreviewWeek = 0;
         function switchPreviewWeek(delta) {
             if (document.getElementById('tt-preview-scroll').classList.contains('animating')) return;
-
             currentPreviewWeek += delta;
             const label = document.getElementById('tt-week-label');
             const scroll = document.getElementById('tt-preview-scroll');
-
             // Start Animation
             scroll.classList.add('animating');
-
             setTimeout(() => {
                 label.textContent = currentPreviewWeek === 0 ? "THIS WEEK" :
                     currentPreviewWeek > 0 ? "NEXT WEEK" : "LAST WEEK";
-
                 const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
                 const startNum = currentPreviewWeek === 0 ? 12 : currentPreviewWeek > 0 ? 19 : 5;
-
                 const studentTasks = ["Study", "Invest", "Coding", "Review", "Focus", "Rest", "Plan"];
-
                 let html = "";
                 days.forEach((day, i) => {
                     const isToday = (currentPreviewWeek === 0 && day === "TUE");
                     const chipColor = i % 2 === 0 ? "#EEEDFE" : "#FBEAF0";
                     const textColor = i % 2 === 0 ? "#3C3489" : "#72243E";
                     const task = studentTasks[i];
-
                     html += `
                         <div class="tt-day ${isToday ? 'today' : ''}">
                             <div class="tt-day-name">${day}</div>
@@ -7846,36 +4650,30 @@ body {
                         </div>
                     `;
                 });
-
                 scroll.innerHTML = html;
                 scroll.classList.remove('animating');
             }, 400);
         }
-
         // Timer Logic
         let timerSeconds = 25 * 60;
         let timerRunning = false;
         let timerInterval;
-
         function updateTimerDisplay() {
             const m = Math.floor(timerSeconds / 60);
             const s = timerSeconds % 60;
             document.getElementById('timer-display').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
-
         function updateTimerFromSlider(mins) {
             if (timerRunning) return;
             timerSeconds = mins * 60;
             updateTimerDisplay();
         }
-
         function setTimerPreset(mins) {
             if (timerRunning) return;
             document.getElementById('timer-slider').value = mins;
             timerSeconds = mins * 60;
             updateTimerDisplay();
         }
-
         function toggleTimer() {
             const btn = document.getElementById('timer-toggle');
             if (timerRunning) {
@@ -7895,7 +4693,6 @@ body {
             }
             timerRunning = !timerRunning;
         }
-
         function resetTimer() {
             clearInterval(timerInterval);
             timerRunning = false;
@@ -7905,14 +4702,12 @@ body {
             if (slider) timerSeconds = parseInt(slider.value) * 60;
             updateTimerDisplay();
         }
-
         // High-Performance IntersectionObserver for Scroll Fades
         const observerOptions = {
             root: null,
             rootMargin: '0px 0px -50px 0px',
             threshold: 0.05
         };
-
         const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -7921,11 +4716,9 @@ body {
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.scroll-fade').forEach(el => {
             scrollObserver.observe(el);
         });
-
         // Early Access Modal Controls
         function showEarlyAccessModal() {
             const overlay = document.getElementById('earlyAccessOverlay');
@@ -7939,17 +4732,14 @@ body {
                     overlay.classList.add('active');
                     modal.classList.add('active');
                 }, 10);
-
                 // Initialize the counts from localStorage
                 updateAllCounters();
             }
         }
-
         function updateAllCounters() {
             // Render cached localStorage value immediately for instant visual load
             const localCount = parseInt(localStorage.getItem('plannit_early_access_count') || '23');
             renderCounters(localCount);
-
             // Fetch live database count securely in background, bypassing cache
             fetch(`https://plannit-backend-private.vercel.app/api/get-signup-count?t=${Date.now()}`)
                 .then(res => res.json())
@@ -7962,11 +4752,9 @@ body {
                 })
                 .catch(() => {});
         }
-
         function renderCounters(count) {
             const safeCount = Math.max(count || 23, 23);
             const percentage = Math.min((safeCount / 250) * 100, 100);
-
             const modalCountSpan = document.getElementById('earlyAccessCount');
             if (modalCountSpan) modalCountSpan.textContent = safeCount;
             const modalProgress = document.getElementById('earlyAccessProgress');
@@ -7975,7 +4763,6 @@ body {
                     modalProgress.style.width = percentage + '%';
                 }, 100);
             }
-
             const commCountSpan = document.getElementById('communityCount');
             if (commCountSpan) commCountSpan.textContent = safeCount;
             const commProgress = document.getElementById('communityProgress');
@@ -7985,7 +4772,6 @@ body {
                 }, 100);
             }
         }
-
         function closeEarlyAccessModal(e) {
             const overlay = document.getElementById('earlyAccessOverlay');
             const modal = document.getElementById('earlyAccessModal');
@@ -8001,32 +4787,25 @@ body {
                 sessionStorage.setItem('plannit_early_access_dismissed', 'true');
             }
         }
-
         function handleEarlyAccessSignup(e) {
             e.preventDefault();
             const emailInput = document.getElementById('earlyAccessEmail');
             const form = document.getElementById('earlyAccessForm');
             const success = document.getElementById('earlyAccessSuccess');
             const counter = document.getElementById('earlyAccessCounter');
-
             if (emailInput && emailInput.value) {
                 sessionStorage.setItem('plannit_early_access_dismissed', 'true');
-
                 // Increment and save counter first to get precise member number
                 let currentCount = parseInt(localStorage.getItem('plannit_early_access_count') || '0');
                 currentCount += 1;
                 localStorage.setItem('plannit_early_access_count', String(currentCount));
-
                 // Update DOM counters
                 updateAllCounters();
-
                 // Dynamic member number injection
                 const memberNumStr = `${currentCount} / 250`;
                 const memberNumInput = document.getElementById('earlyAccessMemberNumber');
                 if (memberNumInput) memberNumInput.value = memberNumStr;
-
                 const formData = new FormData(form);
-
                 // Submit to Supabase via Vercel Serverless Function API
                 fetch('https://plannit-backend-private.vercel.app/api/early-access-signup', {
                     credentials: 'include',
@@ -8036,7 +4815,6 @@ body {
                 })
                     .then(() => {})
                     .catch(() => {});
-
                 form.style.display = 'none';
                 if (counter) counter.style.display = 'none'; // Clean transition
                 success.style.display = 'block';
@@ -8045,31 +4823,24 @@ body {
                 }, 3000);
             }
         }
-
         function handleCommunitySignup(e) {
             e.preventDefault();
             const emailInput = document.getElementById('communityEmailInput');
             const form = document.getElementById('communitySignupForm');
             const counter = document.getElementById('communityCounter');
-
             if (emailInput && emailInput.value) {
                 sessionStorage.setItem('plannit_early_access_dismissed', 'true');
-
                 // Increment and save counter
                 let currentCount = parseInt(localStorage.getItem('plannit_early_access_count') || '0');
                 currentCount += 1;
                 localStorage.setItem('plannit_early_access_count', String(currentCount));
-
                 // Update DOM on both counters
                 updateAllCounters();
-
                 // Dynamic member number injection
                 const memberNumStr = `${currentCount} / 250`;
                 const memberNumInput = document.getElementById('communityMemberNumber');
                 if (memberNumInput) memberNumInput.value = memberNumStr;
-
                 const formData = new FormData(form);
-
                 // Submit to Supabase via Vercel Serverless Function API
                 fetch('https://plannit-backend-private.vercel.app/api/early-access-signup', {
                     credentials: 'include',
@@ -8079,7 +4850,6 @@ body {
                 })
                     .then(() => {})
                     .catch(() => {});
-
                 // Display custom success state inline
                 if (form) {
                     form.innerHTML = `
@@ -8096,17 +4866,14 @@ body {
                 }
             }
         }
-
         // Initialize early access popup checking on page load
         window.addEventListener('DOMContentLoaded', () => {
             // Sync all counters immediately on page load
             updateAllCounters();
-
             // Always trigger Early Access modal popup on page load for beta testing
             setTimeout(showEarlyAccessModal, 1000);
         });
     </script>
-
     <!-- Early Access Modal Popup -->
     <div class="early-access-overlay" id="earlyAccessOverlay" onclick="closeEarlyAccessModal(event)">
         <div class="early-access-modal" id="earlyAccessModal" onclick="event.stopPropagation()">
@@ -8117,7 +4884,6 @@ body {
             <p class="early-access-desc">
                 <strong>New collections dropping soon, join the list for first access.</strong>
             </p>
-
             <form class="early-access-form" id="earlyAccessForm" name="early-access-signups" data-netlify="true" onsubmit="handleEarlyAccessSignup(event)">
                 <input type="hidden" name="form-name" value="early-access-signups">
                 <input type="hidden" name="membernumber" id="earlyAccessMemberNumber" value="">
@@ -8145,13 +4911,11 @@ body {
                     <div class="counter-progress-fill" id="earlyAccessProgress"></div>
                 </div>
             </div>
-
             <div class="early-access-success" id="earlyAccessSuccess">
                 <div class="early-access-success-icon" style="display: flex; align-items: center; justify-content: center;"><i data-lucide="check" class="lucide" style="width: 24px; height: 24px; stroke-width: 3;"></i></div>
                 <h3>You're on the list!</h3>
                 <p>We'll notify you as soon as collections drop. Keep an eye on your inbox!</p>
             </div>
-
             <div class="early-access-social-title">Follow our journey</div>
             <div class="early-access-socials">
                 <a href="https://uk.pinterest.com/plannitadmin/?actingBusinessId=1089308366029156664" target="_blank" rel="noopener noreferrer" class="comm-icon-box pinterest" title="Pinterest">
@@ -8170,20 +4934,15 @@ body {
                     </svg>
                 </a>
             </div>
-
             <button class="early-access-explore" onclick="closeEarlyAccessModal()">Explore Site</button>
         </div>
     </div>
-
     <!-- Lucide icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script>
         if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     </script>
-
-
 <script src="cart.js"></script>
-
     <!-- Plannit Premium Cookie & Privacy Consent Banner -->
     <div id="plannit-cookie-banner" style="position: fixed; bottom: 20px; right: 20px; max-width: 400px; width: calc(100% - 40px); background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(232, 160, 32, 0.35); border-radius: 16px; padding: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); z-index: 99999; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #F8FAFC; transform: translateY(120%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: none;">
         <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;">
@@ -8225,16 +4984,11 @@ body {
             initPlannitCookieBanner();
         }
     </script>
-
-
     <!-- Interactive Leave a Review Bubble Clicker Modal -->
-    
-
     <!-- Horizontal Multi-Step Wizard Review Modal -->
     <div id="leaveReviewOverlay" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(8px); z-index: 999999; display: none; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #FFFFFF; border-radius: 24px; max-width: 520px; width: 100%; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); position: relative; font-family: 'Inter', system-ui, sans-serif; overflow: hidden;">
             <button onclick="closeLeaveReviewModal()" style="position: absolute; top: 18px; right: 20px; background: none; border: none; font-size: 1.5rem; color: #94A3B8; cursor: pointer; z-index: 10;">×</button>
-            
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: #0F172A; margin: 0 0 4px 0;">Share Your Experience</h3>
                 <div style="display: flex; justify-content: center; gap: 6px; margin-top: 8px;" id="modalStepDots">
@@ -8244,11 +4998,9 @@ body {
                     <span class="step-dot" style="width: 8px; height: 4px; border-radius: 4px; background: #E2E8F0; transition: all 0.3s;"></span>
                 </div>
             </div>
-
             <!-- Horizontal Slide Track Container -->
             <div style="width: 100%; overflow: hidden;">
                 <div id="reviewSlideTrack" style="display: flex; width: 400%; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
-                    
                     <!-- SLIDE 1: Select Planner Edition -->
                     <div style="width: 25%; flex-shrink: 0; padding: 0 4px;">
                         <label style="display: block; font-weight: 700; font-size: 0.9rem; color: #334155; margin-bottom: 12px; text-align: center;">Step 1: Which Planner do you own?</label>
@@ -8270,7 +5022,6 @@ body {
                             </button>
                         </div>
                     </div>
-
                     <!-- SLIDE 2: Rating (Stars Start Unfilled) -->
                     <div style="width: 25%; flex-shrink: 0; padding: 0 4px; text-align: center;">
                         <label style="display: block; font-weight: 700; font-size: 0.9rem; color: #334155; margin-bottom: 14px;">Step 2: Tap your star rating</label>
@@ -8283,7 +5034,6 @@ body {
                         </div>
                         <button type="button" onclick="goToWizardSlide(2)" style="padding: 12px 30px; background: #0F172A; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Next Step →</button>
                     </div>
-
                     <!-- SLIDE 3: Feedback & 9 Specific Preset Pills -->
                     <div style="width: 25%; flex-shrink: 0; padding: 0 4px;">
                         <label style="display: block; font-weight: 700; font-size: 0.88rem; color: #334155; margin-bottom: 8px;">Step 3: Quick feedback (Tap to fill):</label>
@@ -8301,7 +5051,6 @@ body {
                         <textarea id="reviewTextInput" rows="2" placeholder="Write your review here..." required style="width: 100%; padding: 10px; border: 1.5px solid #CBD5E1; border-radius: 12px; font-size: 0.85rem; outline: none; font-family: inherit; margin-bottom: 12px;"></textarea>
                         <button type="button" onclick="goToWizardSlide(3)" style="width: 100%; padding: 12px; background: #0F172A; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Next Step →</button>
                     </div>
-
                     <!-- SLIDE 4: Author Details & Submit (Auto-fills if logged in) -->
                     <div style="width: 25%; flex-shrink: 0; padding: 0 4px;">
                         <label style="display: block; font-weight: 700; font-size: 0.88rem; color: #334155; margin-bottom: 12px; text-align: center;">Step 4: Your Details</label>
@@ -8311,22 +5060,18 @@ body {
                         </div>
                         <button type="button" onclick="submitWizardReview()" style="width: 100%; padding: 13px; background: #0F172A; color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 0.92rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Submit Review</button>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Wizard Carousel Script -->
     <script>
         let wizardCurrentSlide = 0;
         let wizardSelectedPlanner = 'Summer Sun Edition';
         let wizardSelectedStars = 0; // Starts unfilled
-
         function openLeaveReviewModal() {
             document.getElementById('leaveReviewOverlay').style.display = 'flex';
             goToWizardSlide(0);
-            
             // Auto-fill author name if user is logged in across all storage keys
             const savedName = localStorage.getItem('plannit_user_name') || 
                               localStorage.getItem('plannit_user') || 
@@ -8339,11 +5084,9 @@ body {
                 if (nameInput) nameInput.value = savedName;
             }
         }
-
         function closeLeaveReviewModal() {
             document.getElementById('leaveReviewOverlay').style.display = 'none';
         }
-
         function goToWizardSlide(slideIdx) {
             wizardCurrentSlide = slideIdx;
             const track = document.getElementById('reviewSlideTrack');
@@ -8357,7 +5100,6 @@ body {
                 dot.style.background = idx === slideIdx ? '#0F172A' : '#E2E8F0';
             });
         }
-
         function wizardSelectPlanner(btn, plannerName) {
             wizardSelectedPlanner = plannerName;
             document.querySelectorAll('.rev-bubble-btn').forEach(b => {
@@ -8368,11 +5110,9 @@ body {
             btn.style.borderColor = '#E8A020';
             btn.style.background = 'rgba(232,160,32,0.12)';
             btn.style.color = '#BA7517';
-
             // Auto-advance to Slide 2 (Stars)
             setTimeout(() => { goToWizardSlide(1); }, 220);
         }
-
         function wizardSetStars(rating) {
             wizardSelectedStars = rating;
             const stars = document.querySelectorAll('#starPickerContainer .star-item');
@@ -8386,31 +5126,25 @@ body {
                 }
             });
         }
-
         function applyPresetReview(chip) {
             document.getElementById('reviewTextInput').value = chip.innerText.replace(/^"|"$/g, '');
         }
-
         function scrollReviewWheel(direction) {
             const container = document.getElementById('reviewsGridContainer');
             if (container) {
                 container.scrollBy({ left: direction * 340, behavior: 'smooth' });
             }
         }
-
         function submitWizardReview() {
             const text = document.getElementById('reviewTextInput').value;
             const name = document.getElementById('reviewAuthorName').value;
             const role = document.getElementById('reviewAuthorRole').value;
-
             if (!text || !name || !role) {
                 alert("Please fill in all fields before submitting!");
                 return;
             }
-
             const starsCount = wizardSelectedStars || 5;
             const starsStr = '★'.repeat(starsCount) + '☆'.repeat(5 - starsCount);
-
             const grid = document.getElementById('reviewsGridContainer');
             if (grid) {
                 const card = document.createElement('div');
@@ -8434,14 +5168,12 @@ body {
                 } else {
                     grid.appendChild(card);
                 }
-
                 setTimeout(() => { 
                     card.style.opacity = '1'; 
                     card.style.transform = 'scale(1)';
                     grid.scrollTo({ left: 320, behavior: 'smooth' });
                 }, 100);
             }
-
             closeLeaveReviewModal();
         }
     </script>
