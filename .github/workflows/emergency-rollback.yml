@@ -20,26 +20,58 @@ jobs:
     name: Restore frontend to production
     runs-on: ubuntu-latest
     steps:
-      - name: Clone, restore tag, and push
+      - name: Diagnose and rollback
         run: |
-          git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git repo
-          cd repo
-          git fetch --tags
-          if ! git tag | grep -q "^${{ github.event.inputs.target_tag }}$"; then
-            echo "ERROR: Tag not found. Available:"
-            git tag
+          set -x
+
+          echo "=== STEP 1: Check token ==="
+          TOKEN="${{ secrets.PAT_TOKEN }}"
+          if [ -z "$TOKEN" ]; then
+            echo "FATAL: PAT_TOKEN is empty — secret not saved correctly"
             exit 1
           fi
-          git log ${{ github.event.inputs.target_tag }} -1 --format="Restoring: %H %s" --date=short
-          git checkout ${{ github.event.inputs.target_tag }} -- .
+          echo "Token is set (length: ${#TOKEN})"
+
+          echo "=== STEP 2: Verify token with GitHub API ==="
+          HTTP=$(curl -sf -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $TOKEN" \
+            https://api.github.com/repos/${{ github.repository }})
+          echo "GitHub API status: $HTTP"
+          if [ "$HTTP" != "200" ]; then
+            echo "FATAL: Token rejected by GitHub (HTTP $HTTP) — wrong token or missing repo scope"
+            exit 1
+          fi
+
+          echo "=== STEP 3: Clone ==="
+          git clone "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git" repo
+          cd repo
+
+          echo "=== STEP 4: Fetch tags ==="
+          git fetch --tags
+
+          echo "=== STEP 5: Check tag exists ==="
+          echo "All tags:"
+          git tag
+          TARGET="${{ github.event.inputs.target_tag }}"
+          if ! git tag | grep -qx "$TARGET"; then
+            echo "FATAL: Tag $TARGET not found"
+            exit 1
+          fi
+          git log "$TARGET" -1 --format="Restoring: %H %ad %s" --date=short
+
+          echo "=== STEP 6: Restore files ==="
+          git checkout "$TARGET" -- .
+
+          echo "=== STEP 7: Commit ==="
           git config user.email "plannitadmin@gmail.com"
           git config user.name "plannitadmin [rollback]"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
           git add -A
           if git diff --cached --quiet; then
-            echo "Already at this version. Nothing to commit."
+            echo "Already at this version — nothing to commit."
             exit 0
           fi
-          git commit -m "rollback: restore ${{ github.event.inputs.target_tag }} — ${{ github.event.inputs.reason }}"
+          git commit -m "rollback: restore $TARGET — ${{ github.event.inputs.reason }}"
+
+          echo "=== STEP 8: Push ==="
           git push origin main
-          echo "Done. Vercel deploys in ~60 seconds."
+          echo "SUCCESS — Vercel deploys in ~60 seconds."
