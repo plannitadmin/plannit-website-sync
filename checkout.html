@@ -621,7 +621,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                 subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
                 totalOriginal.textContent = `£${subtotal.toFixed(2)}`;
 
-                if (isFree) {
+                if (isFree || (window._promoDiscount && window._promoDiscount >= 10000)) {
                     discountRow.style.display = 'flex';
                     discountEl.textContent = `-£${subtotal.toFixed(2)}`;
                     
@@ -764,11 +764,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                         promoFeedback.textContent = data.message || 'Promo code applied.';
                         promoFeedback.style.color = '#059669';
                         promoFeedback.style.display = 'block';
-                        // Backend returns a discount amount or signals free — never trust client amount
-                        if (data.discount) {
-                            window._promoDiscount = data.discount; // pence
-                            calculateTotals();
-                        }
+                        isFree = true;
+                        window._promoDiscount = data.discount || 10000;
+                        calculateTotals();
                     } else {
                         promoFeedback.textContent = data.error || 'Invalid promo code.';
                         promoFeedback.style.color = '#DC2626';
