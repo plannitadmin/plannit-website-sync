@@ -680,8 +680,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                 emptyState.style.display = 'none';
 
                 cart.forEach((item, index) => {
-                    const details = itemDetails[item.slug] || { name: item.slug, img: '<i data-lucide="package" class="lucide" style="width: 16px; height: 16px; color: var(--secondary);"></i>' };
-                    const price = getItemPrice(item.slug, item.mode);
+                    const catalog = window.PLANNIT_CATALOG || {};
+                    const details = catalog[item.slug] || { name: item.slug, img: '<i data-lucide="package" class="lucide" style="width: 16px; height: 16px; color: var(--secondary);"></i>' };
+                    const price = typeof window.getItemPrice === 'function' ? window.getItemPrice(item.slug, item.mode) : (item.slug === 'seasonal-bundle' ? 14.99 : (item.mode === 'subscription' ? 2.49 : 5.99));
 
                     const row = document.createElement('div');
                     row.style.display = 'flex';
