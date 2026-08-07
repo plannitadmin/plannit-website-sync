@@ -838,6 +838,30 @@ window.signOutLibrary = function() {
                         <a href="#" onclick="event.preventDefault(); window.signOutLibrary();" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #DC2626; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Sign Out</a>
                     </div>
                 </div>
+                <script>
+                    (function() {
+                        function initProfileDropdown() {
+                            const btn = document.getElementById('navProfileBtn');
+                            const menu = document.getElementById('profileDropdown');
+                            if (!btn || !menu) return;
+                            btn.onclick = function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+                            };
+                            document.onclick = function(e) {
+                                if (!menu.contains(e.target) && e.target !== btn) {
+                                    menu.style.display = 'none';
+                                }
+                            };
+                        }
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', initProfileDropdown);
+                        } else {
+                            initProfileDropdown();
+                        }
+                    })();
+                </script>
                 <a href="shop.html" class="nav-shop">Shop</a>
             </div>
         </div>
