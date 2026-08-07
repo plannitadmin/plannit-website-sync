@@ -182,17 +182,23 @@
 
             document.getElementById('btn-stripe-portal').addEventListener('click', () => {
                 if (!email) return alert('Please log in to access billing.');
-                fetch('https://plannit-backend-private.vercel.app/api/create-customer-portal', {
+                const btn = document.getElementById('btn-stripe-portal');
+                btn.textContent = 'Launching Portal...';
+                fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
+                    body: JSON.stringify({ action: 'create-customer-portal', email })
                 })
                 .then(res => res.json())
                 .then(data => {
                     if (data.url) window.location.href = data.url;
                     else alert(data.error || 'No active Stripe billing profile found for this email.');
                 })
-                .catch(err => alert('Error: ' + err.message));
+                .catch(err => alert('Error: ' + err.message))
+                .finally(() => {
+                    btn.innerHTML = '<i data-lucide="external-link"></i> Launch Stripe Billing Portal';
+                    if (window.lucide) window.lucide.createIcons();
+                });
             });
         });
     </script>
