@@ -57,7 +57,21 @@
             letter-spacing: 0.04em;
         }
         .badge-purchased { background: rgba(5, 150, 105, 0.12); color: #059669; border: 1px solid rgba(5, 150, 105, 0.25); }
-        .badge-monthly { background: rgba(232, 160, 32, 0.15); color: #B45309; border: 1px solid rgba(232, 160, 32, 0.3); }
+        .badge-redeemed { background: rgba(147, 51, 234, 0.12); color: #7E22CE; border: 1px solid rgba(147, 51, 234, 0.25); }
+        .badge-gifted { background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25); }
+        .badge-trial { background: rgba(232, 160, 32, 0.15); color: #B45309; border: 1px solid rgba(232, 160, 32, 0.3); }
+        .timer-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #D97706;
+            background: #FEF3C7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 6px;
+        }
         .btn-portal {
             background: linear-gradient(135deg, #E8A020 0%, #C05621 100%);
             color: #FFFFFF;
@@ -94,7 +108,14 @@
                 <a href="index.html#roadmap">Roadmap</a>
                 <a href="index.html#community">Community</a>
                 <a href="library.html" style="color: var(--primary); font-weight: 600;">Library</a>
-                <a href="purchases.html" style="color: #BA7517; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">Purchases & Billing</a>
+                <div class="nav-cart-btn" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge" style="position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: none;">0</span>
+                </div>
                 <div style="position: relative; display: inline-block;">
                     <a href="javascript:void(0);" class="nav-profile-btn" id="navProfileBtn" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: #E8A020; text-decoration: none;">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,11 +123,11 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </a>
-                    <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 48px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(16px); border: 1px solid rgba(15,23,42,0.12); border-radius: 16px; padding: 10px; width: 220px; box-shadow: 0 12px 36px rgba(0,0,0,0.15); z-index: 999999;">
-                        <a href="library.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #0F172A; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.2s;"><i data-lucide="book-open" style="width: 18px; height: 18px;"></i> My Library</a>
-                        <a href="purchases.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #0F172A; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.2s;"><i data-lucide="credit-card" style="width: 18px; height: 18px;"></i> Purchases / Billing</a>
-                        <hr style="border: none; border-top: 1px solid rgba(15,23,42,0.08); margin: 8px 0;" />
-                        <a href="#" onclick="event.preventDefault(); window.signOutLibrary();" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #DC2626; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.2s;"><i data-lucide="log-out" style="width: 18px; height: 18px;"></i> Sign Out</a>
+                    <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 48px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 8px; width: 210px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); z-index: 999999;">
+                        <a href="library.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="book-open" style="width: 16px; height: 16px;"></i> My Library</a>
+                        <a href="purchases.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="credit-card" style="width: 16px; height: 16px;"></i> Purchases / Billing</a>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: 6px 0;" />
+                        <a href="#" onclick="event.preventDefault(); window.signOutLibrary();" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #DC2626; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Sign Out</a>
                     </div>
                 </div>
                 <a href="shop.html" class="nav-shop">Shop</a>
@@ -117,18 +138,18 @@
     <div class="purchases-container">
         <div class="purchases-hero">
             <h1>Purchases & Billing</h1>
-            <p>View your active digital planners, membership tiers, and manage payments.</p>
+            <p>View active digital planners, acquisition sources, free trial trackers, and manage payments.</p>
         </div>
 
         <div class="card">
-            <h3 style="margin-top: 0; font-size: 1.2rem; color: var(--primary); font-family: var(--font-serif); margin-bottom: 1rem;">Active Planners & Subscriptions</h3>
-            <div id="purchases-list">Loading active purchases...</div>
+            <h3 style="margin-top: 0; font-size: 1.2rem; color: var(--primary); font-family: var(--font-serif); margin-bottom: 1rem;">Active Planners & Access Provenance</h3>
+            <div id="purchases-list">Loading active access...</div>
         </div>
 
         <div class="card">
             <h3 style="margin-top: 0; font-size: 1.2rem; color: var(--primary); font-family: var(--font-serif); margin-bottom: 0.5rem;">Subscription & Payment Management</h3>
             <p style="color: var(--secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
-                View invoices, change your credit card, or cancel monthly memberships anytime directly via Stripe.
+                View receipts, change payment cards, or cancel monthly memberships anytime directly via Stripe.
             </p>
             <button id="btn-stripe-portal" class="btn-portal">
                 <i data-lucide="external-link"></i> Launch Stripe Billing Portal
@@ -136,10 +157,9 @@
         </div>
     </div>
 
+    <script src="cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) window.lucide.createIcons();
-
             const navProfileBtn = document.getElementById('navProfileBtn');
             const profileDropdown = document.getElementById('profileDropdown');
             if (navProfileBtn && profileDropdown) {
@@ -157,29 +177,63 @@
             const email = localStorage.getItem('plannit_user_email') || localStorage.getItem('plannit_email');
             const owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
             const trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}');
+            const provenanceMap = JSON.parse(localStorage.getItem('plannit_provenance') || '{}');
             const listEl = document.getElementById('purchases-list');
 
-            if (!owned || owned.length === 0) {
-                listEl.innerHTML = '<p style="color: var(--secondary); padding: 1rem 0;">No active purchases found under your account.</p>';
-            } else {
+            function formatTimeRemaining(ms) {
+                if (ms <= 0) return 'Expired';
+                const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+                if (days > 0) return `${days}d ${hours}h remaining`;
+                return `${hours}h ${mins}m remaining`;
+            }
+
+            function renderPurchases() {
+                if (!owned || owned.length === 0) {
+                    listEl.innerHTML = '<p style="color: var(--secondary); padding: 1rem 0;">No active purchases or planner access found under your account.</p>';
+                    return;
+                }
+
                 listEl.innerHTML = owned.map(slug => {
                     const isTrial = trials[slug];
-                    const typeBadge = isTrial 
-                        ? '<span class="badge badge-monthly"><i data-lucide="calendar"></i> Monthly Membership</span>'
-                        : '<span class="badge badge-purchased"><i data-lucide="check-circle"></i> Lifetime Access</span>';
-                    const detailText = isTrial ? `Renews / Expires: ${new Date(isTrial).toLocaleDateString()}` : 'Purchased & Verified';
+                    const prov = provenanceMap[slug] || (isTrial ? 'trial' : 'purchased');
+
+                    let badgeHtml = '';
+                    let provenanceText = '';
+
+                    if (isTrial) {
+                        const endsAtMs = new Date(isTrial).getTime();
+                        const timeStr = formatTimeRemaining(endsAtMs - Date.now());
+                        badgeHtml = `<span class="badge badge-trial"><i data-lucide="clock"></i> Free Trial</span><span class="timer-tag">⏳ ${timeStr}</span>`;
+                        provenanceText = `Free Access Pass • Expires ${new Date(isTrial).toLocaleDateString()}`;
+                    } else if (prov === 'redeemed' || prov === 'code') {
+                        badgeHtml = `<span class="badge badge-redeemed"><i data-lucide="key"></i> Code Redeemed</span>`;
+                        provenanceText = 'Acquired via Access Code Redemption • Lifetime Access';
+                    } else if (prov === 'gifted') {
+                        badgeHtml = `<span class="badge badge-gifted"><i data-lucide="gift"></i> Gifted Access</span>`;
+                        provenanceText = 'Gifted Access Pass • Lifetime Access';
+                    } else {
+                        badgeHtml = `<span class="badge badge-purchased"><i data-lucide="credit-card"></i> Card Purchase</span>`;
+                        provenanceText = 'Purchased via Card / Stripe • Lifetime Access';
+                    }
 
                     return `
                         <div class="purchase-item">
                             <div>
-                                <strong style="text-transform: capitalize; font-size: 1.05rem;">${slug.replace('-', ' ')} Edition</strong>
-                                <div style="font-size: 0.85rem; color: var(--secondary); margin-top: 4px;">${detailText}</div>
+                                <strong style="text-transform: capitalize; font-size: 1.05rem; color: var(--primary);">${slug.replace('-', ' ')} Edition</strong>
+                                <div style="font-size: 0.85rem; color: var(--secondary); margin-top: 4px;">${provenanceText}</div>
                             </div>
-                            ${typeBadge}
+                            <div style="display: flex; align-items: center;">${badgeHtml}</div>
                         </div>
                     `;
                 }).join('');
+
+                if (window.lucide) window.lucide.createIcons();
             }
+
+            renderPurchases();
+            setInterval(renderPurchases, 60000);
 
             document.getElementById('btn-stripe-portal').addEventListener('click', () => {
                 if (!email) return alert('Please log in to access billing.');
