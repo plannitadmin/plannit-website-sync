@@ -831,11 +831,15 @@ window.signOutLibrary = function() {
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </a>
-                    <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 48px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 8px; width: 210px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); z-index: 999999;">
-                        <a href="library.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="book-open" style="width: 16px; height: 16px;"></i> My Library</a>
-                        <a href="purchases.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="credit-card" style="width: 16px; height: 16px;"></i> Purchases / Billing</a>
+                    <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 48px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 12px; width: 230px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); z-index: 999999;">
+                        <div style="padding: 4px 8px 8px 8px; border-bottom: 1px solid var(--border); margin-bottom: 6px;">
+                            <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--secondary); letter-spacing: 0.05em;">Signed in as</div>
+                            <div id="dropdownUserEmail" style="font-size: 0.85rem; font-weight: 600; color: var(--primary); word-break: break-all; margin-top: 2px;">User Account</div>
+                        </div>
+                        <a href="library.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="book-open" style="width: 16px; height: 16px;"></i> My Library</a>
+                        <a href="purchases.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; color: var(--primary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="credit-card" style="width: 16px; height: 16px;"></i> Purchases / Billing</a>
                         <hr style="border: none; border-top: 1px solid var(--border); margin: 6px 0;" />
-                        <a href="#" onclick="event.preventDefault(); window.signOutLibrary();" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #DC2626; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Sign Out</a>
+                        <a href="#" onclick="event.preventDefault(); window.signOutLibrary();" style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; color: #DC2626; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: background 0.2s;"><i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Sign Out</a>
                     </div>
                 </div>
                 <script>
@@ -843,6 +847,11 @@ window.signOutLibrary = function() {
                         function initProfileDropdown() {
                             const btn = document.getElementById('navProfileBtn');
                             const menu = document.getElementById('profileDropdown');
+                            const emailEl = document.getElementById('dropdownUserEmail');
+                            if (emailEl) {
+                                const userEmail = localStorage.getItem('plannit_user_email') || localStorage.getItem('plannit_email') || 'Logged In User';
+                                emailEl.textContent = userEmail;
+                            }
                             if (!btn || !menu) return;
                             btn.onclick = function(e) {
                                 e.preventDefault();
