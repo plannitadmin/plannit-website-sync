@@ -671,13 +671,12 @@ window.signOutLibrary = function() {
             transform: translateY(-2px) scale(1.03) !important;
             box-shadow: 0 6px 20px rgba(217, 119, 6, 0.42) !important;
         }
-        /* Gold Standard Micro-Animations & Alive Hover Effects */
-        .planner-card, .collection-card, .feature-card, .redeem-box {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        }
-        .planner-card:hover, .collection-card:hover {
-            transform: translateY(-4px) scale(1.01) !important;
-            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 0 20px rgba(217, 119, 6, 0.12) !important;
+        /* Guarantee dropdown visibility when active */
+        #profileDropdown.show, #profileDropdown[style*="display: block"] {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 </style>
 <style>
@@ -856,10 +855,18 @@ window.signOutLibrary = function() {
                             btn.onclick = function(e) {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+                                const isOpen = menu.classList.contains('show') || menu.style.display === 'block';
+                                if (isOpen) {
+                                    menu.classList.remove('show');
+                                    menu.style.display = 'none';
+                                } else {
+                                    menu.classList.add('show');
+                                    menu.style.display = 'block';
+                                }
                             };
                             document.onclick = function(e) {
                                 if (!menu.contains(e.target) && e.target !== btn) {
+                                    menu.classList.remove('show');
                                     menu.style.display = 'none';
                                 }
                             };
