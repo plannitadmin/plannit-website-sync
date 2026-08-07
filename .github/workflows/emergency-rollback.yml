@@ -15,52 +15,26 @@ on:
 permissions:
   contents: write
 
-env:
-  PAT: ${{ secrets.PAT_TOKEN }}
-
 jobs:
   rollback:
     name: Restore frontend to production
     runs-on: ubuntu-latest
     steps:
-      - name: Verify PAT_TOKEN is set
+      - name: Clone, restore tag, and push
         run: |
-          if [ -z "$PAT" ]; then
-            echo "ERROR: PAT_TOKEN secret is empty or not set in this repo."
-            echo "Go to: Settings > Secrets and variables > Actions > New secret"
-            echo "Name: PAT_TOKEN"
-            exit 1
-          fi
-          echo "PAT_TOKEN is present."
-
-      - name: Inject PAT into all GitHub HTTPS URLs
-        run: |
-          git config --global url."https://x-access-token:${PAT}@github.com/".insteadOf "https://github.com/"
-
-      - name: Checkout full history
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Fetch all tags
-        run: git fetch --tags
-
-      - name: Verify tag exists
-        run: |
+          git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git repo
+          cd repo
+          git fetch --tags
           if ! git tag | grep -q "^${{ github.event.inputs.target_tag }}$"; then
-            echo "ERROR: Tag not found. Available tags:"
+            echo "ERROR: Tag not found. Available:"
             git tag
             exit 1
           fi
-          git log ${{ github.event.inputs.target_tag }} -1 --format="Restoring: %H (%ad) %s" --date=short
-
-      - name: Restore files from tag
-        run: git checkout ${{ github.event.inputs.target_tag }} -- .
-
-      - name: Commit and push rollback
-        run: |
+          git log ${{ github.event.inputs.target_tag }} -1 --format="Restoring: %H %s" --date=short
+          git checkout ${{ github.event.inputs.target_tag }} -- .
           git config user.email "plannitadmin@gmail.com"
           git config user.name "plannitadmin [rollback]"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
           git add -A
           if git diff --cached --quiet; then
             echo "Already at this version. Nothing to commit."
