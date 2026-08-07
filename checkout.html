@@ -797,7 +797,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                 return re.test(String(email).toLowerCase());
             }
 
-            // Trigger Verification Code Generation
+            // Trigger Verification Code Generation & Send Resend Email
             verifySendBtn.addEventListener('click', () => {
                 const email = emailInput.value.trim();
                 if (!validateEmail(email)) {
@@ -809,13 +809,36 @@ body { animation: pageFadeIn 0.35s ease both; }
                 emailFeedback.style.display = 'none';
                 emailInput.style.borderColor = 'rgba(15, 23, 42, 0.08)';
 
-                // Show Verification block
-                verifySendBtn.textContent = 'Resend Code';
-                verificationBlock.style.display = 'block';
-                verificationCodeInput.focus();
-                
-                verificationCodeInput.value = '';
-                verificationFeedback.style.display = 'none';
+                verifySendBtn.disabled = true;
+                verifySendBtn.textContent = 'Sending...';
+
+                // Call serverless API to dispatch 6-digit verification code email via Resend
+                fetch('https://plannit-backend-private.vercel.app/api/auth', {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'request-verification', email: email })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    verifySendBtn.textContent = 'Resend Code';
+                    verificationBlock.style.display = 'block';
+                    verificationCodeInput.focus();
+                    verificationCodeInput.value = '';
+                    if (data.token) {
+                        window._checkoutVerificationToken = data.token;
+                    }
+                    if (typeof showToast === 'function') {
+                        showToast('Verification code sent to your email!', 'info');
+                    }
+                })
+                .catch(() => {
+                    verifySendBtn.textContent = 'Resend Code';
+                    verificationBlock.style.display = 'block';
+                })
+                .finally(() => {
+                    verifySendBtn.disabled = false;
+                });
             });
 
             // Confirm Code Verification
