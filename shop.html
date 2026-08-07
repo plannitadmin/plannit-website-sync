@@ -4418,53 +4418,49 @@ body { animation: pageFadeIn 0.35s ease both; }
 
         
 
-        // Auto-bind to all Buy/Subscribe buttons
-        document.addEventListener('DOMContentLoaded', () => {
-            const buyButtons = document.querySelectorAll('.ed-buy-inline, .price-btn, .bundle-btn');
+        // Global Event Delegation for all Buy/Subscribe Buttons (Ponytail: 1 delegate instead of 30+ loops)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.ed-buy-inline, .price-btn, .bundle-btn');
+            if (!btn) return;
+            if (btn.textContent.includes('Coming Soon') || btn.textContent.includes('Preview only') || btn.textContent.includes('Concept only') || btn.disabled) return;
 
-            buyButtons.forEach(btn => {
-                // Ignore "Coming Soon", "Preview only", "Concept only", or disabled buttons
-                if(btn.textContent.includes('Coming Soon') || btn.textContent.includes('Preview only') || btn.textContent.includes('Concept only') || btn.disabled) return;
+            e.preventDefault();
+            e.stopPropagation();
 
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    let slug = this.getAttribute('data-edition');
+            let slug = btn.getAttribute('data-edition');
+            if (!slug) {
+                const card = btn.closest('.ed-detail, .price-card, .bundle-banner');
+                if (card) {
+                    slug = card.getAttribute('data-edition');
                     if (!slug) {
-                        const card = this.closest('.ed-detail, .price-card, .bundle-banner');
-                        if (card) {
-                            slug = card.getAttribute('data-edition');
-                            if (!slug) {
-                                if (card.classList.contains('summer'))           slug = 'summer-sun';
-                                else if (card.classList.contains('winter'))      slug = 'winter-frost';
-                                else if (card.classList.contains('autumn'))      slug = 'autumn-ember';
-                                else if (card.classList.contains('spring'))      slug = 'spring-bloom';
-                                else if (card.classList.contains('eucalyptus'))  slug = 'botanical-eucalyptus';
-                                else if (card.classList.contains('lavender'))    slug = 'botanical-lavender';
-                                else if (card.classList.contains('rose-garden')) slug = 'botanical-rose';
-                                else if (card.classList.contains('wildflower'))  slug = 'botanical-wildflower';
-                                else if (card.classList.contains('bundle-banner')) slug = 'seasonal-bundle';
-                            }
-                        } else if (this.classList.contains('bundle-btn')) {
-                            slug = 'seasonal-bundle';
-                        }
+                        if (card.classList.contains('summer'))           slug = 'summer-sun';
+                        else if (card.classList.contains('winter'))      slug = 'winter-frost';
+                        else if (card.classList.contains('autumn'))      slug = 'autumn-ember';
+                        else if (card.classList.contains('spring'))      slug = 'spring-bloom';
+                        else if (card.classList.contains('eucalyptus'))  slug = 'botanical-eucalyptus';
+                        else if (card.classList.contains('lavender'))    slug = 'botanical-lavender';
+                        else if (card.classList.contains('rose-garden')) slug = 'botanical-rose';
+                        else if (card.classList.contains('wildflower'))  slug = 'botanical-wildflower';
+                        else if (card.classList.contains('bundle-banner')) slug = 'seasonal-bundle';
                     }
-                    if (!slug) slug = 'summer-sun';
+                } else if (btn.classList.contains('bundle-btn')) {
+                    slug = 'seasonal-bundle';
+                }
+            }
+            if (!slug) slug = 'summer-sun';
 
-                    // Detect mode from data-mode attribute. Defaults to "payment" (or "subscription" if specified).
-                    const mode = this.getAttribute('data-mode') || 'payment';
+            const mode = btn.getAttribute('data-mode') || 'payment';
 
-                    if (typeof window.addItemToCart === 'function') {
-                        window.addItemToCart(slug, mode);
-                    } else if (typeof addItemToCart === 'function') {
-                        addItemToCart(slug, mode);
-                    } else {
-                        window.location.href = 'checkout.html?edition=' + encodeURIComponent(slug) + '&mode=' + encodeURIComponent(mode);
-                    }
-                });
-            });
+            if (typeof window.addItemToCart === 'function') {
+                window.addItemToCart(slug, mode);
+            } else if (typeof addItemToCart === 'function') {
+                addItemToCart(slug, mode);
+            } else {
+                window.location.href = 'checkout.html?edition=' + encodeURIComponent(slug) + '&mode=' + encodeURIComponent(mode);
+            }
+        });
 
+        document.addEventListener('DOMContentLoaded', () => {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
