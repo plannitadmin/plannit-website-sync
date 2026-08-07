@@ -22,7 +22,6 @@
             --font-serif: 'Playfair Display', Georgia, serif;
             --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         body {
             background: url('checkout_bg_v2.png') no-repeat center center fixed;
             background-size: cover;
@@ -35,7 +34,6 @@
             padding: 2rem 1rem;
             position: relative;
         }
-
         body::before {
             content: '';
             position: absolute;
@@ -45,7 +43,6 @@
             -webkit-backdrop-filter: blur(8px);
             z-index: 1;
         }
-
         .auth-container {
             width: 100%;
             max-width: 460px;
@@ -53,7 +50,6 @@
             position: relative;
             z-index: 2;
         }
-
         .auth-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(16px);
@@ -64,7 +60,6 @@
             box-shadow: 0 20px 40px rgba(43, 43, 43, 0.08);
             transition: var(--transition);
         }
-
         .auth-logo {
             display: flex;
             align-items: center;
@@ -76,13 +71,11 @@
             text-decoration: none;
             margin-bottom: 1.5rem;
         }
-
         .auth-logo img {
             height: 36px;
             width: 36px;
             object-fit: contain;
         }
-
         /* --- TOP SEGMENTED SLIDER SWITCH --- */
         .auth-segmented-switch {
             position: relative;
@@ -94,7 +87,6 @@
             border: 1px solid var(--border);
             user-select: none;
         }
-
         .auth-segmented-switch .tab-slider {
             position: absolute;
             top: 4px;
@@ -107,11 +99,9 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1;
         }
-
         .auth-segmented-switch.signup-active .tab-slider {
             transform: translateX(100%);
         }
-
         .auth-segmented-switch .tab-btn {
             flex: 1;
             border: none;
@@ -128,11 +118,9 @@
             border-radius: 50px;
             outline: none;
         }
-
         .auth-segmented-switch .tab-btn.active {
             color: var(--primary);
         }
-
         .auth-title {
             font-family: var(--font-serif);
             font-weight: 600;
@@ -141,7 +129,6 @@
             text-align: center;
             margin-bottom: 0.5rem;
         }
-
         .auth-subtitle {
             font-size: 0.88rem;
             color: var(--secondary);
@@ -149,7 +136,6 @@
             margin-bottom: 1.75rem;
             line-height: 1.4;
         }
-
         .form-group {
             margin-bottom: 1.15rem;
             display: flex;
@@ -158,7 +144,6 @@
             width: 100%;
             text-align: left;
         }
-
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -166,7 +151,6 @@
             margin-bottom: 1.15rem;
             width: 100%;
         }
-
         .form-label {
             font-size: 0.75rem;
             font-weight: 700;
@@ -175,7 +159,6 @@
             letter-spacing: 0.05em;
             text-align: left;
         }
-
         .form-input {
             width: 100%;
             padding: 0.8rem 1.2rem;
@@ -188,20 +171,16 @@
             transition: var(--transition);
             box-sizing: border-box;
         }
-
         .form-input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.12);
         }
-
         .form-input::placeholder {
             color: #94A3B8;
         }
-
         .form-input.optional {
             border-style: dashed;
         }
-
         .btn-submit {
             width: 100%;
             padding: 0.9rem;
@@ -220,13 +199,11 @@
             gap: 8px;
             margin-top: 1.25rem;
         }
-
         .btn-submit:hover {
             background: #2E4A63;
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(232, 160, 32, 0.4);
         }
-
         .btn-secondary-pill {
             width: 100%;
             padding: 0.8rem 1rem;
@@ -243,31 +220,26 @@
             justify-content: center;
             gap: 8px;
         }
-
         .btn-secondary-pill:hover {
             border-color: var(--accent);
             background: rgba(232, 160, 32, 0.05);
             transform: translateY(-1px);
         }
-
         .auth-footer {
             margin-top: 1.5rem;
             text-align: center;
             font-size: 0.85rem;
             color: var(--secondary);
         }
-
         .auth-footer a {
             color: var(--accent);
             font-weight: 700;
             text-decoration: none;
             transition: opacity 0.2s;
         }
-
         .auth-footer a:hover {
             opacity: 0.8;
         }
-
         /* --- VERIFICATION SCREEN --- */
         .verification-digits {
             display: flex;
@@ -275,7 +247,6 @@
             gap: 8px;
             margin: 1.5rem 0;
         }
-
         .digit-input {
             width: 50px;
             height: 54px;
@@ -288,23 +259,19 @@
             background: white;
             transition: var(--transition);
         }
-
         .digit-input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.12);
         }
-
         /* --- STATE TOGGLING --- */
         .auth-section {
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-
         .hidden {
             display: none !important;
             opacity: 0;
             transform: translateY(10px);
         }
-
         /* --- SUCCESS CONTAINER --- */
         .success-box {
             display: flex;
@@ -314,7 +281,6 @@
             padding: 2rem 0;
             text-align: center;
         }
-
         .success-checkmark {
             width: 72px;
             height: 72px;
@@ -328,12 +294,10 @@
             margin-bottom: 1.5rem;
             animation: popCheck 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
         @keyframes popCheck {
             0% { transform: scale(0.6); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-    
 body { animation: pageFadeIn 0.35s ease both; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
@@ -385,24 +349,19 @@ body { animation: pageFadeIn 0.35s ease both; }
 </script>
 </head>
 <body>
-
     <div class="auth-container">
         <div class="auth-card">
-            
             <a href="index.html" class="auth-logo" style="display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; margin-bottom: 1.5rem;"><img src="plannit-logo-mark-transparent.png" alt="Plannit Logo" style="height: 52px; width: 52px; object-fit: contain; vertical-align: middle;"><span style="background: linear-gradient(135deg, #E8A020 0%, #C05621 55%, #0F172A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-family: var(--font-serif); font-size: 1.85rem; font-weight: 700;">Plannit.</span></a>
-
             <!-- TOP SEGMENTED SLIDER SWITCH (LOG IN / SIGN UP) -->
             <div class="auth-segmented-switch" id="auth-segmented-switch">
                 <div class="tab-slider" id="tab-slider"></div>
                 <button type="button" class="tab-btn active" id="tab-btn-login" onclick="window.switchAuthTab ? window.switchAuthTab('login') : null">Log In</button>
                 <button type="button" class="tab-btn" id="tab-btn-signup" onclick="window.switchAuthTab ? window.switchAuthTab('signup') : null">Sign Up</button>
             </div>
-
             <!-- SECTION 1: STREAMLINED LOG IN -->
             <div id="login-section" class="auth-section">
                 <h2 class="auth-title">Welcome Back</h2>
                 <p class="auth-subtitle" id="login-subtitle">Enter your email address to log in.</p>
-
                 <!-- STEP 1: INITIAL EMAIL ENTRY -->
                 <div id="login-step1">
                     <form id="login-step1-form">
@@ -414,21 +373,18 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <button type="submit" class="btn-submit">Continue <i data-lucide="arrow-right" style="width: 16px; height: 16px; vertical-align: middle;"></i></button>
                     </form>
                 </div>
-
                 <!-- STEP 2: CHOOSE PASSWORD OR EMAIL CODE -->
                 <div id="login-step2" class="hidden">
                     <div style="background: #F8FAFC; border: 1px solid var(--border); border-radius: 50px; padding: 0.4rem 1rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
                         <span id="display-user-email" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">you@example.com</span>
                         <a href="#" id="link-change-email" style="font-size: 0.75rem; color: var(--accent); font-weight: 700; text-decoration: none;">Change</a>
                     </div>
-
                     <!-- OPTION A: LOG IN WITH PASSWORD -->
                     <form id="login-form">
                         <div class="form-group">
                             <label class="form-label" for="login-password">Password</label>
                             <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
                         </div>
-
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; margin-bottom: 1.25rem;">
                             <label for="login-remember-me" style="display: flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; color: var(--secondary); cursor: pointer; user-select: none;">
                                 <input type="checkbox" id="login-remember-me" style="width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;" checked>
@@ -436,18 +392,15 @@ body { animation: pageFadeIn 0.35s ease both; }
                             </label>
                             <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; transition: opacity 0.2s;">Forgot password?</a>
                         </div>
-
                         <div id="login-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
                         <button type="submit" class="btn-submit" style="background: #E8A020; box-shadow: 0 4px 14px rgba(232, 160, 32, 0.3);">Log In with Password</button>
                     </form>
-
                     <!-- OR DIVIDER -->
                     <div style="display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 1.25rem 0;">
                         <div style="flex: 1; height: 1px; background: var(--border);"></div>
                         <span style="font-size: 0.7rem; color: #94A3B8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">or login without password</span>
                         <div style="flex: 1; height: 1px; background: var(--border);"></div>
                     </div>
-
                     <!-- OPTION B: SEND 6-DIGIT EMAIL CODE -->
                     <button type="button" id="btn-send-email-code" class="btn-secondary-pill">
                         <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--accent);"></i>
@@ -455,12 +408,10 @@ body { animation: pageFadeIn 0.35s ease both; }
                     </button>
                 </div>
             </div>
-
             <!-- SECTION 1.6: ENTER EMAIL LOGIN CODE -->
             <div id="email-code-verify-section" class="auth-section hidden">
                 <h2 class="auth-title">Enter Login Code</h2>
                 <p class="auth-subtitle" id="email-code-verify-desc">We sent a 6-digit code to your email. Enter it below to access your library.</p>
-                
                 <form id="email-code-verify-form">
                     <div class="verification-digits">
                         <input type="text" class="digit-input login-code-digit" maxlength="1" data-index="0" required pattern="[0-9]">
@@ -470,26 +421,20 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <input type="text" class="digit-input login-code-digit" maxlength="1" data-index="4" required pattern="[0-9]">
                         <input type="text" class="digit-input login-code-digit" maxlength="1" data-index="5" required pattern="[0-9]">
                     </div>
-
                     <div id="login-code-demo-container" style="font-size: 0.72rem; color: var(--secondary); text-align: center; margin-bottom: 1rem; line-height: 1.4; display: none;">
                         <i data-lucide="mail" class="lucide" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Demo Code: <strong style="color: var(--accent);" id="login-code-demo-val">123456</strong>
                     </div>
-
                     <div id="email-code-verify-error" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
-                    
                     <button type="submit" class="btn-submit">Confirm Code & Log In</button>
                 </form>
-
                 <div class="auth-footer">
                     Didn't receive code? <a href="#" id="btn-resend-login-code">Resend Code</a>
                 </div>
             </div>
-
             <!-- SECTION 2: SIGN UP -->
             <div id="signup-section" class="auth-section hidden">
                 <h2 class="auth-title">Create Account</h2>
                 <p class="auth-subtitle">Sign up to sync your library and access your planner templates.</p>
-                
                 <form id="signup-form">
                     <div class="form-row">
                         <div class="form-group" style="margin-bottom: 0;">
@@ -523,12 +468,10 @@ body { animation: pageFadeIn 0.35s ease both; }
                     <button type="submit" class="btn-submit">Register & Continue</button>
                 </form>
             </div>
-
             <!-- SECTION 3: EMAIL VERIFICATION -->
             <div id="verify-section" class="auth-section hidden">
                 <h2 class="auth-title">Verify Email</h2>
                 <p class="auth-subtitle" id="verify-desc">We sent a verification code to your email. Enter it below to activate your account.</p>
-                
                 <form id="verify-form">
                     <div class="verification-digits">
                         <input type="text" class="digit-input" maxlength="1" data-index="0" required pattern="[0-9]">
@@ -538,28 +481,22 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <input type="text" class="digit-input" maxlength="1" data-index="4" required pattern="[0-9]">
                         <input type="text" class="digit-input" maxlength="1" data-index="5" required pattern="[0-9]">
                     </div>
-
                     <div id="demo-code-container" style="font-size: 0.72rem; color: var(--secondary); text-align: center; margin-bottom: 1.5rem; line-height: 1.4; display: none;">
                         <i data-lucide="mail" class="lucide" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Demo Code: <strong style="color: var(--accent);" id="demo-code-val">123456</strong>
                     </div>
-
                     <div id="verify-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;">
                         Incorrect verification code. Please try again.
                     </div>
-                    
                     <button type="submit" class="btn-submit">Confirm Code & Sign Up</button>
                 </form>
-
                 <div class="auth-footer">
                     Didn't receive code? <a href="#" id="btn-resend-code">Resend Code</a>
                 </div>
             </div>
-
             <!-- SECTION 3.5: FORGOT PASSWORD / RECOVERY -->
             <div id="forgot-section" class="auth-section hidden">
                 <h2 class="auth-title">Reset Password</h2>
                 <p class="auth-subtitle">Enter your registered email address and we will send you a 6-digit code to reset your password.</p>
-
                 <form id="forgot-form">
                     <div class="form-group">
                         <label class="form-label" for="forgot-email">Email Address</label>
@@ -568,17 +505,14 @@ body { animation: pageFadeIn 0.35s ease both; }
                     <div id="forgot-feedback-msg" style="font-size: 0.78rem; font-weight: 600; text-align: center; margin-bottom: 1rem; display: none;"></div>
                     <button type="submit" class="btn-submit" id="btn-forgot-submit">Send Reset Code</button>
                 </form>
-
                 <div class="auth-footer">
                     Back to <a href="#" id="link-forgot-back">Log In</a>
                 </div>
             </div>
-
             <!-- SECTION: PASSWORD RESET CODE + NEW PASSWORD -->
             <div id="reset-code-section" class="auth-section hidden">
                 <h2 class="auth-title">Enter Reset Code</h2>
                 <p class="auth-subtitle" id="reset-code-desc">We sent a 6-digit code to your email. Enter it below along with your new password.</p>
-
                 <form id="reset-code-form">
                     <div class="verification-digits">
                         <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="0" required pattern="[0-9]">
@@ -588,11 +522,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="4" required pattern="[0-9]">
                         <input type="text" class="digit-input reset-digit-input" maxlength="1" data-index="5" required pattern="[0-9]">
                     </div>
-
                     <div id="reset-demo-code-container" style="font-size: 0.72rem; color: var(--secondary); text-align: center; margin-bottom: 1rem; line-height: 1.4; display: none;">
                         <i data-lucide="mail" class="lucide" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Demo Code: <strong style="color: var(--accent);" id="reset-demo-code-val">123456</strong>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label" for="reset-new-password">New Password</label>
                         <input type="password" id="reset-new-password" class="form-input" placeholder="Min. 8 characters" minlength="8" required autocomplete="new-password">
@@ -601,17 +533,13 @@ body { animation: pageFadeIn 0.35s ease both; }
                         <label class="form-label" for="reset-confirm-password">Confirm New Password</label>
                         <input type="password" id="reset-confirm-password" class="form-input" placeholder="Min. 8 characters" minlength="8" required autocomplete="new-password">
                     </div>
-
                     <div id="reset-code-error-msg" style="font-size: 0.78rem; font-weight: 600; color: #DC2626; text-align: center; margin-bottom: 1rem; display: none;"></div>
-
                     <button type="submit" class="btn-submit">Reset Password</button>
                 </form>
-
                 <div class="auth-footer">
                     Didn't receive code? <a href="#" id="btn-resend-reset-code">Resend Code</a>
                 </div>
             </div>
-
             <!-- SECTION 4: SUCCESS -->
             <div id="success-section" class="auth-section hidden">
                 <div class="success-box">
@@ -621,7 +549,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     <p style="font-size: 0.8rem; color: var(--secondary); font-style: italic;">Redirecting to vaults...</p>
                 </div>
             </div>
-
             <!-- SECTION 5: PROFILE / LOGGED IN -->
             <div id="profile-section" class="auth-section hidden">
                 <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1rem 0;">
@@ -632,30 +559,24 @@ body { animation: pageFadeIn 0.35s ease both; }
                     <button class="btn-submit" onclick="signOut()" style="background: transparent; color: var(--secondary); border: 1.5px solid var(--border); box-shadow: none; margin-top: 0.75rem; width: 100%; font-weight: 600;">Log in to a different account</button>
                 </div>
             </div>
-
         </div>
-        
         <!-- Credits Link -->
         <div style="text-align: center; margin-top: 1.5rem; font-size: 0.75rem;">
             <a href="credits.html" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Credits</a>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) { window.lucide.createIcons(); }
-
             const segmentedSwitch = document.getElementById('auth-segmented-switch');
             const tabBtnLogin = document.getElementById('tab-btn-login');
             const tabBtnSignup = document.getElementById('tab-btn-signup');
-
             const loginSection = document.getElementById('login-section');
             const loginStep1 = document.getElementById('login-step1');
             const loginStep2 = document.getElementById('login-step2');
             const loginSubtitle = document.getElementById('login-subtitle');
             const displayUserEmail = document.getElementById('display-user-email');
             const linkChangeEmail = document.getElementById('link-change-email');
-
             const signupSection = document.getElementById('signup-section');
             const emailCodeVerifySection = document.getElementById('email-code-verify-section');
             const verifySection = document.getElementById('verify-section');
@@ -663,11 +584,9 @@ body { animation: pageFadeIn 0.35s ease both; }
             const resetCodeSection = document.getElementById('reset-code-section');
             const successSection = document.getElementById('success-section');
             const profileSection = document.getElementById('profile-section');
-
             const linkForgotPassword = document.getElementById('link-forgot-password');
             const linkForgotBack = document.getElementById('link-forgot-back');
             const btnSendEmailCode = document.getElementById('btn-send-email-code');
-
             const loginStep1Form = document.getElementById('login-step1-form');
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
@@ -675,11 +594,9 @@ body { animation: pageFadeIn 0.35s ease both; }
             const verifyForm = document.getElementById('verify-form');
             const forgotForm = document.getElementById('forgot-form');
             const resetCodeForm = document.getElementById('reset-code-form');
-
             const digitInputs = document.querySelectorAll('#verify-section .digit-input');
             const loginCodeDigits = document.querySelectorAll('.login-code-digit');
             const resetDigitInputs = document.querySelectorAll('.reset-digit-input');
-
             const step1ErrorMsg = document.getElementById('step1-error-msg');
             const loginErrorMsg = document.getElementById('login-error-msg');
             const signupErrorMsg = document.getElementById('signup-error-msg');
@@ -687,17 +604,13 @@ body { animation: pageFadeIn 0.35s ease both; }
             const verifyDescEl = document.getElementById('verify-desc');
             const resendLink = document.getElementById('btn-resend-code');
             const btnResendLoginCode = document.getElementById('btn-resend-login-code');
-
             let resetVerificationToken = '';
             let loginCodeToken = '';
             let userEmailEntered = '';
-
             const successTitle = document.getElementById('success-title');
             const successDesc = document.getElementById('success-desc');
-
             let tempSignupData = {};
             let signupVerificationToken = '';
-
             function handleResponse(res, fallbackError) {
                 if (!res.ok) {
                     const contentType = res.headers.get("content-type");
@@ -709,7 +622,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 }
                 return res.json();
             }
-
             window.signOut = function() {
                 Object.keys(localStorage)
                     .filter(k => k.startsWith('plannit_'))
@@ -717,7 +629,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 sessionStorage.clear();
                 window.location.href = 'library.html';
             };
-
             function showSection(section) {
                 const allSections = [
                     loginSection, signupSection, emailCodeVerifySection,
@@ -727,7 +638,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (sec) sec.classList.add('hidden');
                 });
                 if (section) section.classList.remove('hidden');
-
                 if (segmentedSwitch) {
                     if (section === loginSection || section === signupSection) {
                         segmentedSwitch.style.display = 'flex';
@@ -736,7 +646,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     }
                 }
             }
-
             function switchAuthTab(tab) {
                 if (tab === 'signup') {
                     if (segmentedSwitch) segmentedSwitch.classList.add('signup-active');
@@ -754,7 +663,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 }
             }
             window.switchAuthTab = switchAuthTab;
-
             function resetLoginStep1() {
                 if (loginStep1 && loginStep2) {
                     loginStep1.classList.remove('hidden');
@@ -762,10 +670,8 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (loginSubtitle) loginSubtitle.textContent = 'Enter your email address to log in.';
                 }
             }
-
             tabBtnLogin.addEventListener('click', () => switchAuthTab('login'));
             tabBtnSignup.addEventListener('click', () => switchAuthTab('signup'));
-
             // Step 1 Form Submit (Email Entered)
             if (loginStep1Form) {
                 loginStep1Form.addEventListener('submit', (e) => {
@@ -779,7 +685,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     step1ErrorMsg.style.display = 'none';
                     userEmailEntered = emailInput;
                     if (displayUserEmail) displayUserEmail.textContent = userEmailEntered;
-                    
                     loginStep1.classList.add('hidden');
                     loginStep2.classList.remove('hidden');
                     if (loginSubtitle) loginSubtitle.textContent = 'Choose password or send a one-time email code.';
@@ -787,7 +692,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (passInput) passInput.focus();
                 });
             }
-
             if (linkChangeEmail) {
                 linkChangeEmail.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -796,7 +700,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     if (emailInput) emailInput.focus();
                 });
             }
-
             if (linkForgotPassword) {
                 linkForgotPassword.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -808,14 +711,12 @@ body { animation: pageFadeIn 0.35s ease both; }
                     window.history.replaceState(null, '', '?mode=forgot');
                 });
             }
-
             if (linkForgotBack) {
                 linkForgotBack.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchAuthTab('login');
                 });
             }
-
             // Send 6-Digit Login Code via Email
             if (btnSendEmailCode) {
                 btnSendEmailCode.addEventListener('click', () => {
@@ -826,7 +727,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     const originalText = btnSendEmailCode.innerHTML;
                     btnSendEmailCode.innerHTML = '<i data-lucide="loader" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Sending 6-Digit Code...';
                     btnSendEmailCode.disabled = true;
-
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                         method: 'POST',
@@ -840,7 +740,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         if (descEl) {
                             descEl.innerHTML = `We sent a 6-digit login code to <strong style="color: var(--primary); font-size: 0.8rem;">${userEmailEntered}</strong>. Enter it below to log in.`;
                         }
-
                         const demoContainer = document.getElementById('login-code-demo-container');
                         const demoVal = document.getElementById('login-code-demo-val');
                         if (data.devCode && demoContainer && demoVal) {
@@ -849,7 +748,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         } else if (demoContainer) {
                             demoContainer.style.display = 'none';
                         }
-
                         showSection(emailCodeVerifySection);
                         loginCodeDigits[0].focus();
                     })
@@ -864,7 +762,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 });
             }
-
             // Resend 6-Digit Login Code
             if (btnResendLoginCode) {
                 btnResendLoginCode.addEventListener('click', (e) => {
@@ -894,31 +791,25 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 });
             }
-
             // Setup URL initial mode
             const params = new URLSearchParams(window.location.search);
             const mode = params.get('mode') || 'login';
-
             const userId = localStorage.getItem('plannit_user_id');
             const email = localStorage.getItem('plannit_user_email');
             const name = localStorage.getItem('plannit_first_name') || localStorage.getItem('plannit_username') || 'Guest';
-
             if (userId && email) {
                 const profileName = document.getElementById('profile-name');
                 const profileEmail = document.getElementById('profile-email');
                 const desktopAvatar = document.getElementById('desktop-avatar');
-                
                 if (profileName) profileName.textContent = name;
                 if (profileEmail) profileEmail.textContent = email;
                 if (desktopAvatar) desktopAvatar.textContent = name.charAt(0).toUpperCase();
-                
                 showSection(profileSection);
             } else if (mode === 'signup') {
                 switchAuthTab('signup');
             } else {
                 switchAuthTab('login');
             }
-
             // Setup Auto-Tabbing for verification digits
             function setupDigitInputs(inputs) {
                 inputs.forEach((input, index) => {
@@ -935,24 +826,20 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 });
             }
-
             setupDigitInputs(digitInputs);
             setupDigitInputs(loginCodeDigits);
             setupDigitInputs(resetDigitInputs);
-
             // Handle Log In with Password submission
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const passwordVal = document.getElementById('login-password').value;
                 const rememberMe = document.getElementById('login-remember-me').checked;
-
                 if (userEmailEntered && passwordVal) {
                     loginErrorMsg.style.display = 'none';
                     const submitBtn = loginForm.querySelector('.btn-submit');
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Logging in...';
                     submitBtn.disabled = true;
-
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                         method: 'POST',
@@ -970,20 +857,16 @@ body { animation: pageFadeIn 0.35s ease both; }
                         localStorage.setItem('plannit_last_name', data.user.lastName);
                         localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));
                         localStorage.setItem('plannit_entered', 'true');
-
                         const allowed = data.allowedEditions || [];
                         localStorage.setItem('plannit_owned', JSON.stringify(allowed));
-
                         if (data.trials) {
                              localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
                         } else {
                              localStorage.removeItem('plannit_trials');
                         }
-
                         successTitle.textContent = "Welcome Back!";
                         successDesc.textContent = "You have successfully logged in.";
                         showSection(successSection);
-
                         setTimeout(() => {
                             window.location.href = 'loading.html';
                         }, 1300);
@@ -996,14 +879,12 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 }
             });
-
             // Handle Email Code Verification Submission
             if (emailCodeVerifyForm) {
                 emailCodeVerifyForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     let code = '';
                     loginCodeDigits.forEach(input => { code += input.value.trim(); });
-
                     const errorMsg = document.getElementById('email-code-verify-error');
                     if (code.length === 6) {
                         if (errorMsg) errorMsg.style.display = 'none';
@@ -1011,7 +892,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         const originalText = submitBtn.textContent;
                         submitBtn.textContent = 'Authenticating...';
                         submitBtn.disabled = true;
-
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                             method: 'POST',
@@ -1031,11 +911,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                             localStorage.setItem('plannit_email', userEmailEntered);
                             localStorage.setItem('plannit_first_name', data.user ? data.user.firstName : 'User');
                             localStorage.setItem('plannit_entered', 'true');
-
                             successTitle.textContent = "Logged In!";
                             successDesc.textContent = "Authenticated successfully with your email code.";
                             showSection(successSection);
-
                             setTimeout(() => {
                                 window.location.href = 'loading.html';
                             }, 1300);
@@ -1053,7 +931,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     }
                 });
             }
-
             // Handle Sign Up Phase 1 submission
             signupForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -1062,7 +939,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                 const username = document.getElementById('signup-username').value.trim();
                 const email = document.getElementById('signup-email').value.trim();
                 const password = document.getElementById('signup-password').value;
-
                 if (!email || !password || !firstName || !lastName) {
                     signupErrorMsg.textContent = 'Please fill in your first name, last name, email and password.';
                     signupErrorMsg.style.display = 'block';
@@ -1073,7 +949,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     signupErrorMsg.style.display = 'block';
                     return;
                 }
-
                 if (email && password && firstName && lastName) {
                     const consentCheckbox = document.getElementById('signup-consent-checkbox');
                     if (!consentCheckbox || !consentCheckbox.checked) {
@@ -1086,7 +961,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Registering account...';
                     submitBtn.disabled = true;
-
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                         method: 'POST',
@@ -1104,9 +978,7 @@ body { animation: pageFadeIn 0.35s ease both; }
                     .then(data => {
                         tempSignupData = { firstName, lastName, username, email, password };
                         signupVerificationToken = data.token;
-
                         verifyDescEl.innerHTML = `We sent a 6-digit verification code to <strong style="color: var(--primary); font-size: 0.8rem;">${email}</strong>. Enter it below to verify your email.`;
-
                         const demoCodeContainer = document.getElementById('demo-code-container');
                         const demoCodeVal = document.getElementById('demo-code-val');
                         if (data.devCode && demoCodeContainer && demoCodeVal) {
@@ -1115,7 +987,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         } else if (demoCodeContainer) {
                             demoCodeContainer.style.display = 'none';
                         }
-
                         showSection(verifySection);
                         digitInputs[0].focus();
                     })
@@ -1127,20 +998,17 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 }
             });
-
             // Handle 6-Digit signup verification code submission
             verifyForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 let code = '';
                 digitInputs.forEach(input => { code += input.value.trim(); });
-
                 if (code.length === 6) {
                     verifyErrorMsg.style.display = 'none';
                     const submitBtn = verifyForm.querySelector('.btn-submit');
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Verifying...';
                     submitBtn.disabled = true;
-
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                         method: 'POST',
@@ -1162,14 +1030,11 @@ body { animation: pageFadeIn 0.35s ease both; }
                         localStorage.setItem('plannit_last_name', data.user.lastName);
                         localStorage.setItem('plannit_username', data.user.username || (data.user.firstName + data.user.lastName));
                         localStorage.setItem('plannit_entered', 'true');
-
                         const allowed = data.allowedEditions || [];
                         localStorage.setItem('plannit_owned', JSON.stringify(allowed));
-
                         successTitle.textContent = "Account Created!";
                         successDesc.textContent = `Welcome to Plannit, ${data.user.firstName}!`;
                         showSection(successSection);
-
                         setTimeout(() => {
                             window.location.href = 'loading.html';
                         }, 1600);
@@ -1179,13 +1044,11 @@ body { animation: pageFadeIn 0.35s ease both; }
                         verifyErrorMsg.style.display = 'block';
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
-                        
                         digitInputs.forEach(input => input.value = '');
                         digitInputs[0].focus();
                     });
                 }
             });
-
             // Resend signup code handler
             if (resendLink) {
                 resendLink.addEventListener('click', (e) => {
@@ -1197,7 +1060,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     const originalText = resendLink.textContent;
                     resendLink.textContent = 'Sending new code...';
                     resendLink.style.pointerEvents = 'none';
-
                     fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                         method: 'POST',
@@ -1208,7 +1070,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     .then(data => {
                         signupVerificationToken = data.token;
                         alert('A new 6-digit code has been sent to ' + tempSignupData.email);
-                        
                         const demoCodeContainer = document.getElementById('demo-code-container');
                         const demoCodeVal = document.getElementById('demo-code-val');
                         if (data.devCode && demoCodeContainer && demoCodeVal) {
@@ -1223,7 +1084,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                     });
                 });
             }
-
             // Handle Forgot Password Form submission
             if (forgotForm) {
                 forgotForm.addEventListener('submit', (e) => {
@@ -1231,13 +1091,11 @@ body { animation: pageFadeIn 0.35s ease both; }
                     const emailVal = document.getElementById('forgot-email').value.trim();
                     const forgotFeedbackMsg = document.getElementById('forgot-feedback-msg');
                     const submitBtn = forgotForm.querySelector('button[type="submit"]');
-
                     if (emailVal) {
                         if (forgotFeedbackMsg) forgotFeedbackMsg.style.display = 'none';
                         const originalText = submitBtn.textContent;
                         submitBtn.textContent = 'Sending code...';
                         submitBtn.disabled = true;
-
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                             method: 'POST',
@@ -1247,22 +1105,18 @@ body { animation: pageFadeIn 0.35s ease both; }
                         .then(res => handleResponse(res, 'Failed to send reset code'))
                         .then(data => {
                             resetVerificationToken = data.token;
-
                             const resetCodeDescEl = document.getElementById('reset-code-desc');
                             if (resetCodeDescEl) {
                                 resetCodeDescEl.innerHTML = `We sent a 6-digit code to <strong style="color: var(--primary); font-size: 0.8rem;">${emailVal}</strong>. Enter it below along with your new password.`;
                             }
-
                             const resetDemoCodeContainer = document.getElementById('reset-demo-code-container');
                             const resetDemoCodeVal = document.getElementById('reset-demo-code-val');
                             if (data.devCode && resetDemoCodeContainer && resetDemoCodeVal) {
                                 resetDemoCodeVal.textContent = data.devCode;
                                 resetDemoCodeContainer.style.display = 'block';
                             }
-
                             showSection(resetCodeSection);
                             resetDigitInputs[0].focus();
-
                             submitBtn.textContent = originalText;
                             submitBtn.disabled = false;
                         })
@@ -1278,20 +1132,16 @@ body { animation: pageFadeIn 0.35s ease both; }
                     }
                 });
             }
-
             // Handle Reset Code + New Password submission
             if (resetCodeForm) {
                 resetCodeForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     let code = '';
                     resetDigitInputs.forEach(input => { code += input.value.trim(); });
-
                     const newPassword = document.getElementById('reset-new-password').value;
                     const confirmPassword = document.getElementById('reset-confirm-password').value;
-
                     const resetCodeErrorMsg = document.getElementById('reset-code-error-msg');
                     if (resetCodeErrorMsg) resetCodeErrorMsg.style.display = 'none';
-
                     if (newPassword !== confirmPassword) {
                         if (resetCodeErrorMsg) {
                             resetCodeErrorMsg.textContent = 'Passwords do not match.';
@@ -1299,13 +1149,11 @@ body { animation: pageFadeIn 0.35s ease both; }
                         }
                         return;
                     }
-
                     if (code.length === 6 && newPassword) {
                         const submitBtn = resetCodeForm.querySelector('button[type="submit"]');
                         const originalText = submitBtn.textContent;
                         submitBtn.textContent = 'Resetting password...';
                         submitBtn.disabled = true;
-
                         fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     credentials: 'include',
                             method: 'POST',
@@ -1322,7 +1170,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                             successTitle.textContent = "Password Reset!";
                             successDesc.textContent = "Your password has been reset successfully. Please log in.";
                             showSection(successSection);
-
                             setTimeout(() => {
                                 switchAuthTab('login');
                             }, 1600);
@@ -1338,10 +1185,8 @@ body { animation: pageFadeIn 0.35s ease both; }
                     }
                 });
             }
-
         });
     </script>
-
     <!-- Plannit Premium Cookie & Privacy Consent Banner -->
     <div id="plannit-cookie-banner" style="position: fixed; bottom: 20px; right: 20px; max-width: 400px; width: calc(100% - 40px); background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(232, 160, 32, 0.35); border-radius: 16px; padding: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); z-index: 99999; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #F8FAFC; transform: translateY(120%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: none;">
         <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;">
@@ -1383,6 +1228,5 @@ body { animation: pageFadeIn 0.35s ease both; }
             initPlannitCookieBanner();
         }
     </script>
-
 </body>
 </html>

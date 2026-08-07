@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta charset="UTF-8">
 <title>Plannit - Loading...</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +24,6 @@
             --radius-sm: 8px;
             --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             --font-serif: 'Playfair Display', 'Georgia', serif;
-            
             /* Emblem Colors */
             --c-summer: #FAC775;
             --c-winter: #85B7EB;
@@ -35,13 +33,11 @@
             --c-nature: #639922;
             --c-cities: #7F00FF;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
@@ -52,7 +48,6 @@
             justify-content: center;
             overflow: hidden;
         }
-
         /* --- Auth Gate --- */
         .auth-gate {
             background: white;
@@ -65,27 +60,23 @@
             width: 90%;
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
-
         .auth-gate.hidden {
             opacity: 0;
             transform: scale(0.95);
             pointer-events: none;
             position: absolute;
         }
-
         .auth-gate h1 {
             font-family: var(--font-serif);
             font-weight: 600;
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
-
         .auth-gate p {
             color: var(--secondary);
             font-size: 0.95rem;
             margin-bottom: 2rem;
         }
-
         .auth-input {
             width: 100%;
             padding: 1rem;
@@ -97,12 +88,10 @@
             outline: none;
             transition: var(--transition);
         }
-
         .auth-input:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
         }
-
         .auth-btn {
             width: 100%;
             padding: 1rem;
@@ -115,12 +104,10 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
         .auth-btn:hover {
             background: #2E4A63;
             transform: translateY(-2px);
         }
-
         /* --- Loading Sequence --- */
         .loading-sequence {
             position: absolute;
@@ -132,11 +119,9 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
         }
-
         .loading-sequence.active {
             opacity: 1;
         }
-
         .emblem-container {
             font-size: 4rem;
             width: 120px;
@@ -146,20 +131,17 @@
             justify-content: center;
             position: relative;
         }
-
         .emblem {
             position: absolute;
             opacity: 0;
             transform: scale(0.8);
             filter: blur(4px);
         }
-
         /* The active class triggers the specific animation */
         .emblem.active {
             opacity: 1;
             filter: blur(0);
         }
-
         /* Emblem specific animations (triggered when .active is added) */
         .emblem[data-emblem="summer"].active {
             animation: animSummer 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -169,7 +151,6 @@
             50% { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--c-summer)); }
             100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--c-summer)); }
         }
-
         .emblem[data-emblem="winter"].active {
             animation: animWinter 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -178,7 +159,6 @@
             50% { transform: scale(1) rotate(5deg); filter: drop-shadow(0 0 15px var(--c-winter)); }
             100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 8px var(--c-winter)); }
         }
-
         .emblem[data-emblem="autumn"].active {
             animation: animAutumn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -187,7 +167,6 @@
             50% { transform: translateY(-5px) scale(1.05); filter: drop-shadow(0 0 15px var(--c-autumn)); }
             100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 8px var(--c-autumn)); }
         }
-
         .emblem[data-emblem="spring"].active {
             animation: animSpring 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -195,7 +174,6 @@
             0% { transform: scale(0.5); opacity: 0; filter: drop-shadow(0 0 0 transparent); }
             100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 12px var(--c-spring)); }
         }
-
         .emblem[data-emblem="botanical"].active {
             animation: animBotanical 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -204,7 +182,6 @@
             50% { transform: rotate(10deg) scale(1.05); filter: drop-shadow(0 0 15px var(--c-botanical)); }
             100% { transform: rotate(0) scale(1); filter: drop-shadow(0 0 8px var(--c-botanical)); }
         }
-
         .emblem[data-emblem="nature"].active {
             animation: animNature 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -213,7 +190,6 @@
             50% { transform: scale(1.15); filter: drop-shadow(0 0 15px var(--c-nature)); }
             100% { transform: scale(1); filter: drop-shadow(0 0 8px var(--c-nature)); }
         }
-
         .emblem[data-emblem="cities"].active {
             animation: animCities 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -221,7 +197,6 @@
             0% { transform: translateY(20px) scale(0.8); opacity: 0; filter: drop-shadow(0 0 0 transparent); }
             100% { transform: translateY(0) scale(1); opacity: 1; filter: drop-shadow(0 0 15px var(--c-cities)); }
         }
-
         .loading-text {
             margin-top: 2rem;
             font-size: 0.85rem;
@@ -230,7 +205,6 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
-
         /* --- Fade Out Overlay --- */
         .page-fade {
             position: fixed;
@@ -241,12 +215,10 @@
             transition: opacity 0.5s ease;
             z-index: 100;
         }
-
         .page-fade.active {
             opacity: 1;
             pointer-events: all;
         }
-    
 /* Smooth page-load transition (CSS-only, no JS dependency) */
 body { animation: pageFadeIn 0.35s ease both; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -298,7 +270,6 @@ body { animation: pageFadeIn 0.35s ease both; }
 </script>
 </head>
 <body>
-
     <!-- Auth Gate -->
     <div class="auth-gate" id="authGate">
         <h1>Welcome.</h1>
@@ -308,7 +279,6 @@ body { animation: pageFadeIn 0.35s ease both; }
             <button type="submit" class="auth-btn">Access Library</button>
         </form>
     </div>
-
     <!-- Loading Sequence -->
     <div class="loading-sequence" id="loadingSequence">
         <div class="emblem-container">
@@ -322,9 +292,7 @@ body { animation: pageFadeIn 0.35s ease both; }
         </div>
         <div class="loading-text">Preparing Vault...</div>
     </div>
-
     <div class="page-fade" id="pageFade"></div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const authGate = document.getElementById('authGate');
@@ -334,10 +302,8 @@ body { animation: pageFadeIn 0.35s ease both; }
             const pageFade = document.getElementById('pageFade');
             const emblems = document.querySelectorAll('.emblem');
             const loadingText = document.querySelector('.loading-text');
-
             const urlParams = new URLSearchParams(window.location.search);
             const planner = urlParams.get('planner') || urlParams.get('edition') || urlParams.get('slug');
-
             if (planner) {
                 // Bypass auth gate if viewing a planner
                 if (authGate) authGate.style.display = 'none';
@@ -345,7 +311,6 @@ body { animation: pageFadeIn 0.35s ease both; }
             } else {
                 // Check if already authenticated
                 const existingEmail = localStorage.getItem('plannit_email') || localStorage.getItem('plannit_user_email');
-                
                 if (existingEmail) {
                     if (authGate) authGate.style.display = 'none';
                     startLoadingSequence();
@@ -353,14 +318,11 @@ body { animation: pageFadeIn 0.35s ease both; }
                     window.location.href = 'library.html';
                 }
             }
-
             function startPlannerLoading(plannerSlug) {
                 if (loadingSequence) loadingSequence.classList.add('active');
-
                 // Determine emblem mapping
                 let targetEmblemName = 'summer'; // Default fallback
                 let friendlyName = 'Summer Sun';
-                
                 if (plannerSlug.includes('summer')) {
                     targetEmblemName = 'summer';
                     friendlyName = 'Summer Sun';
@@ -383,11 +345,9 @@ body { animation: pageFadeIn 0.35s ease both; }
                     targetEmblemName = 'cities';
                     friendlyName = 'Capital Cities';
                 }
-
                 if (loadingText) {
                     loadingText.textContent = `Decrypting ${friendlyName} Vault...`;
                 }
-
                 // Hide all emblems except the target one
                 emblems.forEach(emb => {
                     if (emb.getAttribute('data-emblem') === targetEmblemName) {
@@ -397,7 +357,6 @@ body { animation: pageFadeIn 0.35s ease both; }
                         emb.style.display = 'none';
                     }
                 });
-
                  // Wait for emblem animation, then fade out and open planner
                  setTimeout(() => {
                      if (pageFade) pageFade.classList.add('active');
@@ -411,17 +370,13 @@ body { animation: pageFadeIn 0.35s ease both; }
                      }, 400);
                  }, 1200);
              }
-
             function startLoadingSequence() {
                 loadingSequence.classList.add('active');
-
                 let currentIndex = 0;
-                
                 function playNextEmblem() {
                     if (currentIndex > 0) {
                         emblems[currentIndex - 1].classList.remove('active');
                     }
-                    
                     if (currentIndex < emblems.length) {
                         emblems[currentIndex].classList.add('active');
                         currentIndex++;
@@ -431,18 +386,15 @@ body { animation: pageFadeIn 0.35s ease both; }
                         finishLoading();
                     }
                 }
-
                 // Start the sequence after a brief pause
                 setTimeout(playNextEmblem, 300);
             }
-
             function finishLoading() {
                 pageFade.classList.add('active');
                 setTimeout(() => {
                     window.location.href = 'library.html';
                 }, 500);
             }
-            
             // Initialize Lucide Icons
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();

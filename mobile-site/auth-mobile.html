@@ -12,54 +12,40 @@
   * { box-sizing: border-box; }
   html, body { margin:0; background:var(--cream); font-family:var(--font-sans); }
   .mobile-page { max-width:480px; margin:0 auto; background:var(--white); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
-
   .pnav-min { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid var(--border-soft); position:sticky; top:0; z-index:50; background:var(--white); }
   .plogo { font-family:var(--font-display); font-weight:600; font-size:19px; color:var(--charcoal); text-decoration:none; }
   .back-ic { width:19px; height:19px; }
-
   .auth-wrap { padding:36px 20px 40px; display:flex; flex-direction:column; align-items:center; }
   .auth-mark { width:44px; height:44px; border-radius:12px; background:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
   .auth-mark svg { width:22px; height:22px; }
-
   .tabs-row { display:flex; gap:8px; margin-bottom:22px; background:var(--cream); border-radius:9999px; padding:4px; width:100%; max-width:300px; cursor:pointer; }
   .tab { flex:1; text-align:center; padding:8px 0; border-radius:9999px; font-size:12.5px; font-weight:700; color:var(--muted); transition:0.2s; }
   .tab.active { background:var(--forest); color:var(--white); }
-
   .auth-panel { width:100%; max-width:340px; }
   .auth-panel.hidden { display:none; }
-
   .auth-title { font-family:var(--font-display); font-weight:600; font-size:26px; color:var(--charcoal); margin:0 0 6px; text-align:center; }
   .auth-sub { font-size:12.5px; color:var(--muted); text-align:center; margin:0 0 26px; line-height:1.5; }
-
   .field { margin-bottom:16px; }
   .field label { display:block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:6px; }
   .field input { width:100%; border:1px solid var(--border-soft); border-radius:9999px; padding:12px 16px; font-size:13.5px; color:var(--charcoal); background:var(--white); font-family:var(--font-sans); }
   .field input::placeholder { color:#9E988C; }
   .field-row { display:flex; gap:10px; }
   .field-row .field { flex:1; }
-
   .forgot { display:block; text-align:right; font-size:11.5px; color:var(--copper); font-weight:700; text-decoration:none; margin-top:-10px; margin-bottom:16px; }
-
   .btn-submit-m { width:100%; padding:13px; border-radius:9999px; background:#3E5C76; color:var(--white); font-weight:700; font-size:13.5px; text-align:center; box-shadow:0 6px 16px rgba(62,92,118,.3); display:flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer; font-family:var(--font-sans); margin-top:6px; }
   .btn-submit-m:disabled { opacity:0.6; pointer-events:none; }
-
   .divider { display:flex; align-items:center; gap:12px; width:100%; margin:24px 0; }
   .divider .line { flex:1; height:1px; background:var(--border-soft); }
   .divider span { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
-
   .btn-outline-m { width:100%; padding:12px; border-radius:9999px; border:1px solid var(--border-soft); background:var(--white); color:var(--charcoal); font-weight:700; font-size:13px; text-align:center; display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; font-family:var(--font-sans); }
-
   .auth-footnote { margin-top:26px; font-size:12px; color:var(--muted); text-align:center; }
   .auth-footnote a { color:var(--copper); font-weight:700; text-decoration:none; cursor:pointer; }
-
   .error-msg { color:#DC2626; font-size:12px; padding:10px 14px; background:#FEF2F2; border:1px solid #FECACA; border-radius:10px; margin-bottom:14px; display:none; line-height:1.5; }
   .success-msg { color:#15803D; font-size:12px; padding:10px 14px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; margin-bottom:14px; display:none; line-height:1.5; text-align:center; }
-
   .consent-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; }
   .consent-row input[type="checkbox"] { margin-top:2px; flex-shrink:0; accent-color:var(--forest); width:15px; height:15px; }
   .consent-row label { font-size:11px; color:var(--muted); line-height:1.5; }
   .consent-row label a { color:var(--copper); font-weight:700; text-decoration:none; }
-
   /* Logged-in state */
   .logged-in-panel { width:100%; max-width:340px; text-align:center; padding:20px 0; }
   .logged-in-avatar { width:64px; height:64px; border-radius:50%; background:#E8A020; color:white; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:28px; font-weight:600; margin:0 auto 14px; }
@@ -67,7 +53,6 @@
   .logged-in-email { font-size:12px; color:var(--muted); margin-bottom:24px; }
   .btn-signout { padding:11px 24px; border-radius:9999px; border:1.5px solid var(--border-soft); background:transparent; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; font-family:var(--font-sans); }
   .btn-library { display:block; width:100%; padding:13px; border-radius:9999px; background:#E8A020; color:white; font-weight:700; font-size:13.5px; text-align:center; text-decoration:none; margin-bottom:12px; box-shadow:0 4px 14px rgba(232,160,32,0.3); }
-
 /* Smooth page-load transition (CSS-only, no JS dependency) */
 body { animation: pageFadeIn 0.35s ease both; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -118,7 +103,6 @@ body { animation: pageFadeIn 0.35s ease both; }
 </head>
 <body>
 <div class="mobile-page">
-
   <div class="pnav-min">
     <a href="index-mobile.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
       <svg class="back-ic" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.9"><path d="M15 18l-6-6 6-6"/></svg>
@@ -126,12 +110,10 @@ body { animation: pageFadeIn 0.35s ease both; }
     <a href="index-mobile.html" class="plogo">Plannit</a>
     <div style="width:19px;"></div>
   </div>
-
   <div class="auth-wrap">
     <div class="auth-mark">
       <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
-
     <!-- Logged-in panel (shown if already signed in) -->
     <div class="logged-in-panel hidden" id="loggedInPanel">
       <div class="logged-in-avatar" id="avatarInitial">?</div>
@@ -140,14 +122,12 @@ body { animation: pageFadeIn 0.35s ease both; }
       <a href="library-mobile.html" class="btn-library">Go to My Library</a>
       <button class="btn-signout" onclick="signOut()">Log in to a different account</button>
     </div>
-
     <!-- Auth panels (hidden if logged in) -->
     <div id="authPanels" style="width:100%; display:flex; flex-direction:column; align-items:center;">
       <div class="tabs-row">
         <div class="tab active" id="tabLogin" onclick="switchTab('login')">Log In</div>
         <div class="tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</div>
       </div>
-
       <!-- LOG IN panel -->
       <div class="auth-panel" id="panelLogin">
         <h1 class="auth-title">Welcome back.</h1>
@@ -174,7 +154,6 @@ body { animation: pageFadeIn 0.35s ease both; }
         </button>
         <p class="auth-footnote">New to Plannit? <a onclick="switchTab('signup')">Create Account</a></p>
       </div>
-
       <!-- SIGN UP panel -->
       <div class="auth-panel hidden" id="panelSignup">
         <h1 class="auth-title">Get started.</h1>
@@ -218,7 +197,6 @@ body { animation: pageFadeIn 0.35s ease both; }
         </button>
         <p class="auth-footnote">Already have an account? <a onclick="switchTab('login')">Log In</a></p>
       </div>
-
       <!-- FORGOT PASSWORD panel -->
       <div class="auth-panel hidden" id="panelForgot">
         <h1 class="auth-title">Recover Password</h1>
@@ -235,7 +213,6 @@ body { animation: pageFadeIn 0.35s ease both; }
         </button>
         <p class="auth-footnote">Back to <a onclick="switchTab('login')">Log In</a></p>
       </div>
-
       <!-- RESET CODE + NEW PASSWORD panel -->
       <div class="auth-panel hidden" id="panelResetCode">
         <h1 class="auth-title">Enter Reset Code</h1>
@@ -262,18 +239,14 @@ body { animation: pageFadeIn 0.35s ease both; }
       </div>
     </div>
   </div>
-
 </div>
-
 <script>
 const API = 'https://plannit-backend-private.vercel.app/api/auth';
-
 // ── On page load: check if already logged in ──
 window.addEventListener('DOMContentLoaded', () => {
   const userId = localStorage.getItem('plannit_user_id');
   const email  = localStorage.getItem('plannit_user_email');
   const name   = localStorage.getItem('plannit_first_name') || localStorage.getItem('plannit_username') || 'You';
-
   if (userId && email) {
     document.getElementById('loggedInPanel').classList.remove('hidden');
     document.getElementById('authPanels').style.display = 'none';
@@ -281,24 +254,20 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loggedInName').textContent  = name;
     document.getElementById('loggedInEmail').textContent = email;
   }
-
   // Check URL for ?mode=signup
   if (new URLSearchParams(window.location.search).get('mode') === 'signup') {
     switchTab('signup');
   }
 });
-
 function switchTab(tab) {
   const isLogin = tab === 'login';
   const isSignup = tab === 'signup';
   const isForgot = tab === 'forgot';
   const isResetCode = tab === 'reset-code';
-
   document.getElementById('panelLogin').classList.toggle('hidden', !isLogin);
   document.getElementById('panelSignup').classList.toggle('hidden', !isSignup);
   document.getElementById('panelForgot').classList.toggle('hidden', !isForgot);
   document.getElementById('panelResetCode').classList.toggle('hidden', !isResetCode);
-
   const tabLogin = document.getElementById('tabLogin');
   const tabSignup = document.getElementById('tabSignup');
   if (tabLogin && tabSignup) {
@@ -306,21 +275,16 @@ function switchTab(tab) {
     tabSignup.classList.toggle('active', isSignup);
   }
 }
-
 let resetToken = '';
 let resetEmail = '';
-
 function handleForgot() {
   const email = document.getElementById('forgotEmail').value.trim();
   hideMessages('forgotError', 'forgotSuccess');
-
   if (!email) {
     showError('forgotError', 'Please enter your email address.');
     return;
   }
-
   setLoading('forgotBtn', true, 'Send Reset Code');
-
   fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -342,13 +306,11 @@ function handleForgot() {
     setLoading('forgotBtn', false, 'Send Reset Code');
   });
 }
-
 function handleResetCode() {
   const code = document.getElementById('resetCode').value.trim();
   const newPassword = document.getElementById('resetNewPassword').value;
   const confirmPassword = document.getElementById('resetConfirmPassword').value;
   hideMessages('resetCodeError', 'resetCodeSuccess');
-
   if (code.length !== 6) {
     showError('resetCodeError', 'Please enter the full 6-digit code.');
     return;
@@ -361,9 +323,7 @@ function handleResetCode() {
     showError('resetCodeError', 'Passwords do not match.');
     return;
   }
-
   setLoading('resetCodeBtn', true, 'Reset Password');
-
   fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -372,7 +332,6 @@ function handleResetCode() {
   .then(res => res.json().then(data => ({ ok: res.ok, data })))
   .then(({ ok, data }) => {
     if (!ok) throw new Error(data.error || 'Failed to reset password.');
-
     if (data.sessionToken) {
       localStorage.setItem('plannit_user_id',   data.user.id);
       localStorage.setItem('plannit_user_email', data.user.email);
@@ -382,7 +341,6 @@ function handleResetCode() {
       localStorage.setItem('plannit_entered',    'true');
       localStorage.setItem('plannit_session_token', data.sessionToken || '');
       if (data.allowedEditions) localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions));
-
       showSuccess('resetCodeSuccess', '✓ Password reset! Redirecting...');
       setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
     } else {
@@ -395,14 +353,12 @@ function handleResetCode() {
     setLoading('resetCodeBtn', false, 'Reset Password');
   });
 }
-
 function handleResendResetCode() {
   if (!resetToken) {
     showError('resetCodeError', 'No active reset session. Please request a new code.');
     return;
   }
   hideMessages('resetCodeError', 'resetCodeSuccess');
-
   fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -418,7 +374,6 @@ function handleResendResetCode() {
     showError('resetCodeError', err.message);
   });
 }
-
 function showError(id, msg) {
   const el = document.getElementById(id);
   if (el) {
@@ -434,27 +389,22 @@ function showSuccess(id, msg) {
 function hideMessages(...ids) {
   ids.forEach(id => { const el = document.getElementById(id); if(el) el.style.display = 'none'; });
 }
-
 function setLoading(btnId, loading, defaultText) {
   const btn = document.getElementById(btnId);
   if (!btn) return;
   btn.disabled = loading;
   btn.textContent = loading ? 'Please wait...' : defaultText;
 }
-
 // ── LOG IN ──
 function handleLogin() {
   const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
   hideMessages('loginError', 'loginSuccess');
-
   if (!email || !password) {
     showError('loginError', 'Please enter your email and password.');
     return;
   }
-
   setLoading('loginBtn', true, 'Log In');
-
   fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -473,7 +423,6 @@ function handleLogin() {
     localStorage.setItem('plannit_entered',    'true');
     localStorage.setItem('plannit_session_token', data.sessionToken || '');
     if (data.allowedEditions) localStorage.setItem('plannit_owned', JSON.stringify(data.allowedEditions));
-
     showSuccess('loginSuccess', '✓ Logged in! Redirecting...');
     setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
   })
@@ -482,7 +431,6 @@ function handleLogin() {
     setLoading('loginBtn', false, 'Log In');
   });
 }
-
 // ── SIGN UP ──
 function handleSignup() {
   const firstName = document.getElementById('signupFirstName').value.trim();
@@ -492,7 +440,6 @@ function handleSignup() {
   const password  = document.getElementById('signupPassword').value;
   const consent   = document.getElementById('consentCheck').checked;
   hideMessages('signupError', 'signupSuccess');
-
   if (!firstName || !lastName || !email || !password) {
     showError('signupError', 'Please fill in all required fields.');
     return;
@@ -505,9 +452,7 @@ function handleSignup() {
     showError('signupError', 'You must agree to the Terms & Conditions and Privacy Policy.');
     return;
   }
-
   setLoading('signupBtn', true, 'Create Account');
-
   fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -525,7 +470,6 @@ function handleSignup() {
     localStorage.setItem('plannit_username',   data.user.username  || firstName);
     localStorage.setItem('plannit_session_token', data.sessionToken || '');
     localStorage.setItem('plannit_entered',    'true');
-
     showSuccess('signupSuccess', '✓ Account created! Redirecting...');
     setTimeout(() => { window.location.href = 'library-mobile.html'; }, 1200);
   })
@@ -534,13 +478,11 @@ function handleSignup() {
     setLoading('signupBtn', false, 'Create Account');
   });
 }
-
 // ── GOOGLE AUTH ──
 function handleGoogleAuth() {
   // Redirect to backend OAuth endpoint
   window.location.href = 'https://plannit-backend-private.vercel.app/api/auth/google?redirect=mobile';
 }
-
 // ── SIGN OUT ──
 function signOut() {
   // Clear ALL plannit_* keys so no owned/trial/redeemed/token state survives
@@ -550,7 +492,6 @@ function signOut() {
     .forEach(k => localStorage.removeItem(k));
   window.location.reload();
 }
-
 // Allow Enter key to submit
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {

@@ -12,24 +12,18 @@
   * { box-sizing: border-box; }
   html, body { margin:0; background: url('../checkout_bg_v2.png') no-repeat center center fixed; background-size: cover; font-family:var(--font-sans); min-height: 100vh; }
   .mobile-page { max-width:480px; margin:0 auto; background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); min-height:100vh; box-shadow:0 0 40px rgba(43,43,43,0.08); }
-
   .pnav-min { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid var(--border-soft); position:sticky; top:0; z-index:50; background:var(--white); }
   .plogo { font-family:var(--font-display); font-weight:600; font-size:19px; color:var(--charcoal); text-decoration:none; }
   .back-ic { width:19px; height:19px; }
-
   .section { padding:20px 16px; }
   .section.cream { background:var(--cream); }
-
   .co-title { font-family:var(--font-display); font-weight:600; font-size:24px; color:var(--charcoal); margin:0 0 4px; text-align:center; }
   .co-sub { font-size:12px; color:var(--muted); text-align:center; margin:0 0 14px; line-height:1.5; }
-
   .rec-banner { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; background:var(--cream); border:1px solid var(--border-soft); border-radius:9999px; padding:9px 14px; font-size:11px; color:var(--muted); text-align:center; }
   .rec-banner a { color:#3E5C76; font-weight:700; text-decoration:none; }
-
   .co-card { background:var(--white); border:1px solid var(--border-soft); border-radius:16px; padding:16px; box-shadow:var(--shadow-sm); }
   .co-card + .co-card { margin-top:14px; }
   .co-card h3 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 12px; border-bottom:1px solid var(--border-soft); padding-bottom:10px; }
-
   .order-item { display:flex; align-items:center; gap:12px; }
   .order-item + .order-item { margin-top:12px; }
   .order-thumb { width:48px; height:60px; border-radius:8px; background:var(--cream); border:1px solid var(--border-soft); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--muted); text-align:center; }
@@ -37,18 +31,14 @@
   .order-name { font-family:var(--font-display); font-weight:600; font-size:14.5px; color:var(--charcoal); }
   .order-mode { font-size:10.5px; color:var(--muted); }
   .order-price { font-weight:700; font-size:13.5px; color:var(--charcoal); }
-
   .field label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-bottom:6px; }
   .field-row-inline { display:flex; gap:8px; }
   .field-row-inline input { flex:1; border:1px solid var(--border-soft); border-radius:9999px; padding:11px 14px; font-size:13px; color:var(--charcoal); background:var(--white); }
   .btn-verify { padding:11px 14px; border-radius:9999px; background:var(--charcoal); color:var(--white); font-size:11.5px; font-weight:700; white-space:nowrap; }
-
   .price-line { display:flex; justify-content:space-between; font-size:13px; color:var(--muted); padding:6px 0; }
   .price-line.total { border-top:1px solid var(--border-soft); margin-top:6px; padding-top:12px; font-weight:700; color:var(--charcoal); font-size:15px; }
-
   .btn-pay { width:100%; margin-top:16px; padding:14px; border-radius:9999px; background:var(--copper); color:var(--white); font-weight:700; font-size:14px; text-align:center; box-shadow:0 8px 20px rgba(200,107,69,.32); }
   .secure-note { display:flex; align-items:center; justify-content:center; gap:6px; font-size:10.5px; color:var(--muted); margin-top:10px; }
-
 /* Smooth page-load transition (CSS-only, no JS dependency) */
 body { animation: pageFadeIn 0.35s ease both; }
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -99,7 +89,6 @@ body { animation: pageFadeIn 0.35s ease both; }
 </head>
 <body>
 <div class="mobile-page">
-
   <div class="pnav-min">
     <a href="shop-mobile.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
       <svg class="back-ic" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.9"><path d="M15 18l-6-6 6-6"/></svg>
@@ -107,7 +96,6 @@ body { animation: pageFadeIn 0.35s ease both; }
     <a href="index-mobile.html" class="plogo">Plannit</a>
     <div style="width:19px;"></div>
   </div>
-
   <div class="section" style="padding-bottom:10px; background: transparent;">
     <div class="co-title">Review &amp; Checkout</div>
     <p class="co-sub">Complete your purchase to unlock your premium planner.</p>
@@ -117,7 +105,6 @@ body { animation: pageFadeIn 0.35s ease both; }
       <span><a href="auth-mobile.html?mode=signup" style="color:#D85A30;">Create account</a> · <a href="auth-mobile.html" style="color:#D85A30;">Log in</a></span>
     </div>
   </div>
-
   <div class="section" style="padding-top:14px; background: transparent;">
     <div class="co-card">
       <h3>Items in Order</h3>
@@ -125,7 +112,6 @@ body { animation: pageFadeIn 0.35s ease both; }
         <!-- Dynamic items will be injected here -->
       </div>
     </div>
-
     <div class="co-card">
       <h3>Contact &amp; Verification</h3>
       <div class="field" style="margin-bottom:0;">
@@ -136,13 +122,11 @@ body { animation: pageFadeIn 0.35s ease both; }
         </div>
       </div>
     </div>
-
     <div class="co-card">
       <h3>Order Summary</h3>
       <div class="price-line"><span>Subtotal</span><span id="checkoutSubtotal">£0.00</span></div>
       <div class="price-line"><span>Tax</span><span>£0.00</span></div>
       <div class="price-line total"><span>Total due today</span><span id="checkoutTotal">£0.00</span></div>
-
       <div class="btn-pay" id="payBtn" style="cursor:pointer;">Pay &amp; Complete Order</div>
       <div class="secure-note">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -150,9 +134,7 @@ body { animation: pageFadeIn 0.35s ease both; }
       </div>
     </div>
   </div>
-
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Load cart items
@@ -161,13 +143,11 @@ body { animation: pageFadeIn 0.35s ease both; }
       cart = JSON.parse(localStorage.getItem('plannit_cart') || '[]');
     } catch(e) {
     }
-    
     const itemsList = document.getElementById('checkoutItemsList');
     const subtotalSpan = document.getElementById('checkoutSubtotal');
     const totalSpan = document.getElementById('checkoutTotal');
     const payBtn = document.getElementById('payBtn');
     const emailInput = document.getElementById('checkoutEmail');
-    
     if (cart.length === 0) {
       itemsList.innerHTML = '<div style="text-align:center; padding:20px; color:var(--muted); font-size:13px;">Your basket is empty.</div>';
       if(payBtn) {
@@ -177,13 +157,11 @@ body { animation: pageFadeIn 0.35s ease both; }
       }
       return;
     }
-    
     // 2. Pre-fill user email if logged in
     const cachedEmail = localStorage.getItem('plannit_user_email');
     if (cachedEmail && emailInput) {
       emailInput.value = cachedEmail;
     }
-    
     // 0. Auth gate — must be logged in
     const userId = localStorage.getItem('plannit_user_id');
     const authBanner = document.getElementById('authGateBanner');
@@ -204,25 +182,19 @@ body { animation: pageFadeIn 0.35s ease both; }
       // Logged in — hide the warning banner
       if (authBanner) authBanner.style.display = 'none';
     }
-
     let subtotal = 0;
     itemsList.innerHTML = '';
-    
     cart.forEach(item => {
       // Determine if subscription or one-time
       const isSub = (item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) ||
                     (item.name && item.name.includes('(Sub)')) ||
                     (item.slug && item.slug.includes('-sub'));
       const isBundle = (item.slug === 'seasonal-bundle') || (item.name && item.name.includes('Bundle'));
-
       let price = isBundle ? 14.99 : (isSub ? 2.49 : 5.99);
       let modeName = isBundle ? 'Lifetime Access · All Seasons' : (isSub ? 'Monthly subscription' : 'Lifetime access');
-
       subtotal += price;
-
       // Clean display name — strip "(Sub)" bracket label
       const displayName = (item.name || '').replace(' (Sub)', '').replace(' Planner', ' Planner');
-
       // Append HTML row
       const itemRow = document.createElement('div');
       itemRow.className = 'order-item';
@@ -236,10 +208,8 @@ body { animation: pageFadeIn 0.35s ease both; }
       `;
       itemsList.appendChild(itemRow);
     });
-    
     subtotalSpan.textContent = `£${subtotal.toFixed(2)}`;
     totalSpan.textContent = `£${subtotal.toFixed(2)}`;
-    
     // 4. Connect Pay Button to Vercel Checkout API
     if (payBtn) {
       payBtn.addEventListener('click', () => {
@@ -249,22 +219,18 @@ body { animation: pageFadeIn 0.35s ease both; }
           if(emailInput) emailInput.focus();
           return;
         }
-        
         const originalText = payBtn.textContent;
         payBtn.textContent = 'Connecting to Stripe...';
         payBtn.style.opacity = '0.7';
         payBtn.style.pointerEvents = 'none';
-        
         // Always use the private Vercel backend
         const apiBase = 'https://plannit-backend-private.vercel.app';
-
         const loggedUserId = localStorage.getItem('plannit_user_id');
         if (!loggedUserId) {
           alert('You must be logged in to complete your purchase.');
           window.location.href = 'auth-mobile.html';
           return;
         }
-
         const payload = {
           cart: cart.map(item => {
             const isSub = (item.price && (item.price.includes('2.49') || item.price.includes('2.99'))) ||
@@ -282,7 +248,6 @@ body { animation: pageFadeIn 0.35s ease both; }
           user_id: loggedUserId,
           user_email: email
         };
-
         fetch(`${apiBase}/api/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -314,6 +279,5 @@ body { animation: pageFadeIn 0.35s ease both; }
     }
   });
 </script>
-
 </body>
 </html>
