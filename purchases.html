@@ -187,7 +187,7 @@
                 fetch('https://plannit-backend-private.vercel.app/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'create-customer-portal', email })
+                    body: JSON.stringify({ action: 'portal', email })
                 })
                 .then(res => res.json())
                 .then(data => {
