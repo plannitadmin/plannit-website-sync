@@ -1447,15 +1447,19 @@ const stored = localStorage.getItem('plannit_owned');
                             const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
                             ownedPlanners = merged;
                             localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
-                            // Update provenance tracking map so purchases.html knows this was claimed via Code
+                            // Synchronize provenance metadata directly from backend or fallback to local mapping
                             let provMap = {};
                             try {
                                 const storedProv = localStorage.getItem('plannit_provenance');
                                 if (storedProv) provMap = JSON.parse(storedProv);
                             } catch(e) {}
-                            (data.allowedEditions || []).forEach(slug => {
-                                provMap[slug] = data.trial ? 'trial' : 'redeemed';
-                            });
+                            if (data.provenance) {
+                                provMap = { ...provMap, ...data.provenance };
+                            } else {
+                                (data.allowedEditions || []).forEach(slug => {
+                                    provMap[slug] = data.trial ? 'trial' : 'redeemed';
+                                });
+                            }
                             localStorage.setItem('plannit_provenance', JSON.stringify(provMap));
 
                             // If server returned trial endpoints/grants, write to plannit_trials
