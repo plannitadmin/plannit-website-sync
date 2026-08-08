@@ -208,7 +208,8 @@
 
                 listEl.innerHTML = owned.map(slug => {
                     const isTrial = trials[slug];
-                    const prov = provenanceMap[slug] || (isTrial ? 'trial' : 'purchased');
+                    // Default to 'redeemed' if not trial and no explicit card provenance recorded
+                    const prov = provenanceMap[slug] || (isTrial ? 'trial' : 'redeemed');
 
                     let badgeHtml = '';
                     let provenanceText = '';
