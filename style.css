@@ -2616,3 +2616,19 @@ body {
         opacity: 0.5; /* Slightly lighter on mobile for better text contrast */
     }
 }
+
+/* --- 2026 STICKY HEADER SCROLL OFFSET GUARD --- */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+section[id], div[id], [id] {
+    scroll-margin-top: 90px;
+}
+nav .logo img {
+    height: 32px !important;
+    width: 32px !important;
+    object-fit: contain !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+}
