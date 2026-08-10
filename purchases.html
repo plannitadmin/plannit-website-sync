@@ -114,7 +114,7 @@ nav .logo img { height: 32px !important; width: 32px !important; object-fit: con
                 <a href="index.html#community">Community</a>
                 <a href="purchases.html" style="color: #BA7517; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">Purchases & Billing</a>
                 <a href="library.html" style="color: var(--primary); font-weight: 600;">Library</a>
-                <div class="nav-cart-btn" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
+                <div class="nav-cart-btn" aria-label="Shopping Cart" role="button" tabindex="0" onclick="toggleCartDrawer(event)" style="cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-alt); border: 1px solid var(--border); transition: var(--transition); color: var(--secondary);">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -145,7 +145,8 @@ nav .logo img { height: 32px !important; width: 32px !important; object-fit: con
         </div>
     </nav>
 
-    <div class="purchases-container">
+    <main>
+<div class="purchases-container">
         <div class="purchases-hero">
             <h1>Purchases & Billing</h1>
             <p>View active digital planners, acquisition sources, free trial trackers, and manage payments.</p>
