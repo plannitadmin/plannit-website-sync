@@ -936,10 +936,13 @@ window.addEventListener('unhandledrejection', function(e) {
                     submitBtn.disabled = true;
                     submitBtn.style.opacity = '0.7';
 
+                    const appliedPromo = localStorage.getItem('plannit_applied_promo') || (document.getElementById('promoInput') ? document.getElementById('promoInput').value.trim() : '');
                     const payload = {
                         cart: cart,
-                        user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id', // Will map user in stripe-webhook.js
-                        user_email: email
+                        user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
+                        user_email: email,
+                        promoCode: appliedPromo,
+                        discountCode: appliedPromo
                     };
 
                     fetch('https://plannit-backend-private.vercel.app/api/create-checkout-session', {
