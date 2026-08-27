@@ -1276,7 +1276,8 @@ const stored = localStorage.getItem('plannit_owned');
             const loggedInEmail = localStorage.getItem('plannit_user_email');
             const sessionToken = localStorage.getItem('plannit_session_token') || '';
             if (loggedInEmail) {
-                fetch(`/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
+                const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
+            fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`
                     }
@@ -1658,7 +1659,8 @@ if (syncLibraryBtn) {
             showToast("Syncing your library...", "info");
             try {
                 const sessionToken = localStorage.getItem('plannit_session_token') || '';
-                const res = await fetch(`/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
+                const res = await const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
+            fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`
                     }
