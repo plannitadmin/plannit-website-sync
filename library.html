@@ -808,6 +808,17 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 section[id], [id] { scroll-margin-top: 90px; }
 nav .logo img { height: 32px !important; width: 32px !important; object-fit: contain !important; flex-shrink: 0 !important; }
 </style>
+
+<script>
+window.addEventListener('unhandledrejection', function(e) {
+    console.warn('[NETWORK RESILIENCE] Handled unhandled Promise rejection:', e.reason);
+    var errEls = document.querySelectorAll('.error-msg, .form-error');
+    errEls.forEach(function(el) { el.style.display = 'block'; el.textContent = 'Connection error. Please try again.'; });
+    var btnEls = document.querySelectorAll('button[type="submit"], .btn-submit, .checkout-btn');
+    btnEls.forEach(function(b) { b.disabled = false; if (b.dataset.origText) b.innerHTML = b.dataset.origText; });
+});
+</script>
+
 </head>
 <body>
 <nav style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); width: 100%;">
