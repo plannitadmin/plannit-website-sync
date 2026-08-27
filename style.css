@@ -2876,3 +2876,24 @@ nav .logo img {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
+
+
+/* ─── BUG-CHECKER SKILL GUARD: SAFARI WEBKIT INTERACTION & BUTTON BLOCKER FIXES ─── */
+button svg, button path, .btn svg, .btn path, a svg, a path {
+    pointer-events: none !important;
+}
+
+button, .btn, .nav-cart-btn, .nav-profile-btn, .tab, .modal-close, [role="button"] {
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+}
+
+/* Ensure fixed backdrop layers do not use z-index: -1 (fixes Safari touch layer flattening) */
+.bg-overlay, body::before {
+    z-index: 0 !important;
+}
+
+main, .page, .page-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+}

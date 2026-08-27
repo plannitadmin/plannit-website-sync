@@ -253,7 +253,7 @@ nav .logo img { height: 32px !important; width: 32px !important; object-fit: con
             renderPurchases();
             setInterval(renderPurchases, 60000);
 
-            document.getElementById('btn-stripe-portal').addEventListener('click', () => {
+            const _elem_btn_stripe_portal = document.getElementById('btn-stripe-portal'); if (_elem_btn_stripe_portal) _elem_btn_stripe_portal.addEventListener('click', () => {
                 if (!email) return alert('Please log in to access billing.');
                 const btn = document.getElementById('btn-stripe-portal');
                 btn.textContent = 'Launching Portal...';

@@ -679,7 +679,7 @@ window.addEventListener('unhandledrejection', function(e) {
                 }
             }
 
-            document.getElementById('checkout-consent-checkbox').addEventListener('change', calculateTotals);
+            const _elem_checkout_consent_checkbox = document.getElementById('checkout-consent-checkbox'); if (_elem_checkout_consent_checkbox) _elem_checkout_consent_checkbox.addEventListener('change', calculateTotals);
 
             function renderCheckout() {
                 itemsContainer.innerHTML = '';

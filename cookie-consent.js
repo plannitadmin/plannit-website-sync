@@ -130,13 +130,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
 
     // Handle acceptance
-    document.getElementById("acceptCookies").addEventListener("click", () => {
+    const _elem_acceptCookies = document.getElementById('acceptCookies'); if (_elem_acceptCookies) _elem_acceptCookies.addEventListener("click", () => {
         localStorage.setItem("plannit_cookie_consent", "accepted");
         dismissBanner();
     });
 
     // Handle rejection of non-essential
-    document.getElementById("declineCookies").addEventListener("click", () => {
+    const _elem_declineCookies = document.getElementById('declineCookies'); if (_elem_declineCookies) _elem_declineCookies.addEventListener("click", () => {
         localStorage.setItem("plannit_cookie_consent", "essential");
         dismissBanner();
     });
