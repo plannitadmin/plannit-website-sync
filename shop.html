@@ -1387,6 +1387,23 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 section[id], [id] { scroll-margin-top: 90px; }
 nav .logo img { height: 32px !important; width: 32px !important; object-fit: contain !important; flex-shrink: 0 !important; }
 </style>
+<style id="bug-checker-safari-fix">
+  /* Bug-Checker Skill Guard: Safari SVG Click Bubbling & WebKit Touch Layer Fix */
+  button svg, button path, .btn svg, .btn path, a svg, a path, [role="button"] svg, [role="button"] path {
+    pointer-events: none !important;
+  }
+  button, .btn, .nav-cart-btn, .nav-profile-btn, .tab, .modal-close, [role="button"] {
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+  .bg-overlay, body::before {
+    z-index: 0 !important;
+  }
+  main, .page, .page-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+</style>
 </head>
 <body>
     <nav style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); width: 100%;">
