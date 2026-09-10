@@ -1305,9 +1305,9 @@ const stored = localStorage.getItem('plannit_owned');
                     })
                     .then(data => {
                         if (data.success && data.allowedEditions) {
-                            // Sync directly with authoritative server response for logged-in user
+                            // Merge server list with current ownedPlanners to prevent race conditions from stripping optimistic unlocks
                             const serverList = data.allowedEditions;
-                            ownedPlanners = serverList;
+                            ownedPlanners = [...new Set([...ownedPlanners, ...serverList])];
                             localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
                             if (data.userId) {
                                 localStorage.setItem('plannit_user_id', data.userId);
