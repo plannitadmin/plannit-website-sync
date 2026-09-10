@@ -1305,10 +1305,9 @@ const stored = localStorage.getItem('plannit_owned');
                     })
                     .then(data => {
                         if (data.success && data.allowedEditions) {
-                            // Merge server list with locally-unlocked planners — never discard local unlocks
+                            // Sync directly with authoritative server response for logged-in user
                             const serverList = data.allowedEditions;
-                            const merged = [...new Set([...ownedPlanners, ...serverList])];
-                            ownedPlanners = merged;
+                            ownedPlanners = serverList;
                             localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
                             if (data.userId) {
                                 localStorage.setItem('plannit_user_id', data.userId);
@@ -1316,6 +1315,8 @@ const stored = localStorage.getItem('plannit_owned');
                             // Sync trial timelines if they exist
                             if (data.trials) {
                                 localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                            } else {
+                                localStorage.removeItem('plannit_trials');
                             }
                             renderLibrary();
                         }
@@ -1414,9 +1415,11 @@ const stored = localStorage.getItem('plannit_owned');
                         if (col === 'nature' || col === 'cities') {
                             btn.textContent = 'Planned';
                             card.removeAttribute('href'); // makes it completely inert and unclickable
+                            card.style.cursor = 'default';
                         } else {
                             btn.textContent = 'Purchase';
                             card.href = 'shop.html#' + col;
+                            card.style.cursor = 'pointer';
                         }
                     }
                 });
@@ -1676,23 +1679,24 @@ if (syncLibraryBtn) {
             showToast("Syncing your library...", "info");
             try {
                 const sessionToken = localStorage.getItem('plannit_session_token') || '';
-                const res = await const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
-            fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
+                const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
+                const res = await fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(loggedInEmail)}`, {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`
                     }
                 });
                 const data = await res.json();
                 if (res.ok && data.success) {
-                    // Merge server list with local — never discard local unlocks on manual sync
-                    const merged = [...new Set([...ownedPlanners, ...(data.allowedEditions || [])])];
-                    ownedPlanners = merged;
+                    // Sync directly with authoritative server response
+                    ownedPlanners = data.allowedEditions || [];
                     localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
                     if (data.userId) {
                         localStorage.setItem('plannit_user_id', data.userId);
                     }
                     if (data.trials) {
                         localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                    } else {
+                        localStorage.removeItem('plannit_trials');
                     }
                     renderLibrary();
                     showToast("Library synced successfully! ", "success");
@@ -1724,7 +1728,8 @@ emailModalInput.style.borderColor = 'rgba(15, 23, 42, 0.1)';
 emailModalSubmitBtn.disabled = true;
 emailModalSubmitBtn.textContent = 'Syncing...';
 try {
-const res = await fetch(`/api/secure-gateway?email=${encodeURIComponent(email)}`);
+const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
+const res = await fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(email)}`);
 const data = await res.json();
 if (res.ok && data.success) {
 localStorage.setItem('plannit_user_email', email);
@@ -1797,11 +1802,15 @@ if (urlParams.has('checkout_success') || urlParams.has('purchase')) {
     if (rawSlugs) {
         const purchasedSlugs = rawSlugs.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
         if (purchasedSlugs.length > 0) {
+            // For guest / instant purchase returns, add the verified purchased slugs
             ownedPlanners = [...new Set([...ownedPlanners, ...purchasedSlugs])];
             localStorage.setItem('plannit_owned', JSON.stringify(ownedPlanners));
+            localStorage.removeItem('plannit_cart'); // Clear cart on successful checkout
             renderLibrary();
         }
     }
+    // Clean up URL parameters without reloading
+    window.history.replaceState({}, document.title, window.location.pathname);
     // Show a beautiful notification toast
     const alertBox = document.createElement('div');
     alertBox.style.position = 'fixed';

@@ -641,7 +641,31 @@ window.addEventListener('unhandledrejection', function(e) {
                 subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
                 totalOriginal.textContent = `£${subtotal.toFixed(2)}`;
 
-                if (isFree || (window._promoDiscount && window._promoDiscount >= 10000)) {
+                if (window._promoFixedPriceCents !== undefined && window._promoFixedPriceCents > 0) {
+                    // Fixed Price Discount (e.g. Master Test Code 50p)
+                    const finalGbp = window._promoFixedPriceCents / 100;
+                    const discountAmt = Math.max(0, subtotal - finalGbp);
+                    discountRow.style.display = 'flex';
+                    discountEl.textContent = `-£${discountAmt.toFixed(2)}`;
+                    
+                    // Strikethrough original total
+                    totalOriginal.style.textDecoration = 'line-through';
+                    totalOriginal.style.color = '#94A3B8';
+                    totalOriginal.style.fontSize = '0.95rem';
+                    totalOriginal.style.fontWeight = '500';
+
+                    // Display the discounted final price (e.g. £0.50)
+                    totalDiscounted.textContent = `£${finalGbp.toFixed(2)}`;
+                    totalDiscounted.style.display = 'block';
+                    totalDiscounted.style.color = 'var(--accent)';
+                    totalDiscounted.style.fontWeight = '700';
+                    setTimeout(() => {
+                        totalDiscounted.style.transform = 'translateY(0)';
+                        totalDiscounted.style.opacity = '1';
+                    }, 50);
+
+                    submitBtn.textContent = `Proceed to Payment (£${finalGbp.toFixed(2)})`;
+                } else if (isFree || (window._promoDiscount && window._promoDiscount >= 100)) {
                     discountRow.style.display = 'flex';
                     discountEl.textContent = `-£${subtotal.toFixed(2)}`;
                     
@@ -785,13 +809,27 @@ window.addEventListener('unhandledrejection', function(e) {
                         promoFeedback.textContent = data.message || 'Promo code applied.';
                         promoFeedback.style.color = '#059669';
                         promoFeedback.style.display = 'block';
-                        isFree = true;
-                        window._promoDiscount = data.discount || 10000;
+                        localStorage.setItem('plannit_applied_promo', code);
+                        if (data.finalPriceCents !== undefined && data.finalPriceCents > 0) {
+                            // Fixed price test code (e.g. 50p charge through Stripe)
+                            isFree = false;
+                            window._promoFixedPriceCents = data.finalPriceCents;
+                            window._promoDiscount = data.discount || 0;
+                        } else {
+                            // 100% off free unlock code
+                            isFree = true;
+                            window._promoFixedPriceCents = 0;
+                            window._promoDiscount = data.discount || 100;
+                        }
                         calculateTotals();
                     } else {
                         promoFeedback.textContent = data.error || 'Invalid promo code.';
                         promoFeedback.style.color = '#DC2626';
                         promoFeedback.style.display = 'block';
+                        window._promoFixedPriceCents = 0;
+                        window._promoDiscount = 0;
+                        isFree = false;
+                        calculateTotals();
                     }
                 })
                 .catch(() => {
@@ -954,9 +992,14 @@ window.addEventListener('unhandledrejection', function(e) {
                     submitBtn.style.opacity = '0.7';
 
                     const appliedPromo = localStorage.getItem('plannit_applied_promo') || (document.getElementById('promoInput') ? document.getElementById('promoInput').value.trim() : '');
+                    let currentUserId = localStorage.getItem('plannit_user_id');
+                    if (!currentUserId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUserId)) {
+                        currentUserId = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : '00000000-0000-4000-8000-000000000000';
+                    }
+
                     const payload = {
                         cart: cart,
-                        user_id: localStorage.getItem('plannit_user_id') || 'guest-user-id',
+                        user_id: currentUserId,
                         user_email: email,
                         promoCode: appliedPromo,
                         discountCode: appliedPromo

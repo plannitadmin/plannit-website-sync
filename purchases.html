@@ -209,10 +209,31 @@ nav .logo img { height: 32px !important; width: 32px !important; object-fit: con
             }
 
             const email = localStorage.getItem('plannit_user_email') || localStorage.getItem('plannit_email');
-            const owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
-            const trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}');
-            const provenanceMap = JSON.parse(localStorage.getItem('plannit_provenance') || '{}');
+            let owned = JSON.parse(localStorage.getItem('plannit_owned') || '[]');
+            let trials = JSON.parse(localStorage.getItem('plannit_trials') || '{}');
+            let provenanceMap = JSON.parse(localStorage.getItem('plannit_provenance') || '{}');
             const listEl = document.getElementById('purchases-list');
+
+            if (email) {
+                const sessionToken = localStorage.getItem('plannit_session_token') || '';
+                const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'https://plannit-backend-private.vercel.app';
+                fetch(`${apiBase}/api/secure-gateway?email=${encodeURIComponent(email)}`, {
+                    headers: { 'Authorization': `Bearer ${sessionToken}` }
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success && data.allowedEditions) {
+                        owned = data.allowedEditions;
+                        localStorage.setItem('plannit_owned', JSON.stringify(owned));
+                        if (data.trials) {
+                            trials = data.trials;
+                            localStorage.setItem('plannit_trials', JSON.stringify(trials));
+                        }
+                        renderPurchases();
+                    }
+                })
+                .catch(() => {});
+            }
 
             function formatTimeRemaining(ms) {
                 if (ms <= 0) return 'Expired';
@@ -281,8 +302,11 @@ nav .logo img { height: 32px !important; width: 32px !important; object-fit: con
                 })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.url) window.location.href = data.url;
-                    else alert(data.error || 'No active Stripe billing profile found for this email.');
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert(data.error || 'No active Stripe billing history found yet. Your invoices, card updates, and active subscriptions will appear here automatically after your first card transaction.');
+                    }
                 })
                 .catch(err => alert('Error: ' + err.message))
                 .finally(() => {

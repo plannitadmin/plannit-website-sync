@@ -901,7 +901,7 @@ window.addEventListener('unhandledrejection', function(e) {
                         successDesc.textContent = "You have successfully logged in.";
                         showSection(successSection);
                         setTimeout(() => {
-                            window.location.href = 'loading.html';
+                            window.location.href = 'library.html';
                         }, 1300);
                     })
                     .catch(err => {
@@ -942,12 +942,20 @@ window.addEventListener('unhandledrejection', function(e) {
                             localStorage.setItem('plannit_user_email', userEmailEntered);
                             localStorage.setItem('plannit_email', userEmailEntered);
                             localStorage.setItem('plannit_first_name', data.user ? data.user.firstName : 'User');
+                            localStorage.setItem('plannit_session_token', data.sessionToken || '');
                             localStorage.setItem('plannit_entered', 'true');
+                            const allowed = data.allowedEditions || [];
+                            localStorage.setItem('plannit_owned', JSON.stringify(allowed));
+                            if (data.trials) {
+                                localStorage.setItem('plannit_trials', JSON.stringify(data.trials));
+                            } else {
+                                localStorage.removeItem('plannit_trials');
+                            }
                             successTitle.textContent = "Logged In!";
                             successDesc.textContent = "Authenticated successfully with your email code.";
                             showSection(successSection);
                             setTimeout(() => {
-                                window.location.href = 'loading.html';
+                                window.location.href = 'library.html';
                             }, 1300);
                         })
                         .catch(err => {
@@ -1068,7 +1076,7 @@ window.addEventListener('unhandledrejection', function(e) {
                         successDesc.textContent = `Welcome to Plannit, ${data.user.firstName}!`;
                         showSection(successSection);
                         setTimeout(() => {
-                            window.location.href = 'loading.html';
+                            window.location.href = 'library.html';
                         }, 1600);
                     })
                     .catch(err => {
