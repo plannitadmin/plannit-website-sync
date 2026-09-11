@@ -496,11 +496,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Signout logic
         signoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('plannit_user_email');
-            localStorage.removeItem('plannit_email'); // Clean duplicate key too
-            localStorage.removeItem('plannit_first_name');
-            localStorage.removeItem('plannit_last_name');
-            localStorage.removeItem('plannit_username');
+            Object.keys(localStorage).forEach(k => {
+                if (k.startsWith('plannit_')) {
+                    localStorage.removeItem(k);
+                }
+            });
+            sessionStorage.clear();
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
             window.location.reload();
         });
 

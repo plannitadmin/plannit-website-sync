@@ -660,6 +660,9 @@ window.addEventListener('unhandledrejection', function(e) {
                     .filter(k => k.startsWith('plannit_'))
                     .forEach(k => localStorage.removeItem(k));
                 sessionStorage.clear();
+                document.cookie.split(";").forEach(function(c) { 
+                    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                });
                 window.location.href = 'library.html';
             };
             function showSection(section) {
