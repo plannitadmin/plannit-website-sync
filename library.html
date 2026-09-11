@@ -567,6 +567,14 @@ body { animation: pageFadeIn 0.35s ease both; }
 </style>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
+// Immediate Sanitization Guard: If not signed in with email, purge residual ownership keys
+(function() {
+    if (!localStorage.getItem('plannit_user_email')) {
+        ['plannit_owned', 'plannit_trials', 'plannit_user_id', 'plannit_session_token'].forEach(function(k) {
+            localStorage.removeItem(k);
+        });
+    }
+})();
 window.signOutLibrary = function() {
     // Clear all plannit items from localStorage
     Object.keys(localStorage).forEach(k => {
@@ -1296,9 +1304,12 @@ window.addEventListener('unhandledrejection', function(e) {
             let ownedPlanners = [];
             const userEmail = localStorage.getItem('plannit_user_email');
             const userId = localStorage.getItem('plannit_user_id');
-            if (!userEmail && !userId) {
+            // Strict Auth Guard: If no active user email is logged in, treat strictly as signed out
+            if (!userEmail) {
                 localStorage.removeItem('plannit_owned');
                 localStorage.removeItem('plannit_trials');
+                localStorage.removeItem('plannit_user_id');
+                localStorage.removeItem('plannit_session_token');
                 ownedPlanners = [];
             } else {
                 const stored = localStorage.getItem('plannit_owned');
@@ -1641,8 +1652,7 @@ document.addEventListener('click', (e) => {
     if (!card) return;
     const id = card.getAttribute('data-id');
     const userEmail = localStorage.getItem('plannit_user_email');
-    const userId = localStorage.getItem('plannit_user_id');
-    if (!userEmail && !userId) {
+    if (!userEmail) {
         // Not logged in — cannot access planners
         return;
     }
